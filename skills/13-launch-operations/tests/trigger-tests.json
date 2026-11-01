@@ -1,0 +1,96 @@
+{
+  "skill_id": "13-launch-operations",
+  "positive_triggers": [
+    {
+      "prompt": "We are planning our production go-live tomorrow. Run the pre-launch audit checklist and generate a launch readiness report.",
+      "reason": "Direct production readiness review and launch report generation."
+    },
+    {
+      "prompt": "Our production database went down and users cannot log in (SEV1 outage). How do we coordinate incident command, communication, and mitigation?",
+      "reason": "SEV1 incident management and incident commander protocols."
+    },
+    {
+      "prompt": "Facilitate a blameless postmortem for yesterday's 45-minute checkout outage and identify systemic preventative action items.",
+      "reason": "Blameless postmortem facilitation and root cause analysis."
+    },
+    {
+      "prompt": "How do we execute a staged canary rollout for our v2.0 release (5% -> 25% -> 50% -> 100%) with error rate circuit breakers?",
+      "reason": "Staged canary deployment strategy and blast radius management."
+    },
+    {
+      "prompt": "Create a live production smoke test script to verify DNS, SSL, user login, and Stripe checkout immediately after cutover.",
+      "reason": "Post-launch smoke test verification and cutover testing."
+    }
+  ],
+  "negative_near_misses": [
+    {
+      "prompt": "Write Playwright end-to-end test suites for our shopping cart page.",
+      "expected_route": "08-testing-qa",
+      "reason": "Automated e2e test authoring owned by QA/SDET."
+    },
+    {
+      "prompt": "Configure GitHub Actions workflow to build and push our Docker image to Amazon ECR.",
+      "expected_route": "09-devops-infra",
+      "reason": "CI/CD deployment pipeline configuration owned by DevOps/SRE."
+    },
+    {
+      "prompt": "Audit our API endpoints to ensure they are protected against SQL injection and XSS.",
+      "expected_route": "06-security",
+      "reason": "Vulnerability audit owned by Application Security Lead."
+    },
+    {
+      "prompt": "Design a design token system for typography and colors in our component library.",
+      "expected_route": "03-ux-ui-design",
+      "reason": "Design token contracts owned by UX/UI Lead."
+    },
+    {
+      "prompt": "Optimize hero images and fonts to bring Largest Contentful Paint (LCP) under 2.5s.",
+      "expected_route": "10-performance",
+      "reason": "Core Web Vitals tuning owned by Performance Engineer."
+    }
+  ],
+  "evaluation_tasks": [
+    {
+      "task_id": "launch-task-01",
+      "prompt": "A product team wants to deploy a new web store to production. QA tests passed, but the Security Lead issued a HARD VETO due to an unpatched critical IDOR vulnerability on the invoice download route. The founder says 'We must ship today anyway'. As Launch Manager, what is your binding decision?",
+      "pass_criteria": [
+        "Enforces the Launch Gate: Blocks deployment (`NO-GO`) due to active Security HARD VETO.",
+        "Refuses silent compliance with founder request.",
+        "Offers the standard protocol: Resolve the IDOR vulnerability or obtain explicit signed user consent logged in `DECISIONS.md` under `ACCEPTED-RISK`.",
+        "Generates a formal Launch Report documenting the block."
+      ],
+      "fail_criteria": [
+        "Authorizes deployment silently without resolving the veto or logging accepted risk.",
+        "Ignores the security gate."
+      ]
+    },
+    {
+      "task_id": "launch-task-02",
+      "prompt": "Our production app suffered a 30-minute outage because a developer accidentally pushed an unescaped regex to production that caused ReDoS. Draft the outline of a blameless postmortem conforming to `postmortem.schema.json`.",
+      "pass_criteria": [
+        "Reconstructs chronological timeline (Trigger, Detection, Containment, Resolution).",
+        "Refuses individual human blame (does not blame the developer).",
+        "Identifies systemic root cause: lack of automated regex static analysis / linting in CI and missing request timeout guards.",
+        "Defines actionable preventative items (e.g. Add eslint-plugin-regexp in CI, set server request timeouts)."
+      ],
+      "fail_criteria": [
+        "Blames the individual developer or suggests disciplinary action.",
+        "Fails to identify actionable automated systemic safeguards."
+      ]
+    },
+    {
+      "task_id": "launch-task-03",
+      "prompt": "Design a step-by-step Go-Live day cutover timeline for migrating DNS and switching traffic to a new production platform.",
+      "pass_criteria": [
+        "Pre-cutover: Lower DNS TTL 24-48 hours in advance to 300 seconds.",
+        "Cutover execution: Execute database migrations, deploy application, verify health probes.",
+        "Verification: Execute automated live smoke tests on primary domain.",
+        "Rollback criteria: Define explicit triggers (e.g. 5xx error rate > 1%) that immediately trigger DNS/router rollback."
+      ],
+      "fail_criteria": [
+        "Neglects DNS TTL reduction, causing 24-hour traffic caching during rollback.",
+        "Omits post-cutover smoke test verification."
+      ]
+    }
+  ]
+}
