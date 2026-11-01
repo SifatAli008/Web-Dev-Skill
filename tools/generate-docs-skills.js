@@ -493,6 +493,311 @@ const templates = extractTemplatesAndSchemas();
 const benchmarks = extractBenchmarks();
 const refProjects = getReferenceProjects();
 
+function safeJson(data) {
+  return JSON.stringify(data, null, 2)
+    .replace(/</g, '\\u003c')
+    .replace(/>/g, '\\u003e');
+}
+
+function generateStaticSpecialistsNav(specs) {
+  let h = `
+    <li>
+      <button class="nav-item-btn" onclick="loadContent('specialists', this)">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="color:var(--cyan); flex-shrink:0;"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
+        <span>All 15 Specialists Guide</span>
+      </button>
+    </li>
+  `;
+  h += specs.map(s => `
+    <li>
+      <button class="nav-item-btn" onclick="loadContent('spec-${s.id}', this)">
+        <span class="nav-item-num">${s.num}</span>
+        <span>${s.name.split('/')[0].trim()}</span>
+      </button>
+    </li>
+  `).join('');
+  return h;
+}
+
+function generateStaticPlaybooksNav(pbs) {
+  return pbs.map(pb => `
+    <li>
+      <button class="nav-item-btn" onclick="loadContent('pb-${pb.slug}', this)">
+        <span>${pb.slug}</span>
+      </button>
+    </li>
+  `).join('');
+}
+
+function generateStaticChecklistsNav(cls) {
+  return cls.map(cl => `
+    <li>
+      <button class="nav-item-btn" onclick="loadContent('checklist-${cl.id}', this)">
+        <span>${cl.title}</span>
+      </button>
+    </li>
+  `).join('');
+}
+
+function generateStaticTemplatesNav(tmpls) {
+  let h = `
+    <li>
+      <button class="nav-item-btn" onclick="loadContent('adr-builder', this)">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="color:var(--cyan); flex-shrink:0;"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>
+        <span>Interactive ADR Builder</span>
+      </button>
+    </li>
+  `;
+  h += tmpls.map(t => `
+    <li>
+      <button class="nav-item-btn" onclick="loadContent('template-${t.id}', this)">
+        <span>${t.title}</span>
+      </button>
+    </li>
+  `).join('');
+  return h;
+}
+
+function generateStaticOverviewToc() {
+  return `
+    <li><a href="#summary" class="toc-a active">1. System Overview</a></li>
+    <li><a href="#quick-install" class="toc-a">2. Quick Install</a></li>
+    <li><a href="#metrics" class="toc-a">3. Repository Metrics</a></li>
+    <li><a href="#pillars" class="toc-a">4. Four Core Pillars</a></li>
+    <li><a href="#tier-comparison" class="toc-a">5. 3-Tier Rigor Matrix</a></li>
+    <li><a href="#binding-gates" class="toc-a">6. 5 Binding Quality Gates</a></li>
+    <li><a href="#execution" class="toc-a">7. Execution Modes</a></li>
+    <li><a href="#roster" class="toc-a">8. 15 Specialists Directory</a></li>
+  `;
+}
+
+function generateStaticOverviewContent(specs) {
+  return `
+    <div class="content-header">
+      <div class="doc-cat">Architecture Standard</div>
+      <h1 class="doc-heading" id="summary">Universal WebDev Engineering Protocol</h1>
+      <p class="doc-intro">A disciplined, specification-driven multi-agent framework for web engineering. 15 specialized roles, 16 playbooks, 5 binding quality gates, and zero AI vibe-code.</p>
+    </div>
+
+    <!-- Quick Install Box -->
+    <div class="quick-install-box" id="quick-install">
+      <div class="quick-install-command">
+        <span class="prompt-symbol">$</span>
+        <code>npx webdev-skills init</code>
+      </div>
+      <button class="snippet-copy-btn" onclick="copyText('npx webdev-skills init', this)">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+        <span>Copy Command</span>
+      </button>
+    </div>
+
+    <div style="display: flex; gap: 10px; margin-bottom: 28px; flex-wrap: wrap;">
+      <button class="hud-action-btn" onclick="loadContent('quickstart')">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+        <span>5-Second Quickstart</span>
+      </button>
+      <button class="hud-action-btn" onclick="loadContent('tiers')" style="background: var(--bg-surface); border-color: var(--border-medium); color: var(--text-2);">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><line x1="3" y1="9" x2="21" y2="9"></line><line x1="9" y1="21" x2="9" y2="9"></line></svg>
+        <span>3-Tier Rigor Matrix</span>
+      </button>
+      <button class="hud-action-btn" onclick="loadContent('refprojects')" style="background: var(--bg-surface); border-color: var(--border-medium); color: var(--text-2);">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+        <span>3 Golden Reference Projects</span>
+      </button>
+    </div>
+
+    <!-- Metrics Grid -->
+    <div class="doc-block" id="metrics">
+      <h2 class="doc-subheading">Repository Architecture Metrics</h2>
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 14px; margin-top: 14px;">
+        <div class="clean-card" style="border-top: 2px solid var(--cyan);">
+          <div style="font-family: var(--font-mono); font-size: 1.55rem; font-weight: 700; color: var(--text-1);">15</div>
+          <div style="font-size: 0.78rem; text-transform: uppercase; color: var(--text-3); font-weight: 600; margin-top: 2px;">Autonomous Specialists</div>
+          <div style="font-size: 0.8rem; color: var(--text-4); margin-top: 4px;">EM to Launch Manager with strict inputs/outputs</div>
+        </div>
+        <div class="clean-card" style="border-top: 2px solid var(--emerald);">
+          <div style="font-family: var(--font-mono); font-size: 1.55rem; font-weight: 700; color: var(--text-1);">16</div>
+          <div style="font-size: 0.78rem; text-transform: uppercase; color: var(--text-3); font-weight: 600; margin-top: 2px;">Production Playbooks</div>
+          <div style="font-size: 0.8rem; color: var(--text-4); margin-top: 4px;">Deterministic step-by-step technical procedures</div>
+        </div>
+        <div class="clean-card" style="border-top: 2px solid var(--rose);">
+          <div style="font-family: var(--font-mono); font-size: 1.55rem; font-weight: 700; color: var(--text-1);">5</div>
+          <div style="font-size: 0.78rem; text-transform: uppercase; color: var(--text-3); font-weight: 600; margin-top: 2px;">Hard Quality Gates</div>
+          <div style="font-size: 0.8rem; color: var(--text-4); margin-top: 4px;">Binding veto powers on vulnerabilities & compliance</div>
+        </div>
+        <div class="clean-card" style="border-top: 2px solid var(--purple);">
+          <div style="font-family: var(--font-mono); font-size: 1.55rem; font-weight: 700; color: var(--text-1);">21 / 21</div>
+          <div style="font-size: 0.78rem; text-transform: uppercase; color: var(--text-3); font-weight: 600; margin-top: 2px;">Golden Tests Passing</div>
+          <div style="font-size: 0.8rem; color: var(--text-4); margin-top: 4px;">Automated suites across MVP, PROD, and SCALE</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Four Core Pillars -->
+    <div class="doc-block" id="pillars">
+      <h2 class="doc-subheading">Four Core Engineering Pillars</h2>
+      
+      <div style="display: flex; flex-direction: column; gap: 12px; margin-top: 14px;">
+        <div class="clean-card" style="border-left: 3px solid var(--cyan);">
+          <h3 style="font-size: 0.95rem; font-weight: 600; color: var(--text-1); margin-bottom: 4px;">1. Route via Index (Context Conservation)</h3>
+          <p class="doc-paragraph" style="margin: 0; font-size: 0.88rem;">Agents read <code>skills.index.json</code> and load only the 2 to 5 specialists needed for the immediate task. The entire repository is never dumped into the context window, preventing context saturation and cognitive dilution.</p>
+        </div>
+
+        <div class="clean-card" style="border-left: 3px solid var(--amber);">
+          <h3 style="font-size: 0.95rem; font-weight: 600; color: var(--text-1); margin-bottom: 4px;">2. Three-Tier Rigor Matrix (Match Discipline to Stakes)</h3>
+          <p class="doc-paragraph" style="margin: 0; font-size: 0.88rem;">Projects are classified as <strong>MVP</strong> (internal / prototype speed), <strong>PROD</strong> (public users, auth, payments, customer data), or <strong>SCALE</strong> (&gt;100k MAU, spiky load, SLAs). PROD/SCALE invariants are never bypassed without explicit user sign-off in <code>DECISIONS.md</code>.</p>
+        </div>
+
+        <div class="clean-card" style="border-left: 3px solid var(--rose);">
+          <h3 style="font-size: 0.95rem; font-weight: 600; color: var(--text-1); margin-bottom: 4px;">3. Hard Vetos & Evidence-First Gates (No Evidence, No Ship)</h3>
+          <p class="doc-paragraph" style="margin: 0; font-size: 0.88rem;">Application Security holds unilateral veto power over SQL injection, secret leaks, and insecure crypto. Privacy Officer holds unilateral veto over non-compliant tracking. QA mandates terminal test exit code 0 before code merge.</p>
+        </div>
+
+        <div class="clean-card" style="border-left: 3px solid var(--emerald);">
+          <h3 style="font-size: 0.95rem; font-weight: 600; color: var(--text-1); margin-bottom: 4px;">4. Zero AI Garbage Standard (No Vibe Code)</h3>
+          <p class="doc-paragraph" style="margin: 0; font-size: 0.88rem;">Strict automated hygiene linters fail any PR containing placeholder comments (<code>/* stub */</code>), synthetic wrappers, fake statistics, or hollow mockup cards. Only dense, production-grade interactive craft is permitted.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- 3-Tier Rigor Matrix Comparison -->
+    <div class="doc-block" id="tier-comparison">
+      <h2 class="doc-subheading">3-Tier Rigor Matrix Comparison</h2>
+      <p class="doc-paragraph">Every project is classified into one of three rigor tiers based on concrete operational signals. Always build to the highest tier triggered:</p>
+      
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 14px; margin-top: 14px;">
+        <div class="clean-card" style="border-top: 3px solid var(--cyan);">
+          <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px;">
+            <strong style="color: var(--cyan); font-size: 1.05rem;">MVP Tier</strong>
+            <span class="tier-pill tier-pill-mvp">Prototype Speed</span>
+          </div>
+          <p class="doc-paragraph" style="font-size: 0.84rem; margin-bottom: 10px;">For internal tools, proofs of concept, and early customer discovery where speed of validation takes priority.</p>
+          <ul class="doc-list" style="font-size: 0.82rem; margin-bottom: 0;">
+            <li><strong>Signals:</strong> Internal only, zero payments, mock auth, disposable data.</li>
+            <li><strong>Testing:</strong> Happy-path unit tests; smoke test passes.</li>
+            <li><strong>Gates:</strong> Basic linting; security veto relaxed for prototypes.</li>
+          </ul>
+        </div>
+
+        <div class="clean-card" style="border-top: 3px solid var(--amber);">
+          <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px;">
+            <strong style="color: var(--amber); font-size: 1.05rem;">PROD Tier</strong>
+            <span class="tier-pill tier-pill-prod">Production Rigor</span>
+          </div>
+          <p class="doc-paragraph" style="font-size: 0.84rem; margin-bottom: 10px;">For any public application, real customer accounts, payments, or sensitive data capture.</p>
+          <ul class="doc-list" style="font-size: 0.82rem; margin-bottom: 0;">
+            <li><strong>Signals:</strong> Public internet, user accounts, email capture, Stripe checkout.</li>
+            <li><strong>Testing:</strong> Comprehensive unit, integration, and Playwright E2E tests.</li>
+            <li><strong>Gates:</strong> Hard Security Veto, Privacy Veto, Zero-Downtime DB migrations.</li>
+          </ul>
+        </div>
+
+        <div class="clean-card" style="border-top: 3px solid var(--rose);">
+          <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px;">
+            <strong style="color: var(--rose); font-size: 1.05rem;">SCALE Tier</strong>
+            <span class="tier-pill tier-pill-scale">High-Volume Enterprise</span>
+          </div>
+          <p class="doc-paragraph" style="font-size: 0.84rem; margin-bottom: 10px;">For high-volume platforms, multi-tenant boundaries, spiky traffic, and strict SLA requirements.</p>
+          <ul class="doc-list" style="font-size: 0.82rem; margin-bottom: 0;">
+            <li><strong>Signals:</strong> &gt;100k MAU, spiky throughput, high financial volume, regulated PII.</li>
+            <li><strong>Testing:</strong> Load & stress testing, chaos engineering, edge cache hit ratio audits.</li>
+            <li><strong>Gates:</strong> Circuit breakers, automated rollback, telemetry APM, multi-region SLAs.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- 5 Binding Quality Gates -->
+    <div class="doc-block" id="binding-gates">
+      <h2 class="doc-subheading">The 5 Binding Quality Gates</h2>
+      <p class="doc-paragraph">Five specialists hold unilateral authority to block shipments or deployments until verifiable terminal evidence passes:</p>
+      
+      <div style="display: flex; flex-direction: column; gap: 10px; margin-top: 14px;">
+        <div class="clean-card" style="border-left: 3px solid var(--rose); padding: 14px 18px;">
+          <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 4px;">
+            <strong style="color: var(--rose); font-size: 0.92rem;">1. Application Security Lead (06-security)</strong>
+            <span class="tier-pill tier-pill-scale" style="font-size: 0.65rem;">HARD VETO</span>
+          </div>
+          <p class="doc-paragraph" style="margin: 0; font-size: 0.84rem;">Blocks any shipment containing hardcoded secrets, SQL injection, insecure crypto, unescaped user inputs, or vulnerable dependencies.</p>
+        </div>
+
+        <div class="clean-card" style="border-left: 3px solid var(--rose); padding: 14px 18px;">
+          <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 4px;">
+            <strong style="color: var(--rose); font-size: 0.92rem;">2. Privacy & Compliance Officer (07-privacy-compliance)</strong>
+            <span class="tier-pill tier-pill-scale" style="font-size: 0.65rem;">HARD VETO</span>
+          </div>
+          <p class="doc-paragraph" style="margin: 0; font-size: 0.84rem;">Blocks any code with unconsented third-party tracking, missing GDPR/CCPA consent banners, or unencrypted PII at rest.</p>
+        </div>
+
+        <div class="clean-card" style="border-left: 3px solid var(--emerald); padding: 14px 18px;">
+          <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 4px;">
+            <strong style="color: var(--emerald); font-size: 0.92rem;">3. SQAT & SDET Lead (08-testing-qa)</strong>
+            <span class="tier-pill tier-pill-prod" style="font-size: 0.65rem;">NO EVIDENCE, NO SHIP</span>
+          </div>
+          <p class="doc-paragraph" style="margin: 0; font-size: 0.84rem;">Mandates terminal test suite execution with exit code 0 and automated E2E verification before any merge or release.</p>
+        </div>
+
+        <div class="clean-card" style="border-left: 3px solid var(--amber); padding: 14px 18px;">
+          <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 4px;">
+            <strong style="color: var(--amber); font-size: 0.92rem;">4. DevOps Lead (09-devops-infra)</strong>
+            <span class="tier-pill tier-pill-prod" style="font-size: 0.65rem;">NO ROLLBACK, NO SHIP</span>
+          </div>
+          <p class="doc-paragraph" style="margin: 0; font-size: 0.84rem;">Requires verified automated rollback mechanisms, health probes (/api/health/liveness & readiness), and zero-downtime database migrations.</p>
+        </div>
+
+        <div class="clean-card" style="border-left: 3px solid var(--cyan); padding: 14px 18px;">
+          <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 4px;">
+            <strong style="color: var(--cyan); font-size: 0.92rem;">5. Launch Operations Manager (13-launch-operations)</strong>
+            <span class="tier-pill tier-pill-mvp" style="font-size: 0.65rem;">LAUNCH GATE</span>
+          </div>
+          <p class="doc-paragraph" style="margin: 0; font-size: 0.84rem;">Synthesizes sign-offs from all 4 upstream gates into templates/schemas/launch-report.schema.json with explicit launch_decision: "GO".</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Execution Modes -->
+    <div class="doc-block" id="execution">
+      <h2 class="doc-subheading">Agent Execution Modes</h2>
+      <p class="doc-paragraph">Universal WebDev Skills runs natively across both single-agent and multi-agent IDE environments:</p>
+      <ul class="doc-list">
+        <li><strong>Multi-Agent Mode:</strong> Spawn parallel subagents per specialist role. Context is exchanged strictly via schema-validated markdown handoffs in <code>templates/schemas/</code>.</li>
+        <li><strong>Single-Agent Mode:</strong> The agent wears one specialist hat at a time (declared via <code>[Wearing: Specialist Role]</code>), completes its operational checklist, generates the handoff artifact, and transitions cleanly.</li>
+        <li><strong>Conflict Order:</strong> In any architectural dispute, the priority order is strictly: <strong>Security & Privacy &gt; Architecture &gt; Performance &gt; Speed</strong>.</li>
+      </ul>
+    </div>
+
+    <!-- Specialist Roster Overview -->
+    <div class="doc-block" id="roster">
+      <h2 class="doc-subheading">15 Autonomous Specialists Directory</h2>
+      <p class="doc-paragraph">Click any specialist below to view its full operational procedure, verification checks, and prompt directive:</p>
+      
+      <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 10px; margin-top: 14px;">
+        ${specs.map(s => `
+          <button class="clean-card" onclick="loadContent('spec-${s.id}')" style="text-align: left; cursor: pointer; transition: all 0.15s ease; border: 1px solid var(--border-subtle); background: var(--bg-card); padding: 14px 16px;">
+            <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 6px;">
+              <span class="nav-item-num">${s.num}</span>
+              <span class="tier-pill ${s.authType === 'veto' ? 'tier-pill-scale' : (s.authType === 'ship' ? 'tier-pill-prod' : 'tier-pill-mvp')}" style="font-size: 0.65rem;">${(s.authority || 'Specialist').split('(')[0].trim()}</span>
+            </div>
+            <div style="font-weight: 600; color: var(--text-1); font-size: 0.9rem;">${s.name}</div>
+            <div style="font-size: 0.78rem; color: var(--text-4); margin-top: 4px; line-height: 1.4;">${s.triggers.slice(0, 3).join(', ')}</div>
+          </button>
+        `).join('')}
+      </div>
+    </div>
+
+    <div class="doc-pagination">
+      <div></div>
+      <button class="pagination-btn next" onclick="loadContent('quickstart')">
+        <span class="pagination-label" style="display:flex; align-items:center; gap:4px; justify-content:flex-end;">
+          <span>Next</span>
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
+        </span>
+        <span class="pagination-title">5-Second Quickstart</span>
+      </button>
+    </div>
+  `;
+}
+
 // --- OVERHAUL CSS: MODERN VIBRANT SLATE-DARK THEME (NO DULL PITCH-BLACK VOID) ---
 const cleanCSS = `
     /* ==========================================================================
@@ -560,22 +865,35 @@ const cleanCSS = `
     ::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, 0.18); border-radius: 3px; }
     ::-webkit-scrollbar-thumb:hover { background: rgba(255, 255, 255, 0.3); }
 
-    /* Accessible Skip Link */
+    /* Accessible Skip Link (Bulletproof Accessible Screen Reader Pattern) */
     .skip-link {
       position: absolute;
-      top: -100px;
-      left: 16px;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
+    }
+    .skip-link:focus {
+      position: fixed;
+      top: 14px;
+      left: 14px;
+      width: auto;
+      height: auto;
+      padding: 8px 16px;
       background: var(--cyan);
       color: #040810;
       font-weight: 700;
       font-size: 0.82rem;
-      padding: 6px 14px;
       border-radius: 6px;
-      z-index: 9999;
+      clip: auto;
+      z-index: 10000;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.5);
       text-decoration: none;
-      transition: top 0.15s ease;
     }
-    .skip-link:focus { top: 10px; }
 
     .active-filter {
       background: var(--cyan) !important;
@@ -1342,7 +1660,7 @@ const fullHtml = `<!DOCTYPE html>
           <span class="nav-group-count">15</span>
         </button>
         <ul class="nav-list" id="navSpecialistsList">
-          <!-- Populated by JS -->
+          ${generateStaticSpecialistsNav(specialists)}
         </ul>
       </div>
 
@@ -1357,7 +1675,7 @@ const fullHtml = `<!DOCTYPE html>
           <span class="nav-group-count">16</span>
         </button>
         <ul class="nav-list" id="navPlaybooksList">
-          <!-- Populated by JS -->
+          ${generateStaticPlaybooksNav(playbooks)}
         </ul>
       </div>
 
@@ -1372,7 +1690,7 @@ const fullHtml = `<!DOCTYPE html>
           <span class="nav-group-count">5</span>
         </button>
         <ul class="nav-list" id="navChecklistsList">
-          <!-- Populated by JS -->
+          ${generateStaticChecklistsNav(checklists)}
         </ul>
       </div>
 
@@ -1387,7 +1705,7 @@ const fullHtml = `<!DOCTYPE html>
           <span class="nav-group-count">9</span>
         </button>
         <ul class="nav-list" id="navTemplatesList">
-          <!-- Populated by JS -->
+          ${generateStaticTemplatesNav(templates)}
         </ul>
       </div>
 
@@ -1409,16 +1727,16 @@ const fullHtml = `<!DOCTYPE html>
       </div>
     </nav>
 
-    <!-- Center Main Content -->
+    <!-- Center Main Content (Pre-rendered for zero initial blank flash) -->
     <main class="app-main" id="content" aria-live="polite">
-      <!-- Dynamically Rendered by loadContent() -->
+      ${generateStaticOverviewContent(specialists)}
     </main>
 
-    <!-- Right In-Page TOC -->
+    <!-- Right In-Page TOC (Pre-rendered) -->
     <aside class="app-toc" aria-label="Table of Contents">
       <div class="toc-label">On This Page</div>
       <ul class="toc-links" id="tocLinksContainer">
-        <!-- Rendered based on active view -->
+        ${generateStaticOverviewToc()}
       </ul>
     </aside>
 
@@ -1439,12 +1757,12 @@ const fullHtml = `<!DOCTYPE html>
   </div>
 
   <script>
-    const SPECIALISTS = ${JSON.stringify(specialists, null, 2)};
-    const PLAYBOOKS = ${JSON.stringify(playbooks, null, 2)};
-    const CHECKLISTS = ${JSON.stringify(checklists, null, 2)};
-    const TEMPLATES = ${JSON.stringify(templates, null, 2)};
-    const BENCHMARKS = ${JSON.stringify(benchmarks, null, 2)};
-    const REFERENCE_PROJECTS = ${JSON.stringify(refProjects, null, 2)};
+    const SPECIALISTS = ${safeJson(specialists)};
+    const PLAYBOOKS = ${safeJson(playbooks)};
+    const CHECKLISTS = ${safeJson(checklists)};
+    const TEMPLATES = ${safeJson(templates)};
+    const BENCHMARKS = ${safeJson(benchmarks)};
+    const REFERENCE_PROJECTS = ${safeJson(refProjects)};
 
     const DOC_PAGES = [
       { key: 'overview', title: 'System Overview' },

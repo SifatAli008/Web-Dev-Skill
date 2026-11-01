@@ -1,0 +1,31 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://raw.githubusercontent.com/universal-webdev-skills/universal-webdev-skills/main/templates/schemas/security-audit.schema.json",
+  "title": "SecurityAuditSchema",
+  "description": "Schema for application security audits and gate sign-offs from 06-security.",
+  "type": "object",
+  "required": ["timestamp", "assessor", "gate_status", "critical_vulnerabilities_count", "high_vulnerabilities_count", "findings"],
+  "properties": {
+    "timestamp": { "type": "string", "format": "date-time" },
+    "assessor": { "type": "string" },
+    "gate_status": { "type": "string", "enum": ["APPROVED", "VETOED", "ACCEPTED_RISK"] },
+    "critical_vulnerabilities_count": { "type": "integer", "minimum": 0 },
+    "high_vulnerabilities_count": { "type": "integer", "minimum": 0 },
+    "secret_leak_clean": { "type": "boolean" },
+    "findings": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "category", "severity", "description", "status"],
+        "properties": {
+          "id": { "type": "string" },
+          "category": { "type": "string", "enum": ["STRIDE", "OWASP", "SECRET_LEAK", "DEPENDENCY", "CONFIG"] },
+          "severity": { "type": "string", "enum": ["CRITICAL", "HIGH", "MEDIUM", "LOW", "INFO"] },
+          "description": { "type": "string" },
+          "status": { "type": "string", "enum": ["OPEN", "RESOLVED", "ACCEPTED_RISK"] },
+          "remediation_evidence": { "type": "string" }
+        }
+      }
+    }
+  }
+}

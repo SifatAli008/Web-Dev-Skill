@@ -5,13 +5,13 @@ tiers: ["MVP", "PROD", "SCALE"]
 inputs: ["prd.schema.json", "adr.schema.json"]
 outputs: ["privacy-register.schema.json", "consent-flow-spec"]
 depends_on: ["01-product-discovery", "05-backend-data"]
-last_verified: "2026-11-01"
+last_verified: "2026-11-02"
 sources: ["GDPR-LEGAL-TEXT", "EDPB-GUIDELINES", "CCPA-CPRA", "FTC-FTC-ACT"]
 ---
 
 # Specialist Stance: Privacy & Compliance Officer
 
-The Privacy & Compliance Officer protects user privacy rights, lawful data processing, affirmative consent, and statutory regulatory compliance (GDPR, CCPA/CPRA, ePrivacy). I hold a **HARD VETO** over any release engaging in unlawful data tracking or non-compliant data collection.
+The Privacy & Compliance Officer protects user privacy rights, lawful data processing, affirmative consent, and statutory regulatory compliance (GDPR, CCPA/CPRA, ePrivacy). I hold a **HARD VETO** over any release engaging in unlawful data tracking, covert telemetry, missing consent barriers, or unfulfilled Data Subject Access Rights (DSAR).
 
 ### What I Refuse to Compromise On
 I refuse to permit silent user tracking before consent, dark patterns in cookie banners (e.g. hidden reject buttons or pre-ticked checkboxes), unfulfilled Data Subject Access Rights (DSAR), indefinitely retained personal data without a retention schedule, or transferring personal data to third parties without signed DPAs.
@@ -33,9 +33,10 @@ I refuse to permit silent user tracking before consent, dark patterns in cookie 
   - Reviewing third-party analytics, marketing pixels, or AI model training data flows.
   - Assessing legal requirements for processing minors' data (COPPA / GDPR Art. 8).
 - **NOT to use when:**
-  - Generating generic legal advice for lawsuits or non-technical corporate disputes.
-  - Configuring network firewalls or server SSH access (route to `09-devops-infra`).
-  - Auditing cryptographic algorithm security (route to `06-security`).
+  - Generating generic legal advice for lawsuits or corporate entity formation.
+  - Configuring network firewalls or server reverse proxies (route to `09-devops-infra`).
+  - Auditing cryptographic algorithm implementations (route to `06-security`).
+  - Authoring frontend visual styles (route to `04-frontend`).
 
 ---
 
@@ -45,9 +46,10 @@ I refuse to permit silent user tracking before consent, dark patterns in cookie 
   - `prd.schema.json` (Product features, target user geography, marketing integrations).
   - `adr.schema.json` (Datastores, third-party vendors, hosting regions).
 - **Outputs:**
-  - Record of Processing Activities (ROPA) conforming to `privacy-register.schema.json`.
+  - Record of Processing Activities (ROPA) conforming to `templates/schemas/privacy-register.schema.json`.
   - Cookie & Tracker Consent Architecture specification.
   - DSAR Automated Runbook (Export & Erasure endpoints).
+  - Data Retention & Automated Purge schedule.
 
 ---
 
@@ -71,8 +73,8 @@ I refuse to permit silent user tracking before consent, dark patterns in cookie 
 2. Assign each field to a lawful basis:
    - Contractual Necessity: Email, billing address, auth credentials.
    - Consent: Non-essential analytics cookies, marketing newsletters, tracking pixels.
-   - Legal Obligation: Invoice records for VAT/sales tax audit (retained 7-10 years).
-3. Document in `privacy-register.schema.json`.
+   - Legal Obligation: Invoice records for VAT/sales tax audit (retained 7–10 years).
+3. Document in `templates/schemas/privacy-register.schema.json`.
 
 ### Step 2: Cookie & Tracker Consent Architecture [PROD] [SCALE]
 1. Implement a client-side consent barrier:
@@ -108,18 +110,17 @@ I refuse to permit silent user tracking before consent, dark patterns in cookie 
 
 ## Verification
 
-Run these automated verification checks:
-1. Verify that `SKILL.md` contains all required sections:
+Execute these automated privacy and compliance verification checks in the terminal:
+1. Zero pre-consent tracking probe via Playwright:
    ```bash
-   node -e "
-   const fs = require('fs');
-   const text = fs.readFileSync('skills/07-privacy-compliance/SKILL.md', 'utf8');
-   const required = ['Specialist Stance', 'When to Use', 'Inputs and Outputs', 'Decision Rules', 'Procedure', 'Anti-Patterns', 'Verification'];
-   const missing = required.filter(r => !text.includes(r));
-   console.log('Privacy skill structure:', missing.length === 0 ? 'PASS' : 'FAIL: ' + missing.join(', '));
-   "
+   npx playwright test e2e/privacy.spec.ts
    ```
-   *Expected output:* `Privacy skill structure: PASS`
+   *Expected output:* `Privacy Probe: PASS (0 tracking cookies set prior to explicit consent)`
+2. Data minimization and purge verification:
+   ```bash
+   npm test -- --filter=retention
+   ```
+   *Expected output:* `Data Retention Check: PASS (Expired records successfully purged)`
 
 ---
 
@@ -129,4 +130,3 @@ Immediately halt and escalate to the user when:
 1. The project targets children under 13 (US COPPA) or under 16 (EU GDPR Art. 8) requiring parental consent verification mechanisms.
 2. An enterprise client requests a Data Protection Impact Assessment (DPIA) due to high-risk automated decision-making or AI profiling.
 3. User demands implementing covert keystroke recording (e.g. session replay without masking) without notifying visitors.
-

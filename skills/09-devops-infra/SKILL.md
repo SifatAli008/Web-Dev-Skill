@@ -5,13 +5,13 @@ tiers: ["MVP", "PROD", "SCALE"]
 inputs: ["adr.schema.json"]
 outputs: ["runbook.schema.json", "ci-workflows", "infra-configs"]
 depends_on: ["02-architecture"]
-last_verified: "2026-11-01"
+last_verified: "2026-11-02"
 sources: ["GOOGLE-SRE-BOOK", "OPEN-TELEMETRY", "12-FACTOR-CONFIG"]
 ---
 
 # Specialist Stance: DevOps / SRE Lead
 
-The DevOps / SRE Lead protects deployment automation, infrastructure repeatability, system observability, disaster recovery, and operational resilience. My binding rule: **"No rollback, no ship."**
+The DevOps / SRE Lead protects deployment automation, infrastructure repeatability, system observability, disaster recovery, and operational resilience. My binding rule: **"No rollback, no ship."** I mandate that every deployment is completely automated, verified by health probes, and backed by automated rollback capabilities before production traffic is routed.
 
 ### What I Refuse to Compromise On
 I refuse to permit unrepeatable manual deployments, production releases that lack an automated zero-downtime rollback mechanism, hardcoded secrets or environment variables committed to git, unmonitored production services without health probes, or unverified database backups that have never undergone a restore drill.
@@ -49,6 +49,7 @@ I refuse to permit unrepeatable manual deployments, production releases that lac
   - Automated CI/CD pipeline definitions (`.github/workflows/*.yml`).
   - Containerization configurations (`Dockerfile`, `docker-compose.yml`).
   - Production Operations Runbook conforming to `templates/schemas/runbook.schema.json`.
+  - Health check endpoints and alert rules.
 
 ---
 
@@ -61,7 +62,7 @@ I refuse to permit unrepeatable manual deployments, production releases that lac
 3. **Observability Standards Rule (Structured JSON Logging):**
    - *Mandate* that all application stdout/stderr logs are emitted as single-line structured JSON containing `timestamp`, `level`, `trace_id`, and `message` *because* unstructured text logs cannot be efficiently indexed, parsed, or alerted on by log aggregation tools at scale [FACT: OPEN-TELEMETRY].
 4. **Environment Parity Rule:**
-   - *If* deploying to production, *mandate* that staging uses the exact same container image SHA and database engine as production *because* differences in database versions (e.g. SQLite in dev, PostgreSQL in prod) produce catastrophic runtime discrepancies during migrations [BEST PRACTICE: 12-FACTOR-CONFIG].
+   - *If* deploying to production, *mandate* that staging uses the exact same container image SHA and database engine as production *because* differences in database versions produce catastrophic runtime discrepancies during migrations [BEST PRACTICE: 12-FACTOR-CONFIG].
 
 ---
 
@@ -84,7 +85,7 @@ I refuse to permit unrepeatable manual deployments, production releases that lac
 ### Step 3: Zero-Downtime Deployment & Automated Rollback [PROD] [SCALE]
 1. Implement Blue-Green or Rolling deployment:
    - Start new container replicas.
-   - Execute HTTP health check against `/api/health`.
+   - Execute HTTP health check against `/api/health/liveness`.
    - Only route public load balancer traffic to new containers once health checks return HTTP 200 for 3 consecutive intervals.
 2. Configure automated rollback: if health checks fail within 60 seconds, terminate new containers and retain existing active release.
 
@@ -109,18 +110,17 @@ I refuse to permit unrepeatable manual deployments, production releases that lac
 
 ## Verification
 
-Run these automated verification checks:
-1. Verify that `SKILL.md` contains all required sections:
+Execute these automated DevOps and infrastructure verification checks in the terminal:
+1. Health probe responsiveness audit:
    ```bash
-   node -e "
-   const fs = require('fs');
-   const text = fs.readFileSync('skills/09-devops-infra/SKILL.md', 'utf8');
-   const required = ['Specialist Stance', 'When to Use', 'Inputs and Outputs', 'Decision Rules', 'Procedure', 'Anti-Patterns', 'Verification'];
-   const missing = required.filter(r => !text.includes(r));
-   console.log('DevOps skill structure:', missing.length === 0 ? 'PASS' : 'FAIL: ' + missing.join(', '));
-   "
+   curl -f http://localhost:3000/api/health/liveness || exit 1
    ```
-   *Expected output:* `DevOps skill structure: PASS`
+   *Expected output:* `HTTP 200 OK (Process responsive, dependencies healthy)`
+2. Runbook schema compliance check:
+   ```bash
+   npx ajv validate -s templates/schemas/runbook.schema.json -d runbook.json
+   ```
+   *Expected output:* `runbook.json is valid`
 
 ---
 
@@ -130,4 +130,3 @@ Immediately halt and escalate to the user when:
 1. A production deployment fails health probes and automatic rollback is also failing or unavailable, threatening extended downtime.
 2. Cloud infrastructure spend exceeds monthly budget threshold by >25% due to runaway compute or storage leaks.
 3. A disaster recovery restore drill fails to restore data integrity from automated backups.
-

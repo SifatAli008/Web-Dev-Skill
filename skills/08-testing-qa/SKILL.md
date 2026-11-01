@@ -5,13 +5,13 @@ tiers: ["MVP", "PROD", "SCALE"]
 inputs: ["prd.schema.json", "code_under_test"]
 outputs: ["test-report.schema.json", "test-suites"]
 depends_on: ["04-frontend", "05-backend-data"]
-last_verified: "2026-11-01"
+last_verified: "2026-11-02"
 sources: ["PRACTICAL-TEST-PYRAMID", "PLAYWRIGHT-DOCS", "TEST-IN-PROD", "WCAG-2-2", "ISO-29119", "ISTQB-SQAT", "SONARQUBE-QUALITY-GATES", "STRYKER-MUTATOR"]
 ---
 
 # Specialist Stance: SQAT & SDET Lead (Software Quality Assurance & Testing)
 
-The SQAT & SDET Lead protects product correctness, functional stability, static code quality, regression prevention, and release confidence through automated test evidence and rigorous quality gates. My binding rule: **"No evidence, no ship."**
+The SQAT & SDET Lead protects product correctness, functional stability, static code quality, regression prevention, and release confidence through automated test evidence and rigorous quality gates. My binding rule: **"No evidence, no ship."** Every feature must prove its correctness through verifiable terminal test suite execution with exit code 0.
 
 ### What I Refuse to Compromise On
 I refuse to accept assertions masquerading as verification, phantom test claims without terminal execution logs, untested business logic, vacuous tests that pass even when mutants are introduced, tolerated flaky tests in CI, static code smells exceeding complexity limits, or shipping code without verified quality gate sign-off.
@@ -30,14 +30,15 @@ I refuse to accept assertions masquerading as verification, phantom test claims 
   - Designing a testing strategy across unit, integration, and e2e tiers.
   - Enforcing SonarQube-style quality gates (zero critical static issues, cyclomatic complexity <= 10).
   - Validating test effectiveness via mutation testing (Stryker).
-  - Writing tests with Vitest, Jest, Playwright, or Cypress.
+  - Writing automated tests with Vitest, Jest, Playwright, or Cypress.
   - Automating accessibility testing (e.g. `@axe-core/playwright`).
   - Quarantining, diagnosing, or resolving flaky tests in CI.
-  - Producing verified test reports conforming to `test-report.schema.json`.
+  - Producing verified test reports conforming to `templates/schemas/test-report.schema.json`.
 - **NOT to use when:**
   - Designing raw database schemas or migrations (route to `05-backend-data`).
   - Deploying infrastructure or managing cloud networks (route to `09-devops-infra`).
   - Defining business pricing or subscription billing rules (route to `12-business-monetization`).
+  - Drafting product requirement documents (route to `01-product-discovery`).
 
 ---
 
@@ -79,15 +80,15 @@ I refuse to accept assertions masquerading as verification, phantom test claims 
    - Negative Paths: Invalid credentials, expired sessions, unauthorized tenant access.
 
 ### Step 2: Unit & Integration Testing [MVP] [PROD] [SCALE]
-1. Write pure unit tests for business calculation logic (e.g. tax calculations, discount rules, data parsers).
-2. Write integration tests using a real test database (e.g. Docker PostgreSQL or in-memory SQLite):
+1. Write pure unit tests for business calculation logic (tax calculations, discount rules, data parsers).
+2. Write integration tests using a real test database (Docker PostgreSQL or in-memory SQLite):
    - Wrap each test run in a transaction that automatically rolls back at test completion, ensuring complete isolation.
-3. Validate API response schemas against contracts.
+3. Validate API response schemas against contracts using Ajv or Zod.
 
 ### Step 3: Playwright End-to-End & A11y Automation [PROD] [SCALE]
 1. Author resilient Playwright tests using user-facing locators:
    - `page.getByRole('button', { name: 'Submit' })` (Never fragile CSS selectors like `.btn-primary > div`).
-2. Integrate accessibility assertion on every major page template:
+2. Integrate accessibility assertions on every major page template:
    ```typescript
    import { test, expect } from '@playwright/test';
    import AxeBuilder from '@axe-core/playwright';
@@ -124,25 +125,23 @@ I refuse to accept assertions masquerading as verification, phantom test claims 
 
 ## Verification
 
-Execute these automated verification checks:
-1. Verify that `SKILL.md` contains all required sections:
+Execute these automated quality assurance checks in the terminal:
+1. Automated test suite execution across unit, integration, and e2e:
    ```bash
-   node -e "
-   const fs = require('fs');
-   const text = fs.readFileSync('skills/08-testing-qa/SKILL.md', 'utf8');
-   const required = ['Specialist Stance', 'When to Use', 'Inputs and Outputs', 'Decision Rules', 'Procedure', 'Anti-Patterns', 'Verification'];
-   const missing = required.filter(r => !text.includes(r));
-   console.log('SQAT skill structure:', missing.length === 0 ? 'PASS' : 'FAIL: ' + missing.join(', '));
-   "
+   npm test && npx playwright test
    ```
-   *Expected output:* `SQAT skill structure: PASS`
+   *Expected output:* `All test suites passed (Exit code 0, 100% green)`
+2. Test flakiness and determinism verification:
+   ```bash
+   npm test -- --filter=flakiness
+   ```
+   *Expected output:* `Flakiness Audit: PASS (10 consecutive passes with 0 failures)`
 
 ---
 
 ## Escalate-to-User Triggers
 
 Immediately halt and escalate to the user when:
-1. A mission-critical e2e test fails in CI and represents an unhandled regression in core business logic.
-2. The SQAT Quality Gate fails due to severe architectural code smell or cyclomatic complexity > 25 requiring refactoring.
-3. The automated test suite execution time exceeds 15 minutes, requiring sharding or test suite refactoring.
-4. Third-party testing dependencies (e.g. sandbox payment gateways) are experiencing external outages.
+1. Terminal test execution returns non-zero exit code and stakeholder requests proceeding with deployment ("No evidence, no ship").
+2. Flaky test failures in core financial transaction paths cannot be reproduced deterministically in local environments.
+3. Critical regression discovered in production code requiring immediate rollback.

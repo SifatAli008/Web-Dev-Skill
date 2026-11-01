@@ -1,0 +1,29 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://raw.githubusercontent.com/universal-webdev-skills/universal-webdev-skills/main/templates/schemas/a11y-audit.schema.json",
+  "title": "AccessibilityAuditSchema",
+  "description": "Schema for WCAG 2.2 AA accessibility audit reports from 03-ux-ui-design.",
+  "type": "object",
+  "required": ["timestamp", "url", "wcag_level", "violations", "status"],
+  "properties": {
+    "timestamp": { "type": "string", "format": "date-time" },
+    "url": { "type": "string" },
+    "wcag_level": { "type": "string", "enum": ["A", "AA", "AAA"], "default": "AA" },
+    "color_contrast_min": { "type": "number", "default": 4.5 },
+    "violations": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "impact", "description", "selector"],
+        "properties": {
+          "id": { "type": "string" },
+          "impact": { "type": "string", "enum": ["minor", "moderate", "serious", "critical"] },
+          "description": { "type": "string" },
+          "selector": { "type": "string" },
+          "help_url": { "type": "string" }
+        }
+      }
+    },
+    "status": { "type": "string", "enum": ["PASS", "FAIL"] }
+  }
+}

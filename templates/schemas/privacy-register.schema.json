@@ -1,0 +1,27 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://raw.githubusercontent.com/universal-webdev-skills/universal-webdev-skills/main/templates/schemas/privacy-register.schema.json",
+  "title": "PrivacyRegisterSchema",
+  "description": "Schema for Record of Processing Activities (ROPA) and privacy audits from 07-privacy-compliance.",
+  "type": "object",
+  "required": ["timestamp", "dpo_or_lead", "gate_status", "data_categories", "cookie_consent_barrier_verified"],
+  "properties": {
+    "timestamp": { "type": "string", "format": "date-time" },
+    "dpo_or_lead": { "type": "string" },
+    "gate_status": { "type": "string", "enum": ["APPROVED", "VETOED", "ACCEPTED_RISK"] },
+    "cookie_consent_barrier_verified": { "type": "boolean" },
+    "data_categories": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["data_element", "lawful_basis", "retention_period_days", "third_party_transfers"],
+        "properties": {
+          "data_element": { "type": "string" },
+          "lawful_basis": { "type": "string", "enum": ["CONSENT", "CONTRACT", "LEGAL_OBLIGATION", "LEGITIMATE_INTERESTS"] },
+          "retention_period_days": { "type": "integer" },
+          "third_party_transfers": { "type": "array", "items": { "type": "string" } }
+        }
+      }
+    }
+  }
+}

@@ -74,7 +74,7 @@ I refuse to permit fragile billing workflows that lose revenue, unhandled subscr
    - Enterprise: Volume-based, invoice-billed, custom SLA.
 2. Store product IDs and price IDs in environment variables or a configuration table; never hardcode price values in client components.
 
-### Step 2: Hosted Checkout vs Custom Elements [MVP] [PROD] [SCALE]
+### Step 2: Hosted Checkout vs Custom Tokenized Elements [MVP] [PROD] [SCALE]
 1. [MVP / PROD] Implement Stripe Hosted Checkout:
    - Client clicks "Upgrade" -> server creates Stripe Checkout Session -> redirects user to Stripe.
    - Eliminates PCI compliance burden and handles mobile wallets (Apple Pay / Google Pay) automatically.
@@ -86,13 +86,18 @@ I refuse to permit fragile billing workflows that lose revenue, unhandled subscr
    - `invoice.paid`: Extend subscription end date (`current_period_end`).
    - `invoice.payment_failed`: Transition state to `past_due`; trigger dunning email sequence.
    - `customer.subscription.deleted`: Revoke premium access; transition state to `canceled`.
-2. Connect to `05-backend-data` idempotency queue pattern.
+2. Connect to `05-backend-data` idempotency queue pattern with raw unparsed body verification.
 
-### Step 4: Tax Compliance & Legal Disclosures [PROD] [SCALE]
+### Step 4: Tax Compliance, Invoicing & Receipts [PROD] [SCALE]
 1. Enable automated tax calculation: collect customer billing address and postal code at checkout.
 2. Add clear statutory billing disclosures before checkout button:
    - "You will be charged $29.00/month until you cancel. You can cancel anytime in your account settings."
 3. Provide automated PDF receipts and VAT-compliant invoices on user billing portal.
+
+### Step 5: Dunning, Recovery & Churn Mitigation [PROD] [SCALE]
+1. Configure smart retry intervals for failed cards (retry at 3, 5, and 7 days).
+2. Deploy pre-expiration reminder emails for expiring payment methods.
+3. Offer voluntary pause or downgrade options during cancellation flow without violating Click-to-Cancel laws.
 
 ---
 
@@ -109,17 +114,16 @@ I refuse to permit fragile billing workflows that lose revenue, unhandled subscr
 ## Verification
 
 Run these automated verification checks:
-1. Verify that `SKILL.md` contains all required sections:
-   ```bash
-   node -e "
-   const fs = require('fs');
-   const text = fs.readFileSync('skills/12-business-monetization/SKILL.md', 'utf8');
-   const required = ['Specialist Stance', 'When to Use', 'Inputs and Outputs', 'Decision Rules', 'Procedure', 'Anti-Patterns', 'Verification'];
-   const missing = required.filter(r => !text.includes(r));
-   console.log('Business skill structure:', missing.length === 0 ? 'PASS' : 'FAIL: ' + missing.join(', '));
-   "
-   ```
-   *Expected output:* `Business skill structure: PASS`
+```bash
+# 1. Simulate Stripe webhook replay and cryptographic signature verification
+stripe trigger payment_intent.succeeded
+
+# 2. Verify PCI-DSS zero raw card storage in codebase models and logs
+npm run test:pci
+
+# 3. Validate billing schema conformance
+npx ajv validate -s templates/schemas/billing-spec.schema.json -d billing-spec.json
+```
 
 ---
 
@@ -129,4 +133,3 @@ Immediately halt and escalate to the user when:
 1. User chargeback / dispute rates exceed 0.75%, threatening immediate merchant account termination by Visa/Mastercard/Stripe.
 2. Stripe or payment processor places a hold or reserve on incoming funds due to fraud or compliance flags.
 3. Customer operates in heavily restricted financial or sanctioned jurisdictions (OFAC compliance).
-

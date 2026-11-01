@@ -77,23 +77,28 @@ I refuse to permit unmaintained dependencies with known unpatched security vulne
    - Remediation Strategy.
 3. Allocate 15–20% of every engineering sprint capacity to debt remediation.
 
-### Step 2: Automated Dependency Hygiene [MVP] [PROD] [SCALE]
+### Step 2: Automated Dependency Hygiene & CVE Scanning [MVP] [PROD] [SCALE]
 1. Configure `dependabot.yml` or `renovate.json`:
    - Daily scans for security patches.
    - Weekly scans for minor/patch version updates.
 2. Pin exact package versions or use lockfiles (`--frozen-lockfile`) in CI.
-3. Check for abandoned packages (no release in 24 months).
+3. Scan for abandoned packages (no release in 24 months) and unmaintained transitive dependencies.
 
-### Step 3: Legacy Codebase Rescue (Strangler Fig Pattern) [PROD] [SCALE]
-1. Write **Characterization Tests** covering current observable behavior of the legacy code before altering any implementation.
-2. Introduce an intercepting proxy or routing layer at the API boundary.
-3. Incrementally implement the new modular service for a single endpoint.
-4. Route traffic to the new service; verify telemetry; decommission legacy path once 100% stable.
+### Step 3: Characterization Testing for Legacy Systems [PROD] [SCALE]
+1. Author comprehensive **Characterization Tests** pinning existing runtime behavior before touching legacy code.
+2. Run test suites with high mutation coverage to catch subtle edge cases and implicit dependencies.
+3. Verify characterization tests pass with 100% reliability on historical test data.
 
-### Step 4: Scaling Trigger Evaluation [SCALE]
-1. Audit system metrics against the Scaling Trigger Matrix:
-   - If database read contention occurs: deploy read replicas with routing split (`primary` for writes, `replica` for reads).
-   - If cache invalidation complexity creates stale reads: implement explicit cache tagging and TTL bounds.
+### Step 4: Strangler Fig Pattern Migration Execution [PROD] [SCALE]
+1. Deploy an API gateway or reverse proxy in front of the legacy monolith.
+2. Incrementally implement replacement endpoints or modules in the modern stack.
+3. Shift traffic incrementally (e.g., 5% -> 20% -> 100%) while observing error rates and latency.
+4. Safely decommission legacy code paths once 100% traffic has transitioned cleanly.
+
+### Step 5: Objective Scaling Trigger Evaluation & Capacity Planning [SCALE]
+1. Audit system telemetry against the Scaling Trigger Matrix weekly.
+2. When query latency crosses p95 > 250ms under sustained load, introduce indexed caching or read replicas.
+3. Formulate capacity planning forecasts for upcoming peak traffic events.
 
 ---
 
@@ -110,17 +115,16 @@ I refuse to permit unmaintained dependencies with known unpatched security vulne
 ## Verification
 
 Run these automated verification checks:
-1. Verify that `SKILL.md` contains all required sections:
-   ```bash
-   node -e "
-   const fs = require('fs');
-   const text = fs.readFileSync('skills/14-maintenance/SKILL.md', 'utf8');
-   const required = ['Specialist Stance', 'When to Use', 'Inputs and Outputs', 'Decision Rules', 'Procedure', 'Anti-Patterns', 'Verification'];
-   const missing = required.filter(r => !text.includes(r));
-   console.log('Maintenance skill structure:', missing.length === 0 ? 'PASS' : 'FAIL: ' + missing.join(', '));
-   "
-   ```
-   *Expected output:* `Maintenance skill structure: PASS`
+```bash
+# 1. Run characterization tests to verify zero behavioral regressions
+npm test -- --filter=characterization
+
+# 2. Audit supply chain vulnerabilities and outdated dependencies
+npm audit && npm outdated
+
+# 3. Validate Technical Debt Register schema conformance
+npx ajv validate -s templates/schemas/tech-debt-register.schema.json -d tech-debt-register.json
+```
 
 ---
 
@@ -130,4 +134,3 @@ Immediately halt and escalate to the user when:
 1. A core framework dependency reaches statutory End-of-Life (EOL) with no direct backward-compatible upgrade path.
 2. Production telemetry indicates system utilization has reached 90% of architectural capacity, requiring an infrastructure tier jump.
 3. A critical zero-day vulnerability in a core package cannot be patched without breaking changes to database persistence.
-

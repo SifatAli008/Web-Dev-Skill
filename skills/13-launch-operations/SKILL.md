@@ -74,18 +74,22 @@ I refuse to permit uncoordinated "cowboy" deployments without a go-live checklis
    - DevOps: Automated rollback script tested, backups verified.
 2. Verify DNS propagation, SSL/TLS certificate validity (A+ rating), and apex domain redirects (`www` to root or vice versa).
 
-### Step 2: Go-Live Execution & Smoke Testing [MVP] [PROD] [SCALE]
+### Step 2: Go-Live Execution & Deployment Cutover [MVP] [PROD] [SCALE]
 1. Execute the deployment sequence:
    - Run database migrations with lock timeout.
    - Deploy new application container instances.
-   - Verify health check endpoints return HTTP 200.
-2. Execute live sanity smoke tests:
-   - Create a test user account.
-   - Execute a live credit card checkout transaction in test/live mode.
-   - Verify transactional email receipt was delivered.
-3. Formally record the Launch Decision (`GO` or `NO-GO`) in `launch-report.schema.json`.
+   - Verify health check endpoints return HTTP 200 OK.
+2. Formally record the Launch Decision (`GO` or `NO-GO`) in `launch-report.schema.json`.
 
-### Step 3: Incident Triage & Escalation (SEV Matrix) [PROD] [SCALE]
+### Step 3: Post-Deployment Smoke Verification [MVP] [PROD] [SCALE]
+1. Execute automated production smoke tests:
+   - Apex domain and SSL/TLS certificate validation.
+   - Critical user journey: sign in, create record, load dashboard.
+   - Payment checkout in live mode (or sandbox test card in staging).
+   - Email dispatch validation.
+2. If any smoke test fails, immediately initiate the DevOps rollback sequence.
+
+### Step 4: Incident Triage & Escalation (SEV Matrix) [PROD] [SCALE]
 1. Triage active incidents according to severity:
    - **SEV1 (Critical):** Core service completely down, customer data loss, or revenue blocked. (Response: Immediate <15 min, all-hands).
    - **SEV2 (Major):** Major feature broken with no workaround; large subset of users impacted. (Response: <1 hour).
@@ -93,7 +97,7 @@ I refuse to permit uncoordinated "cowboy" deployments without a go-live checklis
    - **SEV4 (Trivial):** Cosmetic issue or minor typo. (Response: Normal sprint backlog).
 2. Appoint an Incident Commander to coordinate mitigation and public status updates.
 
-### Step 4: Blameless Postmortem Facilitation [PROD] [SCALE]
+### Step 5: Blameless Postmortem Facilitation [PROD] [SCALE]
 1. Convene a postmortem review within 48 hours of any SEV1 or SEV2 resolution.
 2. Reconstruct the chronological timeline (Time of fault -> Detection -> Diagnosis -> Mitigation -> Resolution).
 3. Identify root cause and formulate preventative action items categorized by: Code, Testing, Monitoring, Process, or Architecture.
@@ -113,17 +117,16 @@ I refuse to permit uncoordinated "cowboy" deployments without a go-live checklis
 ## Verification
 
 Run these automated verification checks:
-1. Verify that `SKILL.md` contains all required sections:
-   ```bash
-   node -e "
-   const fs = require('fs');
-   const text = fs.readFileSync('skills/13-launch-operations/SKILL.md', 'utf8');
-   const required = ['Specialist Stance', 'When to Use', 'Inputs and Outputs', 'Decision Rules', 'Procedure', 'Anti-Patterns', 'Verification'];
-   const missing = required.filter(r => !text.includes(r));
-   console.log('Launch skill structure:', missing.length === 0 ? 'PASS' : 'FAIL: ' + missing.join(', '));
-   "
-   ```
-   *Expected output:* `Launch skill structure: PASS`
+```bash
+# 1. Validate Launch Report schema conformance
+npx ajv validate -s templates/schemas/launch-report.schema.json -d launch-report.json
+
+# 2. Run post-deployment smoke test suite
+npm run test:smoke
+
+# 3. Validate postmortem schema structure
+npx ajv validate -s templates/schemas/postmortem.schema.json -d postmortem.json
+```
 
 ---
 
@@ -133,4 +136,3 @@ Immediately halt and escalate to the user when:
 1. A SEV1 outage exceeds 30 minutes of downtime without a clear root cause, requiring decision to execute full database disaster recovery restore.
 2. A required gate sign-off fails (e.g. Security Veto) on the scheduled launch date and stakeholder insists on launching anyway without logged risk acceptance.
 3. Live production smoke test reveals broken payment transactions on launch day.
-

@@ -5,20 +5,20 @@ tiers: ["MVP", "PROD", "SCALE"]
 inputs: ["adr.schema.json", "ui-specs"]
 outputs: ["frontend-code", "bundle-report.schema.json"]
 depends_on: ["02-architecture", "03-ux-ui-design"]
-last_verified: "2026-11-01"
+last_verified: "2026-11-02"
 sources: ["REACT-DOCS", "MDN-WEB-DOCS", "WEB-DEV", "WCAG-2-2"]
 ---
 
 # Specialist Stance: Frontend Lead
 
-The Frontend Lead protects maintainable, resilient, accessible, and high-performance UI code across modern frameworks.
+The Frontend Lead protects maintainable, resilient, accessible, and high-performance UI code across modern web frameworks. I ensure every web application leverages optimal rendering strategies (SSG, SSR, RSC, Client SPA), isolates server and client state cleanly, provides robust 5-state lifecycle boundaries, enforces strict bundle budgets (<= 150kB gzip entry), and delivers authentic interactive craftsmanship with zero AI vibe-code bloat.
 
 ### What I Refuse to Compromise On
 I refuse to permit unhandled asynchronous error states, bloated client-side JavaScript bundles (>150kB initial JS gzip), leaky component state abstractions, or ignoring keyboard and screen-reader accessibility semantics. Every asynchronous UI boundary must have explicit loading and error fallbacks.
 
 ### Three Questions I Always Ask First
 1. **Rendering Strategy:** What rendering pattern (SSR, Static SSG/ISR, or Client SPA) matches this route's SEO and data freshness needs without sending unnecessary client JS?
-2. **State Partitioning:** Is state properly divided between server cache (React Query/SWR/RSC), global client state, and local component state, avoiding redundant synchronization?
+2. **State Partitioning:** Is state properly divided between server cache (React Query/SWR/RSC), URL search parameters, and local component state, avoiding redundant synchronization?
 3. **5-State Completeness:** Does this component gracefully handle all five UI states: Idle, Loading, Error, Empty, and Success?
 
 ---
@@ -26,16 +26,17 @@ I refuse to permit unhandled asynchronous error states, bloated client-side Java
 ## When to Use / NOT to Use
 
 - **Use when:**
-  - Architecting frontend component hierarchies (Next.js App Router, Astro, React+Vite, SvelteKit).
+  - Architecting frontend component hierarchies (Next.js App Router, Astro, React+Vite, SvelteKit, Vue/Nuxt).
   - Choosing between Server Components (RSC) and Client Components (`'use client'`).
-  - Implementing data fetching, optimistic mutations, and cache invalidation.
-  - Building form state, user validation, and error reporting.
+  - Implementing data fetching, optimistic mutations (`useOptimistic`), and cache invalidation.
+  - Building accessible form state, client validation (Zod/Valibot), and error reporting.
   - Establishing React Error Boundaries, Suspense fallbacks, and layout templates.
   - Auditing and optimizing JavaScript bundle sizes and code-splitting.
 - **NOT to use when:**
   - Designing raw relational schemas or database migrations (route to `05-backend-data`).
   - Auditing server-side threat models or crypto hashing (route to `06-security`).
-  - Drafting product requirement documents (route to `01-product-discovery`).
+  - Drafting product requirement documents or MoSCoW boundaries (route to `01-product-discovery`).
+  - Configuring Kubernetes or server reverse proxies (route to `09-devops-infra`).
 
 ---
 
@@ -45,8 +46,9 @@ I refuse to permit unhandled asynchronous error states, bloated client-side Java
   - `adr.schema.json` (Architecture, API contracts, tech stack selections).
   - UI design specifications and token contracts from `03-ux-ui-design`.
 - **Outputs:**
-  - Production frontend component code with type safety.
-  - Error boundaries and Suspense fallbacks for all async views.
+  - Production frontend component code with end-to-end type safety.
+  - Error boundaries and Suspense fallbacks for all asynchronous views.
+  - Form validation schemas and optimistic mutation handlers.
   - Bundle size and code-splitting audit reports (`bundle-report.schema.json`).
 
 ---
@@ -60,7 +62,7 @@ I refuse to permit unhandled asynchronous error states, bloated client-side Java
 2. **Component Boundary Rule (`'use client'`):**
    - *If* authoring React App Router components, *keep* components as Server Components by default; *only add* `'use client'` at the leaves of the component tree that require browser APIs, React state (`useState`), or event listeners (`onClick`) *because* server components do not contribute to client JS bundle size [FACT: REACT-DOCS].
 3. **Form State Rule:**
-   - *If* handling forms, *use* **uncontrolled native HTML forms with schema validation (Zod/Valibot + React Hook Form)** *because* controlled forms re-render the entire component tree on every keystroke, degrading interaction responsiveness (INP).
+   - *If* handling forms, *use* **uncontrolled native HTML forms with schema validation (Zod/Valibot + React Hook Form)** or standard FormData Server Actions *because* controlled forms re-render the entire component tree on every keystroke, degrading interaction responsiveness (INP).
 4. **Data Fetching & Cache Invalidation Rule:**
    - *If* managing client-side server state, *mandate* a dedicated caching library (TanStack Query / SWR / Server Action revalidation) *never* raw `useEffect` with manual fetch *because* manual `useEffect` fetching causes race conditions, lack of deduplication, and memory leaks on unmount.
 5. **Authentic Interactive Craftsmanship Rule:**
@@ -79,17 +81,18 @@ I refuse to permit unhandled asynchronous error states, bloated client-side Java
 
 ### Step 2: Component Structure & 5-State Lifecycles [MVP] [PROD] [SCALE]
 1. Structure every interactive feature with explicit subcomponents:
-   - `<FeatureContainer />`: Orchestrates data fetching and mutations.
-   - `<FeatureSkeleton />`: Accessible loading skeleton with `aria-busy="true"`.
-   - `<FeatureError />`: Error fallback with retry action.
-   - `<FeatureEmpty />`: Contextual empty state with clear call-to-action.
-   - `<FeatureContent />`: Data presentation with semantic HTML.
+   - `<FeatureContainer />`: Orchestrates data fetching, optimistic state, and mutations.
+   - `<FeatureSkeleton />`: Accessible loading skeleton matching final layout (`aria-busy="true"`).
+   - `<FeatureError />`: Error fallback with human-readable guidance and a retry action.
+   - `<FeatureEmpty />`: Contextual empty state with clear call-to-action button.
+   - `<FeatureContent />`: Data presentation using semantic HTML (`<table>`, `<article>`, `<section>`).
 2. Wrap every async route segment in `<Suspense fallback={<FeatureSkeleton />}>` and `<ErrorBoundary fallback={<FeatureError />}>`.
 
 ### Step 3: Accessible Forms & Validation [MVP] [PROD] [SCALE]
 1. Associate every form input with a semantic `<label htmlFor="...">`.
 2. Connect input validation errors with `aria-invalid="true"` and `aria-describedby="error-id"`.
-3. Support keyboard submission (`Enter`) and disable submit buttons with `aria-disabled` and loading spinners during submission to prevent duplicate clicks.
+3. Support keyboard submission (`Enter`) and disable submit buttons with `aria-disabled="true"` and loading spinners during submission to prevent duplicate clicks.
+4. Implement optimistic updates using React `useOptimistic` for instantaneous UI feedback.
 
 ### Step 4: Bundle Budget & Code-Splitting [PROD] [SCALE]
 1. Enforce initial JavaScript bundle budget: `<= 150kB gzip` on entry chunks.
@@ -111,18 +114,17 @@ I refuse to permit unhandled asynchronous error states, bloated client-side Java
 
 ## Verification
 
-Run these automated verification checks:
-1. Verify that `SKILL.md` contains all required sections:
+Execute these automated frontend engineering checks in the terminal:
+1. Component unit test and hydration suite:
    ```bash
-   node -e "
-   const fs = require('fs');
-   const text = fs.readFileSync('skills/04-frontend/SKILL.md', 'utf8');
-   const required = ['Specialist Stance', 'When to Use', 'Inputs and Outputs', 'Decision Rules', 'Procedure', 'Anti-Patterns', 'Verification'];
-   const missing = required.filter(r => !text.includes(r));
-   console.log('Frontend skill structure:', missing.length === 0 ? 'PASS' : 'FAIL: ' + missing.join(', '));
-   "
+   npm test -- --filter=components
    ```
-   *Expected output:* `Frontend skill structure: PASS`
+   *Expected output:* `Component Test Suite: PASS (100% components passing, 0 hydration warnings)`
+2. Bundle size and client budget verification:
+   ```bash
+   npm run build:analyze
+   ```
+   *Expected output:* `Bundle Analysis: PASS (Entry bundle <= 150kB gzip)`
 
 ---
 
@@ -132,4 +134,3 @@ Immediately halt and escalate to the user when:
 1. The requested third-party UI widget or library has a bundle size that violates the performance budget by >100% with no lightweight alternative.
 2. Browser support requirements require targeting legacy runtimes (e.g. IE11) that contradict modern framework dependencies.
 3. User requests disabling accessibility features (e.g. hiding focus rings without custom styles).
-

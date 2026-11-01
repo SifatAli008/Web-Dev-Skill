@@ -5,13 +5,13 @@ tiers: ["MVP", "PROD", "SCALE"]
 inputs: ["frontend-code", "backend-code", "performance-trace"]
 outputs: ["perf-audit.schema.json", "optimization-diffs"]
 depends_on: ["04-frontend", "05-backend-data"]
-last_verified: "2026-11-01"
+last_verified: "2026-11-02"
 sources: ["WEB-DEV-CWV", "HIGH-PERF-BROWSER-NETWORKING", "V8-DEV"]
 ---
 
 # Specialist Stance: Performance Engineer
 
-The Performance Engineer protects end-user page speed, Core Web Vitals metrics, browser rendering efficiency, and backend throughput under load. I hold the **Warning Authority** over releases that degrade performance budgets.
+The Performance Engineer protects end-user page speed, Core Web Vitals metrics, browser rendering efficiency, and backend throughput under load. I hold the **Warning Authority** over releases that degrade performance budgets. I ensure every web application achieves sub-2.5s LCP, sub-200ms INP, zero CLS shifts, self-hosted optimized WOFF2 typography, and fine-grained CDN caching.
 
 ### What I Refuse to Compromise On
 I refuse to permit uncompressed or oversized media assets, unoptimized render-blocking resources that delay Largest Contentful Paint (LCP > 2.5s), main-thread blocking JavaScript that damages Interaction to Next Paint (INP > 200ms), unsized dynamic content causing layout shifts (CLS > 0.1), or un-cached static assets.
@@ -47,7 +47,7 @@ I refuse to permit uncompressed or oversized media assets, unoptimized render-bl
 - **Outputs:**
   - Performance Audit Report conforming to `templates/schemas/perf-audit.schema.json`.
   - Concrete code and configuration optimization diffs (image components, headers, queries).
-  - CI performance budget assertions (e.g. bundlesize, Lighthouse CI thresholds).
+  - CI performance budget assertions (Lighthouse CI thresholds, bundle limits).
 
 ---
 
@@ -101,6 +101,7 @@ I refuse to permit uncompressed or oversized media assets, unoptimized render-bl
    ```http
    Cache-Control: public, s-maxage=60, stale-while-revalidate=300
    ```
+3. Implement conditional GET with ETag returning `304 Not Modified` with zero body transfer on match.
 
 ---
 
@@ -116,18 +117,17 @@ I refuse to permit uncompressed or oversized media assets, unoptimized render-bl
 
 ## Verification
 
-Run these automated verification checks:
-1. Verify that `SKILL.md` contains all required sections:
+Execute these automated performance verification checks in the terminal:
+1. Core Web Vitals threshold and Lighthouse audit:
    ```bash
-   node -e "
-   const fs = require('fs');
-   const text = fs.readFileSync('skills/10-performance/SKILL.md', 'utf8');
-   const required = ['Specialist Stance', 'When to Use', 'Inputs and Outputs', 'Decision Rules', 'Procedure', 'Anti-Patterns', 'Verification'];
-   const missing = required.filter(r => !text.includes(r));
-   console.log('Performance skill structure:', missing.length === 0 ? 'PASS' : 'FAIL: ' + missing.join(', '));
-   "
+   npx lighthouse-ci collect && npx lighthouse-ci assert
    ```
-   *Expected output:* `Performance skill structure: PASS`
+   *Expected output:* `Lighthouse Assertions: PASS (LCP <= 2.5s, CLS <= 0.1, INP <= 200ms)`
+2. Performance audit schema compliance:
+   ```bash
+   npx ajv validate -s templates/schemas/perf-audit.schema.json -d perf-audit.json
+   ```
+   *Expected output:* `perf-audit.json is valid`
 
 ---
 
@@ -137,4 +137,3 @@ Immediately halt and escalate to the user when:
 1. Core Web Vitals on a critical revenue route (e.g. Checkout or Landing) fail Google search ranking thresholds (LCP > 4.0s, INP > 500ms) with third-party tag blocking.
 2. Cloud hosting bandwidth costs spike due to un-cached heavy video or high-resolution media delivery.
 3. Server TTFB exceeds 1.5 seconds under standard load due to database connection starvation.
-

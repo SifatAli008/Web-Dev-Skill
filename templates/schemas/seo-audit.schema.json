@@ -1,0 +1,22 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://raw.githubusercontent.com/universal-webdev-skills/universal-webdev-skills/main/templates/schemas/seo-audit.schema.json",
+  "title": "SeoAuditSchema",
+  "description": "Schema for technical SEO, structured data, and indexability audits from 11-seo-marketing.",
+  "type": "object",
+  "required": ["timestamp", "url", "ssr_enabled", "canonical_valid", "sitemap_status", "status"],
+  "properties": {
+    "timestamp": { "type": "string", "format": "date-time" },
+    "url": { "type": "string" },
+    "ssr_enabled": { "type": "boolean" },
+    "canonical_valid": { "type": "boolean" },
+    "sitemap_status": { "type": "string", "enum": ["VALID", "MISSING", "INVALID"] },
+    "robots_status": { "type": "string", "enum": ["VALID", "MISSING", "INVALID"] },
+    "schema_org_entities": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "opengraph_verified": { "type": "boolean" },
+    "status": { "type": "string", "enum": ["PASS", "FAIL"] }
+  }
+}

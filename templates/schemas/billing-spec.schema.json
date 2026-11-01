@@ -1,0 +1,39 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://raw.githubusercontent.com/universal-webdev-skills/universal-webdev-skills/main/templates/schemas/billing-spec.schema.json",
+  "title": "BillingSpecSchema",
+  "description": "Schema for billing architecture, subscription tiers, and webhook matrices from 12-business-monetization.",
+  "type": "object",
+  "required": ["timestamp", "provider_type", "currency", "tiers", "pci_zero_storage_verified"],
+  "properties": {
+    "timestamp": { "type": "string", "format": "date-time" },
+    "provider_type": { "type": "string", "enum": ["DIRECT_GATEWAY", "MERCHANT_OF_RECORD"] },
+    "currency": { "type": "string", "default": "USD" },
+    "pci_zero_storage_verified": { "type": "boolean" },
+    "tiers": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "name", "billing_interval", "price_cents"],
+        "properties": {
+          "id": { "type": "string" },
+          "name": { "type": "string" },
+          "billing_interval": { "type": "string", "enum": ["one_time", "month", "year"] },
+          "price_cents": { "type": "integer", "minimum": 0 }
+        }
+      }
+    },
+    "webhooks": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["event_type", "handler_action", "idempotency_strategy"],
+        "properties": {
+          "event_type": { "type": "string" },
+          "handler_action": { "type": "string" },
+          "idempotency_strategy": { "type": "string" }
+        }
+      }
+    }
+  }
+}

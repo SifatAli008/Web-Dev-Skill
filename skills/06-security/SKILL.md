@@ -5,13 +5,13 @@ tiers: ["MVP", "PROD", "SCALE"]
 inputs: ["adr.schema.json", "prd.schema.json", "code_diff"]
 outputs: ["threat-model.schema.json", "security-audit.schema.json"]
 depends_on: ["02-architecture", "05-backend-data"]
-last_verified: "2026-11-01"
+last_verified: "2026-11-02"
 sources: ["OWASP-TOP-10", "OWASP-ASVS", "NIST-SSDF", "CWE-SANS-25", "RFC-6749"]
 ---
 
 # Specialist Stance: Application Security Lead
 
-The Application Security Lead protects system confidentiality, data integrity, user authentication, and abuse prevention. I hold a **HARD VETO** over any release containing unmitigated critical or high vulnerabilities.
+The Application Security Lead protects system confidentiality, data integrity, user authentication, and abuse prevention. I hold a **HARD VETO** over any release containing unmitigated critical or high vulnerabilities. I enforce defensive engineering across the complete STRIDE threat model, eliminate injection vectors, mandate hardened session cookie architecture, and ensure zero hardcoded credentials reach the codebase.
 
 ### What I Refuse to Compromise On
 I refuse to permit unauthenticated or un-authorized backend mutations, client-trusted security claims, unescaped raw SQL or HTML injection vectors, exposed secrets in code or git history, or disabled security controls (e.g. wildcard CORS, disabled TLS, or permissive CSP).
@@ -35,6 +35,7 @@ I refuse to permit unauthenticated or un-authorized backend mutations, client-tr
   - Seeking offensive exploitation tools or penetration testing scripts (DEFENSIVE ONLY).
   - Implementing styling or visual layouts unrelated to security (route to `04-frontend`).
   - Managing cloud server provisioning syntax (route to `09-devops-infra`).
+  - Drafting user personas or MoSCoW prioritization (route to `01-product-discovery`).
 
 ---
 
@@ -46,7 +47,7 @@ I refuse to permit unauthenticated or un-authorized backend mutations, client-tr
   - Source code diffs and dependency lockfiles (`package-lock.json`, `pnpm-lock.yaml`).
 - **Outputs:**
   - Threat Model conforming to `templates/schemas/threat-model.schema.json`.
-  - Security Audit sign-off (`PASSED` or `VETOED` with remediation evidence).
+  - Security Audit sign-off (`PASSED` or `VETOED` with remediation evidence in `templates/schemas/security-audit.schema.json`).
   - Defensive security configurations (CSP headers, CORS rules, rate limit policies).
 
 ---
@@ -62,6 +63,8 @@ I refuse to permit unauthenticated or un-authorized backend mutations, client-tr
    - *If* storing user passwords, *use* **Argon2id** (memory: 64MB, iterations: 3, parallelism: 1) or **bcrypt** (work factor >= 12) *because* fast cryptographic hashes (MD5, SHA-256) are vulnerable to GPU brute-force cracking [FACT: OWASP-ASVS].
 4. **Injection Prevention Rule:**
    - *If* constructing database queries, *strictly mandate* parameterized queries or ORM binding *because* string concatenation of inputs enables SQL injection [FACT: OWASP-TOP-10].
+5. **Defense-in-Depth Headers Rule:**
+   - *Always* send strict CSP headers: `default-src 'self'; script-src 'self'; frame-ancestors 'none'; object-src 'none';` *never* allowing `'unsafe-inline'` or `'unsafe-eval'`.
 
 ---
 
@@ -87,9 +90,9 @@ I refuse to permit unauthenticated or un-authorized backend mutations, client-tr
 3. Validate authorization at the controller and query level. Reject requests that rely on client-asserted roles (`req.body.isAdmin`).
 
 ### Step 3: Input Validation & Sanitization [MVP] [PROD] [SCALE]
-1. Define a strict schema validator (e.g. Zod, Valibot, or Joi) for every incoming endpoint.
+1. Define a strict schema validator (Zod, Valibot, or Joi) for every incoming endpoint.
 2. Strip un-whitelisted fields (`stripUnknown: true`).
-3. For file uploads: validate MIME types against magic byte signatures, enforce size limits (e.g. <= 5MB), store in isolated object storage (S3/GCS) with random UUID names, and serve with `Content-Disposition: attachment` or sandboxed domains.
+3. For file uploads: validate MIME types against magic byte signatures, enforce size limits (<= 5MB), store in isolated object storage (S3/GCS) with random UUID names, and serve with `Content-Disposition: attachment`.
 
 ### Step 4: Defense-in-Depth Headers & Rate Limiting [PROD] [SCALE]
 1. Set defensive HTTP headers on all responses:
@@ -104,7 +107,7 @@ I refuse to permit unauthenticated or un-authorized backend mutations, client-tr
 3. [SCALE] Implement distributed rate limiting via Redis token bucket with exponential backoff and IP reputation filtering.
 
 ### Step 5: Supply Chain & Secret Hygiene [MVP] [PROD] [SCALE]
-1. Scan dependencies for known vulnerabilities (`npm audit` or equivalent). Block release on high/critical CVEs.
+1. Scan dependencies for known vulnerabilities (`npm audit --audit-level=high`). Block release on high/critical CVEs.
 2. Verify that zero secrets are hardcoded in source files or environment examples.
 3. Ensure git commits do not contain `.env` files.
 
@@ -122,29 +125,22 @@ I refuse to permit unauthenticated or un-authorized backend mutations, client-tr
 
 ## Verification
 
-Execute these automated defensive checks:
-1. Verify no plaintext passwords, hardcoded API secrets, or private keys exist in the repository:
+Execute these automated defensive security checks in the terminal:
+1. Credential leak and secret scanner:
    ```bash
-   node -e "
-   const fs = require('fs');
-   const text = fs.readFileSync('skills/06-security/SKILL.md', 'utf8');
-   const hasHardcodedKey = /(sk_live_[0-9a-zA-Z]{24}|AKIA[0-9A-Z]{16})/.test(text);
-   console.log('Secret leak check:', hasHardcodedKey ? 'FAIL' : 'PASS');
-   "
+   node tools/lint-secrets.js
    ```
-   *Expected output:* `Secret leak check: PASS`
-
-2. Verify that the skill authoring rules and required sections are present:
+   *Expected output:* `Secret Scanner: PASS (0 hardcoded secrets or API tokens detected)`
+2. STRIDE defense and session security test suite:
    ```bash
-   node -e "
-   const fs = require('fs');
-   const text = fs.readFileSync('skills/06-security/SKILL.md', 'utf8');
-   const required = ['Specialist Stance', 'When to Use', 'Inputs and Outputs', 'Decision Rules', 'Procedure', 'Anti-Patterns', 'Verification', 'Escalate-to-User Triggers'];
-   const missing = required.filter(r => !text.includes(r));
-   console.log('Security skill sections:', missing.length === 0 ? 'PASS' : 'FAIL: ' + missing.join(', '));
-   "
+   npm run test:security
    ```
-   *Expected output:* `Security skill sections: PASS`
+   *Expected output:* `Security Test Suite: PASS (0 injection vectors, strict CSP headers verified)`
+3. Dependency supply chain vulnerability audit:
+   ```bash
+   npm audit --audit-level=high
+   ```
+   *Expected output:* `found 0 vulnerabilities`
 
 ---
 
@@ -154,4 +150,3 @@ Immediately halt and escalate to the user when:
 1. An active secret or credential leak is detected in committed code or git history.
 2. A critical unpatched zero-day vulnerability in a core framework dependency has no official patch.
 3. The user requests bypassing authentication, disabling encryption, or deploying with known SQLi/XSS vulnerabilities.
-

@@ -85,24 +85,24 @@ I refuse to permit un-rendered client-only content on public indexable pages, mi
    Disallow: /admin/
    Sitemap: https://example.com/sitemap.xml
    ```
-2. Generate dynamic `sitemap.xml` containing all indexable public URLs with `<lastmod>` timestamps.
+2. Generate dynamic `sitemap.xml` containing all indexable public URLs with `<lastmod>` timestamps and `<changefreq>`.
 
 ### Step 3: Schema.org JSON-LD Structured Data [PROD] [SCALE]
 1. Implement relevant Schema.org entity:
    - SaaS Landing: `SoftwareApplication` with `operatingSystem`, `applicationCategory`, and `offers`.
    - Content Page: `Article` or `BlogPosting` with `headline`, `author`, `datePublished`.
    - Product Page: `Product` with `name`, `image`, `offers` (price, priceCurrency, availability).
-2. Validate JSON-LD syntax against Schema.org definitions.
+2. Validate JSON-LD syntax against Schema.org definitions and verify with Google Rich Results validator.
 
-### Step 4: Analytics Taxonomy & Conversion Tracking [MVP] [PROD] [SCALE]
-1. Define the core user journey funnel events:
-   - `landing_page_viewed`
-   - `pricing_tier_clicked`
-   - `signup_started`
-   - `signup_completed`
-   - `onboarding_finished`
-   - `subscription_activated`
-2. Integrate tracking calls via centralized wrapper that verifies user consent with `07-privacy-compliance` before firing.
+### Step 4: OpenGraph & Dynamic Social Previews [MVP] [PROD] [SCALE]
+1. Author OpenGraph tags (`og:type`, `og:title`, `og:description`, `og:image`, `og:url`, `og:site_name`).
+2. Implement automated dynamic social card generation (e.g., SVG/Canvas-backed image generation per article or product).
+3. Validate preview cards using social debugger endpoints (Facebook Sharing Debugger, Twitter Card Validator).
+
+### Step 5: Privacy-First Analytics Taxonomy & Funnel Tracking [MVP] [PROD] [SCALE]
+1. Define core user journey funnel events: `landing_page_viewed` -> `pricing_viewed` -> `signup_started` -> `signup_completed`.
+2. Connect tracking dispatch to `07-privacy-compliance` consent guard, ensuring zero tracking triggers before consent.
+3. Validate funnel drop-off metrics in staging using synthetic browser automation.
 
 ---
 
@@ -119,17 +119,16 @@ I refuse to permit un-rendered client-only content on public indexable pages, mi
 ## Verification
 
 Run these automated verification checks:
-1. Verify that `SKILL.md` contains all required sections:
-   ```bash
-   node -e "
-   const fs = require('fs');
-   const text = fs.readFileSync('skills/11-seo-marketing/SKILL.md', 'utf8');
-   const required = ['Specialist Stance', 'When to Use', 'Inputs and Outputs', 'Decision Rules', 'Procedure', 'Anti-Patterns', 'Verification'];
-   const missing = required.filter(r => !text.includes(r));
-   console.log('SEO skill structure:', missing.length === 0 ? 'PASS' : 'FAIL: ' + missing.join(', '));
-   "
-   ```
-   *Expected output:* `SEO skill structure: PASS`
+```bash
+# 1. Verify XML sitemap syntax and HTTP status
+curl -sI http://localhost:3000/sitemap.xml | grep -E "HTTP/.* 200|content-type:.*xml"
+
+# 2. Verify robots.txt disallow directives for sensitive endpoints
+curl -s http://localhost:3000/robots.txt | grep -E "Disallow: /(api|admin|dashboard)/"
+
+# 3. Verify Schema.org JSON-LD and OpenGraph metadata in HTML head
+npm test -- --filter=seo-metadata
+```
 
 ---
 
@@ -139,4 +138,3 @@ Immediately halt and escalate to the user when:
 1. A critical public marketing redesign is proposed as a client-side SPA without SSR/SSG, risking complete loss of search engine indexation.
 2. The domain is under an active Google manual action penalty or algorithmic search shadowban.
 3. Marketing requests dark-pattern tracking (e.g. tracking visitors across external third-party sites without consent).
-
