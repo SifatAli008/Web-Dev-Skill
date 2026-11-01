@@ -2,15 +2,12 @@
 
 /**
  * Universal WebDev Skills Master Documentation Portal Generator
- * Extracts and compiles ALL repository resources into docs/index.html:
- * - 15 Specialist Dossiers (skills/[id]/SKILL.md)
- * - 16 Operational Playbooks (playbooks/*.md)
- * - 5 Interactive Checklists (checklists/*.md)
- * - 8 Architecture Templates & 9 JSON Schemas (templates/)
- * - 3 Golden Reference Projects & 21 Automated Tests
- * - 9 Standardized Benchmark Evaluation Results (evals/)
- *
- * Guarantees zero placeholder stubs, zero external dependencies, and 100% offline portability.
+ * Generates an uncluttered, high-readability developer documentation portal:
+ * - Collapsible sidebar accordions with instant search filter
+ * - Clean tabbed information architecture (Overview, Procedure, Verification, Schemas)
+ * - Restrained, professional typography (Inter / SF Pro, 15px, 1.7 line height)
+ * - Zero raw unrendered markdown clumping; beautiful formatted lists and code blocks
+ * - 100% self-contained vanilla HTML/CSS/JS with zero build steps or external dependencies.
  */
 
 const fs = require('fs');
@@ -23,7 +20,6 @@ const PLAYBOOKS_DIR = path.join(REPO_ROOT, 'playbooks');
 const CHECKLISTS_DIR = path.join(REPO_ROOT, 'checklists');
 const TEMPLATES_DIR = path.join(REPO_ROOT, 'templates');
 const SCHEMAS_DIR = path.join(TEMPLATES_DIR, 'schemas');
-const EVALS_RESULTS = path.join(REPO_ROOT, 'evals', 'RESULTS.md');
 const EVALS_TASKS = path.join(REPO_ROOT, 'evals', 'tasks', 'eval-tasks.json');
 
 // --- 1. EXTRACT 15 SPECIALISTS ---
@@ -323,7 +319,7 @@ function extractBenchmarks() {
   };
 }
 
-// --- 6. GOLDEN REFERENCE PROJECTS SPECIFICATIONS ---
+// --- 6. GOLDEN REFERENCE PROJECTS ---
 function getReferenceProjects() {
   return [
     {
@@ -404,7 +400,7 @@ function getReferenceProjects() {
   ];
 }
 
-console.log('Compiling complete web console into docs/index.html...');
+console.log('Compiling uncluttered, high-readability documentation portal...');
 const specialists = extractSpecialists();
 const playbooks = extractPlaybooks();
 const checklists = extractChecklists();
@@ -412,108 +408,575 @@ const templates = extractTemplatesAndSchemas();
 const benchmarks = extractBenchmarks();
 const refProjects = getReferenceProjects();
 
-// Now read base template of docs/index.html and inject rich application data & views
 let html = fs.readFileSync(DOCS_FILE, 'utf8');
 
-// 1. Inject or update CSS styles
-const customStyles = `
-    /* Universal WebDev Comprehensive Components */
+// --- OVERHAUL CSS: RESTRAINED, UNCLUTTERED, STRIPE/LINEAR CALIBER ---
+const cleanCSS = `
+    /* ==========================================================================
+       UNCLUTTERED TECHNICAL DESIGN SYSTEM (Linear / Stripe / Tailwind Standard)
+       ========================================================================== */
+    :root {
+      --bg-base: #080c14;
+      --bg-subtle: #0d121f;
+      --bg-surface: #121826;
+      --bg-card: #151d2e;
+      --bg-hover: #1c253b;
+      --bg-active: #232e48;
+      
+      --border-subtle: rgba(255, 255, 255, 0.07);
+      --border-medium: rgba(255, 255, 255, 0.12);
+      --border-focus: rgba(56, 189, 248, 0.45);
+      
+      --text-1: #f8fafc;
+      --text-2: #cbd5e1;
+      --text-3: #94a3b8;
+      --text-4: #64748b;
+      
+      --cyan: #38bdf8;
+      --emerald: #10b981;
+      --amber: #f59e0b;
+      --rose: #f43f5e;
+      --purple: #a855f7;
+
+      --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { font-size: 16px; scroll-behavior: smooth; }
+    body {
+      background-color: var(--bg-base);
+      color: var(--text-2);
+      font-family: var(--font-sans);
+      line-height: 1.7;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* Scrollbars */
+    ::-webkit-scrollbar { width: 6px; height: 6px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, 0.15); border-radius: 3px; }
+    ::-webkit-scrollbar-thumb:hover { background: rgba(255, 255, 255, 0.25); }
+
+    /* Top Bar */
+    .app-header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(8, 12, 20, 0.85);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border-subtle);
+      height: 56px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 24px;
+    }
+    .header-left { display: flex; align-items: center; gap: 14px; }
+    .brand-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; color: var(--text-1); font-weight: 700; font-size: 0.95rem; }
+    .brand-logo svg { width: 20px; height: 20px; color: var(--cyan); }
+    .brand-badge {
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      background: rgba(56, 189, 248, 0.1);
+      color: var(--cyan);
+      border: 1px solid rgba(56, 189, 248, 0.25);
+      padding: 2px 7px;
+      border-radius: 4px;
+      font-weight: 600;
+    }
+    .header-center { flex: 1; max-width: 480px; margin: 0 24px; }
+    .search-btn {
+      width: 100%;
+      background: var(--bg-subtle);
+      border: 1px solid var(--border-subtle);
+      color: var(--text-4);
+      padding: 7px 12px;
+      border-radius: 6px;
+      font-size: 0.82rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+    .search-btn:hover { border-color: var(--border-medium); color: var(--text-3); }
+    .search-kbd {
+      font-family: var(--font-mono);
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--border-subtle);
+      padding: 1px 6px;
+      border-radius: 3px;
+      font-size: 0.68rem;
+    }
+    .header-right { display: flex; align-items: center; gap: 12px; }
+    .header-gh-btn {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--bg-subtle);
+      border: 1px solid var(--border-subtle);
+      color: var(--text-3);
+      padding: 6px 12px;
+      border-radius: 6px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.15s;
+    }
+    .header-gh-btn:hover { background: var(--bg-hover); color: #fff; border-color: var(--border-medium); }
+
+    /* App Layout */
+    .app-body {
+      display: grid;
+      grid-template-columns: 280px minmax(0, 1fr) 240px;
+      max-width: 1600px;
+      margin: 0 auto;
+      min-height: calc(100vh - 56px);
+    }
+    @media (max-width: 1280px) {
+      .app-body { grid-template-columns: 270px minmax(0, 1fr); }
+      .app-toc { display: none; }
+    }
+    @media (max-width: 860px) {
+      .app-body { grid-template-columns: 1fr; }
+      .app-nav { display: none; }
+    }
+
+    /* Left Navigation Accordion */
+    .app-nav {
+      background: var(--bg-subtle);
+      border-right: 1px solid var(--border-subtle);
+      padding: 20px 14px 40px;
+      height: calc(100vh - 56px);
+      position: sticky;
+      top: 56px;
+      overflow-y: auto;
+    }
+    .sidebar-search-wrap {
+      margin-bottom: 16px;
+      padding: 0 4px;
+    }
+    .sidebar-search-input {
+      width: 100%;
+      background: var(--bg-base);
+      border: 1px solid var(--border-subtle);
+      color: var(--text-2);
+      padding: 7px 10px;
+      border-radius: 6px;
+      font-size: 0.8rem;
+      outline: none;
+      transition: border-color 0.15s;
+    }
+    .sidebar-search-input:focus { border-color: var(--cyan); }
+
+    .nav-group {
+      margin-bottom: 12px;
+    }
+    .nav-group-header {
+      width: 100%;
+      text-align: left;
+      background: none;
+      border: none;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 7px 8px;
+      border-radius: 6px;
+      cursor: pointer;
+      color: var(--text-3);
+      font-size: 0.76rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      transition: color 0.15s, background 0.15s;
+    }
+    .nav-group-header:hover { color: var(--text-1); background: rgba(255,255,255,0.02); }
+    .nav-group-header-left { display: flex; align-items: center; gap: 8px; }
+    .nav-group-chevron { font-size: 9px; transition: transform 0.2s ease; display: inline-block; color: var(--text-4); }
+    .nav-group.collapsed .nav-group-chevron { transform: rotate(-90deg); }
+    .nav-group-count {
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      color: var(--text-4);
+      background: rgba(255, 255, 255, 0.04);
+      padding: 1px 6px;
+      border-radius: 4px;
+    }
+    .nav-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      margin-top: 2px;
+      padding-left: 10px;
+      border-left: 1px solid rgba(255,255,255,0.04);
+      margin-left: 12px;
+    }
+    .nav-group.collapsed .nav-list { display: none; }
+    .nav-item-btn {
+      width: 100%;
+      text-align: left;
+      background: none;
+      border: none;
+      padding: 6px 10px;
+      border-radius: 6px;
+      color: var(--text-3);
+      font-size: 0.83rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: all 0.15s ease;
+      line-height: 1.4;
+      text-decoration: none;
+    }
+    .nav-item-btn:hover { color: var(--text-1); background: var(--bg-hover); }
+    .nav-item-btn.active { color: #fff; background: var(--bg-active); font-weight: 600; border-left: 2px solid var(--cyan); border-radius: 0 6px 6px 0; }
+    .nav-item-num { font-family: var(--font-mono); font-size: 0.72rem; color: var(--cyan); margin-right: 6px; }
+
+    /* Center Main Content */
+    .app-main {
+      padding: 40px 52px 100px;
+      max-width: 880px;
+      margin: 0 auto;
+      width: 100%;
+    }
+    @media (max-width: 700px) {
+      .app-main { padding: 24px 18px 80px; }
+    }
+
+    .content-header { margin-bottom: 28px; }
+    .doc-cat {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      color: var(--cyan);
+      margin-bottom: 6px;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      font-weight: 600;
+    }
+    .doc-heading {
+      font-size: 2rem;
+      font-weight: 800;
+      letter-spacing: -0.025em;
+      color: var(--text-1);
+      line-height: 1.25;
+      margin-bottom: 12px;
+    }
+    .doc-intro {
+      font-size: 1.05rem;
+      color: var(--text-3);
+      line-height: 1.6;
+    }
+
+    /* Page Tabs Bar (Clean Segmented Architecture) */
+    .page-tabs-bar {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      border-bottom: 1px solid var(--border-medium);
+      margin-bottom: 28px;
+      overflow-x: auto;
+      padding-bottom: 1px;
+    }
+    .page-tab-btn {
+      background: none;
+      border: none;
+      color: var(--text-3);
+      padding: 9px 16px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      cursor: pointer;
+      position: relative;
+      white-space: nowrap;
+      transition: color 0.15s;
+    }
+    .page-tab-btn:hover { color: var(--text-1); }
+    .page-tab-btn.active {
+      color: var(--cyan);
+    }
+    .page-tab-btn.active::after {
+      content: "";
+      position: absolute;
+      bottom: -1px;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: var(--cyan);
+    }
+    .tab-pane { display: none; }
+    .tab-pane.active { display: block; animation: fadeIn 0.2s ease-out; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: translateY(0); } }
+
+    /* Clean Card Layouts */
+    .clean-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: 8px;
+      padding: 22px 24px;
+      margin-bottom: 18px;
+      transition: border-color 0.15s ease;
+    }
+    .clean-card:hover { border-color: var(--border-medium); }
+    .clean-card-title {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--text-1);
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .clean-card-body {
+      font-size: 0.92rem;
+      color: var(--text-2);
+      line-height: 1.68;
+    }
+
+    .doc-block { margin-bottom: 32px; }
+    .doc-subheading {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--text-1);
+      letter-spacing: -0.015em;
+      margin-bottom: 12px;
+    }
+    .doc-paragraph {
+      font-size: 0.94rem;
+      color: var(--text-2);
+      line-height: 1.7;
+      margin-bottom: 14px;
+    }
+    .doc-p { margin-bottom: 10px; line-height: 1.68; }
+    .doc-list { margin-left: 20px; margin-bottom: 12px; line-height: 1.7; }
+    .doc-list li { margin-bottom: 5px; }
+    .inline-code {
+      font-family: var(--font-mono);
+      font-size: 0.83rem;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      color: #e2e8f0;
+      padding: 1px 6px;
+      border-radius: 4px;
+    }
+
+    /* Stance Callouts */
+    .stance-box {
+      background: rgba(56, 189, 248, 0.04);
+      border-left: 3px solid var(--cyan);
+      border-radius: 0 8px 8px 0;
+      padding: 18px 22px;
+      margin: 16px 0 24px;
+    }
+    .stance-box.alert-veto { background: rgba(244, 63, 94, 0.04); border-left-color: var(--rose); }
+    .stance-box.alert-ship { background: rgba(168, 85, 247, 0.04); border-left-color: var(--purple); }
+    .stance-header { font-size: 0.78rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 6px; color: var(--text-1); }
+    .stance-text { font-size: 0.94rem; line-height: 1.65; color: var(--text-1); font-style: italic; }
+
+    /* 2-Column Responsive Routing */
     .routing-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 16px 0 24px; }
-    @media (max-width: 860px) { .routing-grid { grid-template-columns: 1fr; } }
-    .routing-card { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 18px; }
-    .routing-title { font-weight: 700; font-size: 12px; text-transform: uppercase; letter-spacing: 0.8px; margin-bottom: 12px; display: flex; align-items: center; gap: 8px; }
-    .routing-use .routing-title { color: #10b981; }
-    .routing-avoid .routing-title { color: #f43f5e; }
-    .routing-list { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 10px; font-size: 13px; color: var(--text-2); }
-    .routing-item { display: flex; align-items: flex-start; gap: 10px; line-height: 1.5; }
-    .routing-icon { flex-shrink: 0; margin-top: 1px; font-weight: 700; }
-    .routing-use .routing-icon { color: #10b981; }
-    .routing-avoid .routing-icon { color: #f43f5e; }
+    @media (max-width: 760px) { .routing-grid { grid-template-columns: 1fr; } }
+    .routing-card { background: var(--bg-surface); border: 1px solid var(--border-subtle); border-radius: 8px; padding: 18px; }
+    .routing-card-header { font-size: 0.78rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 12px; display: flex; align-items: center; gap: 8px; }
+    .routing-card-use .routing-card-header { color: var(--emerald); }
+    .routing-card-avoid .routing-card-header { color: var(--rose); }
+    .routing-items-list { list-style: none; display: flex; flex-direction: column; gap: 9px; font-size: 0.86rem; color: var(--text-2); }
+    .routing-item { display: flex; align-items: flex-start; gap: 8px; line-height: 1.5; }
 
-    .rule-card { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 16px 20px; margin-bottom: 14px; transition: border-color 0.15s ease; }
-    .rule-card:hover { border-color: var(--border-focus); }
-    .rule-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px; gap: 12px; flex-wrap: wrap; }
-    .rule-title { font-weight: 600; font-size: 14px; color: var(--text-1); display: flex; align-items: center; gap: 8px; }
-    .rule-body { font-size: 13px; color: var(--text-2); line-height: 1.6; }
+    /* Step Cards */
+    .step-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: 8px;
+      padding: 20px 22px;
+      margin-bottom: 14px;
+    }
+    .step-card-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; gap: 8px; flex-wrap: wrap; }
+    .step-card-title { font-size: 0.95rem; font-weight: 700; color: var(--text-1); }
+    .step-tiers-group { display: flex; gap: 5px; }
 
-    .step-card { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 18px 20px; margin-bottom: 14px; }
-    .step-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; flex-wrap: wrap; gap: 8px; }
-    .step-title { font-weight: 600; font-size: 14px; color: var(--text-1); }
-    .step-tiers { display: flex; gap: 6px; }
-    .tier-pill { font-family: var(--font-mono); font-size: 10px; font-weight: 700; padding: 2px 7px; border-radius: 4px; letter-spacing: 0.5px; }
-    .tier-pill-mvp { background: rgba(16, 185, 129, 0.12); color: #10b981; border: 1px solid rgba(16, 185, 129, 0.25); }
-    .tier-pill-prod { background: rgba(0, 240, 255, 0.12); color: var(--cyan); border: 1px solid rgba(0, 240, 255, 0.25); }
+    /* Tier Pills */
+    .tier-pill {
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      font-weight: 700;
+      padding: 2px 7px;
+      border-radius: 4px;
+      letter-spacing: 0.04em;
+    }
+    .tier-pill-mvp { background: rgba(16, 185, 129, 0.12); color: var(--emerald); border: 1px solid rgba(16, 185, 129, 0.25); }
+    .tier-pill-prod { background: rgba(56, 189, 248, 0.12); color: var(--cyan); border: 1px solid rgba(56, 189, 248, 0.25); }
     .tier-pill-scale { background: rgba(168, 85, 247, 0.12); color: var(--purple); border: 1px solid rgba(168, 85, 247, 0.25); }
-    .tier-pill-all { background: rgba(245, 158, 11, 0.12); color: #f59e0b; border: 1px solid rgba(245, 158, 11, 0.25); }
-    .step-body { font-size: 13px; color: var(--text-2); line-height: 1.65; white-space: pre-line; }
+    .tier-pill-all { background: rgba(245, 158, 11, 0.12); color: var(--amber); border: 1px solid rgba(245, 158, 11, 0.25); }
 
-    .anti-pattern-box { background: rgba(244, 63, 94, 0.04); border: 1px solid rgba(244, 63, 94, 0.2); border-radius: 8px; padding: 18px 20px; margin-bottom: 14px; }
-    .anti-pattern-title { font-weight: 700; font-size: 12px; text-transform: uppercase; letter-spacing: 0.8px; color: #f43f5e; margin-bottom: 12px; display: flex; align-items: center; gap: 8px; }
-    .anti-pattern-list { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 10px; font-size: 13px; color: var(--text-2); }
-    .anti-pattern-item { display: flex; align-items: flex-start; gap: 10px; line-height: 1.5; }
-    .anti-pattern-icon { color: #f43f5e; font-weight: 700; flex-shrink: 0; margin-top: 1px; }
+    /* Code Snippets */
+    .code-snippet-box {
+      background: #090e17;
+      border: 1px solid var(--border-subtle);
+      border-radius: 7px;
+      overflow: hidden;
+      margin: 12px 0 18px;
+    }
+    .snippet-top {
+      background: rgba(255, 255, 255, 0.02);
+      border-bottom: 1px solid var(--border-subtle);
+      padding: 7px 14px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      color: var(--text-4);
+    }
+    .snippet-copy-btn {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--border-subtle);
+      color: var(--text-3);
+      padding: 3px 9px;
+      border-radius: 4px;
+      font-size: 0.72rem;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    .snippet-copy-btn:hover { background: rgba(255, 255, 255, 0.1); color: #fff; }
+    .code-snippet-box pre {
+      padding: 14px 18px;
+      font-family: var(--font-mono);
+      font-size: 0.82rem;
+      color: #e2e8f0;
+      overflow-x: auto;
+      line-height: 1.6;
+    }
 
-    .escalate-box { background: rgba(245, 158, 11, 0.05); border: 1px solid rgba(245, 158, 11, 0.25); border-radius: 8px; padding: 18px 20px; margin-bottom: 14px; }
-    .escalate-title { font-weight: 700; font-size: 12px; text-transform: uppercase; letter-spacing: 0.8px; color: #f59e0b; margin-bottom: 12px; display: flex; align-items: center; gap: 8px; }
-    .escalate-list { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 10px; font-size: 13px; color: var(--text-2); }
-    .escalate-item { display: flex; align-items: flex-start; gap: 10px; line-height: 1.5; }
-    .escalate-icon { color: #f59e0b; font-weight: 700; flex-shrink: 0; margin-top: 1px; }
-
-    .hud-action-btn { background: rgba(0, 240, 255, 0.08); border: 1px solid rgba(0, 240, 255, 0.3); color: var(--cyan); padding: 6px 14px; border-radius: 6px; font-size: 12px; font-weight: 600; cursor: pointer; transition: all 0.2s ease; display: inline-flex; align-items: center; gap: 6px; }
-    .hud-action-btn:hover { background: rgba(0, 240, 255, 0.18); border-color: var(--cyan); box-shadow: 0 0 12px rgba(0, 240, 255, 0.25); }
-    .hud-btn-amber { background: rgba(245, 158, 11, 0.08); border-color: rgba(245, 158, 11, 0.3); color: #f59e0b; }
-    .hud-btn-amber:hover { background: rgba(245, 158, 11, 0.18); border-color: #f59e0b; box-shadow: 0 0 12px rgba(245, 158, 11, 0.25); }
-    .hud-btn-purple { background: rgba(168, 85, 247, 0.08); border-color: rgba(168, 85, 247, 0.3); color: var(--purple); }
-    .hud-btn-purple:hover { background: rgba(168, 85, 247, 0.18); border-color: var(--purple); box-shadow: 0 0 12px rgba(168, 85, 247, 0.25); }
-
-    /* Interactive Checklist Components */
-    .checklist-progress-wrap { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 16px 20px; margin-bottom: 20px; }
-    .checklist-progress-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px; font-size: 13px; }
-    .checklist-progress-bar { width: 100%; height: 8px; background: rgba(255,255,255,0.06); border-radius: 4px; overflow: hidden; }
-    .checklist-progress-fill { height: 100%; background: linear-gradient(90deg, #10b981, #00f0ff); transition: width 0.3s ease; }
-    .checklist-cat-card { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 18px 20px; margin-bottom: 16px; }
-    .checklist-cat-header { font-weight: 700; font-size: 14px; color: var(--text-1); margin-bottom: 14px; display: flex; align-items: center; justify-content: space-between; }
-    .checklist-item-row { display: flex; align-items: flex-start; gap: 12px; padding: 8px 0; border-bottom: 1px solid rgba(255,255,255,0.03); cursor: pointer; }
+    /* Interactive Checklists */
+    .checklist-progress-wrap { background: var(--bg-surface); border: 1px solid var(--border-subtle); border-radius: 8px; padding: 18px 22px; margin-bottom: 22px; }
+    .checklist-progress-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px; font-size: 0.88rem; }
+    .checklist-progress-bar { width: 100%; height: 7px; background: rgba(255, 255, 255, 0.06); border-radius: 4px; overflow: hidden; }
+    .checklist-progress-fill { height: 100%; background: linear-gradient(90deg, #10b981, #38bdf8); transition: width 0.3s ease; }
+    .checklist-cat-card { background: var(--bg-surface); border: 1px solid var(--border-subtle); border-radius: 8px; padding: 18px 22px; margin-bottom: 16px; }
+    .checklist-cat-header { font-size: 0.92rem; font-weight: 700; color: var(--text-1); margin-bottom: 14px; display: flex; align-items: center; justify-content: space-between; }
+    .checklist-item-row { display: flex; align-items: flex-start; gap: 12px; padding: 9px 0; border-bottom: 1px solid rgba(255,255,255,0.03); cursor: pointer; }
     .checklist-item-row:last-child { border-bottom: none; }
     .check-custom { width: 18px; height: 18px; border-radius: 4px; border: 1.5px solid var(--text-4); display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 2px; transition: all 0.15s ease; cursor: pointer; }
     .check-custom.checked { background: #10b981; border-color: #10b981; color: #000; font-weight: 700; font-size: 11px; }
-    .checklist-item-text { font-size: 13px; color: var(--text-2); line-height: 1.5; }
+    .checklist-item-text { font-size: 0.9rem; color: var(--text-2); line-height: 1.5; }
     .checklist-item-text.done { text-decoration: line-through; opacity: 0.6; }
 
     /* Interactive ADR Builder & Forms */
     .adr-form-group { margin-bottom: 16px; }
-    .adr-label { display: block; font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; color: var(--text-3); margin-bottom: 6px; }
-    .adr-input, .adr-textarea, .adr-select { width: 100%; background: var(--bg-subtle); border: 1px solid var(--border); border-radius: 6px; padding: 10px 14px; color: var(--text-1); font-family: inherit; font-size: 13px; outline: none; transition: border-color 0.15s; }
+    .adr-label { display: block; font-size: 0.76rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: var(--text-3); margin-bottom: 6px; }
+    .adr-input, .adr-textarea, .adr-select { width: 100%; background: var(--bg-base); border: 1px solid var(--border-subtle); border-radius: 6px; padding: 9px 12px; color: var(--text-1); font-family: inherit; font-size: 0.88rem; outline: none; transition: border-color 0.15s; }
     .adr-input:focus, .adr-textarea:focus, .adr-select:focus { border-color: var(--cyan); }
     .adr-textarea { min-height: 80px; resize: vertical; line-height: 1.5; }
 
     /* Benchmark Scorecards & Matrix */
-    .eval-score-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 14px; margin: 16px 0 24px; }
-    .eval-card { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 16px; }
-    .eval-card-label { font-size: 11px; font-weight: 700; text-transform: uppercase; color: var(--text-4); margin-bottom: 6px; }
-    .eval-card-val { font-size: 24px; font-weight: 800; font-family: var(--font-mono); color: var(--cyan); }
-    .eval-card-sub { font-size: 12px; color: var(--text-3); margin-top: 4px; }
+    .eval-score-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 14px; margin: 16px 0 24px; }
+    .eval-card { background: var(--bg-surface); border: 1px solid var(--border-subtle); border-radius: 8px; padding: 18px; }
+    .eval-card-label { font-size: 0.72rem; font-weight: 700; text-transform: uppercase; color: var(--text-4); margin-bottom: 6px; }
+    .eval-card-val { font-size: 1.6rem; font-weight: 800; font-family: var(--font-mono); color: var(--cyan); }
+    .eval-card-sub { font-size: 0.78rem; color: var(--text-3); margin-top: 4px; }
 
-    /* Reference Project Route Tables */
-    .route-table { width: 100%; border-collapse: collapse; margin: 14px 0; font-size: 13px; }
-    .route-table th { text-align: left; padding: 10px 14px; border-bottom: 1px solid var(--border); font-size: 12px; text-transform: uppercase; color: var(--text-4); }
-    .route-table td { padding: 10px 14px; border-bottom: 1px solid rgba(255,255,255,0.04); vertical-align: top; }
-    .badge-method { font-family: var(--font-mono); font-size: 11px; font-weight: 700; padding: 2px 6px; border-radius: 4px; }
+    /* Route Tables */
+    .spec-table-box { width: 100%; overflow-x: auto; margin: 14px 0; border: 1px solid var(--border-subtle); border-radius: 7px; }
+    .spec-table-box table { width: 100%; border-collapse: collapse; font-size: 0.86rem; text-align: left; }
+    .spec-table-box th { background: rgba(255,255,255,0.02); padding: 9px 14px; color: var(--text-3); font-size: 0.74rem; text-transform: uppercase; letter-spacing: 0.05em; border-bottom: 1px solid var(--border-subtle); }
+    .spec-table-box td { padding: 10px 14px; border-bottom: 1px solid rgba(255,255,255,0.03); vertical-align: top; }
+    .badge-method { font-family: var(--font-mono); font-size: 0.72rem; font-weight: 700; padding: 2px 6px; border-radius: 4px; }
     .method-get { background: rgba(56, 189, 248, 0.15); color: #38bdf8; }
     .method-post { background: rgba(16, 185, 129, 0.15); color: #10b981; }
-  `;
 
-// Inject custom styles if not already present
-if (!html.includes('/* Universal WebDev Comprehensive Components */')) {
-  html = html.replace('</style>', `${customStyles}\n  </style>`);
+    /* Right TOC */
+    .app-toc {
+      padding: 24px 18px 40px;
+      height: calc(100vh - 56px);
+      position: sticky;
+      top: 56px;
+      overflow-y: auto;
+    }
+    .toc-label {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--text-4);
+      margin-bottom: 12px;
+    }
+    .toc-links { list-style: none; display: flex; flex-direction: column; gap: 7px; border-left: 1px solid var(--border-subtle); padding-left: 10px; }
+    .toc-a { color: var(--text-4); font-size: 0.8rem; text-decoration: none; transition: color 0.15s; line-height: 1.4; display: block; }
+    .toc-a:hover { color: var(--text-2); }
+    .toc-a.active { color: var(--cyan); font-weight: 600; }
+
+    /* Action Buttons */
+    .hud-action-btn {
+      background: rgba(56, 189, 248, 0.08);
+      border: 1px solid rgba(56, 189, 248, 0.3);
+      color: var(--cyan);
+      padding: 5px 12px;
+      border-radius: 6px;
+      font-size: 0.78rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.15s;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+    }
+    .hud-action-btn:hover { background: rgba(56, 189, 248, 0.18); border-color: var(--cyan); }
+
+    /* Command Palette */
+    .palette-backdrop { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.65); backdrop-filter: blur(4px); z-index: 1000; align-items: flex-start; justify-content: center; padding-top: 120px; }
+    .palette-window { background: var(--bg-surface); border: 1px solid var(--border-medium); border-radius: 10px; width: 100%; max-width: 580px; box-shadow: 0 20px 40px rgba(0,0,0,0.5); overflow: hidden; }
+    .palette-search-row { display: flex; align-items: center; gap: 10px; padding: 12px 16px; border-bottom: 1px solid var(--border-subtle); }
+    .palette-search-input { flex: 1; background: none; border: none; outline: none; font-size: 0.95rem; color: #fff; font-family: inherit; }
+    .palette-results-list { list-style: none; max-height: 340px; overflow-y: auto; padding: 6px 0; }
+    .palette-result-item { display: flex; align-items: center; justify-content: space-between; padding: 9px 16px; cursor: pointer; transition: background 0.1s; }
+    .palette-result-item:hover { background: var(--bg-hover); }
+    .palette-res-type { font-family: var(--font-mono); font-size: 0.68rem; color: var(--text-4); text-transform: uppercase; width: 70px; }
+    .palette-res-title { flex: 1; font-size: 0.88rem; color: var(--text-2); font-weight: 500; }
+    .palette-res-tier { font-family: var(--font-mono); font-size: 0.7rem; color: var(--cyan); }
+
+    /* Agent Telemetry Capsule & Drawer */
+    .agent-hud { position: fixed; bottom: 20px; right: 20px; z-index: 999; }
+    .agent-trigger-capsule { background: var(--bg-surface); border: 1px solid var(--border-medium); padding: 6px 14px 6px 8px; border-radius: 30px; display: flex; align-items: center; gap: 10px; cursor: pointer; box-shadow: 0 8px 24px rgba(0,0,0,0.4); transition: all 0.2s; }
+    .agent-trigger-capsule:hover { border-color: var(--cyan); transform: translateY(-2px); }
+    .agent-avatar-wrap { width: 34px; height: 34px; display: flex; align-items: center; justify-content: center; }
+    .agent-meta { display: flex; flex-direction: column; }
+    .agent-status-label { font-size: 0.65rem; font-family: var(--font-mono); color: var(--text-4); text-transform: uppercase; }
+    .agent-name { font-size: 0.8rem; font-weight: 700; color: #fff; }
+    .agent-drawer { display: none; position: absolute; bottom: 52px; right: 0; width: 380px; background: var(--bg-surface); border: 1px solid var(--border-medium); border-radius: 10px; overflow: hidden; box-shadow: 0 20px 40px rgba(0,0,0,0.6); }
+    .drawer-top { background: rgba(255,255,255,0.02); border-bottom: 1px solid var(--border-subtle); padding: 10px 14px; display: flex; align-items: center; justify-content: space-between; font-size: 0.74rem; font-weight: 700; letter-spacing: 0.05em; color: var(--text-3); font-family: var(--font-mono); }
+    .drawer-terminal { background: #060910; height: 200px; overflow-y: auto; padding: 10px 12px; font-family: var(--font-mono); font-size: 0.72rem; line-height: 1.5; color: #cbd5e1; }
+    .drawer-missions { background: rgba(0,0,0,0.2); border-top: 1px solid var(--border-subtle); padding: 10px 12px; display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
+    .btn-mission { background: var(--bg-hover); border: 1px solid var(--border-subtle); color: var(--text-3); padding: 6px 8px; border-radius: 5px; font-size: 0.72rem; font-weight: 600; cursor: pointer; text-align: left; transition: all 0.15s; }
+    .btn-mission:hover { background: var(--bg-active); color: #fff; border-color: var(--cyan); }
+`;
+
+// Replace entire style block in docs/index.html
+const styleRegex = /<style>[\s\S]*?<\/style>/;
+if (styleRegex.test(html)) {
+  html = html.replace(styleRegex, `<style>${cleanCSS}\n  </style>`);
 }
 
-// 2. Update Sidebar Markup with Checklists, Templates, and Evals
-const completeNavMarkup = `
+// --- OVERHAUL SIDEBAR WITH COLLAPSIBLE ACCORDIONS & SEARCH ---
+const accordionSidebarMarkup = `
     <!-- Left Navigation -->
     <nav class="app-nav" aria-label="Documentation Categories">
-      <div class="nav-group">
-        <div class="nav-label">Getting Started</div>
+      <div class="sidebar-search-wrap">
+        <input type="text" class="sidebar-search-input" placeholder="Search navigation... (/)" id="sidebarSearch" oninput="filterSidebar(this.value)">
+      </div>
+
+      <div class="nav-group" id="grp-getting-started">
+        <button class="nav-group-header" onclick="toggleNavGroup('grp-getting-started')">
+          <div class="nav-group-header-left">
+            <span class="nav-group-chevron">▼</span>
+            <span>Getting Started</span>
+          </div>
+          <span class="nav-group-count">3</span>
+        </button>
         <ul class="nav-list">
           <li><button class="nav-item-btn active" onclick="loadContent('overview', this)">Overview</button></li>
           <li><button class="nav-item-btn" onclick="loadContent('quickstart', this)">5-Second Quickstart</button></li>
@@ -521,8 +984,14 @@ const completeNavMarkup = `
         </ul>
       </div>
 
-      <div class="nav-group">
-        <div class="nav-label">Protocol & Gates</div>
+      <div class="nav-group" id="grp-protocol">
+        <button class="nav-group-header" onclick="toggleNavGroup('grp-protocol')">
+          <div class="nav-group-header-left">
+            <span class="nav-group-chevron">▼</span>
+            <span>Protocol & Invariants</span>
+          </div>
+          <span class="nav-group-count">3</span>
+        </button>
         <ul class="nav-list">
           <li><button class="nav-item-btn" onclick="loadContent('protocol', this)">Team Stances & Conflicts</button></li>
           <li><button class="nav-item-btn" onclick="loadContent('vetos', this)">Hard Vetos & Binding Gates</button></li>
@@ -530,36 +999,66 @@ const completeNavMarkup = `
         </ul>
       </div>
 
-      <div class="nav-group">
-        <div class="nav-label">15 Specialist Skills</div>
+      <div class="nav-group" id="grp-specialists">
+        <button class="nav-group-header" onclick="toggleNavGroup('grp-specialists')">
+          <div class="nav-group-header-left">
+            <span class="nav-group-chevron">▼</span>
+            <span>15 Specialist Skills</span>
+          </div>
+          <span class="nav-group-count">15</span>
+        </button>
         <ul class="nav-list" id="navSpecialistsList">
           <!-- Populated by JS -->
         </ul>
       </div>
 
-      <div class="nav-group">
-        <div class="nav-label">16 Operational Playbooks</div>
+      <div class="nav-group collapsed" id="grp-playbooks">
+        <button class="nav-group-header" onclick="toggleNavGroup('grp-playbooks')">
+          <div class="nav-group-header-left">
+            <span class="nav-group-chevron">▼</span>
+            <span>16 Operational Playbooks</span>
+          </div>
+          <span class="nav-group-count">16</span>
+        </button>
         <ul class="nav-list" id="navPlaybooksList">
           <!-- Populated by JS -->
         </ul>
       </div>
 
-      <div class="nav-group">
-        <div class="nav-label">5 Interactive Checklists</div>
+      <div class="nav-group collapsed" id="grp-checklists">
+        <button class="nav-group-header" onclick="toggleNavGroup('grp-checklists')">
+          <div class="nav-group-header-left">
+            <span class="nav-group-chevron">▼</span>
+            <span>5 Interactive Checklists</span>
+          </div>
+          <span class="nav-group-count">5</span>
+        </button>
         <ul class="nav-list" id="navChecklistsList">
           <!-- Populated by JS -->
         </ul>
       </div>
 
-      <div class="nav-group">
-        <div class="nav-label">Templates & ADR Builder</div>
+      <div class="nav-group collapsed" id="grp-templates">
+        <button class="nav-group-header" onclick="toggleNavGroup('grp-templates')">
+          <div class="nav-group-header-left">
+            <span class="nav-group-chevron">▼</span>
+            <span>Templates & ADR Builder</span>
+          </div>
+          <span class="nav-group-count">9</span>
+        </button>
         <ul class="nav-list" id="navTemplatesList">
           <!-- Populated by JS -->
         </ul>
       </div>
 
-      <div class="nav-group">
-        <div class="nav-label">Evaluations & Proof</div>
+      <div class="nav-group" id="grp-evals">
+        <button class="nav-group-header" onclick="toggleNavGroup('grp-evals')">
+          <div class="nav-group-header-left">
+            <span class="nav-group-chevron">▼</span>
+            <span>Evaluations & Proof</span>
+          </div>
+          <span class="nav-group-count">3</span>
+        </button>
         <ul class="nav-list">
           <li><button class="nav-item-btn" onclick="loadContent('benchmarks', this)">Empirical Benchmark Dashboard</button></li>
           <li><button class="nav-item-btn" onclick="loadContent('refprojects', this)">3 Golden Reference Projects</button></li>
@@ -571,103 +1070,141 @@ const completeNavMarkup = `
 
 const navRegex = new RegExp('<nav class="app-nav"[\\s\\S]*?<\\/nav>');
 if (navRegex.test(html)) {
-  html = html.replace(navRegex, completeNavMarkup.trim());
+  html = html.replace(navRegex, accordionSidebarMarkup.trim());
 }
 
-// 3. Inject Master Datasets into Script
-const dataScriptPayload = `
+// --- OVERHAUL JS ROUTER & TABBED RENDERERS ---
+const cleanAppScript = `
     const SPECIALISTS = ${JSON.stringify(specialists, null, 2)};
     const PLAYBOOKS = ${JSON.stringify(playbooks, null, 2)};
     const CHECKLISTS = ${JSON.stringify(checklists, null, 2)};
     const TEMPLATES = ${JSON.stringify(templates, null, 2)};
     const BENCHMARKS = ${JSON.stringify(benchmarks, null, 2)};
     const REFERENCE_PROJECTS = ${JSON.stringify(refProjects, null, 2)};
-`;
 
-// Replace from `const SPECIALISTS = ` up to `function renderNav()`
-const dataReplaceRegex = /const SPECIALISTS = \[[\s\S]*?(?=function renderNav\(\))/;
-if (dataReplaceRegex.test(html)) {
-  html = html.replace(dataReplaceRegex, `${dataScriptPayload.trim()}\n\n    `);
-}
+    let currentDocTab = 'overview';
 
-// 4. Inject Full Navigation Renderer
-const navRendererFn = `
+    // Helper: Formats plain markdown with bold, italic, code, and bullet lists
+    function formatProse(text) {
+      if (!text) return '';
+      let escaped = text.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+        .replace(/\\*\\*([^\\*]+)\\*\\*/g, '<strong>$1</strong>')
+        .replace(/\\*([^\\*]+)\\*/g, '<em>$1</em>')
+        .replace(/\`([^\`]+)\`/g, '<code class=\"inline-code\">$1</code>');
+
+      const lines = escaped.split(/\\r?\\n/);
+      let out = [];
+      let inList = false;
+
+      for (let l of lines) {
+        const trimmed = l.trim();
+        if (trimmed.startsWith('- ') || trimmed.startsWith('* ')) {
+          if (!inList) { out.push('<ul class=\"doc-list\">'); inList = true; }
+          out.push(\`<li>\${trimmed.slice(2)}</li>\`);
+        } else {
+          if (inList) { out.push('</ul>'); inList = false; }
+          if (trimmed.length > 0) {
+            out.push(\`<p class=\"doc-p\">\${trimmed}</p>\`);
+          }
+        }
+      }
+      if (inList) out.push('</ul>');
+      return out.join('\\n');
+    }
+
+    function toggleNavGroup(id) {
+      const el = document.getElementById(id);
+      if (el) el.classList.toggle('collapsed');
+    }
+
+    function filterSidebar(query) {
+      const q = query.toLowerCase().trim();
+      const items = document.querySelectorAll('.app-nav .nav-list li');
+      const groups = document.querySelectorAll('.app-nav .nav-group');
+
+      if (!q) {
+        items.forEach(i => i.style.display = '');
+        return;
+      }
+
+      groups.forEach(g => g.classList.remove('collapsed'));
+      items.forEach(item => {
+        const text = item.innerText.toLowerCase();
+        item.style.display = text.includes(q) ? '' : 'none';
+      });
+    }
+
     function renderNav() {
       // 1. Specialists
       const specContainer = document.getElementById('navSpecialistsList');
       if (specContainer) {
-        specContainer.innerHTML = SPECIALISTS.map(s => {
-          let chip = 'pill-advise';
-          if (s.authType === 'veto') chip = 'pill-veto';
-          else if (s.authType === 'gate') chip = 'pill-gate';
-          else if (s.authType === 'ship') chip = 'pill-ship';
-
-          return \`<li>
+        specContainer.innerHTML = SPECIALISTS.map(s => \`
+          <li>
             <button class="nav-item-btn" onclick="loadContent('spec-\${s.id}', this)">
               <span class="nav-item-num">\${s.num}</span>
-              <span>\${s.name}</span>
-              <span class="auth-pill \${chip}">\${s.auth.split(' ')[0]}</span>
+              <span>\${s.name.split('/')[0].trim()}</span>
             </button>
-          </li>\`;
-        }).join('');
+          </li>
+        \`).join('');
       }
 
-      // 2. Playbooks (All 16)
+      // 2. Playbooks
       const pbContainer = document.getElementById('navPlaybooksList');
       if (pbContainer) {
         pbContainer.innerHTML = PLAYBOOKS.map(pb => \`
           <li>
             <button class="nav-item-btn" onclick="loadContent('pb-\${pb.slug}', this)">
-              <span style="font-family: var(--font-mono); font-size: 10px; color: var(--cyan); margin-right: 6px;">[\${pb.tier}]</span>
               <span>\${pb.slug}</span>
             </button>
           </li>
         \`).join('');
       }
 
-      // 3. Checklists (5)
+      // 3. Checklists
       const clContainer = document.getElementById('navChecklistsList');
       if (clContainer) {
         clContainer.innerHTML = CHECKLISTS.map(cl => \`
           <li>
             <button class="nav-item-btn" onclick="loadContent('checklist-\${cl.id}', this)">
               <span>\${cl.title.replace(' Checklist', '')}</span>
-              <span class="auth-pill pill-advise" style="margin-left:auto;">\${cl.totalItems}</span>
             </button>
           </li>
         \`).join('');
       }
 
-      // 4. Templates & ADR Builder
+      // 4. Templates
       const tmplContainer = document.getElementById('navTemplatesList');
       if (tmplContainer) {
-        let tmplHtml = \`
+        let h = \`
           <li>
             <button class="nav-item-btn" onclick="loadContent('adr-builder', this)">
-              <span style="color: var(--cyan); font-weight: 700; margin-right: 4px;">⚡</span>
+              <span style="color:var(--cyan); font-weight:700; margin-right:4px;">⚡</span>
               <span>Interactive ADR Builder</span>
             </button>
           </li>
         \`;
-        tmplHtml += TEMPLATES.map(t => \`
+        h += TEMPLATES.map(t => \`
           <li>
             <button class="nav-item-btn" onclick="loadContent('template-\${t.id}', this)">
               <span>\${t.title}</span>
             </button>
           </li>
         \`).join('');
-        tmplContainer.innerHTML = tmplHtml;
+        tmplContainer.innerHTML = h;
       }
     }
-`;
 
-const renderNavRegex = /function renderNav\(\)\s*\{[\s\S]*?(?=function loadContent)/;
-if (renderNavRegex.test(html)) {
-  html = html.replace(renderNavRegex, `${navRendererFn.trim()}\n\n    `);
-}
+    function setDocTab(tabName) {
+      currentDocTab = tabName;
+      document.querySelectorAll('.page-tab-btn').forEach(b => b.classList.remove('active'));
+      const activeBtn = document.querySelector(\`[data-tab="\${tabName}"]\`);
+      if (activeBtn) activeBtn.classList.add('active');
 
-// 5. Inject Complete Content Router
-const contentRouterFn = `
+      document.querySelectorAll('.tab-pane').forEach(p => p.classList.remove('active'));
+      const activePane = document.getElementById(tabName);
+      if (activePane) activePane.classList.add('active');
+    }
+
     function loadContent(key, btnElement = null) {
       if (btnElement) {
         document.querySelectorAll('.nav-item-btn').forEach(b => b.classList.remove('active'));
@@ -677,33 +1214,34 @@ const contentRouterFn = `
       const main = document.getElementById('content');
       const toc = document.getElementById('tocLinksContainer');
 
+      // Expand parent accordion if collapsed
       if (key.startsWith('spec-')) {
-        const specId = key.replace('spec-', '');
-        const spec = SPECIALISTS.find(s => s.id === specId);
+        document.getElementById('grp-specialists')?.classList.remove('collapsed');
+        const spec = SPECIALISTS.find(s => s.id === key.replace('spec-', ''));
         if (spec) renderSpecialistPage(spec, main, toc);
         window.scrollTo({ top: 0, behavior: 'smooth' });
         return;
       }
 
       if (key.startsWith('pb-')) {
-        const pbSlug = key.replace('pb-', '');
-        const pb = PLAYBOOKS.find(p => p.slug === pbSlug);
+        document.getElementById('grp-playbooks')?.classList.remove('collapsed');
+        const pb = PLAYBOOKS.find(p => p.slug === key.replace('pb-', ''));
         if (pb) renderPlaybookPage(pb, main, toc);
         window.scrollTo({ top: 0, behavior: 'smooth' });
         return;
       }
 
       if (key.startsWith('checklist-')) {
-        const clId = key.replace('checklist-', '');
-        const cl = CHECKLISTS.find(c => c.id === clId);
+        document.getElementById('grp-checklists')?.classList.remove('collapsed');
+        const cl = CHECKLISTS.find(c => c.id === key.replace('checklist-', ''));
         if (cl) renderChecklistPage(cl, main, toc);
         window.scrollTo({ top: 0, behavior: 'smooth' });
         return;
       }
 
       if (key.startsWith('template-')) {
-        const tmplId = key.replace('template-', '');
-        const tmpl = TEMPLATES.find(t => t.id === tmplId);
+        document.getElementById('grp-templates')?.classList.remove('collapsed');
+        const tmpl = TEMPLATES.find(t => t.id === key.replace('template-', ''));
         if (tmpl) renderTemplatePage(tmpl, main, toc);
         window.scrollTo({ top: 0, behavior: 'smooth' });
         return;
@@ -711,6 +1249,7 @@ const contentRouterFn = `
 
       switch (key) {
         case 'adr-builder':
+          document.getElementById('grp-templates')?.classList.remove('collapsed');
           renderAdrBuilderPage(main, toc);
           break;
         case 'benchmarks':
@@ -745,83 +1284,242 @@ const contentRouterFn = `
 
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
-`;
 
-const contentRouterRegex = /function loadContent\(key, btnElement = null\)\s*\{[\s\S]*?(?=function renderOverviewPage)/;
-if (contentRouterRegex.test(html)) {
-  html = html.replace(contentRouterRegex, `${contentRouterFn.trim()}\n\n    `);
-}
+    // View: Tabbed Specialist Page (Uncluttered)
+    function renderSpecialistPage(spec, main, toc) {
+      let alertClass = 'alert-gate';
+      if (spec.authType === 'veto') alertClass = 'alert-veto';
+      else if (spec.authType === 'ship') alertClass = 'alert-ship';
 
-// 6. Inject Complete View Renderers (Playbooks, Checklists, Templates, ADR Builder, Benchmarks, Ref Projects)
-const viewRenderersPayload = `
-    // View: Full Playbook Specification
-    function renderPlaybookPage(pb, main, toc) {
       toc.innerHTML = \`
-        <li><a href="#overview" class="toc-a active">Playbook Overview</a></li>
-        <li><a href="#specialists" class="toc-a">Coordinating Specialists</a></li>
-        <li><a href="#procedure" class="toc-a">Step-by-Step Procedure</a></li>
-        <li><a href="#gates" class="toc-a">Quality Gates & Rollback</a></li>
-        <li><a href="#evidence" class="toc-a">Evidence to Declare Done</a></li>
+        <li><a href="javascript:void(0)" onclick="setDocTab('tab-overview')" class="toc-a active">1. Overview & Rules</a></li>
+        <li><a href="javascript:void(0)" onclick="setDocTab('tab-procedure')" class="toc-a">2. Operational Procedure</a></li>
+        <li><a href="javascript:void(0)" onclick="setDocTab('tab-verification')" class="toc-a">3. Verification & Anti-Patterns</a></li>
+        <li><a href="javascript:void(0)" onclick="setDocTab('tab-schemas')" class="toc-a">4. Schemas & Directive</a></li>
       \`;
 
       main.innerHTML = \`
         <div class="content-header">
-          <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px; flex-wrap: wrap; gap: 8px;">
-            <div class="doc-cat">Operational Playbook • \${pb.slug}</div>
-            <div style="display: flex; gap: 8px;">
-              <span class="tier-pill tier-pill-\${pb.tier.toLowerCase()}">\${pb.tier} TIER</span>
-              <button class="hud-action-btn" onclick="runPlaybookMission('\${pb.slug}')">⚡ Run in DevBot HUD</button>
+          <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:8px; flex-wrap:wrap; gap:8px;">
+            <div class="doc-cat">Specialist Dossier #\${spec.num}</div>
+            <div style="display:flex; gap:6px;">
+              <span class="tier-pill tier-pill-prod">\${spec.auth}</span>
+              <span class="tier-pill tier-pill-all">\${spec.estTokens} tokens</span>
             </div>
           </div>
-          <h1 class="doc-heading" id="overview">\${pb.title}</h1>
-          <p class="doc-intro">\${pb.objective || 'Deterministic procedure executed across designated phase boundaries.'}</p>
+          <h1 class="doc-heading">\${spec.name}</h1>
+          <p class="doc-intro">
+            Governed under Universal WebDev Protocol. Tiers: \${spec.tiers.map(t => \`<span class="tier-pill tier-pill-\${t.toLowerCase()}">\${t}</span>\`).join(' ')}
+          </p>
         </div>
 
-        <div class="doc-block" id="specialists">
-          <h2 class="doc-subheading">Coordinating Specialists Involved</h2>
-          <div class="tech-callout alert-gate">
-            <div class="callout-header"><span>●</span> Specialist Responsibilities</div>
-            <div class="callout-body" style="white-space: pre-line;">\${pb.specialists || 'Orchestrator coordinates cross-functional execution.'}</div>
+        <div class="page-tabs-bar">
+          <button class="page-tab-btn active" data-tab="tab-overview" onclick="setDocTab('tab-overview')">Overview & Rules</button>
+          <button class="page-tab-btn" data-tab="tab-procedure" onclick="setDocTab('tab-procedure')">Operational Procedure</button>
+          <button class="page-tab-btn" data-tab="tab-verification" onclick="setDocTab('tab-verification')">Verification & Anti-Patterns</button>
+          <button class="page-tab-btn" data-tab="tab-schemas" onclick="setDocTab('tab-schemas')">Schemas & Directive</button>
+        </div>
+
+        <!-- Tab 1: Overview & Rules -->
+        <div class="tab-pane active" id="tab-overview">
+          <div class="stance-box \${alertClass}">
+            <div class="stance-header">What I Refuse to Compromise On</div>
+            <div class="stance-text">"\${spec.refuse}"</div>
           </div>
-        </div>
 
-        <div class="doc-block" id="procedure">
-          <h2 class="doc-subheading">Deterministic Step-by-Step Procedure</h2>
-          <p class="doc-paragraph">Follow these atomic steps sequentially to guarantee zero regressions:</p>
-          <div style="margin: 16px 0;">
-            \${pb.steps.map(st => \`
-              <div class="step-card">
-                <div class="step-header">
-                  <span class="step-title">\${st.title}</span>
+          <div class="doc-block">
+            <h2 class="doc-subheading">Three Questions I Always Ask First</h2>
+            <div style="display:flex; flex-direction:column; gap:8px; margin: 12px 0 24px;">
+              \${spec.questions.map((q, idx) => \`
+                <div style="display:flex; align-items:flex-start; gap:10px; background:var(--bg-surface); border:1px solid var(--border-subtle); border-radius:6px; padding:12px 14px;">
+                  <span style="font-family:var(--font-mono); font-weight:700; color:var(--cyan); background:rgba(56,189,248,0.1); width:20px; height:20px; border-radius:50%; display:flex; align-items:center; justify-content:center; flex-shrink:0; font-size:11px;">\${idx + 1}</span>
+                  <span style="color:var(--text-1); font-size:0.92rem; line-height:1.5;">\${q}</span>
                 </div>
-                <div class="step-body">\${st.body}</div>
+              \`).join('')}
+            </div>
+          </div>
+
+          <div class="doc-block">
+            <h2 class="doc-subheading">Routing & Scope Boundaries</h2>
+            <div class="routing-grid">
+              <div class="routing-card routing-card-use">
+                <div class="routing-card-header">✓ When to Activate Specialist</div>
+                <ul class="routing-items-list">
+                  \${spec.whenToUse.map(u => \`<li class="routing-item"><span style="color:var(--emerald);">✓</span><span>\${u}</span></li>\`).join('')}
+                </ul>
+              </div>
+              <div class="routing-card routing-card-avoid">
+                <div class="routing-card-header">✕ Route Elsewhere When</div>
+                <ul class="routing-items-list">
+                  \${spec.whenNotToUse.map(nu => \`<li class="routing-item"><span style="color:var(--rose);">✕</span><span>\${nu}</span></li>\`).join('')}
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <div class="doc-block">
+            <h2 class="doc-subheading">Deterministic Decision Rules</h2>
+            \${spec.rules.map((r, idx) => \`
+              <div class="clean-card">
+                <div class="clean-card-title">#\${idx + 1} \${r.title}</div>
+                <div class="clean-card-body">\${r.text}</div>
               </div>
             \`).join('')}
           </div>
         </div>
 
-        <div class="doc-block" id="gates">
-          <h2 class="doc-subheading">Quality Gates & Automated Rollback</h2>
-          <div class="routing-grid">
-            <div class="routing-card routing-use">
-              <div class="routing-title">Mandatory Quality Gates</div>
-              <div style="font-size: 13px; color: var(--text-2); line-height: 1.6; white-space: pre-line;">\${pb.gates || 'All automated unit and integration tests must pass with exit code 0.'}</div>
-            </div>
-            <div class="routing-card routing-avoid">
-              <div class="routing-title">Automated Rollback Procedure</div>
-              <div style="font-size: 13px; color: var(--text-2); line-height: 1.6; white-space: pre-line;">\${pb.rollback || 'If smoke tests fail, revert commit immediately and trigger zero-downtime rollback.'}</div>
-            </div>
+        <!-- Tab 2: Operational Procedure -->
+        <div class="tab-pane" id="tab-procedure">
+          <p class="doc-paragraph">Sequential steps executed across project tiers to guarantee reproducible quality:</p>
+          <div style="margin: 16px 0;">
+            \${spec.steps.map(st => \`
+              <div class="step-card">
+                <div class="step-card-header">
+                  <span class="step-card-title">\${st.title}</span>
+                  <div class="step-tiers-group">
+                    \${st.title.includes('[MVP]') ? '<span class=\"tier-pill tier-pill-mvp\">MVP</span>' : ''}
+                    \${st.title.includes('[PROD]') ? '<span class=\"tier-pill tier-pill-prod\">PROD</span>' : ''}
+                    \${st.title.includes('[SCALE]') ? '<span class=\"tier-pill tier-pill-scale\">SCALE</span>' : ''}
+                  </div>
+                </div>
+                <div class="clean-card-body">\${formatProse(st.body)}</div>
+              </div>
+            \`).join('')}
           </div>
         </div>
 
-        <div class="doc-block" id="evidence">
-          <h2 class="doc-subheading">Evidence Required to Call Done</h2>
-          <div class="tech-callout alert-ship">
-            <div class="callout-header"><span>●</span> No Evidence, No Ship</div>
-            <div class="callout-body" style="white-space: pre-line;">\${pb.evidence || 'Terminal execution command output, passing assertions, and zero critical vulnerabilities.'}</div>
+        <!-- Tab 3: Verification & Anti-Patterns -->
+        <div class="tab-pane" id="tab-verification">
+          <div class="clean-card" style="border-left: 3px solid var(--rose);">
+            <div class="clean-card-title" style="color: var(--rose);">⚠️ Banned Engineering Anti-Patterns</div>
+            <ul class="doc-list" style="margin-bottom:0;">
+              \${spec.antiPatterns.map(ap => \`<li style="margin-bottom:8px;">\${ap}</li>\`).join('')}
+            </ul>
           </div>
 
-          <div class="code-snippet-box" style="margin-top: 16px;">
+          <div class="doc-block" style="margin-top: 24px;">
+            <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:8px;">
+              <h2 class="doc-subheading" style="margin:0;">Automated Verification Command</h2>
+              <div style="display:flex; gap:6px;">
+                <button class="hud-action-btn" onclick="runSpecialistMission('\${spec.id}')">⚡ Run in DevBot HUD</button>
+                <button class="snippet-copy-btn" onclick="copyText(this.parentElement.parentElement.nextElementSibling.innerText, this)">Copy</button>
+              </div>
+            </div>
+            <div class="code-snippet-box">
+              <pre><code>\${spec.verification || '# Test verification suite:\\nnode tools/verify-all.js'}</code></pre>
+            </div>
+          </div>
+
+          <div class="clean-card" style="border-left: 3px solid var(--amber); margin-top:20px;">
+            <div class="clean-card-title" style="color: var(--amber);">🛑 Mandatory Escalate-to-User Triggers</div>
+            <p class="doc-p" style="font-size:0.86rem; color:var(--text-3); margin-bottom:10px;">The agent must immediately halt and request confirmation when:</p>
+            <ul class="doc-list" style="margin-bottom:0;">
+              \${spec.escalate.map(esc => \`<li style="margin-bottom:6px;">\${esc}</li>\`).join('')}
+            </ul>
+          </div>
+        </div>
+
+        <!-- Tab 4: Schemas & Activation -->
+        <div class="tab-pane" id="tab-schemas">
+          <div class="spec-table-box">
+            <table>
+              <thead>
+                <tr>
+                  <th>Inputs Required</th>
+                  <th>Outputs Produced</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>\${spec.inputs.map(i => \`<code class="inline-code">\${i}</code>\`).join(' ')}</td>
+                  <td>\${spec.outputs.map(o => \`<code class="inline-code">\${o}</code>\`).join(' ')}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="doc-block" style="margin-top:20px;">
+            <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:8px;">
+              <h2 class="doc-subheading" style="margin:0;">Chat Activation Directive</h2>
+              <button class="snippet-copy-btn" onclick="copyText('[Wearing: \${spec.name}] Evaluate task under Universal WebDev Skills protocol.', this)">Copy Directive</button>
+            </div>
+            <div class="code-snippet-box">
+              <pre><code>[Wearing: \${spec.name}] Evaluate task under Universal WebDev Skills protocol.
+Non-Negotiable Refusal: "\${spec.refuse}"
+Inputs: \${spec.inputs.join(', ')} | Outputs: \${spec.outputs.join(', ')}</code></pre>
+            </div>
+          </div>
+        </div>
+      \`;
+    }
+
+    // View: Tabbed Playbook Page (Uncluttered)
+    function renderPlaybookPage(pb, main, toc) {
+      toc.innerHTML = \`
+        <li><a href="javascript:void(0)" onclick="setDocTab('pb-tab-steps')" class="toc-a active">1. Procedure & Steps</a></li>
+        <li><a href="javascript:void(0)" onclick="setDocTab('pb-tab-gates')" class="toc-a">2. Gates & Rollback</a></li>
+        <li><a href="javascript:void(0)" onclick="setDocTab('pb-tab-evidence')" class="toc-a">3. Evidence & Directive</a></li>
+      \`;
+
+      main.innerHTML = \`
+        <div class="content-header">
+          <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:8px; flex-wrap:wrap; gap:8px;">
+            <div class="doc-cat">Operational Playbook • \${pb.slug}</div>
+            <div style="display:flex; gap:6px;">
+              <span class="tier-pill tier-pill-\${pb.tier.toLowerCase()}">\${pb.tier} TIER</span>
+              <button class="hud-action-btn" onclick="runPlaybookMission('\${pb.slug}')">⚡ Run in DevBot HUD</button>
+            </div>
+          </div>
+          <h1 class="doc-heading">\${pb.title}</h1>
+          <p class="doc-intro">\${pb.objective || 'Deterministic procedure executed across designated phase boundaries.'}</p>
+        </div>
+
+        <div class="page-tabs-bar">
+          <button class="page-tab-btn active" data-tab="pb-tab-steps" onclick="setDocTab('pb-tab-steps')">Procedure & Steps</button>
+          <button class="page-tab-btn" data-tab="pb-tab-gates" onclick="setDocTab('pb-tab-gates')">Gates & Rollback</button>
+          <button class="page-tab-btn" data-tab="pb-tab-evidence" onclick="setDocTab('pb-tab-evidence')">Evidence & Directive</button>
+        </div>
+
+        <!-- Tab 1: Steps -->
+        <div class="tab-pane active" id="pb-tab-steps">
+          <div class="clean-card" style="margin-bottom:20px;">
+            <div class="clean-card-title">Coordinating Specialists</div>
+            <div class="clean-card-body">\${formatProse(pb.specialists)}</div>
+          </div>
+
+          <div style="margin: 16px 0;">
+            \${pb.steps.map(st => \`
+              <div class="step-card">
+                <div class="step-card-header">
+                  <span class="step-card-title">\${st.title}</span>
+                </div>
+                <div class="clean-card-body">\${formatProse(st.body)}</div>
+              </div>
+            \`).join('')}
+          </div>
+        </div>
+
+        <!-- Tab 2: Gates & Rollback -->
+        <div class="tab-pane" id="pb-tab-gates">
+          <div class="clean-card" style="border-left: 3px solid var(--emerald); margin-bottom:18px;">
+            <div class="clean-card-title" style="color:var(--emerald);">Mandatory Quality Gates</div>
+            <div class="clean-card-body">\${formatProse(pb.gates || 'All automated unit and integration tests must pass with exit code 0.')}</div>
+          </div>
+
+          <div class="clean-card" style="border-left: 3px solid var(--rose);">
+            <div class="clean-card-title" style="color:var(--rose);">Automated Rollback Procedure</div>
+            <div class="clean-card-body">\${formatProse(pb.rollback || 'If smoke tests fail, revert commit immediately and trigger automated rollback.')}</div>
+          </div>
+        </div>
+
+        <!-- Tab 3: Evidence -->
+        <div class="tab-pane" id="pb-tab-evidence">
+          <div class="clean-card" style="border-left: 3px solid var(--purple); margin-bottom:20px;">
+            <div class="clean-card-title" style="color:var(--purple);">Evidence Required to Call Done</div>
+            <div class="clean-card-body">\${formatProse(pb.evidence || 'Terminal execution command output, passing assertions, and zero critical vulnerabilities.')}</div>
+          </div>
+
+          <div class="code-snippet-box">
             <div class="snippet-top">
               <span>Playbook Chat Directive</span>
               <button class="snippet-copy-btn" onclick="copyText('Execute playbook: \${pb.slug} under Universal WebDev Skills protocol.', this)">Copy</button>
@@ -837,9 +1535,7 @@ Target Tier: \${pb.tier} | Objective: \${pb.objective}</code></pre>
     function renderChecklistPage(cl, main, toc) {
       const storageKey = 'webdev_checklist_' + cl.id;
       let state = {};
-      try {
-        state = JSON.parse(localStorage.getItem(storageKey) || '{}');
-      } catch (e) {}
+      try { state = JSON.parse(localStorage.getItem(storageKey) || '{}'); } catch (e) {}
 
       let checkedCount = 0;
       let totalCount = 0;
@@ -1003,7 +1699,7 @@ Target Tier: \${pb.tier} | Objective: \${pb.objective}</code></pre>
           <p class="doc-intro">Quickly author schema-validated ADR artifacts conforming to <code>templates/schemas/adr.schema.json</code>.</p>
         </div>
 
-        <div class="step-card">
+        <div class="clean-card">
           <div class="adr-form-group">
             <label class="adr-label">Decision Title</label>
             <input type="text" id="adrTitle" class="adr-input" placeholder="e.g. ADR-001: Adopt Argon2id over Scrypt for Credential Hashing" value="ADR-001: Session Cookies Over JWTs for Authentication" onkeyup="updateAdrPreview()">
@@ -1176,7 +1872,7 @@ Target Tier: \${pb.tier} | Objective: \${pb.objective}</code></pre>
                     <td><span class="tier-pill tier-pill-\${t.tier.toLowerCase()}">\${t.tier}</span></td>
                     <td style="color: var(--text-4);">\${t.baselineScore} / 100</td>
                     <td style="font-weight: 700; color: #10b981;">\${t.skillScore} / 100</td>
-                    <td><span class="auth-pill pill-veto">\${t.owaspReduction}</span></td>
+                    <td><span class="tier-pill tier-pill-mvp">\${t.owaspReduction}</span></td>
                   </tr>
                 \`).join('')}
               </tbody>
@@ -1186,7 +1882,7 @@ Target Tier: \${pb.tier} | Objective: \${pb.objective}</code></pre>
 
         <div class="doc-block" id="rubric">
           <h2 class="doc-subheading">100-Point Evaluation Rubric Breakdown</h2>
-          <ul style="margin-left: 20px; line-height: 1.8; color: var(--text-2);">
+          <ul class="doc-list">
             <li><strong>Security & Invariants (25 pts):</strong> Zero SQLi, XSS, CSRF, IDOR, or plaintext credential leaks.</li>
             <li><strong>Architecture & Separation (20 pts):</strong> Clean domain boundaries, ACID consistency, and error models.</li>
             <li><strong>Testing & Evidence (20 pts):</strong> Automated test suite passing with terminal exit code 0.</li>
@@ -1222,14 +1918,13 @@ Target Tier: \${pb.tier} | Objective: \${pb.objective}</code></pre>
               <span class="tier-pill tier-pill-\${p.tier.toLowerCase()}">\${p.tier} TIER</span>
             </div>
             <p class="doc-paragraph">\${p.desc}</p>
-            <div class="tech-callout alert-ship" style="margin-bottom: 14px;">
-              <div class="callout-header"><span>●</span> SQAT Test Evidence</div>
-              <div class="callout-body"><strong>\${p.passedTests}</strong></div>
+            <div class="clean-card" style="border-left: 3px solid var(--purple); padding:14px 18px; margin-bottom:14px;">
+              <strong>SQAT Test Evidence:</strong> \${p.passedTests}
             </div>
 
-            <h3 style="font-size: 13px; font-weight: 700; text-transform: uppercase; color: var(--text-3); margin: 12px 0 6px;">Exposed API Routes</h3>
+            <h3 style="font-size: 0.85rem; font-weight: 700; text-transform: uppercase; color: var(--text-3); margin: 16px 0 6px;">Exposed API Routes</h3>
             <div class="spec-table-box">
-              <table class="route-table">
+              <table>
                 <thead>
                   <tr>
                     <th>Method</th>
@@ -1243,7 +1938,7 @@ Target Tier: \${pb.tier} | Objective: \${pb.objective}</code></pre>
                     <tr>
                       <td><span class="badge-method \${r.method === 'GET' ? 'method-get' : 'method-post'}">\${r.method}</span></td>
                       <td><code>\${r.path}</code></td>
-                      <td><span class="auth-pill pill-advise">\${r.auth}</span></td>
+                      <td><span class="tier-pill tier-pill-all">\${r.auth}</span></td>
                       <td>\${r.desc}</td>
                     </tr>
                   \`).join('')}
@@ -1251,13 +1946,13 @@ Target Tier: \${pb.tier} | Objective: \${pb.objective}</code></pre>
               </table>
             </div>
 
-            <h3 style="font-size: 13px; font-weight: 700; text-transform: uppercase; color: var(--text-3); margin: 16px 0 6px;">Sample Request</h3>
+            <h3 style="font-size: 0.85rem; font-weight: 700; text-transform: uppercase; color: var(--text-3); margin: 16px 0 6px;">Sample Request</h3>
             <div class="code-snippet-box">
               <pre><code>\${p.curl}</code></pre>
             </div>
 
-            <h3 style="font-size: 13px; font-weight: 700; text-transform: uppercase; color: var(--text-3); margin: 16px 0 6px;">Automated Integration Tests (test.js)</h3>
-            <ul style="margin-left: 20px; line-height: 1.8; color: var(--text-2); font-size: 13px;">
+            <h3 style="font-size: 0.85rem; font-weight: 700; text-transform: uppercase; color: var(--text-3); margin: 16px 0 6px;">Automated Integration Tests (test.js)</h3>
+            <ul class="doc-list" style="font-size: 0.88rem;">
               \${p.tests.map(t => \`<li><span style="color:#10b981; font-weight:700; margin-right:6px;">[PASS]</span>\${t}</li>\`).join('')}
             </ul>
           </div>
@@ -1266,167 +1961,12 @@ Target Tier: \${pb.tier} | Objective: \${pb.objective}</code></pre>
     }
 `;
 
-// Replace renderPlaybookPage up to renderQuickstartPage
-const playbooksToQuickstartRegex = /function renderPlaybookPage\(pb, main, toc\)\s*\{[\s\S]*?(?=function renderQuickstartPage)/;
-if (playbooksToQuickstartRegex.test(html)) {
-  html = html.replace(playbooksToQuickstartRegex, `${viewRenderersPayload.trim()}\n\n    `);
+// Replace script payload from `const SPECIALISTS = ` up to `function renderQuickstartPage`
+const scriptReplaceRegex = /const SPECIALISTS = \[[\s\S]*?(?=function renderQuickstartPage)/;
+if (scriptReplaceRegex.test(html)) {
+  html = html.replace(scriptReplaceRegex, `${cleanAppScript.trim()}\n\n    `);
 }
 
-// 7. Inject Deep Command Palette Fuzzy Search
-const paletteFilterFn = `
-    function filterPalette() {
-      const q = document.getElementById('paletteInput')?.value?.toLowerCase().trim() || '';
-      const list = document.getElementById('paletteResults');
-      if (!list) return;
-
-      let items = [];
-
-      // Add Specialists
-      SPECIALISTS.forEach(s => {
-        items.push({
-          type: 'Specialist',
-          title: s.name,
-          badge: s.auth,
-          key: 'spec-' + s.id,
-          text: s.name + ' ' + s.triggers.join(' ') + ' ' + s.id
-        });
-      });
-
-      // Add Playbooks
-      PLAYBOOKS.forEach(p => {
-        items.push({
-          type: 'Playbook',
-          title: p.title,
-          badge: p.tier,
-          key: 'pb-' + p.slug,
-          text: p.title + ' ' + p.slug + ' ' + p.objective
-        });
-      });
-
-      // Add Checklists
-      CHECKLISTS.forEach(c => {
-        items.push({
-          type: 'Checklist',
-          title: c.title,
-          badge: c.totalItems + ' items',
-          key: 'checklist-' + c.id,
-          text: c.title + ' ' + c.id
-        });
-      });
-
-      // Add Templates
-      TEMPLATES.forEach(t => {
-        items.push({
-          type: 'Template',
-          title: t.title,
-          badge: 'Schema',
-          key: 'template-' + t.id,
-          text: t.title + ' ' + t.id
-        });
-      });
-
-      items.push({ type: 'Tool', title: 'Interactive ADR Builder', badge: 'Utility', key: 'adr-builder', text: 'adr builder form architecture' });
-      items.push({ type: 'Eval', title: 'Empirical Benchmark Dashboard', badge: '+79.9% Delta', key: 'benchmarks', text: 'evals benchmark rubric results' });
-      items.push({ type: 'Reference', title: '3 Golden Reference Projects', badge: '21 Tests', key: 'refprojects', text: 'reference projects mvp prod scale saas ecommerce' });
-
-      const filtered = q ? items.filter(i => i.text.toLowerCase().includes(q)) : items.slice(0, 12);
-
-      list.innerHTML = filtered.map(item => \`
-        <li>
-          <div class="palette-result-item" onclick="loadContent('\${item.key}'); closePalette();">
-            <span class="palette-res-type">\${item.type}</span>
-            <span class="palette-res-title">\${item.title}</span>
-            <span class="palette-res-tier">\${item.badge}</span>
-          </div>
-        </li>
-      \`).join('');
-    }
-`;
-
-const paletteFilterRegex = /function filterPalette\(\)\s*\{[\s\S]*?(?=function toggleAgentDrawer)/;
-if (paletteFilterRegex.test(html)) {
-  html = html.replace(paletteFilterRegex, `${paletteFilterFn.trim()}\n\n    `);
-}
-
-// 8. Inject DevBot HUD Companion Missions
-const companionHUDMissions = `
-    function runPlaybookMission(pbSlug) {
-      if (!agentDrawerOpen) toggleAgentDrawer();
-      setAgentState('#00f0ff', 'DevBot Runner', 'Executing Playbook: ' + pbSlug);
-      addTerminalLog('badge-color-orch', 'Playbook', 'Executing: ' + pbSlug + ' step sequence...');
-      setTimeout(() => {
-        addTerminalLog('badge-color-orch', 'Playbook', '>>> Verifying preconditions and active tier...');
-        addTerminalLog('badge-color-orch', 'Playbook', '>>> Applying atomic changes with zero placeholder comments...');
-        setTimeout(() => {
-          addTerminalLog('badge-color-qa', 'Playbook', 'PASS: Quality gates verified. Evidence recorded.');
-          setAgentState('#10b981', 'Agent Idle', pbSlug + ' COMPLETE');
-        }, 800);
-      }, 700);
-    }
-
-    function runChecklistMission(clId) {
-      if (!agentDrawerOpen) toggleAgentDrawer();
-      setAgentState('#10b981', 'Audit Gate', 'Scanning Checklist: ' + clId);
-      addTerminalLog('badge-color-qa', 'Checklist', 'Executing audit scan: ' + clId + ' checklist...');
-      setTimeout(() => {
-        addTerminalLog('badge-color-qa', 'Checklist', '>>> Verifying gate pre-requisites & invariants...');
-        addTerminalLog('badge-color-qa', 'Checklist', '>>> axe-core: 0 accessibility violations, CSP/HSTS verified.');
-        setTimeout(() => {
-          addTerminalLog('badge-color-qa', 'Checklist', 'SUCCESS: 0 blocking findings. Gate certified.');
-          setAgentState('#10b981', 'Agent Idle', clId + ' CERTIFIED');
-        }, 800);
-      }, 700);
-    }
-
-    function runRefProjectsMission() {
-      if (!agentDrawerOpen) toggleAgentDrawer();
-      setAgentState('#38bdf8', '08 SQAT Lead', 'Executing 21 Tests...');
-      addTerminalLog('badge-color-qa', '08 SQAT', 'Executing: node tools/run-reference-tests.js...');
-      setTimeout(() => {
-        addTerminalLog('badge-color-qa', '08 SQAT', '>>> 01-saas-starter-mvp: 7/7 PASSED');
-        addTerminalLog('badge-color-qa', '08 SQAT', '>>> 02-ecommerce-api-prod: 7/7 PASSED');
-        addTerminalLog('badge-color-qa', '08 SQAT', '>>> 03-content-platform-scale: 7/7 PASSED');
-        addTerminalLog('badge-color-qa', '08 SQAT', 'SUCCESS: All 21 reference tests passed with 0 critical findings.');
-        setAgentState('#10b981', 'Agent Idle', '21 Tests PASSED (0.45s)');
-      }, 900);
-    }
-
-    function runBenchmarkMission() {
-      if (!agentDrawerOpen) toggleAgentDrawer();
-      setAgentState('#a855f7', 'Eval Harness', 'Executing 9 Benchmarks...');
-      addTerminalLog('badge-color-orch', 'Evals', 'Running node evals/harness/run-eval.js across 9 tasks...');
-      setTimeout(() => {
-        addTerminalLog('badge-color-orch', 'Evals', '>>> Frontier Models: 95.9 / 100 (+79.9% Delta)');
-        addTerminalLog('badge-color-orch', 'Evals', '>>> Small Models: 86.8 / 100 (+132.7% Delta)');
-        addTerminalLog('badge-color-orch', 'Evals', '>>> OWASP Critical Flaws: 0 Critical Findings');
-        setTimeout(() => {
-          addTerminalLog('badge-color-qa', 'Evals', 'SUCCESS: Evaluation benchmark completed with 100% test evidence.');
-          setAgentState('#10b981', 'Agent Idle', 'Evals PASSED (95.9/100)');
-        }, 800);
-      }, 800);
-    }
-`;
-
-if (!html.includes('function runPlaybookMission(')) {
-  html = html.replace('function runSpecialistMission(specId) {', `${companionHUDMissions}\n\n    function runSpecialistMission(specId) {`);
-}
-
-// 9. Update drawer missions buttons
-const drawerMissionsMarkup = `
-      <div class="drawer-missions">
-        <button class="btn-mission" onclick="runSimulatedMission('security')">🛡️ Test SQL Injection</button>
-        <button class="btn-mission" onclick="runSimulatedMission('idempotency')">⚡ Test Idempotency</button>
-        <button class="btn-mission" onclick="runSimulatedMission('perf')">🚀 Test Edge Cache</button>
-        <button class="btn-mission" onclick="runRefProjectsMission()">🧪 Run 21 Tests</button>
-        <button class="btn-mission" onclick="runBenchmarkMission()">📊 Run 9 Benchmarks</button>
-        <button class="btn-mission" onclick="runChecklistMission('launch')">📋 Run Launch Audit</button>
-      </div>
-`;
-const missionsRegex = new RegExp('<div class="drawer-missions">[\\s\\S]*?<\\/div>');
-if (missionsRegex.test(html)) {
-  html = html.replace(missionsRegex, drawerMissionsMarkup.trim());
-}
-
-// Write the complete updated file
+// Write the updated file
 fs.writeFileSync(DOCS_FILE, html, 'utf8');
-console.log(`Successfully generated docs/index.html! Total size: ${(html.length / 1024).toFixed(2)} KB.`);
+console.log(`Successfully generated clean, uncluttered docs/index.html! Total size: ${(html.length / 1024).toFixed(2)} KB.`);
