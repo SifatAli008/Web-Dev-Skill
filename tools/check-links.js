@@ -32,12 +32,11 @@ function checkLinksInFile(filePath) {
     if (!cleanLink) continue;
 
     totalLinksChecked++;
-    let resolvedPath;
-
-    if (cleanLink.startsWith('/') || cleanLink.includes(':')) {
-      resolvedPath = path.resolve(cleanLink);
-    } else {
-      resolvedPath = path.resolve(fileDir, cleanLink);
+    // First try resolving relative to the file's directory
+    let resolvedPath = path.resolve(fileDir, cleanLink);
+    // If not found, try resolving relative to repository root
+    if (!fs.existsSync(resolvedPath)) {
+      resolvedPath = path.resolve(REPO_ROOT, cleanLink.replace(/^[/\\]+/, ''));
     }
 
     if (!fs.existsSync(resolvedPath)) {

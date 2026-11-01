@@ -49,6 +49,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - `02-ecommerce-api-prod`: Production API with idempotency keys, ACID inventory lock, zero-downtime migration, and health probes (7/7 tests pass).
   - `03-content-platform-scale`: Scale platform with edge caching, CWV priority hints, Schema.org JSON-LD, and cookieless analytics (7/7 tests pass).
 - **Benchmark Evaluation Suite (`evals/`):**
-  - 9 standardized benchmark tasks, 100-point evaluation rubric, and automated runner ([`evals/harness/run-eval.js`](file:///f:/Web%20Dev%20Skill/evals/harness/run-eval.js)).
+  - 9 standardized benchmark tasks, 100-point evaluation rubric, and automated runner ([`evals/harness/run-eval.js`](evals/harness/run-eval.js)).
   - Certified results: **+79.9% win delta** on Frontier models, **+132.7% win delta** on Small models, **0 OWASP critical findings**.
 
