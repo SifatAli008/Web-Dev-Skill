@@ -1,0 +1,97 @@
+{
+  "skill_id": "05-backend-data",
+  "positive_triggers": [
+    {
+      "prompt": "How do we execute a zero-downtime migration in PostgreSQL to rename the 'full_name' column on a table with 5 million rows?",
+      "reason": "Direct zero-downtime database migration using expand-and-contract pattern."
+    },
+    {
+      "prompt": "Implement an idempotent Stripe webhook receiver in Express with signature verification and replay protection.",
+      "reason": "Webhook verification and database idempotency keys implementation."
+    },
+    {
+      "prompt": "We are getting deadlocks in PostgreSQL during concurrent inventory deductions when multiple users buy the same product. How do we fix this?",
+      "reason": "Database transaction isolation, row locking (SELECT FOR UPDATE), and concurrency control."
+    },
+    {
+      "prompt": "Set up a background queue worker with BullMQ and Redis to process video transcode jobs with retries and a Dead Letter Queue.",
+      "reason": "Asynchronous background queue and worker error resilience."
+    },
+    {
+      "prompt": "Design a relational database schema for an e-commerce platform with orders, line items, payments, and inventory constraints.",
+      "reason": "Relational schema design with constraints, foreign keys, and currency precision."
+    }
+  ],
+  "negative_near_misses": [
+    {
+      "prompt": "Build a responsive React navigation bar with a mobile hamburger menu and keyboard navigation.",
+      "expected_route": "04-frontend",
+      "reason": "Frontend UI navigation component owned by Frontend Lead."
+    },
+    {
+      "prompt": "Configure an AWS Application Load Balancer with SSL certificates and auto-scaling target groups.",
+      "expected_route": "09-devops-infra",
+      "reason": "Cloud infrastructure provisioning owned by DevOps/SRE."
+    },
+    {
+      "prompt": "Audit our API endpoints to ensure they are protected against CSRF and XSS attacks.",
+      "expected_route": "06-security",
+      "reason": "Vulnerability audit owned by Application Security Lead."
+    },
+    {
+      "prompt": "Draft user interview questions to validate product demand for a new analytics feature.",
+      "expected_route": "01-product-discovery",
+      "reason": "Product discovery user interviews owned by Product Lead."
+    },
+    {
+      "prompt": "Measure Largest Contentful Paint (LCP) and Cumulative Layout Shift (CLS) on our marketing homepage.",
+      "expected_route": "10-performance",
+      "reason": "Core Web Vitals profiling owned by Performance Engineer."
+    }
+  ],
+  "evaluation_tasks": [
+    {
+      "task_id": "back-task-01",
+      "prompt": "A developer wrote a payment checkout handler that updates user account balances using: `const user = await db.users.find(id); await db.users.update(id, { balance: user.balance - 50 });`. Point out the race condition and refactor with production database guarantees.",
+      "pass_criteria": [
+        "Identifies the read-modify-write race condition under concurrent requests.",
+        "Refactors using an atomic SQL update (`WHERE balance >= 50`) or explicit transaction with row-level lock (`SELECT FOR UPDATE`).",
+        "Checks affected rows to confirm sufficient funds were available.",
+        "Ensures balance deduction and order creation happen within a single atomic transaction."
+      ],
+      "fail_criteria": [
+        "Fails to identify the concurrent race condition.",
+        "Suggests in-memory locking (e.g. Node mutex) that fails across multiple web server instances."
+      ]
+    },
+    {
+      "task_id": "back-task-02",
+      "prompt": "Write a multi-phase zero-downtime migration plan for renaming a column `phone` to `phone_number` on a live production table with active traffic.",
+      "pass_criteria": [
+        "Outlines the 3-phase Expand-and-Contract (Parallel Change) strategy.",
+        "Phase 1 (Expand): Adds `phone_number` as nullable, updates app code to dual-write to both columns.",
+        "Phase 2 (Backfill): Backfills historical records asynchronously without blocking table locks.",
+        "Phase 3 (Contract): Updates app code to read from `phone_number`, then drops `phone` in a subsequent release.",
+        "Includes lock timeout setting (`SET lock_timeout = '2s';`)."
+      ],
+      "fail_criteria": [
+        "Executes a single `ALTER TABLE users RENAME COLUMN phone TO phone_number;` on live production.",
+        "Neglects backward-compatibility during code deployment window."
+      ]
+    },
+    {
+      "task_id": "back-task-03",
+      "prompt": "Design a webhook receiver for Stripe checkout events that prevents duplicate credit assignment if Stripe sends the identical webhook 3 times.",
+      "pass_criteria": [
+        "Validates Stripe cryptographic signature (`stripe.webhooks.constructEvent`) using raw body.",
+        "Uses an `idempotency_keys` or `processed_events` table with unique constraint on event ID.",
+        "Executes processing inside a database transaction.",
+        "Returns HTTP 200 immediately for duplicate events without re-crediting the user."
+      ],
+      "fail_criteria": [
+        "Omits signature verification or validates against parsed JSON.",
+        "Fails to check or record the event ID in database, allowing duplicate credits."
+      ]
+    }
+  ]
+}
