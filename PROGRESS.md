@@ -13,7 +13,29 @@
 |---|---|---|---|
 | **Phase 1** | Propose tree, `skills.index.json` schema, 15 specialist specs, initialize state. | **APPROVED** | User approved tree, schema, and specialist specs. |
 | **Phase 2** | `AGENTS.md`, Orchestrator (00), tier model, schemas, chat-paste-in mode, `SOURCES.md`, `GLOSSARY.md`, `AI-FAILURE-MODES.md`, eval harness. | **COMPLETE (GATE 2)** | Schemas validate, L0 token budget verified, eval harness functional. |
-| **Phase 3** | Core skills one by one (06, 02, 04, 05, 07, 08, then 01, 03, 09, 10, 11, 12, 13, 14), unit tests, peer review, checkpoint commits. | PENDING | Pass trigger tests, deletion test, and peer review per skill. |
+| **Phase 3** | Core skills one by one (06, 02, 04, 05, 07, 08, then 01, 03, 09, 10, 11, 12, 13, 14), unit tests, peer review, checkpoint commits. | **IN PROGRESS** | Pass trigger tests, deletion test, and peer review per skill. |
+
+---
+
+## Phase 3 Skills Tracker
+
+| Skill ID | Name | Role / Authority | Status | Peer Reviewer | Tests | Checkpoint Commit |
+|---|---|---|---|---|---|---|
+| `00-orchestrator` | orchestrator | Process gate | Done | Built in Phase 2 | 13/13 Pass | `f21e82f` |
+| `06-security` | security | HARD VETO | Done | `02-architecture` (Approved) | 13/13 Pass | Pending commit |
+| `02-architecture` | architecture | Design gate | Next | Pending | Pending | Pending |
+| `04-frontend` | frontend | Advises | Pending | Pending | Pending | Pending |
+| `05-backend-data` | backend-data | Advises | Pending | Pending | Pending | Pending |
+| `07-privacy-compliance` | privacy-compliance | HARD VETO | Pending | Pending | Pending | Pending |
+| `08-testing-qa` | testing-qa | No evidence, no ship | Pending | Pending | Pending | Pending |
+| `01-product-discovery` | product-discovery | Advises | Pending | Pending | Pending | Pending |
+| `03-ux-ui-design` | ux-ui-design | A11y gate | Pending | Pending | Pending | Pending |
+| `09-devops-infra` | devops-infra | No rollback, no ship | Pending | Pending | Pending | Pending |
+| `10-performance` | performance | Warns | Pending | Pending | Pending | Pending |
+| `11-seo-marketing` | seo-marketing | Advises | Pending | Pending | Pending | Pending |
+| `12-business-monetization` | business-monetization | Advises | Pending | Pending | Pending | Pending |
+| `13-launch-operations` | launch-operations | Launch gate | Pending | Pending | Pending | Pending |
+| `14-maintenance` | maintenance | Advises | Pending | Pending | Pending | Pending |
 | **Phase 4** | Playbooks (cross-sector), templates, checklists, tools. | PENDING | Working linters, scanners, and validated playbooks. |
 | **Phase 5** | Reference projects (3 golden projects), baseline vs with-skills evals, fix/cut weak skills. | PENDING | >= 25% eval win delta, 0 OWASP findings, tests passing. |
 | **Phase 6** | Generate tool adapters, README demo, CHANGELOG, v0.1.0 release notes. | PENDING | Adapters verified against official tool conventions, <= 2 min install. |

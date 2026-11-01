@@ -1,0 +1,99 @@
+{
+  "skill_id": "06-security",
+  "positive_triggers": [
+    {
+      "prompt": "We need to set up authentication for our web app: should we store JWTs in localStorage or use HttpOnly cookies?",
+      "reason": "Direct authentication token storage architecture question owned by security."
+    },
+    {
+      "prompt": "Audit this API endpoint for IDOR and SQL injection vulnerabilities: db.query(`SELECT * FROM documents WHERE id = ${req.params.id}`).",
+      "reason": "Direct vulnerability detection and remediation owned by application security."
+    },
+    {
+      "prompt": "Generate a strict Content Security Policy (CSP) header for our Next.js application that prevents XSS while allowing our Stripe checkout iframe.",
+      "reason": "CSP header construction and frame-ancestors / script-src policy definition."
+    },
+    {
+      "prompt": "How do we implement rate limiting on our login and password reset routes to prevent brute force credential stuffing?",
+      "reason": "Auth endpoint brute-force and rate limit defense design."
+    },
+    {
+      "prompt": "Perform a STRIDE threat modeling review on our user profile update feature.",
+      "reason": "STRIDE threat modeling is a core procedure of application security."
+    }
+  ],
+  "negative_near_misses": [
+    {
+      "prompt": "Write a Playwright test script to verify that the login form shows a red error message when inputs are empty.",
+      "expected_route": "08-testing-qa",
+      "reason": "UI form validation testing owned by QA/SDET."
+    },
+    {
+      "prompt": "Create an automated database backup cron job in AWS RDS with 30-day retention.",
+      "expected_route": "09-devops-infra",
+      "reason": "Infrastructure backup operations owned by DevOps/SRE."
+    },
+    {
+      "prompt": "Draft our website cookie consent banner copy and specify user opt-out controls under GDPR.",
+      "expected_route": "07-privacy-compliance",
+      "reason": "Regulatory compliance and consent copy owned by Privacy Officer."
+    },
+    {
+      "prompt": "Style the login form button with Tailwind CSS to include a loading spinner during submission.",
+      "expected_route": "04-frontend",
+      "reason": "Visual component styling owned by Frontend Lead."
+    },
+    {
+      "prompt": "Optimize the database schema for our user sessions table using a composite index.",
+      "expected_route": "05-backend-data",
+      "reason": "Database index optimization owned by Backend/Data Lead."
+    }
+  ],
+  "evaluation_tasks": [
+    {
+      "task_id": "sec-task-01",
+      "prompt": "A developer created an Express route `app.get('/api/invoices/:id', (req, res) => db.query('SELECT * FROM invoices WHERE id = ' + req.params.id))` for an authenticated dashboard. Review and secure this code.",
+      "pass_criteria": [
+        "Identifies SQL injection vulnerability from string concatenation.",
+        "Identifies IDOR vulnerability (missing tenant/user authorization check).",
+        "Replaces raw string concatenation with parameterized query.",
+        "Adds tenant ownership verification (`AND user_id = req.user.id`).",
+        "Validates parameter using schema validator (e.g. Zod positive integer/UUID)."
+      ],
+      "fail_criteria": [
+        "Fails to recognize the SQL injection vulnerability.",
+        "Fixes SQL injection but leaves the IDOR vulnerability unaddressed.",
+        "Recommends client-side filtering as a fix."
+      ]
+    },
+    {
+      "task_id": "sec-task-02",
+      "prompt": "Configure authentication cookies for a production SaaS application handling user subscriptions.",
+      "pass_criteria": [
+        "Specifies `HttpOnly: true` to mitigate token theft via XSS.",
+        "Specifies `Secure: true` to enforce HTTPS transport.",
+        "Specifies `SameSite: 'Lax'` or `'Strict'` to prevent CSRF.",
+        "Recommends server-side session management over unencrypted client storage."
+      ],
+      "fail_criteria": [
+        "Recommends storing JWT in localStorage or sessionStorage.",
+        "Omits the HttpOnly flag on authentication cookies.",
+        "Disables SameSite protection without justification."
+      ]
+    },
+    {
+      "task_id": "sec-task-03",
+      "prompt": "A junior engineer recommends disabling CORS (`Access-Control-Allow-Origin: *`) on our API so our mobile and web apps can both connect easily. Evaluate this recommendation.",
+      "pass_criteria": [
+        "Issues a HARD VETO or clear rejection of wildcard CORS for authenticated credentials.",
+        "Explains the security risk (untrusted third-party sites reading sensitive user data).",
+        "Provides the secure alternative (strict origin whitelist matching approved domains).",
+        "Specifies proper pre-flight `OPTIONS` and credential handling."
+      ],
+      "fail_criteria": [
+        "Accepts wildcard CORS with credentials enabled.",
+        "Lectures without providing the secure implementation configuration."
+      ]
+    }
+  ]
+}
