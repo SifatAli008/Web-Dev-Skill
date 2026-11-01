@@ -1,0 +1,96 @@
+{
+  "skill_id": "03-ux-ui-design",
+  "positive_triggers": [
+    {
+      "prompt": "Evaluate our web application color palette for WCAG 2.2 AA contrast compliance between text and background surfaces.",
+      "reason": "Direct contrast ratio calculation and WCAG 2.2 AA accessibility verification."
+    },
+    {
+      "prompt": "Design a design token system for colors, typography scale, spacing, and shadows for our new design system.",
+      "reason": "Design token specification and semantic system design."
+    },
+    {
+      "prompt": "Design the 5 dynamic lifecycle states (Idle, Loading skeleton, Error with retry, Empty state, Success) for our user transactions screen.",
+      "reason": "5-state UI lifecycle design and empty/error state specification."
+    },
+    {
+      "prompt": "How do we make our modal dialog fully keyboard accessible with focus trap, Escape key handling, and ARIA attributes?",
+      "reason": "Keyboard accessibility, focus management, and WAI-ARIA dialog semantics."
+    },
+    {
+      "prompt": "Redesign our checkout form to improve mobile ergonomics, touch target sizes, and inline accessible error announcements.",
+      "reason": "Form usability, touch target sizing (44x44px), and accessible microcopy."
+    }
+  ],
+  "negative_near_misses": [
+    {
+      "prompt": "Write React component code with TanStack Query to fetch and display the transaction list.",
+      "expected_route": "04-frontend",
+      "reason": "Frontend component implementation and client data fetching owned by Frontend Lead."
+    },
+    {
+      "prompt": "Write Playwright tests to assert that zero accessibility violations occur on the home page.",
+      "expected_route": "08-testing-qa",
+      "reason": "Automated e2e test suite execution owned by QA/SDET."
+    },
+    {
+      "prompt": "Design the database schema in PostgreSQL for storing user profiles and transactions.",
+      "expected_route": "05-backend-data",
+      "reason": "Database schema modeling owned by Backend/Data Lead."
+    },
+    {
+      "prompt": "Audit our API endpoints to ensure they are protected against CSRF and IDOR attacks.",
+      "expected_route": "06-security",
+      "reason": "Security vulnerability audit owned by Application Security Lead."
+    },
+    {
+      "prompt": "Optimize critical rendering path to improve Largest Contentful Paint (LCP) from 3.5s to 1.8s.",
+      "expected_route": "10-performance",
+      "reason": "Core Web Vitals tuning owned by Performance Engineer."
+    }
+  ],
+  "evaluation_tasks": [
+    {
+      "task_id": "ux-task-01",
+      "prompt": "A designer presents a login screen where gray placeholder text (#A0A0A0) inside an input on a white background is the only label, and the submit button has `outline: none` on focus. Review this design from an accessibility standpoint and provide the required fixes.",
+      "pass_criteria": [
+        "Identifies WCAG 1.4.3 contrast ratio violation with placeholder text on white (fails 4.5:1 ratio).",
+        "Identifies missing persistent accessible `<label>` (placeholders disappear on typing).",
+        "Identifies WCAG 2.4.7 violation regarding `outline: none` without replacement focus style.",
+        "Provides concrete fixes: persistent high-contrast label, visible 2px focus ring with high contrast, and error state."
+      ],
+      "fail_criteria": [
+        "Approves the placeholder-as-label design.",
+        "Allows `outline: none` without providing accessible focus alternatives."
+      ]
+    },
+    {
+      "task_id": "ux-task-02",
+      "prompt": "Specify a design token system for a web application including brand colors, functional status colors, spacing scale, and typography hierarchy.",
+      "pass_criteria": [
+        "Defines semantic tokens rather than raw hex values (e.g. `color.text.primary`, `color.surface.default`).",
+        "Specifies accessible functional colors (error, warning, success, info) meeting contrast standards.",
+        "Uses a consistent mathematical spacing scale (e.g. 4px/8px grid).",
+        "Includes touch target minimum dimensions (>= 44x44 CSS px)."
+      ],
+      "fail_criteria": [
+        "Uses hardcoded unsemantic hex colors without token abstraction.",
+        "Omits accessibility contrast considerations in color choices."
+      ]
+    },
+    {
+      "task_id": "ux-task-03",
+      "prompt": "Design the UX specifications for an empty state in a project management app when a user has no active tasks.",
+      "pass_criteria": [
+        "Includes clear, supportive headline explaining why the screen is empty.",
+        "Provides an obvious primary action button (e.g. 'Create your first task').",
+        "Includes secondary onboarding assistance (e.g. 'Import from CSV' or 'View sample project').",
+        "Avoids demoralizing blank screen or technical jargon."
+      ],
+      "fail_criteria": [
+        "Simply displays 'No data found' on a blank white screen.",
+        "Omits any call-to-action button to resolve the empty state."
+      ]
+    }
+  ]
+}
