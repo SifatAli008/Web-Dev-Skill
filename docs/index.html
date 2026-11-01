@@ -863,6 +863,8 @@
   <div class="app-body">
 
     <!-- Left Navigation -->
+    <!-- Left Navigation -->
+    <!-- Left Navigation -->
     <nav class="app-nav" aria-label="Documentation Categories">
       <div class="nav-group">
         <div class="nav-label">Getting Started</div>
@@ -890,15 +892,30 @@
       </div>
 
       <div class="nav-group">
-        <div class="nav-label">16 Playbooks</div>
+        <div class="nav-label">16 Operational Playbooks</div>
         <ul class="nav-list" id="navPlaybooksList">
           <!-- Populated by JS -->
         </ul>
       </div>
 
       <div class="nav-group">
-        <div class="nav-label">Reference & Adapters</div>
+        <div class="nav-label">5 Interactive Checklists</div>
+        <ul class="nav-list" id="navChecklistsList">
+          <!-- Populated by JS -->
+        </ul>
+      </div>
+
+      <div class="nav-group">
+        <div class="nav-label">Templates & ADR Builder</div>
+        <ul class="nav-list" id="navTemplatesList">
+          <!-- Populated by JS -->
+        </ul>
+      </div>
+
+      <div class="nav-group">
+        <div class="nav-label">Evaluations & Proof</div>
         <ul class="nav-list">
+          <li><button class="nav-item-btn" onclick="loadContent('benchmarks', this)">Empirical Benchmark Dashboard</button></li>
           <li><button class="nav-item-btn" onclick="loadContent('refprojects', this)">3 Golden Reference Projects</button></li>
           <li><button class="nav-item-btn" onclick="loadContent('adapters', this)">Tool Adapters (Cursor, Claude...)</button></li>
         </ul>
@@ -958,7 +975,9 @@
         <button class="btn-mission" onclick="runSimulatedMission('security')">🛡️ Test SQL Injection</button>
         <button class="btn-mission" onclick="runSimulatedMission('idempotency')">⚡ Test Idempotency</button>
         <button class="btn-mission" onclick="runSimulatedMission('perf')">🚀 Test Edge Cache</button>
-        <button class="btn-mission" onclick="runSimulatedMission('qa')">🧪 Run 21 Tests</button>
+        <button class="btn-mission" onclick="runRefProjectsMission()">🧪 Run 21 Tests</button>
+        <button class="btn-mission" onclick="runBenchmarkMission()">📊 Run 9 Benchmarks</button>
+        <button class="btn-mission" onclick="runChecklistMission('launch')">📋 Run Launch Audit</button>
       </div>
     </div>
 
@@ -5049,6 +5068,8 @@ Inputs: ${spec.inputs.join(', ')} | Outputs: ${spec.outputs.join(', ')}</code></
     }
 
     // View: Playbook Page
+    // View: Full Playbook Specification
+    // View: Full Playbook Specification
     // View: Full Playbook Specification
     // View: Full Playbook Specification
     function renderPlaybookPage(pb, main, toc) {

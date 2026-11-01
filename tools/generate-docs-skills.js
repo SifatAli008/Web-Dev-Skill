@@ -509,7 +509,27 @@ if (!html.includes('/* Universal WebDev Comprehensive Components */')) {
 }
 
 // 2. Update Sidebar Markup with Checklists, Templates, and Evals
-const sidebarNavGroups = `
+const completeNavMarkup = `
+    <!-- Left Navigation -->
+    <nav class="app-nav" aria-label="Documentation Categories">
+      <div class="nav-group">
+        <div class="nav-label">Getting Started</div>
+        <ul class="nav-list">
+          <li><button class="nav-item-btn active" onclick="loadContent('overview', this)">Overview</button></li>
+          <li><button class="nav-item-btn" onclick="loadContent('quickstart', this)">5-Second Quickstart</button></li>
+          <li><button class="nav-item-btn" onclick="loadContent('tiers', this)">3-Tier Rigor Matrix</button></li>
+        </ul>
+      </div>
+
+      <div class="nav-group">
+        <div class="nav-label">Protocol & Gates</div>
+        <ul class="nav-list">
+          <li><button class="nav-item-btn" onclick="loadContent('protocol', this)">Team Stances & Conflicts</button></li>
+          <li><button class="nav-item-btn" onclick="loadContent('vetos', this)">Hard Vetos & Binding Gates</button></li>
+          <li><button class="nav-item-btn" onclick="loadContent('hygiene', this)">Zero AI Garbage Standard</button></li>
+        </ul>
+      </div>
+
       <div class="nav-group">
         <div class="nav-label">15 Specialist Skills</div>
         <ul class="nav-list" id="navSpecialistsList">
@@ -546,11 +566,12 @@ const sidebarNavGroups = `
           <li><button class="nav-item-btn" onclick="loadContent('adapters', this)">Tool Adapters (Cursor, Claude...)</button></li>
         </ul>
       </div>
+    </nav>
 `;
 
-const navGroupsRegex = /<div class="nav-group">\s*<div class="nav-label">15 Specialist Skills<\/div>[\s\S]*?<\/div>\s*<\/div>\s*<\/nav>/;
-if (navGroupsRegex.test(html)) {
-  html = html.replace(navGroupsRegex, `${sidebarNavGroups.trim()}\n    </nav>`);
+const navRegex = new RegExp('<nav class="app-nav"[\\s\\S]*?<\\/nav>');
+if (navRegex.test(html)) {
+  html = html.replace(navRegex, completeNavMarkup.trim());
 }
 
 // 3. Inject Master Datasets into Script
@@ -1388,6 +1409,22 @@ const companionHUDMissions = `
 
 if (!html.includes('function runPlaybookMission(')) {
   html = html.replace('function runSpecialistMission(specId) {', `${companionHUDMissions}\n\n    function runSpecialistMission(specId) {`);
+}
+
+// 9. Update drawer missions buttons
+const drawerMissionsMarkup = `
+      <div class="drawer-missions">
+        <button class="btn-mission" onclick="runSimulatedMission('security')">🛡️ Test SQL Injection</button>
+        <button class="btn-mission" onclick="runSimulatedMission('idempotency')">⚡ Test Idempotency</button>
+        <button class="btn-mission" onclick="runSimulatedMission('perf')">🚀 Test Edge Cache</button>
+        <button class="btn-mission" onclick="runRefProjectsMission()">🧪 Run 21 Tests</button>
+        <button class="btn-mission" onclick="runBenchmarkMission()">📊 Run 9 Benchmarks</button>
+        <button class="btn-mission" onclick="runChecklistMission('launch')">📋 Run Launch Audit</button>
+      </div>
+`;
+const missionsRegex = new RegExp('<div class="drawer-missions">[\\s\\S]*?<\\/div>');
+if (missionsRegex.test(html)) {
+  html = html.replace(missionsRegex, drawerMissionsMarkup.trim());
 }
 
 // Write the complete updated file
