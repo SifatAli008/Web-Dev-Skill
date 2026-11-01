@@ -124,3 +124,4 @@ let etagHeader = '';
 }
 
 console.log('\nAll 7 Content Platform SCALE tests PASSED: 0 critical findings.\n');
+

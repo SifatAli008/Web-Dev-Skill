@@ -56,3 +56,15 @@ This file tracks foundational design and architectural decisions made for `unive
   1. **MULTI-AGENT Mode:** Parallel subagents invoked per specialist role, communicating via schema-validated artifacts.
   2. **SINGLE-AGENT Mode:** Sequential role-playing where the agent explicitly announces which specialist hat it is wearing, executes that specialist's checklist to completion, produces the artifact, and transitions cleanly to the next hat.
 
+
+---
+
+## ADR-006: Tool-Agnostic Adapter Architecture and Release Specification
+
+- **Status:** Accepted (Phase 6)
+- **Context:** Developers use diverse AI agents (Claude Code, Cursor, Antigravity, GitHub Copilot, Gemini CLI, ChatGPT/Codex). Maintaining duplicate prompt rules across every tool leads to desynchronization and configuration drift.
+- **Decision:**
+  1. The core skills repository (`skills/`, `playbooks/`, `templates/`, `AGENTS.md`, `skills.index.json`) is the single source of truth.
+  2. Adapters in `adapters/` are thin configuration pointers, generated strictly via `tools/build-adapters.js` and never hand-edited.
+  3. Installation takes under 2 minutes per tool by copying or symlinking a single file or instruction snippet.
+- **Consequences:** Changes to team behavior, specialist stances, or checklists immediately propagate across all AI coding environments upon running `node tools/build-adapters.js`.
