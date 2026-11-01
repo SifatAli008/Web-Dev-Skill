@@ -25,9 +25,9 @@
 | `06-security` | security | HARD VETO | Done | `02-architecture` (Approved) | 13/13 Pass | `dbebc2e` |
 | `02-architecture` | architecture | Design gate | Done | `06-security` (Approved) | 13/13 Pass | `2003804` |
 | `04-frontend` | frontend | Advises | Done | `03-ux-ui-design` (Approved) | 13/13 Pass | `d127051` |
-| `05-backend-data` | backend-data | Advises | Done | `06-security` (Approved) | 13/13 Pass | Pending commit |
-| `07-privacy-compliance` | privacy-compliance | HARD VETO | Next | Pending | Pending | Pending |
-| `08-testing-qa` | testing-qa | No evidence, no ship | Pending | Pending | Pending | Pending |
+| `05-backend-data` | backend-data | Advises | Done | `06-security` (Approved) | 13/13 Pass | `2c51d64` |
+| `07-privacy-compliance` | privacy-compliance | HARD VETO | Done | `01-product-discovery` (Approved) | 13/13 Pass | Pending commit |
+| `08-testing-qa` | testing-qa | No evidence, no ship | Next | Pending | Pending | Pending |
 | `01-product-discovery` | product-discovery | Advises | Pending | Pending | Pending | Pending |
 | `03-ux-ui-design` | ux-ui-design | A11y gate | Pending | Pending | Pending | Pending |
 | `09-devops-infra` | devops-infra | No rollback, no ship | Pending | Pending | Pending | Pending |

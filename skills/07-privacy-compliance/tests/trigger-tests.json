@@ -1,0 +1,96 @@
+{
+  "skill_id": "07-privacy-compliance",
+  "positive_triggers": [
+    {
+      "prompt": "How do we implement a cookie consent banner that complies with GDPR and ePrivacy without using deceptive dark patterns?",
+      "reason": "Direct GDPR cookie consent architecture and banner compliance question."
+    },
+    {
+      "prompt": "Design the data model and API endpoints for fulfilling GDPR Data Subject Access Requests (DSAR) for data export and account erasure.",
+      "reason": "DSAR automated workflow and deletion pipeline design."
+    },
+    {
+      "prompt": "Create an automated database purge job to enforce our 90-day data retention policy on user activity logs.",
+      "reason": "Data retention schedule and automated storage limitation enforcement."
+    },
+    {
+      "prompt": "Audit our third-party analytics integrations: does loading Google Analytics before user interaction violate EU privacy regulations?",
+      "reason": "Pre-consent tracking audit and affirmative consent verification."
+    },
+    {
+      "prompt": "How do we detect and honor the Global Privacy Control (GPC) signal to comply with CCPA opt-out requirements?",
+      "reason": "CCPA/CPRA statutory opt-out signal detection and enforcement."
+    }
+  ],
+  "negative_near_misses": [
+    {
+      "prompt": "Audit our SQL queries to ensure user inputs are sanitized against SQL injection.",
+      "expected_route": "06-security",
+      "reason": "Technical injection vulnerability audit owned by Application Security Lead."
+    },
+    {
+      "prompt": "Style the cookie banner with Tailwind CSS to slide up from the bottom of the viewport.",
+      "expected_route": "04-frontend",
+      "reason": "CSS animation and visual layout owned by Frontend Lead."
+    },
+    {
+      "prompt": "Set up a PostgreSQL replica in AWS EU-West region with read-only connection pooling.",
+      "expected_route": "09-devops-infra",
+      "reason": "Database replication and cloud provisioning owned by DevOps/SRE."
+    },
+    {
+      "prompt": "Write Playwright tests to verify that clicking the cookie banner close button hides the element.",
+      "expected_route": "08-testing-qa",
+      "reason": "UI component automated testing owned by QA/SDET."
+    },
+    {
+      "prompt": "Integrate Stripe billing webhooks to handle subscription cancellation events.",
+      "expected_route": "05-backend-data",
+      "reason": "Billing webhook ingestion and database updates owned by Backend/Data Lead."
+    }
+  ],
+  "evaluation_tasks": [
+    {
+      "task_id": "priv-task-01",
+      "prompt": "A marketing team wants to add Meta Pixel and Google Analytics to an EU e-commerce site. They ask you to put the scripts directly in the HTML `<head>` tag so no data is lost before the user responds to the banner. Evaluate this request.",
+      "pass_criteria": [
+        "Issues a HARD VETO on injecting tracking scripts into `<head>` before user consent.",
+        "Cites GDPR Art. 7 / EDPB Guidelines 05/2020 requiring prior affirmative consent.",
+        "Provides the compliant implementation (block script injection until explicit 'Accept' click).",
+        "Mandates equal visual prominence for 'Reject' option without dark patterns."
+      ],
+      "fail_criteria": [
+        "Complies with placing tracking scripts directly in `<head>` without consent gating.",
+        "Suggests implied consent (e.g. 'By continuing to browse this site you accept cookies')."
+      ]
+    },
+    {
+      "task_id": "priv-task-02",
+      "prompt": "Design a GDPR Article 17 'Right to Erasure' implementation for an application storing user profiles, orders, comments, and payment history.",
+      "pass_criteria": [
+        "Distinguishes between data that must be deleted (profile, marketing info, credentials) and data that must be retained for legal tax obligations (orders/invoices).",
+        "Anonymizes or pseudonymizes retained transactional records so personal identifiers are purged.",
+        "Cascades deletion to downstream relational tables (e.g. sessions, tokens, comments).",
+        "Dispatches deletion requests to third-party sub-processors (CRM, email marketing)."
+      ],
+      "fail_criteria": [
+        "Simply sets `is_deleted = true` in the database without actually deleting or anonymizing PII.",
+        "Illegally purges mandatory tax/accounting invoice records required by commercial law."
+      ]
+    },
+    {
+      "task_id": "priv-task-03",
+      "prompt": "We want to track page views and conversion funnels without needing an annoying cookie consent banner. How can we achieve this compliantly?",
+      "pass_criteria": [
+        "Recommends privacy-preserving cookieless analytics (e.g. Plausible, Fathom, or hashed server logs).",
+        "Explains why cookieless analytics avoid ePrivacy Directive consent requirements (no device storage/access).",
+        "Ensures IP addresses are anonymized/salted before hashing and discarded immediately.",
+        "Verifies no cross-site user tracking or advertising identifiers are utilized."
+      ],
+      "fail_criteria": [
+        "Claims Google Analytics or Meta Pixel can be used without consent by just not setting cookies.",
+        "Suggests fingerprinting device hardware/canvas as a workaround (which also requires consent)."
+      ]
+    }
+  ]
+}
