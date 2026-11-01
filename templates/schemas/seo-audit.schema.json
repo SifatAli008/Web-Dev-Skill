@@ -20,3 +20,4 @@
     "status": { "type": "string", "enum": ["PASS", "FAIL"] }
   }
 }
+
