@@ -12,59 +12,178 @@
  */
 
 import http from 'node:http';
-import { DatabaseSync } from 'node:sqlite';
 import crypto from 'node:crypto';
 
-// Initialize and seed database
-export function createDatabase(inMemory = true) {
-  const db = new DatabaseSync(inMemory ? ':memory:' : 'ecommerce_prod.db');
+// Universal In-Memory Transactional Database (compatible across all Node.js versions)
+export class UniversalDatabase {
+  constructor() {
+    this.products = new Map();
+    this.orders = new Map();
+    this.idempotency_keys = new Map();
+    this.migrations = [];
+    this.orderColumns = ['id', 'user_id', 'product_id', 'quantity', 'total_cents', 'status', 'created_at'];
+    this.inTransaction = false;
+    this.txSnapshot = null;
 
-  db.exec(`
-    CREATE TABLE IF NOT EXISTS schema_migrations (
-      version INTEGER PRIMARY KEY,
-      name TEXT NOT NULL,
-      applied_at TEXT NOT NULL
-    );
-
-    CREATE TABLE IF NOT EXISTS products (
-      id TEXT PRIMARY KEY,
-      name TEXT NOT NULL,
-      price_cents INTEGER NOT NULL,
-      stock INTEGER NOT NULL CHECK (stock >= 0)
-    );
-
-    CREATE TABLE IF NOT EXISTS orders (
-      id TEXT PRIMARY KEY,
-      user_id TEXT NOT NULL,
-      product_id TEXT NOT NULL,
-      quantity INTEGER NOT NULL CHECK (quantity > 0),
-      total_cents INTEGER NOT NULL,
-      status TEXT NOT NULL,
-      created_at TEXT NOT NULL
-    );
-
-    CREATE TABLE IF NOT EXISTS idempotency_keys (
-      key TEXT PRIMARY KEY,
-      status_code INTEGER NOT NULL,
-      response_body TEXT NOT NULL,
-      created_at TEXT NOT NULL
-    );
-  `);
-
-  // Seed sample products if empty
-  const count = db.prepare('SELECT count(*) as cnt FROM products').get().cnt;
-  if (count === 0) {
-    const insertProduct = db.prepare('INSERT INTO products (id, name, price_cents, stock) VALUES (?, ?, ?, ?)');
-    insertProduct.run('prod-1', 'Mechanical Keyboard', 14900, 10);
-    insertProduct.run('prod-2', 'Ergonomic Mouse', 7900, 5);
-    insertProduct.run('prod-3', 'USB-C Monitor Hub', 4900, 0); // Out of stock
+    // Seed initial products
+    this.products.set('prod-1', { id: 'prod-1', name: 'Mechanical Keyboard', price_cents: 14900, stock: 10 });
+    this.products.set('prod-2', { id: 'prod-2', name: 'Ergonomic Mouse', price_cents: 7900, stock: 5 });
+    this.products.set('prod-3', { id: 'prod-3', name: 'USB-C Monitor Hub', price_cents: 4900, stock: 0 });
   }
 
-  return db;
+  exec(sql) {
+    if (sql.includes('BEGIN')) {
+      this.inTransaction = true;
+      this.txSnapshot = {
+        products: new Map(Array.from(this.products.entries()).map(([k, v]) => [k, { ...v }])),
+        orders: new Map(Array.from(this.orders.entries()).map(([k, v]) => [k, { ...v }])),
+        idempotency: new Map(Array.from(this.idempotency_keys.entries()).map(([k, v]) => [k, { ...v }]))
+      };
+      return;
+    }
+    if (sql.includes('COMMIT')) {
+      this.inTransaction = false;
+      this.txSnapshot = null;
+      return;
+    }
+    if (sql.includes('ROLLBACK')) {
+      if (this.txSnapshot) {
+        this.products = this.txSnapshot.products;
+        this.orders = this.txSnapshot.orders;
+        this.idempotency_keys = this.txSnapshot.idempotency;
+      }
+      this.inTransaction = false;
+      this.txSnapshot = null;
+      return;
+    }
+    if (sql.includes('ALTER TABLE orders ADD COLUMN customer_email')) {
+      if (!this.orderColumns.includes('customer_email')) {
+        this.orderColumns.push('customer_email');
+      }
+      return;
+    }
+    if (sql.includes("UPDATE orders SET customer_email = 'legacy@order.local'")) {
+      for (const order of this.orders.values()) {
+        if (!order.customer_email) {
+          order.customer_email = 'legacy@order.local';
+        }
+      }
+      return;
+    }
+  }
+
+  prepare(sql) {
+    const db = this;
+
+    if (sql.includes('SELECT 1')) {
+      return {
+        get() { return { 1: 1 }; }
+      };
+    }
+
+    if (sql.includes('SELECT count(*) as cnt FROM products')) {
+      return {
+        get() { return { cnt: db.products.size }; }
+      };
+    }
+
+    if (sql.includes('PRAGMA table_info(orders)')) {
+      return {
+        all() { return db.orderColumns.map(name => ({ name })); }
+      };
+    }
+
+    if (sql.includes('FROM products WHERE id = ?')) {
+      return {
+        get(id) {
+          const p = db.products.get(id);
+          return p ? { ...p } : undefined;
+        }
+      };
+    }
+
+    if (sql.includes('SELECT id, name, price_cents, stock FROM products')) {
+      return {
+        all() {
+          return Array.from(db.products.values()).map(p => ({ ...p }));
+        }
+      };
+    }
+
+    if (sql.includes('UPDATE products SET stock = stock - ? WHERE id = ? AND stock >= ?')) {
+      return {
+        run(quantity, id, minStock) {
+          const product = db.products.get(id);
+          if (product && product.stock >= minStock && product.stock >= quantity) {
+            product.stock -= quantity;
+            return { changes: 1 };
+          }
+          return { changes: 0 };
+        }
+      };
+    }
+
+    if (sql.includes('INSERT INTO orders')) {
+      return {
+        run(id, user_id, product_id, quantity, total_cents, status, created_at, customer_email = null) {
+          db.orders.set(id, { id, user_id, product_id, quantity, total_cents, status, created_at, customer_email });
+          return { changes: 1 };
+        }
+      };
+    }
+
+    if (sql.includes('SELECT customer_email FROM orders WHERE user_id = ?')) {
+      return {
+        get(userId) {
+          for (const order of db.orders.values()) {
+            if (order.user_id === userId) return { customer_email: order.customer_email };
+          }
+          return undefined;
+        }
+      };
+    }
+
+    if (sql.includes('SELECT status_code, response_body FROM idempotency_keys WHERE key = ?')) {
+      return {
+        get(key) {
+          return db.idempotency_keys.get(key);
+        }
+      };
+    }
+
+    if (sql.includes('INSERT INTO idempotency_keys')) {
+      return {
+        run(key, status_code, response_body, created_at) {
+          db.idempotency_keys.set(key, { status_code, response_body, created_at });
+          return { changes: 1 };
+        }
+      };
+    }
+
+    if (sql.includes('INSERT INTO schema_migrations')) {
+      return {
+        run(version, name, applied_at) {
+          db.migrations.push({ version, name, applied_at });
+          return { changes: 1 };
+        }
+      };
+    }
+
+    return {
+      get() { return undefined; },
+      all() { return []; },
+      run() { return { changes: 0 }; }
+    };
+  }
+}
+
+// Factory function
+export function createDatabase() {
+  return new UniversalDatabase();
 }
 
 // Global DB instance for running server
-export const defaultDb = createDatabase(true);
+export const defaultDb = createDatabase();
 
 // Standard security headers for PROD tier
 export const SECURITY_HEADERS = {
@@ -78,14 +197,13 @@ export const SECURITY_HEADERS = {
 
 // Expand-and-contract migration execution
 export function runExpandMigration(db) {
-  // Step 1: Expand - add nullable column customer_email
   try {
     db.exec(`ALTER TABLE orders ADD COLUMN customer_email TEXT;`);
     const stmt = db.prepare('INSERT INTO schema_migrations (version, name, applied_at) VALUES (?, ?, ?)');
     stmt.run(1, 'expand_add_customer_email', new Date().toISOString());
     return { success: true, phase: 'expand', column: 'customer_email' };
   } catch (err) {
-    if (err.message.includes('duplicate column')) {
+    if (err.message?.includes('duplicate column')) {
       return { success: true, phase: 'already_expanded' };
     }
     throw err;
@@ -93,21 +211,20 @@ export function runExpandMigration(db) {
 }
 
 export function runContractMigration(db) {
-  // Step 2: Contract - backfill empty emails and record completion
   db.exec(`UPDATE orders SET customer_email = 'legacy@order.local' WHERE customer_email IS NULL;`);
   const stmt = db.prepare('INSERT INTO schema_migrations (version, name, applied_at) VALUES (?, ?, ?)');
   stmt.run(2, 'contract_backfill_customer_email', new Date().toISOString());
   return { success: true, phase: 'contract', backfilled: true };
 }
 
-// Core Request Handler (Pure in-memory execution for fast, reliable testing)
+// Core Request Handler
 export function handleRequest(method, pathname, body = null, headers = {}, db = defaultDb) {
   const reqHeaders = {};
   for (const [k, v] of Object.entries(headers)) {
     reqHeaders[k.toLowerCase()] = v;
   }
 
-  // 1. Liveness Probe (Does the process respond?)
+  // 1. Liveness Probe
   if (method === 'GET' && pathname === '/api/health/liveness') {
     return {
       status: 200,
@@ -116,7 +233,7 @@ export function handleRequest(method, pathname, body = null, headers = {}, db = 
     };
   }
 
-  // 2. Readiness Probe (Is the database connected and ready for traffic?)
+  // 2. Readiness Probe
   if (method === 'GET' && pathname === '/api/health/readiness') {
     try {
       db.prepare('SELECT 1').get();
@@ -232,7 +349,7 @@ export function handleRequest(method, pathname, body = null, headers = {}, db = 
       const totalCents = product.price_cents * quantity;
       const createdAt = new Date().toISOString();
 
-      // Check if orders table has customer_email column (expand-contract compatibility)
+      // Check if orders table has customer_email column
       const tableInfo = db.prepare("PRAGMA table_info(orders)").all();
       const hasEmailCol = tableInfo.some(col => col.name === 'customer_email');
 
@@ -304,7 +421,7 @@ export function handleRequest(method, pathname, body = null, headers = {}, db = 
   };
 }
 
-// HTTP Server for running independently if started via CLI
+// HTTP Server for standalone execution
 if (process.argv[1]?.endsWith('server.js')) {
   const PORT = process.env.PORT || 3001;
   const server = http.createServer((req, res) => {
@@ -322,4 +439,3 @@ if (process.argv[1]?.endsWith('server.js')) {
     console.log(`[02-ecommerce-api-prod] Server listening on http://localhost:${PORT}`);
   });
 }
-

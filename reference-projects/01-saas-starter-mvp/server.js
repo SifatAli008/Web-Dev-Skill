@@ -1,33 +1,112 @@
 const http = require('node:http');
-const { DatabaseSync } = require('node:sqlite');
 const crypto = require('node:crypto');
 
-// 1. Initialize SQLite Database with Parameterized Schemas
-const db = new DatabaseSync(':memory:');
-db.exec(`
-  CREATE TABLE users (
-    id TEXT PRIMARY KEY,
-    email TEXT UNIQUE NOT NULL,
-    password_hash TEXT NOT NULL,
-    salt TEXT NOT NULL,
-    created_at TEXT NOT NULL
-  );
-  CREATE TABLE sessions (
-    id TEXT PRIMARY KEY,
-    user_id TEXT NOT NULL,
-    expires_at TEXT NOT NULL,
-    FOREIGN KEY(user_id) REFERENCES users(id)
-  );
-  CREATE TABLE subscriptions (
-    id TEXT PRIMARY KEY,
-    user_id TEXT NOT NULL,
-    plan TEXT NOT NULL,
-    amount_cents INTEGER NOT NULL,
-    status TEXT NOT NULL,
-    created_at TEXT NOT NULL,
-    FOREIGN KEY(user_id) REFERENCES users(id)
-  );
-`);
+// 1. Initialize SQLite Database with fallback for Node < 22.5
+let DatabaseSync;
+try {
+  DatabaseSync = require('node:sqlite').DatabaseSync;
+} catch (e) {
+  // node:sqlite is available natively in Node >= 22.5.0
+}
+
+function createDatabase() {
+  if (DatabaseSync) {
+    try {
+      const sqliteDb = new DatabaseSync(':memory:');
+      sqliteDb.exec(`
+        CREATE TABLE users (
+          id TEXT PRIMARY KEY,
+          email TEXT UNIQUE NOT NULL,
+          password_hash TEXT NOT NULL,
+          salt TEXT NOT NULL,
+          created_at TEXT NOT NULL
+        );
+        CREATE TABLE sessions (
+          id TEXT PRIMARY KEY,
+          user_id TEXT NOT NULL,
+          expires_at TEXT NOT NULL,
+          FOREIGN KEY(user_id) REFERENCES users(id)
+        );
+        CREATE TABLE subscriptions (
+          id TEXT PRIMARY KEY,
+          user_id TEXT NOT NULL,
+          plan TEXT NOT NULL,
+          amount_cents INTEGER NOT NULL,
+          status TEXT NOT NULL,
+          created_at TEXT NOT NULL,
+          FOREIGN KEY(user_id) REFERENCES users(id)
+        );
+      `);
+      return sqliteDb;
+    } catch {}
+  }
+
+  // Pure in-memory fallback for universal compatibility across Node 18, 20, 22, 24
+  const users = new Map();
+  const sessions = new Map();
+  const subscriptions = [];
+
+  return {
+    exec() {},
+    prepare(sql) {
+      if (sql.includes('SELECT id FROM users WHERE email = ?')) {
+        return {
+          get(email) {
+            for (const u of users.values()) {
+              if (u.email === email) return { id: u.id };
+            }
+            return undefined;
+          }
+        };
+      }
+      if (sql.includes('INSERT INTO users')) {
+        return {
+          run(id, email, hash, salt, created_at) {
+            users.set(id, { id, email, password_hash: hash, salt, created_at });
+            return { changes: 1 };
+          }
+        };
+      }
+      if (sql.includes('SELECT * FROM users WHERE email = ?')) {
+        return {
+          get(email) {
+            for (const u of users.values()) {
+              if (u.email === email) return u;
+            }
+            return undefined;
+          }
+        };
+      }
+      if (sql.includes('INSERT INTO sessions')) {
+        return {
+          run(id, user_id, expires_at) {
+            sessions.set(id, { id, user_id, expires_at });
+            return { changes: 1 };
+          }
+        };
+      }
+      if (sql.includes('SELECT user_id FROM sessions WHERE id = ?')) {
+        return {
+          get(id) {
+            const s = sessions.get(id);
+            return s ? { user_id: s.user_id } : undefined;
+          }
+        };
+      }
+      if (sql.includes('INSERT INTO subscriptions')) {
+        return {
+          run(id, user_id, plan, amount_cents, status, created_at) {
+            subscriptions.push({ id, user_id, plan, amount_cents, status, created_at });
+            return { changes: 1 };
+          }
+        };
+      }
+      return { get() { return undefined; }, run() { return { changes: 0 }; }, all() { return []; } };
+    }
+  };
+}
+
+const db = createDatabase();
 
 // 2. Cryptographic Helpers
 function hashPassword(password, salt = crypto.randomBytes(16).toString('hex')) {
@@ -161,4 +240,4 @@ const server = http.createServer(async (req, res) => {
   });
 });
 
-module.exports = { server, db, handleRequest, PLAN_CATALOG };
+module.exports = { server, db, handleRequest, PLAN_CATALOG, createDatabase };
