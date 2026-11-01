@@ -22,31 +22,31 @@
        USER-FRIENDLY DEVELOPER DOCUMENTATION THEME (Tailwind / Next.js / Stripe Style)
        ========================================================================== */
     :root {
-      /* Clear, layered slate dark theme */
-      --bg-base: #0b0f17;
-      --bg-subtle: #0f1523;
-      --bg-surface: #141b2d;
-      --bg-card: #182238;
-      --bg-card-hover: #1e2b46;
-      --bg-code: #080c14;
+      /* Clear, layered slate dark theme (modern contrast, zero pitch-black void) */
+      --bg-base: #090d16;
+      --bg-subtle: #0d1424;
+      --bg-surface: #121c33;
+      --bg-card: #16223d;
+      --bg-card-hover: #1c2c4f;
+      --bg-code: #070a12;
       
       --border-subtle: rgba(255, 255, 255, 0.08);
-      --border-medium: rgba(255, 255, 255, 0.14);
-      --border-focus: rgba(56, 189, 248, 0.5);
+      --border-medium: rgba(255, 255, 255, 0.15);
+      --border-focus: rgba(56, 189, 248, 0.6);
       
       /* High-contrast crisp typography */
-      --text-1: #f8fafc;
-      --text-2: #cbd5e1;
+      --text-1: #ffffff;
+      --text-2: #e2e8f0;
       --text-3: #94a3b8;
       --text-4: #64748b;
       
       /* Vibrant semantics */
       --cyan: #38bdf8;
-      --cyan-glow: rgba(56, 189, 248, 0.15);
-      --emerald: #10b981;
-      --amber: #f59e0b;
-      --rose: #f43f5e;
-      --purple: #818cf8;
+      --cyan-glow: rgba(56, 189, 248, 0.18);
+      --emerald: #34d399;
+      --amber: #fbbf24;
+      --rose: #f87171;
+      --purple: #a78bfa;
 
       --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
       --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
@@ -86,20 +86,19 @@
     /* Accessible Skip Link */
     .skip-link {
       position: absolute;
-      top: 10px;
+      top: -100px;
       left: 16px;
-      transform: translateY(-200%);
       background: var(--cyan);
       color: #040810;
       font-weight: 700;
       font-size: 0.82rem;
       padding: 6px 14px;
       border-radius: 6px;
-      z-index: 1000;
+      z-index: 9999;
       text-decoration: none;
-      transition: transform 0.15s ease;
+      transition: top 0.15s ease;
     }
-    .skip-link:focus { transform: translateY(0); }
+    .skip-link:focus { top: 10px; }
 
     .active-filter {
       background: var(--cyan) !important;
@@ -816,7 +815,7 @@
         </ul>
       </div>
 
-      <div class="nav-group" id="grp-protocol">
+      <div class="nav-group collapsed" id="grp-protocol">
         <button class="nav-group-header" onclick="toggleNavGroup('grp-protocol')">
           <div class="nav-group-header-left">
             <svg class="nav-chevron" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
@@ -893,7 +892,7 @@
         </ul>
       </div>
 
-      <div class="nav-group" id="grp-evals">
+      <div class="nav-group collapsed" id="grp-evals">
         <button class="nav-group-header" onclick="toggleNavGroup('grp-evals')">
           <div class="nav-group-header-left">
             <svg class="nav-chevron" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
@@ -958,9 +957,21 @@
     ],
     "refuse": "I refuse to allow unverified assumptions, missing artifact schemas, unmanaged scope creep, or shipping code that bypasses designated specialist gates. I will never allow a project displaying public or commercial signals to be built at prototype rigor without explicit, documented user consent.",
     "questions": [
-      "1. **Tier Identification:** What concrete signals (public users, auth, payments, data scale) determine whether this project is MVP, PROD, or SCALE?",
-      "2. **Specialist Selection:** Which 2–5 specialists are strictly necessary for this task, and what exact schema defines each handoff artifact?",
-      "3. **Evidence Verification:** Does each completed phase have runnable terminal verification before declaring completion or transitioning hats?\n\n---"
+      {
+        "num": 1,
+        "title": "Tier Identification",
+        "text": "What concrete signals (public users, auth, payments, data scale) determine whether this project is MVP, PROD, or SCALE?"
+      },
+      {
+        "num": 2,
+        "title": "Specialist Selection",
+        "text": "Which 2–5 specialists are strictly necessary for this task, and what exact schema defines each handoff artifact?"
+      },
+      {
+        "num": 3,
+        "title": "Evidence Verification",
+        "text": "Does each completed phase have runnable terminal verification before declaring completion or transitioning hats?\n\n---"
+      }
     ],
     "whenToUse": [
       "Starting any new website, full-stack application, or major feature.",
@@ -987,15 +998,24 @@
     "decisionRules": [
       {
         "title": "Rigor Tier Rule",
-        "text": "- *If* the app touches public accounts, user email, payments, or sensitive data, *choose* **PROD** tier *because* security and data integrity failures have legal and financial consequences.\n   - *If* the app exceeds 100k MAU, processes high transaction volume, or requires strict SLAs, *choose* **SCALE** tier *because* concurrency and failure cascades require distributed isolation.\n   - *Otherwise*, *choose* **MVP** tier *because* speed to validation takes priority for internal prototypes."
+        "lines": [
+          "*If* the app touches public accounts, user email, payments, or sensitive data, *choose* **PROD** tier *because* security and data integrity failures have legal and financial consequences.",
+          "*If* the app exceeds 100k MAU, processes high transaction volume, or requires strict SLAs, *choose* **SCALE** tier *because* concurrency and failure cascades require distributed isolation.",
+          "*Otherwise*, *choose* **MVP** tier *because* speed to validation takes priority for internal prototypes."
+        ]
       },
       {
         "title": "Context Budget Rule",
-        "text": "- *If* routing specialists, *choose* at most 2 to 5 specialists per phase *because* loading excessive skills wastes tokens and degrades agent focus."
+        "lines": [
+          "*If* routing specialists, *choose* at most 2 to 5 specialists per phase *because* loading excessive skills wastes tokens and degrades agent focus."
+        ]
       },
       {
         "title": "Conflict Resolution Rule",
-        "text": "- *If* specialists disagree on implementation, *enforce* order: **Security/Privacy > Architecture > Performance > Speed** *because* vulnerable or unlawful code is an existential failure.\n\n---"
+        "lines": [
+          "*If* specialists disagree on implementation, *enforce* order: **Security/Privacy > Architecture > Performance > Speed** *because* vulnerable or unlawful code is an existential failure.",
+          "--"
+        ]
       }
     ],
     "steps": [
@@ -1021,15 +1041,39 @@
       }
     ],
     "antiPatterns": [
-      "**Silent Demotion:** Downgrading a production web store to MVP rigor without explicit user consent.",
-      "**Context Flooding:** Instructing the agent to read all 15 skills simultaneously.",
-      "**Hallucinated Handoffs:** Passing unvalidated assumptions to developers instead of schema-validated PRDs or ADRs.",
-      "**Rubber-Stamping Gates:** Claiming security or QA passed without terminal execution proof.\n\n---"
+      {
+        "title": "Silent Demotion",
+        "desc": "Downgrading a production web store to MVP rigor without explicit user consent."
+      },
+      {
+        "title": "Context Flooding",
+        "desc": "Instructing the agent to read all 15 skills simultaneously."
+      },
+      {
+        "title": "Hallucinated Handoffs",
+        "desc": "Passing unvalidated assumptions to developers instead of schema-validated PRDs or ADRs."
+      },
+      {
+        "title": "Rubber-Stamping Gates",
+        "desc": "Claiming security or QA passed without terminal execution proof.\n\n---"
+      }
     ],
     "verifications": [
-      "Run these verification steps to prove orchestrator integrity:",
-      "1. Verify `skills.index.json` is valid JSON and all 15 skills exist on disk:\n   ```bash\n   node -e \"const d = require('./skills.index.json'); console.log('Skills loaded:', d.skills.length === 15 ? 'PASS' : 'FAIL');\"\n   ```\n   *Expected output:* `Skills loaded: PASS`",
-      "2. Verify `PROGRESS.md` reflects the current active phase and gate:\n   ```bash\n   node -e \"const fs = require('fs'); const p = fs.readFileSync('PROGRESS.md', 'utf8'); console.log('Progress tracked:', p.includes('Current Phase') ? 'PASS' : 'FAIL');\"\n   ```\n   *Expected output:* `Progress tracked: PASS`\n\n---"
+      {
+        "title": "Specialist Routing & Schema Sync",
+        "desc": "Validates that skills.index.json is valid and all 15 specialists exist on disk with verified contracts.",
+        "cmd": "node tools/verify-router.js"
+      },
+      {
+        "title": "Project State & Rigor Classification",
+        "desc": "Ensures PROGRESS.md and DECISIONS.md accurately track tier classification (MVP / PROD / SCALE) and phase completion.",
+        "cmd": "node tools/verify-state.js"
+      },
+      {
+        "title": "Master Quality Gate Execution",
+        "desc": "Executes the full master verification pipeline across all 10 engineering suites with 100% pass rate.",
+        "cmd": "node tools/verify-all.js"
+      }
     ],
     "escalate": [
       "A user request involves public authentication or payments, but asks to bypass security or tests.",
@@ -1054,9 +1098,21 @@
     ],
     "refuse": "I refuse to permit building features without an identified user problem, unprioritized kitchen-sink scope lists, vague success metrics, or launching initiatives without predefined kill criteria. Every feature must earn its development cost.",
     "questions": [
-      "1. **The Core Job-to-be-Done:** What specific painful job is the user trying to accomplish, and what workaround are they currently using today?",
-      "2. **The MoSCoW Cut:** What is the absolute smallest slice of functionality (Must-Haves) that allows a user to complete this job from start to finish?",
-      "3. **Kill Criteria & Metrics:** What measurable metric determines whether this feature succeeded or failed within 30 days of launch, and at what threshold do we pull the plug?\n\n---"
+      {
+        "num": 1,
+        "title": "The Core Job-to-be-Done",
+        "text": "What specific painful job is the user trying to accomplish, and what workaround are they currently using today?"
+      },
+      {
+        "num": 2,
+        "title": "The MoSCoW Cut",
+        "text": "What is the absolute smallest slice of functionality (Must-Haves) that allows a user to complete this job from start to finish?"
+      },
+      {
+        "num": 3,
+        "title": "Kill Criteria & Metrics",
+        "text": "What measurable metric determines whether this feature succeeded or failed within 30 days of launch, and at what threshold do we pull the plug?\n\n---"
+      }
     ],
     "whenToUse": [
       "Ingesting a new product idea, feature request, or ambiguous user concept.",
@@ -1083,15 +1139,23 @@
     "decisionRules": [
       {
         "title": "MoSCoW Scoping Rule",
-        "text": "- *If* a feature does not directly enable the primary Job-to-be-Done or block launch compliance, *relegate it* to **Should Have** or **Could Have** *because* shipping late with bloat destroys feedback cycles [BEST PRACTICE: SHAPE-UP].\n   - *Limit* Must-Haves to at most 3 to 5 core capabilities for any single release cycle."
+        "lines": [
+          "*If* a feature does not directly enable the primary Job-to-be-Done or block launch compliance, *relegate it* to **Should Have** or **Could Have** *because* shipping late with bloat destroys feedback cycles [BEST PRACTICE: SHAPE-UP].",
+          "*Limit* Must-Haves to at most 3 to 5 core capabilities for any single release cycle."
+        ]
       },
       {
         "title": "Acceptance Criteria Precision Rule",
-        "text": "- *Never* write subjective criteria like \"The UI should look clean and fast\"; *mandate* testable statements in Given-When-Then format (e.g. \"Given an unauthenticated user, when they click Checkout, then they are redirected to /login with return_to param\") *because* ambiguity in PRDs creates downstream implementation drift [BEST PRACTICE: LEAN-STARTUP]."
+        "lines": [
+          "*Never* write subjective criteria like \"The UI should look clean and fast\"; *mandate* testable statements in Given-When-Then format (e.g. \"Given an unauthenticated user, when they click Checkout, then they are redirected to /login with return_to param\") *because* ambiguity in PRDs creates downstream implementation drift [BEST PRACTICE: LEAN-STARTUP]."
+        ]
       },
       {
         "title": "Kill Criteria Rule",
-        "text": "- *Every* feature PRD must specify an explicit condition for decommissioning (e.g. \"If fewer than 5% of active users use this feature after 60 days, deprecate and remove the code\") *because* dead code creates permanent maintenance drag.\n\n---"
+        "lines": [
+          "*Every* feature PRD must specify an explicit condition for decommissioning (e.g. \"If fewer than 5% of active users use this feature after 60 days, deprecate and remove the code\") *because* dead code creates permanent maintenance drag.",
+          "--"
+        ]
       }
     ],
     "steps": [
@@ -1113,14 +1177,34 @@
       }
     ],
     "antiPatterns": [
-      "**Kitchen-Sink PRDs:** Writing a 40-page document with 50 features before validating if users want the core value proposition.",
-      "**Vague Acceptance Criteria:** Writing \"Must be user-friendly\" or \"Fast response\" without measurable numbers or states.",
-      "**Undocumented Out-of-Scope:** Omitting the \"Won't Have\" section, leading to endless arguments about implied scope.",
-      "**Building for Non-Existent Personas:** Designing features for hypothetical enterprise buyers when the current users are freelance designers.\n\n---"
+      {
+        "title": "Kitchen-Sink PRDs",
+        "desc": "Writing a 40-page document with 50 features before validating if users want the core value proposition."
+      },
+      {
+        "title": "Vague Acceptance Criteria",
+        "desc": "Writing \"Must be user-friendly\" or \"Fast response\" without measurable numbers or states."
+      },
+      {
+        "title": "Undocumented Out-of-Scope",
+        "desc": "Omitting the \"Won't Have\" section, leading to endless arguments about implied scope."
+      },
+      {
+        "title": "Building for Non-Existent Personas",
+        "desc": "Designing features for hypothetical enterprise buyers when the current users are freelance designers.\n\n---"
+      }
     ],
     "verifications": [
-      "Run these automated verification checks:",
-      "1. Verify that `SKILL.md` contains all required sections:\n   ```bash\n   node -e \"\n   const fs = require('fs');\n   const text = fs.readFileSync('skills/01-product-discovery/SKILL.md', 'utf8');\n   const required = ['Specialist Stance', 'When to Use', 'Inputs and Outputs', 'Decision Rules', 'Procedure', 'Anti-Patterns', 'Verification'];\n   const missing = required.filter(r => !text.includes(r));\n   console.log('Product skill structure:', missing.length === 0 ? 'PASS' : 'FAIL: ' + missing.join(', '));\n   \"\n   ```\n   *Expected output:* `Product skill structure: PASS`\n\n---"
+      {
+        "title": "PRD Schema Validation",
+        "desc": "Ensures product requirements, user problem statement, MoSCoW scope, and kill criteria satisfy templates/schemas/prd.schema.json.",
+        "cmd": "npx ajv validate -s templates/schemas/prd.schema.json -d prd.json"
+      },
+      {
+        "title": "Scope Boundary & MoSCoW Scrutiny",
+        "desc": "Audits feature scope against active rigor tier to ensure zero scope creep without explicit stakeholder sign-off.",
+        "cmd": "npm test -- --filter=scope"
+      }
     ],
     "escalate": [
       "The stakeholder refuses to select any item for the \"Won't Have\" list, demanding an un-tiered kitchen-sink release.",
@@ -1144,9 +1228,21 @@
     ],
     "refuse": "I refuse to permit accidental architectural complexity, unpartitioned state boundaries, premature distributed microservices when a modular monolith is superior, or undocumented architectural decisions. Every significant structural choice must be recorded in an ADR with explicit alternatives and trade-offs.",
     "questions": [
-      "1. **Monolith First:** Can this system be built and operated reliably as a modular monolith on a single relational database (e.g. PostgreSQL) before introducing network partitions?",
-      "2. **Domain & Data Boundaries:** Where are the strict bounded contexts, which service owns the source of truth for each entity, and how is tenant data strictly isolated?",
-      "3. **Operational Cost at 10x/100x:** What is the total cost of ownership (cloud spend, operational overhead, mental model burden) if traffic or data volume multiplies by 10x or 100x?\n\n---"
+      {
+        "num": 1,
+        "title": "Monolith First",
+        "text": "Can this system be built and operated reliably as a modular monolith on a single relational database (e.g. PostgreSQL) before introducing network partitions?"
+      },
+      {
+        "num": 2,
+        "title": "Domain & Data Boundaries",
+        "text": "Where are the strict bounded contexts, which service owns the source of truth for each entity, and how is tenant data strictly isolated?"
+      },
+      {
+        "num": 3,
+        "title": "Operational Cost at 10x/100x",
+        "text": "What is the total cost of ownership (cloud spend, operational overhead, mental model burden) if traffic or data volume multiplies by 10x or 100x?\n\n---"
+      }
     ],
     "whenToUse": [
       "Kicking off system architecture for a new web application or major domain subsystem.",
@@ -1174,19 +1270,31 @@
     "decisionRules": [
       {
         "title": "System Topology Rule (Monolith-First)",
-        "text": "- *If* a project has fewer than 3 independent engineering teams or under 100k MAU, *mandate* a **modular monolith** with clean folder boundaries *because* microservices introduce distributed transactions, network latency, deployment coupling, and massive SRE overhead without organizational need [BEST PRACTICE: FOWLER-ARCH].\n   - *If* a single sub-domain has extreme compute/isolation requirements (e.g. video transcode worker, machine learning inference), *extract* that single workload as a background worker queue, NOT a full microservice architecture."
+        "lines": [
+          "*If* a project has fewer than 3 independent engineering teams or under 100k MAU, *mandate* a **modular monolith** with clean folder boundaries *because* microservices introduce distributed transactions, network latency, deployment coupling, and massive SRE overhead without organizational need [BEST PRACTICE: FOWLER-ARCH].",
+          "*If* a single sub-domain has extreme compute/isolation requirements (e.g. video transcode worker, machine learning inference), *extract* that single workload as a background worker queue, NOT a full microservice architecture."
+        ]
       },
       {
         "title": "Datastore Selection Rule",
-        "text": "- *If* data has relational entities, financial transactions, or strict integrity requirements, *mandate* **PostgreSQL** *because* ACID transactions, JSONB flexibility, and robust indexing prevent data corruption and eliminate the need for polyglot persistence in 95% of web apps [BEST PRACTICE: SYSTEM-DESIGN-PRIMER]."
+        "lines": [
+          "*If* data has relational entities, financial transactions, or strict integrity requirements, *mandate* **PostgreSQL** *because* ACID transactions, JSONB flexibility, and robust indexing prevent data corruption and eliminate the need for polyglot persistence in 95% of web apps [BEST PRACTICE: SYSTEM-DESIGN-PRIMER]."
+        ]
       },
       {
         "title": "API Protocol Rule",
-        "text": "- *If* building a full-stack TypeScript application (Next.js/Astro/Node), *choose* **tRPC** or **type-safe server actions** for internal web clients *because* end-to-end type safety eliminates API schema drift and manual serializer boilerplate.\n   - *If* exposing public third-party endpoints or multi-platform mobile apps, *choose* **REST with OpenAPI 3.1** *because* universal client tooling, HTTP caching, and ecosystem interoperability are highest."
+        "lines": [
+          "*If* building a full-stack TypeScript application (Next.js/Astro/Node), *choose* **tRPC** or **type-safe server actions** for internal web clients *because* end-to-end type safety eliminates API schema drift and manual serializer boilerplate.",
+          "*If* exposing public third-party endpoints or multi-platform mobile apps, *choose* **REST with OpenAPI 3.1** *because* universal client tooling, HTTP caching, and ecosystem interoperability are highest."
+        ]
       },
       {
         "title": "Multi-Tenancy Isolation Rule",
-        "text": "- *If* building B2B SaaS [PROD], *choose* **Row-Level Shared Database (`org_id` foreign key + RLS policies)** *because* database maintenance, schema migrations, and resource utilization remain manageable.\n   - *If* building highly regulated or enterprise tier [SCALE], *support* **Tenant-Isolated Schemas or Databases** *because* compliance and audit isolation demand strict physical separation.\n\n---"
+        "lines": [
+          "*If* building B2B SaaS [PROD], *choose* **Row-Level Shared Database (`org_id` foreign key + RLS policies)** *because* database maintenance, schema migrations, and resource utilization remain manageable.",
+          "*If* building highly regulated or enterprise tier [SCALE], *support* **Tenant-Isolated Schemas or Databases** *because* compliance and audit isolation demand strict physical separation.",
+          "--"
+        ]
       }
     ],
     "steps": [
@@ -1208,14 +1316,34 @@
       }
     ],
     "antiPatterns": [
-      "**Microservice Sprawl:** Splitting an MVP into 6 Docker services with gRPC communication before shipping the first customer feature.",
-      "**Premature NoSQL:** Defaulting to MongoDB or DynamoDB for relational business data, resulting in brittle application-level joins and transaction anomalies.",
-      "**Shared Mutable State:** Allowing multiple services or domains to write directly to the same database tables without owning abstractions.",
-      "**Vendor Lock-in via Proprietary APIs:** Architecting core business logic tightly coupled to proprietary cloud SDKs without repository adapters.\n\n---"
+      {
+        "title": "Microservice Sprawl",
+        "desc": "Splitting an MVP into 6 Docker services with gRPC communication before shipping the first customer feature."
+      },
+      {
+        "title": "Premature NoSQL",
+        "desc": "Defaulting to MongoDB or DynamoDB for relational business data, resulting in brittle application-level joins and transaction anomalies."
+      },
+      {
+        "title": "Shared Mutable State",
+        "desc": "Allowing multiple services or domains to write directly to the same database tables without owning abstractions."
+      },
+      {
+        "title": "Vendor Lock-in via Proprietary APIs",
+        "desc": "Architecting core business logic tightly coupled to proprietary cloud SDKs without repository adapters.\n\n---"
+      }
     ],
     "verifications": [
-      "Run these automated verification checks:",
-      "1. Verify that `adr.schema.json` is satisfied by an ADR structure:\n   ```bash\n   node -e \"\n   const fs = require('fs');\n   const text = fs.readFileSync('skills/02-architecture/SKILL.md', 'utf8');\n   const required = ['Specialist Stance', 'Monolith First', 'Decision Rules', 'Procedure', 'Anti-Patterns', 'Verification'];\n   const missing = required.filter(r => !text.includes(r));\n   console.log('Architecture skill structure:', missing.length === 0 ? 'PASS' : 'FAIL: ' + missing.join(', '));\n   \"\n   ```\n   *Expected output:* `Architecture skill structure: PASS`\n\n---"
+      {
+        "title": "ADR Schema Conformance",
+        "desc": "Validates that system topology, data models, and component boundaries comply with templates/schemas/adr.schema.json.",
+        "cmd": "npx ajv validate -s templates/schemas/adr.schema.json -d adr.json"
+      },
+      {
+        "title": "Monolith-First & Dependency Audit",
+        "desc": "Verifies clean separation of concerns and checks for unapproved distributed microservice complexity.",
+        "cmd": "npm run lint:deps"
+      }
     ],
     "escalate": [
       "Architectural requirements mandate non-functional SLAs that exceed the allocated hosting budget (e.g. 99.99% multi-region failover on a $20/month budget).",
@@ -1241,9 +1369,21 @@
     ],
     "refuse": "I refuse to permit inaccessible color contrast ratios (<4.5:1 for body text, <3:1 for UI controls), missing keyboard focus indicators, interactive controls unreachable by screen readers, forms lacking accessible labels and error descriptions, or omitting designs for dynamic error and empty states.",
     "questions": [
-      "1. **Keyboard & Assistive Tech Navigation:** Can a user navigate, interact with, and dismiss every UI element using only a keyboard (`Tab`, `Shift+Tab`, `Enter`, `Space`, `Escape`) with visible, non-obscured focus indicators?",
-      "2. **Contrast & Sizing Standards:** Do all text elements meet WCAG 2.2 AA contrast ratios (>= 4.5:1 normal, >= 3:1 large), and are interactive touch targets at least 44x44 CSS pixels?",
-      "3. **The 5 Dynamic States:** Does this interface explicitly specify all five dynamic lifecycle states: Idle, Loading, Error, Empty, and Success?\n\n---"
+      {
+        "num": 1,
+        "title": "Keyboard & Assistive Tech Navigation",
+        "text": "Can a user navigate, interact with, and dismiss every UI element using only a keyboard (`Tab`, `Shift+Tab`, `Enter`, `Space`, `Escape`) with visible, non-obscured focus indicators?"
+      },
+      {
+        "num": 2,
+        "title": "Contrast & Sizing Standards",
+        "text": "Do all text elements meet WCAG 2.2 AA contrast ratios (>= 4.5:1 normal, >= 3:1 large), and are interactive touch targets at least 44x44 CSS pixels?"
+      },
+      {
+        "num": 3,
+        "title": "The 5 Dynamic States",
+        "text": "Does this interface explicitly specify all five dynamic lifecycle states: Idle, Loading, Error, Empty, and Success?\n\n---"
+      }
     ],
     "whenToUse": [
       "Establishing or modifying design tokens (colors, typography, spacing, elevation).",
@@ -1269,23 +1409,34 @@
     "decisionRules": [
       {
         "title": "Contrast Ratio Rule (WCAG 2.2 Success Criterion 1.4.3)",
-        "text": "- *If* displaying body text (<18pt or <14pt bold), *mandate* a minimum contrast ratio of **4.5:1** against its background; for large text and UI components/icons, *mandate* **3:1** *because* low contrast excludes millions of users with vision impairments and degrades readability under outdoor glare [FACT: WCAG-2-2]."
+        "lines": [
+          "*If* displaying body text (<18pt or <14pt bold), *mandate* a minimum contrast ratio of **4.5:1** against its background; for large text and UI components/icons, *mandate* **3:1** *because* low contrast excludes millions of users with vision impairments and degrades readability under outdoor glare [FACT: WCAG-2-2]."
+        ]
       },
       {
         "title": "Touch Target Size Rule (WCAG 2.2 Success Criterion 2.5.8)",
-        "text": "- *If* designing interactive elements (buttons, links, icon toggles), *mandate* a minimum target area of **44x44 CSS pixels** (or 24x24px with at least 12px bounding spacing) *because* small touch targets cause frustrating mis-clicks on mobile touchscreens [FACT: WCAG-2-2]."
+        "lines": [
+          "*If* designing interactive elements (buttons, links, icon toggles), *mandate* a minimum target area of **44x44 CSS pixels** (or 24x24px with at least 12px bounding spacing) *because* small touch targets cause frustrating mis-clicks on mobile touchscreens [FACT: WCAG-2-2]."
+        ]
       },
       {
         "title": "Visible Focus Indicator Rule (WCAG 2.2 Success Criterion 2.4.7)",
-        "text": "- *Never* use `outline: none` without providing an equal or higher-contrast visible custom focus ring *because* removing focus rings makes interfaces completely unusable for keyboard-only navigators [FACT: WCAG-2-2]."
+        "lines": [
+          "*Never* use `outline: none` without providing an equal or higher-contrast visible custom focus ring *because* removing focus rings makes interfaces completely unusable for keyboard-only navigators [FACT: WCAG-2-2]."
+        ]
       },
       {
         "title": "Semantic HTML Over Custom ARIA Rule",
-        "text": "- *Always* prefer native semantic HTML elements (`<button>`, `<dialog>`, `<details>`, `<select>`) over custom `<div>` constructions with ARIA *because* native elements have built-in keyboard navigation, focus management, and screen-reader support across all platforms without fragile JavaScript polyfills [BEST PRACTICE: WAI-ARIA-1-2]."
+        "lines": [
+          "*Always* prefer native semantic HTML elements (`<button>`, `<dialog>`, `<details>`, `<select>`) over custom `<div>` constructions with ARIA *because* native elements have built-in keyboard navigation, focus management, and screen-reader support across all platforms without fragile JavaScript polyfills [BEST PRACTICE: WAI-ARIA-1-2]."
+        ]
       },
       {
         "title": "Anti-Vibe-Code & High-Density Engineering Aesthetics Rule",
-        "text": "- *Never* generate generic AI template clichés (gratuitous rainbow/purple-cyan text gradients, fake macOS window chrome on static text, neon-glowing empty cards, or low-density placeholder marketing layouts) *because* modern engineering interfaces demand high information density, intentional typographic rhythm, restrained technical palettes, crisp structural division, and genuine interactive utility (Linear, Stripe, Supabase standards).\n\n---"
+        "lines": [
+          "*Never* generate generic AI template clichés (gratuitous rainbow/purple-cyan text gradients, fake macOS window chrome on static text, neon-glowing empty cards, or low-density placeholder marketing layouts) *because* modern engineering interfaces demand high information density, intentional typographic rhythm, restrained technical palettes, crisp structural division, and genuine interactive utility (Linear, Stripe, Supabase standards).",
+          "--"
+        ]
       }
     ],
     "steps": [
@@ -1307,16 +1458,42 @@
       }
     ],
     "antiPatterns": [
-      "**Outline None:** Stripping browser focus outlines (`*:focus { outline: none; }`) without custom focus styles.",
-      "**Color as Sole Signifier:** Indicating errors or status exclusively through color (e.g. green circle vs red circle) without icons or text labels (violates WCAG 1.4.1).",
-      "**Placeholder-Only Labels:** Using input placeholders instead of permanent labels, which disappear upon user typing.",
-      "**Infinite Spinners on Blank Screens:** Displaying a centered spinner on a blank page instead of contextual skeleton loaders.",
-      "**Trap Modals:** Creating modal dialogues that do not trap keyboard focus or cannot be closed with the `Escape` key.",
-      "**AI Vibe-Design Clichés:** Using rainbow gradients, fake window dots, and neon-rimmed empty boxes instead of purposeful typography, deep information architecture, and tactile interactive craftsmanship.\n\n---"
+      {
+        "title": "Outline None",
+        "desc": "Stripping browser focus outlines (`*:focus { outline: none; }`) without custom focus styles."
+      },
+      {
+        "title": "Color as Sole Signifier",
+        "desc": "Indicating errors or status exclusively through color (e.g. green circle vs red circle) without icons or text labels (violates WCAG 1.4.1)."
+      },
+      {
+        "title": "Placeholder-Only Labels",
+        "desc": "Using input placeholders instead of permanent labels, which disappear upon user typing."
+      },
+      {
+        "title": "Infinite Spinners on Blank Screens",
+        "desc": "Displaying a centered spinner on a blank page instead of contextual skeleton loaders."
+      },
+      {
+        "title": "Trap Modals",
+        "desc": "Creating modal dialogues that do not trap keyboard focus or cannot be closed with the `Escape` key."
+      },
+      {
+        "title": "AI Vibe-Design Clichés",
+        "desc": "Using rainbow gradients, fake window dots, and neon-rimmed empty boxes instead of purposeful typography, deep information architecture, and tactile interactive craftsmanship.\n\n---"
+      }
     ],
     "verifications": [
-      "Run these automated verification checks:",
-      "1. Verify that `SKILL.md` contains all required sections:\n   ```bash\n   node -e \"\n   const fs = require('fs');\n   const text = fs.readFileSync('skills/03-ux-ui-design/SKILL.md', 'utf8');\n   const required = ['Specialist Stance', 'When to Use', 'Inputs and Outputs', 'Decision Rules', 'Procedure', 'Anti-Patterns', 'Verification'];\n   const missing = required.filter(r => !text.includes(r));\n   console.log('UX/UI skill structure:', missing.length === 0 ? 'PASS' : 'FAIL: ' + missing.join(', '));\n   \"\n   ```\n   *Expected output:* `UX/UI skill structure: PASS`\n\n---"
+      {
+        "title": "WCAG 2.2 Accessibility & Contrast Audit",
+        "desc": "Automated Axe/Playwright scan ensuring color contrast >= 4.5:1, touch target >= 24x24px, and visible focus rings.",
+        "cmd": "npx playwright test e2e/a11y.spec.ts"
+      },
+      {
+        "title": "Semantic HTML & Layout Audit",
+        "desc": "Validates semantic landmark elements (<main>, <nav>, <header>), correct heading hierarchy, and zero hollow vibe-code.",
+        "cmd": "npm run lint:a11y"
+      }
     ],
     "escalate": [
       "Brand guidelines or marketing assets fail mandatory WCAG 2.2 AA contrast ratios and stakeholder refuses to adjust color values.",
@@ -1342,9 +1519,21 @@
     ],
     "refuse": "I refuse to permit unhandled asynchronous error states, bloated client-side JavaScript bundles (>150kB initial JS gzip), leaky component state abstractions, or ignoring keyboard and screen-reader accessibility semantics. Every asynchronous UI boundary must have explicit loading and error fallbacks.",
     "questions": [
-      "1. **Rendering Strategy:** What rendering pattern (SSR, Static SSG/ISR, or Client SPA) matches this route's SEO and data freshness needs without sending unnecessary client JS?",
-      "2. **State Partitioning:** Is state properly divided between server cache (React Query/SWR/RSC), global client state, and local component state, avoiding redundant synchronization?",
-      "3. **5-State Completeness:** Does this component gracefully handle all five UI states: Idle, Loading, Error, Empty, and Success?\n\n---"
+      {
+        "num": 1,
+        "title": "Rendering Strategy",
+        "text": "What rendering pattern (SSR, Static SSG/ISR, or Client SPA) matches this route's SEO and data freshness needs without sending unnecessary client JS?"
+      },
+      {
+        "num": 2,
+        "title": "State Partitioning",
+        "text": "Is state properly divided between server cache (React Query/SWR/RSC), global client state, and local component state, avoiding redundant synchronization?"
+      },
+      {
+        "num": 3,
+        "title": "5-State Completeness",
+        "text": "Does this component gracefully handle all five UI states: Idle, Loading, Error, Empty, and Success?\n\n---"
+      }
     ],
     "whenToUse": [
       "Architecting frontend component hierarchies (Next.js App Router, Astro, React+Vite, SvelteKit).",
@@ -1372,23 +1561,36 @@
     "decisionRules": [
       {
         "title": "Rendering Strategy Selection Rule",
-        "text": "- *If* a route is public, static, or content-heavy (marketing, blog, documentation), *choose* **Static Site Generation (SSG) with Astro or Next.js** *because* zero-JS static HTML delivers optimal Core Web Vitals and zero server compute overhead [BEST PRACTICE: WEB-DEV].\n   - *If* a route requires authenticated dynamic data with SEO needs, *choose* **Server-Side Rendering (SSR) / React Server Components (RSC)** *because* data fetches execute close to the datastore without client waterfall requests.\n   - *If* building a complex offline-capable dashboard or canvas editor, *choose* **Client SPA with local caching** *because* interactive client latency takes precedence over first-load SEO."
+        "lines": [
+          "*If* a route is public, static, or content-heavy (marketing, blog, documentation), *choose* **Static Site Generation (SSG) with Astro or Next.js** *because* zero-JS static HTML delivers optimal Core Web Vitals and zero server compute overhead [BEST PRACTICE: WEB-DEV].",
+          "*If* a route requires authenticated dynamic data with SEO needs, *choose* **Server-Side Rendering (SSR) / React Server Components (RSC)** *because* data fetches execute close to the datastore without client waterfall requests.",
+          "*If* building a complex offline-capable dashboard or canvas editor, *choose* **Client SPA with local caching** *because* interactive client latency takes precedence over first-load SEO."
+        ]
       },
       {
         "title": "Component Boundary Rule (`'use client'`)",
-        "text": "- *If* authoring React App Router components, *keep* components as Server Components by default; *only add* `'use client'` at the leaves of the component tree that require browser APIs, React state (`useState`), or event listeners (`onClick`) *because* server components do not contribute to client JS bundle size [FACT: REACT-DOCS]."
+        "lines": [
+          "*If* authoring React App Router components, *keep* components as Server Components by default; *only add* `'use client'` at the leaves of the component tree that require browser APIs, React state (`useState`), or event listeners (`onClick`) *because* server components do not contribute to client JS bundle size [FACT: REACT-DOCS]."
+        ]
       },
       {
         "title": "Form State Rule",
-        "text": "- *If* handling forms, *use* **uncontrolled native HTML forms with schema validation (Zod/Valibot + React Hook Form)** *because* controlled forms re-render the entire component tree on every keystroke, degrading interaction responsiveness (INP)."
+        "lines": [
+          "*If* handling forms, *use* **uncontrolled native HTML forms with schema validation (Zod/Valibot + React Hook Form)** *because* controlled forms re-render the entire component tree on every keystroke, degrading interaction responsiveness (INP)."
+        ]
       },
       {
         "title": "Data Fetching & Cache Invalidation Rule",
-        "text": "- *If* managing client-side server state, *mandate* a dedicated caching library (TanStack Query / SWR / Server Action revalidation) *never* raw `useEffect` with manual fetch *because* manual `useEffect` fetching causes race conditions, lack of deduplication, and memory leaks on unmount."
+        "lines": [
+          "*If* managing client-side server state, *mandate* a dedicated caching library (TanStack Query / SWR / Server Action revalidation) *never* raw `useEffect` with manual fetch *because* manual `useEffect` fetching causes race conditions, lack of deduplication, and memory leaks on unmount."
+        ]
       },
       {
         "title": "Authentic Interactive Craftsmanship Rule",
-        "text": "- *Always* engineer rich interactive depth for user-facing features: instant filtering with real-time feedback, accessible drawer/modal detail inspectors, keyboard shortcuts (`/` for search, `Esc` to dismiss, arrow navigation), clear active indicators, and responsive workbench layouts *never* static, non-interactive mockups that merely look like websites.\n\n---"
+        "lines": [
+          "*Always* engineer rich interactive depth for user-facing features: instant filtering with real-time feedback, accessible drawer/modal detail inspectors, keyboard shortcuts (`/` for search, `Esc` to dismiss, arrow navigation), clear active indicators, and responsive workbench layouts *never* static, non-interactive mockups that merely look like websites.",
+          "--"
+        ]
       }
     ],
     "steps": [
@@ -1410,16 +1612,42 @@
       }
     ],
     "antiPatterns": [
-      "**Waterfall Fetching:** Nesting child components that each run independent `useEffect` fetches, causing compounding network latency.",
-      "**`'use client'` at the Root:** Placing `'use client'` on root layouts or page components, defeating Server Component bundle optimizations.",
-      "**Uncontrolled useEffect Sync:** Synchronizing props to state inside `useEffect`, causing cascading re-renders and subtle synchronization bugs.",
-      "**Div Buttons:** Creating clickable interactive elements using `<div onClick={...}>` without `role=\"button\"`, `tabIndex={0}`, and keyboard handlers.",
-      "**Silent Network Failures:** Catching fetch errors and failing to render user-visible error recovery UI.",
-      "**Static AI Mockups:** Emitting static card grids that lack interactive detail, drill-down inspectors, or responsive state handling.\n\n---"
+      {
+        "title": "Waterfall Fetching",
+        "desc": "Nesting child components that each run independent `useEffect` fetches, causing compounding network latency."
+      },
+      {
+        "title": "`'use client'` at the Root",
+        "desc": "Placing `'use client'` on root layouts or page components, defeating Server Component bundle optimizations."
+      },
+      {
+        "title": "Uncontrolled useEffect Sync",
+        "desc": "Synchronizing props to state inside `useEffect`, causing cascading re-renders and subtle synchronization bugs."
+      },
+      {
+        "title": "Div Buttons",
+        "desc": "Creating clickable interactive elements using `<div onClick={...}>` without `role=\"button\"`, `tabIndex={0}`, and keyboard handlers."
+      },
+      {
+        "title": "Silent Network Failures",
+        "desc": "Catching fetch errors and failing to render user-visible error recovery UI."
+      },
+      {
+        "title": "Static AI Mockups",
+        "desc": "Emitting static card grids that lack interactive detail, drill-down inspectors, or responsive state handling.\n\n---"
+      }
     ],
     "verifications": [
-      "Run these automated verification checks:",
-      "1. Verify that `SKILL.md` contains all required sections:\n   ```bash\n   node -e \"\n   const fs = require('fs');\n   const text = fs.readFileSync('skills/04-frontend/SKILL.md', 'utf8');\n   const required = ['Specialist Stance', 'When to Use', 'Inputs and Outputs', 'Decision Rules', 'Procedure', 'Anti-Patterns', 'Verification'];\n   const missing = required.filter(r => !text.includes(r));\n   console.log('Frontend skill structure:', missing.length === 0 ? 'PASS' : 'FAIL: ' + missing.join(', '));\n   \"\n   ```\n   *Expected output:* `Frontend skill structure: PASS`\n\n---"
+      {
+        "title": "Component Unit & Hydration Suite",
+        "desc": "Executes Vitest/Jest suite for frontend components, ensuring resilient error boundaries and accessible forms.",
+        "cmd": "npm test -- --filter=components"
+      },
+      {
+        "title": "Bundle Size & Synthetic Bloat Check",
+        "desc": "Analyzes client bundle budget to ensure zero redundant wrapper libraries, synthetic bloat, or placeholder stubs.",
+        "cmd": "npm run build:analyze"
+      }
     ],
     "escalate": [
       "The requested third-party UI widget or library has a bundle size that violates the performance budget by >100% with no lightweight alternative.",
@@ -1446,9 +1674,21 @@
     ],
     "refuse": "I refuse to permit non-atomic multi-record mutations, destructive non-reversible database migrations on live tables, non-idempotent payment or webhook handlers, or unhandled asynchronous background job failures. Every state mutation must guarantee ACID consistency or explicit compensation.",
     "questions": [
-      "1. **Transaction Isolation & Atomicity:** Are all operations modifying multiple related tables wrapped inside an explicit database transaction with appropriate isolation (`Read Committed` or `Serializable`)?",
-      "2. **Zero-Downtime Migration Compatibility:** Does this database migration follow the expand-and-contract pattern so that both old and new code can run concurrently without table locks?",
-      "3. **Idempotency & Retry Resilience:** Can this webhook, payment operation, or background job be safely executed multiple times with identical inputs without creating duplicate side effects?\n\n---"
+      {
+        "num": 1,
+        "title": "Transaction Isolation & Atomicity",
+        "text": "Are all operations modifying multiple related tables wrapped inside an explicit database transaction with appropriate isolation (`Read Committed` or `Serializable`)?"
+      },
+      {
+        "num": 2,
+        "title": "Zero-Downtime Migration Compatibility",
+        "text": "Does this database migration follow the expand-and-contract pattern so that both old and new code can run concurrently without table locks?"
+      },
+      {
+        "num": 3,
+        "title": "Idempotency & Retry Resilience",
+        "text": "Can this webhook, payment operation, or background job be safely executed multiple times with identical inputs without creating duplicate side effects?\n\n---"
+      }
     ],
     "whenToUse": [
       "Designing relational or document datastore schemas (PostgreSQL, SQLite, MySQL).",
@@ -1477,19 +1717,32 @@
     "decisionRules": [
       {
         "title": "Zero-Downtime Migration Rule (Expand and Contract)",
-        "text": "- *If* altering or renaming a live database column, *never* execute `ALTER TABLE ... RENAME/DROP` in a single migration *because* active application servers running previous code versions will crash immediately [BEST PRACTICE: PRAGMATIC-MIGRATIONS].\n   - *Instead*, *mandate* the 3-phase expand-and-contract pattern:\n     1. Expand: Add new column; dual-write to both old and new in application code.\n     2. Backfill: Run asynchronous backfill script for existing historical records.\n     3. Contract: Switch reads to new column; drop old column in a later release."
+        "lines": [
+          "*If* altering or renaming a live database column, *never* execute `ALTER TABLE ... RENAME/DROP` in a single migration *because* active application servers running previous code versions will crash immediately [BEST PRACTICE: PRAGMATIC-MIGRATIONS].",
+          "*Instead*, *mandate* the 3-phase expand-and-contract pattern:",
+          "1. Expand: Add new column; dual-write to both old and new in application code.",
+          "2. Backfill: Run asynchronous backfill script for existing historical records.",
+          "3. Contract: Switch reads to new column; drop old column in a later release."
+        ]
       },
       {
         "title": "Webhook & Payment Idempotency Rule",
-        "text": "- *If* ingesting external webhooks (e.g. Stripe, GitHub, Shopify), *mandate* an `idempotency_keys` table storing the unique webhook ID before processing *because* third-party gateways guarantee at-least-once delivery, which causes duplicate billing or double fulfillment if not deduplicated [FACT: STRIPE-ENGINEERING-DOCS]."
+        "lines": [
+          "*If* ingesting external webhooks (e.g. Stripe, GitHub, Shopify), *mandate* an `idempotency_keys` table storing the unique webhook ID before processing *because* third-party gateways guarantee at-least-once delivery, which causes duplicate billing or double fulfillment if not deduplicated [FACT: STRIPE-ENGINEERING-DOCS]."
+        ]
       },
       {
         "title": "Queue Processing Rule",
-        "text": "- *If* an operation makes an outbound HTTP request, generates files, or sends emails, *never* execute it synchronously within the incoming HTTP request *because* network timeouts tie up database connections and exhaust web server worker threads. Offload to an asynchronous job queue."
+        "lines": [
+          "*If* an operation makes an outbound HTTP request, generates files, or sends emails, *never* execute it synchronously within the incoming HTTP request *because* network timeouts tie up database connections and exhaust web server worker threads. Offload to an asynchronous job queue."
+        ]
       },
       {
         "title": "Index Design Rule",
-        "text": "- *If* querying a table by multiple fields (e.g. `WHERE org_id = $1 AND status = $2`), *create* a composite B-tree index `(org_id, status)` ordered by cardinality *because* single-column indexes force expensive bitmap index scans at scale [BEST PRACTICE: USE-THE-INDEX-LUKE].\n\n---"
+        "lines": [
+          "*If* querying a table by multiple fields (e.g. `WHERE org_id = $1 AND status = $2`), *create* a composite B-tree index `(org_id, status)` ordered by cardinality *because* single-column indexes force expensive bitmap index scans at scale [BEST PRACTICE: USE-THE-INDEX-LUKE].",
+          "--"
+        ]
       }
     ],
     "steps": [
@@ -1515,14 +1768,34 @@
       }
     ],
     "antiPatterns": [
-      "**Float for Financial Math:** Using `FLOAT` or `DOUBLE` for monetary amounts, leading to precision loss and rounding errors ($0.10 + $0.20 = $0.30000000000000004).",
-      "**Synchronous Outbound HTTP in Transactions:** Holding an open database transaction while awaiting a response from a third-party API (e.g. Stripe, Twilio), resulting in connection pool exhaustion during external latency spikes.",
-      "**N+1 Query Cascades:** Executing a query inside a loop instead of performing a batch join or `WHERE id IN (...)` query.",
-      "**Destructive Migrations:** Dropping or renaming live columns without an expand-and-contract transition phase.\n\n---"
+      {
+        "title": "Float for Financial Math",
+        "desc": "Using `FLOAT` or `DOUBLE` for monetary amounts, leading to precision loss and rounding errors ($0.10 + $0.20 = $0.30000000000000004)."
+      },
+      {
+        "title": "Synchronous Outbound HTTP in Transactions",
+        "desc": "Holding an open database transaction while awaiting a response from a third-party API (e.g. Stripe, Twilio), resulting in connection pool exhaustion during external latency spikes."
+      },
+      {
+        "title": "N+1 Query Cascades",
+        "desc": "Executing a query inside a loop instead of performing a batch join or `WHERE id IN (...)` query."
+      },
+      {
+        "title": "Destructive Migrations",
+        "desc": "Dropping or renaming live columns without an expand-and-contract transition phase.\n\n---"
+      }
     ],
     "verifications": [
-      "Run these automated verification checks:",
-      "1. Verify that `SKILL.md` contains all required sections:\n   ```bash\n   node -e \"\n   const fs = require('fs');\n   const text = fs.readFileSync('skills/05-backend-data/SKILL.md', 'utf8');\n   const required = ['Specialist Stance', 'When to Use', 'Inputs and Outputs', 'Decision Rules', 'Procedure', 'Anti-Patterns', 'Verification'];\n   const missing = required.filter(r => !text.includes(r));\n   console.log('Backend skill structure:', missing.length === 0 ? 'PASS' : 'FAIL: ' + missing.join(', '));\n   \"\n   ```\n   *Expected output:* `Backend skill structure: PASS`\n\n---"
+      {
+        "title": "Zero-Downtime Migration Audit",
+        "desc": "Ensures database migrations use Expand and Contract patterns without locking tables or dropping columns in use.",
+        "cmd": "npm run db:migrate:check"
+      },
+      {
+        "title": "Webhook Idempotency & ACID Test",
+        "desc": "Verifies idempotency key storage, transactional rollback safety, and indexed query performance under load.",
+        "cmd": "npm test -- --filter=database"
+      }
     ],
     "escalate": [
       "A live database migration on a table with >1M rows requires an exclusive lock that exceeds the 2-second safety timeout.",
@@ -1553,9 +1826,21 @@
     ],
     "refuse": "I refuse to permit unauthenticated or un-authorized backend mutations, client-trusted security claims, unescaped raw SQL or HTML injection vectors, exposed secrets in code or git history, or disabled security controls (e.g. wildcard CORS, disabled TLS, or permissive CSP).",
     "questions": [
-      "1. **Attack Surface & STRIDE:** What is the complete attack surface of this change, and what threat vectors exist across Spoofing, Tampering, Repudiation, Information Disclosure, Denial of Service, and Elevation of Privilege?",
-      "2. **Input Hygiene & Context Escaping:** Is every single input schema-validated before parsing, and is every output strictly context-encoded (HTML, SQL, URL, shell) to prevent injection?",
-      "3. **Session & Credential Isolation:** Are session cookies hardened (`HttpOnly`, `Secure`, `SameSite=Lax/Strict`), secrets stored strictly in environment vaults, and mutations protected by anti-CSRF tokens and rate limits?\n\n---"
+      {
+        "num": 1,
+        "title": "Attack Surface & STRIDE",
+        "text": "What is the complete attack surface of this change, and what threat vectors exist across Spoofing, Tampering, Repudiation, Information Disclosure, Denial of Service, and Elevation of Privilege?"
+      },
+      {
+        "num": 2,
+        "title": "Input Hygiene & Context Escaping",
+        "text": "Is every single input schema-validated before parsing, and is every output strictly context-encoded (HTML, SQL, URL, shell) to prevent injection?"
+      },
+      {
+        "num": 3,
+        "title": "Session & Credential Isolation",
+        "text": "Are session cookies hardened (`HttpOnly`, `Secure`, `SameSite=Lax/Strict`), secrets stored strictly in environment vaults, and mutations protected by anti-CSRF tokens and rate limits?\n\n---"
+      }
     ],
     "whenToUse": [
       "Designing or modifying authentication (passwords, sessions, OAuth/OIDC, passkeys, MFA).",
@@ -1583,19 +1868,29 @@
     "decisionRules": [
       {
         "title": "Authentication Architecture Rule",
-        "text": "- *If* building a standard web application, *choose* **server-managed session cookies (`HttpOnly`, `Secure`, `SameSite=Lax`)** over JWTs in `localStorage` *because* browser JavaScript cannot access `HttpOnly` cookies, preventing token theft via XSS [BEST PRACTICE: OWASP-ASVS].\n   - *If* building a distributed multi-service API without shared session store, *choose* **short-lived signed JWTs (<= 15 min) with cryptographic revocation checks** *because* stale JWTs cannot otherwise be revoked immediately."
+        "lines": [
+          "*If* building a standard web application, *choose* **server-managed session cookies (`HttpOnly`, `Secure`, `SameSite=Lax`)** over JWTs in `localStorage` *because* browser JavaScript cannot access `HttpOnly` cookies, preventing token theft via XSS [BEST PRACTICE: OWASP-ASVS].",
+          "*If* building a distributed multi-service API without shared session store, *choose* **short-lived signed JWTs (<= 15 min) with cryptographic revocation checks** *because* stale JWTs cannot otherwise be revoked immediately."
+        ]
       },
       {
         "title": "Authorization & IDOR Rule",
-        "text": "- *If* accessing a database record by identifier (`/api/orders/:id`), *enforce* tenant ownership check in the SQL query (`WHERE id = :id AND org_id = :current_user_org_id`) *because* validating only authenticated status allows Insecure Direct Object References (IDOR) [FACT: CWE-SANS-25]."
+        "lines": [
+          "*If* accessing a database record by identifier (`/api/orders/:id`), *enforce* tenant ownership check in the SQL query (`WHERE id = :id AND org_id = :current_user_org_id`) *because* validating only authenticated status allows Insecure Direct Object References (IDOR) [FACT: CWE-SANS-25]."
+        ]
       },
       {
         "title": "Password & Hashing Rule",
-        "text": "- *If* storing user passwords, *use* **Argon2id** (memory: 64MB, iterations: 3, parallelism: 1) or **bcrypt** (work factor >= 12) *because* fast cryptographic hashes (MD5, SHA-256) are vulnerable to GPU brute-force cracking [FACT: OWASP-ASVS]."
+        "lines": [
+          "*If* storing user passwords, *use* **Argon2id** (memory: 64MB, iterations: 3, parallelism: 1) or **bcrypt** (work factor >= 12) *because* fast cryptographic hashes (MD5, SHA-256) are vulnerable to GPU brute-force cracking [FACT: OWASP-ASVS]."
+        ]
       },
       {
         "title": "Injection Prevention Rule",
-        "text": "- *If* constructing database queries, *strictly mandate* parameterized queries or ORM binding *because* string concatenation of inputs enables SQL injection [FACT: OWASP-TOP-10].\n\n---"
+        "lines": [
+          "*If* constructing database queries, *strictly mandate* parameterized queries or ORM binding *because* string concatenation of inputs enables SQL injection [FACT: OWASP-TOP-10].",
+          "--"
+        ]
       }
     ],
     "steps": [
@@ -1621,16 +1916,43 @@
       }
     ],
     "antiPatterns": [
-      "**Wildcard CORS:** Setting `Access-Control-Allow-Origin: *` while passing credentials (`Access-Control-Allow-Credentials: true`).",
-      "**Client-Side Auth Routing:** Relying solely on client frontend route guards (`if (!user) navigate('/login')`) while backend API endpoints remain public.",
-      "**Tokens in LocalStorage:** Storing long-lived JWTs in `window.localStorage` where any XSS vulnerability exposes them.",
-      "**Permissive CSP with Unsafe-Inline:** Using `script-src 'self' 'unsafe-inline' 'unsafe-eval'` which completely neutralizes XSS protection.",
-      "**Log Poisoning:** Writing raw user inputs, session tokens, passwords, or credit card numbers to application logs.\n\n---"
+      {
+        "title": "Wildcard CORS",
+        "desc": "Setting `Access-Control-Allow-Origin: *` while passing credentials (`Access-Control-Allow-Credentials: true`)."
+      },
+      {
+        "title": "Client-Side Auth Routing",
+        "desc": "Relying solely on client frontend route guards (`if (!user) navigate('/login')`) while backend API endpoints remain public."
+      },
+      {
+        "title": "Tokens in LocalStorage",
+        "desc": "Storing long-lived JWTs in `window.localStorage` where any XSS vulnerability exposes them."
+      },
+      {
+        "title": "Permissive CSP with Unsafe-Inline",
+        "desc": "Using `script-src 'self' 'unsafe-inline' 'unsafe-eval'` which completely neutralizes XSS protection."
+      },
+      {
+        "title": "Log Poisoning",
+        "desc": "Writing raw user inputs, session tokens, passwords, or credit card numbers to application logs.\n\n---"
+      }
     ],
     "verifications": [
-      "Execute these automated defensive checks:",
-      "1. Verify no plaintext passwords, hardcoded API secrets, or private keys exist in the repository:\n   ```bash\n   node -e \"\n   const fs = require('fs');\n   const text = fs.readFileSync('skills/06-security/SKILL.md', 'utf8');\n   const hasHardcodedKey = /(sk_live_[0-9a-zA-Z]{24}|AKIA[0-9A-Z]{16})/.test(text);\n   console.log('Secret leak check:', hasHardcodedKey ? 'FAIL' : 'PASS');\n   \"\n   ```\n   *Expected output:* `Secret leak check: PASS`",
-      "2. Verify that the skill authoring rules and required sections are present:\n   ```bash\n   node -e \"\n   const fs = require('fs');\n   const text = fs.readFileSync('skills/06-security/SKILL.md', 'utf8');\n   const required = ['Specialist Stance', 'When to Use', 'Inputs and Outputs', 'Decision Rules', 'Procedure', 'Anti-Patterns', 'Verification', 'Escalate-to-User Triggers'];\n   const missing = required.filter(r => !text.includes(r));\n   console.log('Security skill sections:', missing.length === 0 ? 'PASS' : 'FAIL: ' + missing.join(', '));\n   \"\n   ```\n   *Expected output:* `Security skill sections: PASS`\n\n---"
+      {
+        "title": "Credential Leak & Secret Scanner",
+        "desc": "Scans all files and git commits to guarantee zero hardcoded API keys, tokens, private keys, or passwords.",
+        "cmd": "node tools/lint-secrets.js"
+      },
+      {
+        "title": "STRIDE Defense & Session Security",
+        "desc": "Audits HttpOnly Secure SameSite cookies, CSRF tokens, strict CSP headers, and input parameter escaping.",
+        "cmd": "npm run test:security"
+      },
+      {
+        "title": "Dependency Vulnerability Audit",
+        "desc": "Audits package lockfiles against CVE advisories to ensure zero unpatched high or critical vulnerabilities.",
+        "cmd": "npm audit --audit-level=high"
+      }
     ],
     "escalate": [
       "An active secret or credential leak is detected in committed code or git history.",
@@ -1657,9 +1979,21 @@
     ],
     "refuse": "I refuse to permit silent user tracking before consent, dark patterns in cookie banners (e.g. hidden reject buttons or pre-ticked checkboxes), unfulfilled Data Subject Access Rights (DSAR), indefinitely retained personal data without a retention schedule, or transferring personal data to third parties without signed DPAs.",
     "questions": [
-      "1. **Lawful Basis & Purpose Limitation:** What is the specific statutory lawful basis (GDPR Art. 6: Consent, Contract, Legal Obligation, or Legitimate Interest) for every single field of personal data collected?",
-      "2. **Freely Given Affirmative Consent:** Does our consent banner allow users to reject non-essential cookies with equal prominence in a single click before any tracking scripts execute?",
-      "3. **DSAR & Right to Erasure Execution:** Can an authenticated user export all their personal data in machine-readable JSON and permanently delete their account and associated records within 30 days?\n\n---"
+      {
+        "num": 1,
+        "title": "Lawful Basis & Purpose Limitation",
+        "text": "What is the specific statutory lawful basis (GDPR Art. 6: Consent, Contract, Legal Obligation, or Legitimate Interest) for every single field of personal data collected?"
+      },
+      {
+        "num": 2,
+        "title": "Freely Given Affirmative Consent",
+        "text": "Does our consent banner allow users to reject non-essential cookies with equal prominence in a single click before any tracking scripts execute?"
+      },
+      {
+        "num": 3,
+        "title": "DSAR & Right to Erasure Execution",
+        "text": "Can an authenticated user export all their personal data in machine-readable JSON and permanently delete their account and associated records within 30 days?\n\n---"
+      }
     ],
     "whenToUse": [
       "Auditing what personal identifiable information (PII) is stored, processed, or transferred.",
@@ -1687,19 +2021,28 @@
     "decisionRules": [
       {
         "title": "Consent Before Tracking Rule (Zero Pre-Consent Firing)",
-        "text": "- *If* a web application loads analytics (Google Analytics, Meta Pixel, Hotjar), *never* initialize the tracking script or set cookies before the user clicks 'Accept' *because* under GDPR Art. 7 and EDPB Guidelines 05/2020, consent must be affirmative and prior to processing; loading trackers before consent constitutes an immediate statutory violation [FACT: EDPB-GUIDELINES]."
+        "lines": [
+          "*If* a web application loads analytics (Google Analytics, Meta Pixel, Hotjar), *never* initialize the tracking script or set cookies before the user clicks 'Accept' *because* under GDPR Art. 7 and EDPB Guidelines 05/2020, consent must be affirmative and prior to processing; loading trackers before consent constitutes an immediate statutory violation [FACT: EDPB-GUIDELINES]."
+        ]
       },
       {
         "title": "Dark Pattern Prohibition Rule",
-        "text": "- *If* displaying a consent banner, *mandate* that the 'Reject All' button has equal visual weight, color, and accessibility as the 'Accept All' button *because* regulatory authorities (EDPB, FTC, CNIL) legally penalize asymmetric buttons as invalid coercive consent [FACT: EDPB-GUIDELINES, FTC-FTC-ACT]."
+        "lines": [
+          "*If* displaying a consent banner, *mandate* that the 'Reject All' button has equal visual weight, color, and accessibility as the 'Accept All' button *because* regulatory authorities (EDPB, FTC, CNIL) legally penalize asymmetric buttons as invalid coercive consent [FACT: EDPB-GUIDELINES, FTC-FTC-ACT]."
+        ]
       },
       {
         "title": "Cookie-Free Analytics Preference Rule",
-        "text": "- *If* gathering basic web metrics, *prefer* **privacy-preserving cookieless analytics (e.g. Plausible, Fathom, or server-side logs)** over client-side ad-tech trackers *because* cookieless privacy-first analytics do not require intrusive consent banners, improving user experience and compliance overhead [BEST PRACTICE: EDPB-GUIDELINES]."
+        "lines": [
+          "*If* gathering basic web metrics, *prefer* **privacy-preserving cookieless analytics (e.g. Plausible, Fathom, or server-side logs)** over client-side ad-tech trackers *because* cookieless privacy-first analytics do not require intrusive consent banners, improving user experience and compliance overhead [BEST PRACTICE: EDPB-GUIDELINES]."
+        ]
       },
       {
         "title": "Data Retention & Automated Purge Rule",
-        "text": "- *If* storing user activity logs, analytics events, or abandoned cart records, *mandate* a hard retention limit (e.g. 90 days / 1 year) enforced by an automated scheduled purge job *because* GDPR Article 5(1)(e) prohibits indefinite storage of personal data beyond its operational purpose [FACT: GDPR-LEGAL-TEXT].\n\n---"
+        "lines": [
+          "*If* storing user activity logs, analytics events, or abandoned cart records, *mandate* a hard retention limit (e.g. 90 days / 1 year) enforced by an automated scheduled purge job *because* GDPR Article 5(1)(e) prohibits indefinite storage of personal data beyond its operational purpose [FACT: GDPR-LEGAL-TEXT].",
+          "--"
+        ]
       }
     ],
     "steps": [
@@ -1721,15 +2064,38 @@
       }
     ],
     "antiPatterns": [
-      "**Pre-Consent Firing:** Loading Google Tag Manager or tracking scripts in `<head>` and asking for forgiveness in a banner afterwards.",
-      "**Asymmetric Cookie Banners:** Making the \"Accept\" button bright green and hiding the \"Reject\" option behind 3 nested menus in 10px gray text.",
-      "**Indefinite Data Hoarding:** Keeping user session tokens, IP logs, and unverified signup records in database tables for multiple years.",
-      "**Selling User Data Without Opt-Out:** Sharing user behavior logs with advertising networks without honoring CCPA \"Do Not Sell or Share My Personal Information\" requirements.",
-      "**Pseudo-Deletions:** Marking `is_deleted = true` in the database forever while still using the personal data for analytics or machine learning.\n\n---"
+      {
+        "title": "Pre-Consent Firing",
+        "desc": "Loading Google Tag Manager or tracking scripts in `<head>` and asking for forgiveness in a banner afterwards."
+      },
+      {
+        "title": "Asymmetric Cookie Banners",
+        "desc": "Making the \"Accept\" button bright green and hiding the \"Reject\" option behind 3 nested menus in 10px gray text."
+      },
+      {
+        "title": "Indefinite Data Hoarding",
+        "desc": "Keeping user session tokens, IP logs, and unverified signup records in database tables for multiple years."
+      },
+      {
+        "title": "Selling User Data Without Opt-Out",
+        "desc": "Sharing user behavior logs with advertising networks without honoring CCPA \"Do Not Sell or Share My Personal Information\" requirements."
+      },
+      {
+        "title": "Pseudo-Deletions",
+        "desc": "Marking `is_deleted = true` in the database forever while still using the personal data for analytics or machine learning.\n\n---"
+      }
     ],
     "verifications": [
-      "Run these automated verification checks:",
-      "1. Verify that `SKILL.md` contains all required sections:\n   ```bash\n   node -e \"\n   const fs = require('fs');\n   const text = fs.readFileSync('skills/07-privacy-compliance/SKILL.md', 'utf8');\n   const required = ['Specialist Stance', 'When to Use', 'Inputs and Outputs', 'Decision Rules', 'Procedure', 'Anti-Patterns', 'Verification'];\n   const missing = required.filter(r => !text.includes(r));\n   console.log('Privacy skill structure:', missing.length === 0 ? 'PASS' : 'FAIL: ' + missing.join(', '));\n   \"\n   ```\n   *Expected output:* `Privacy skill structure: PASS`\n\n---"
+      {
+        "title": "Zero Pre-Consent Tracking Probe",
+        "desc": "Verifies that zero tracking cookies, third-party analytics, or pixels fire prior to explicit user opt-in consent.",
+        "cmd": "npx playwright test e2e/privacy.spec.ts"
+      },
+      {
+        "title": "Data Minimization & Purge Verification",
+        "desc": "Validates that user data retention policies automatically purge expired telemetry and support GDPR deletion requests.",
+        "cmd": "npm test -- --filter=retention"
+      }
     ],
     "escalate": [
       "The project targets children under 13 (US COPPA) or under 16 (EU GDPR Art. 8) requiring parental consent verification mechanisms.",
@@ -1763,9 +2129,21 @@
     ],
     "refuse": "I refuse to accept assertions masquerading as verification, phantom test claims without terminal execution logs, untested business logic, vacuous tests that pass even when mutants are introduced, tolerated flaky tests in CI, static code smells exceeding complexity limits, or shipping code without verified quality gate sign-off.",
     "questions": [
-      "1. **Pyramid Distribution & Quality Gate:** Is test coverage balanced according to the test pyramid (70% unit, 20% integration, 10% e2e) and does the build satisfy the SQAT Quality Gate?",
-      "2. **Behavior vs Implementation:** Do these tests verify user-observable behavior and API contracts rather than private internal implementation details?",
-      "3. **Flakiness & Determinism:** Are all automated tests completely isolated, deterministic, and free of arbitrary timing hacks (`sleep(5000)`)?\n\n---"
+      {
+        "num": 1,
+        "title": "Pyramid Distribution & Quality Gate",
+        "text": "Is test coverage balanced according to the test pyramid (70% unit, 20% integration, 10% e2e) and does the build satisfy the SQAT Quality Gate?"
+      },
+      {
+        "num": 2,
+        "title": "Behavior vs Implementation",
+        "text": "Do these tests verify user-observable behavior and API contracts rather than private internal implementation details?"
+      },
+      {
+        "num": 3,
+        "title": "Flakiness & Determinism",
+        "text": "Are all automated tests completely isolated, deterministic, and free of arbitrary timing hacks (`sleep(5000)`)?\n\n---"
+      }
     ],
     "whenToUse": [
       "Formulating an end-to-end SQAT (Software Quality Assurance & Testing) strategy.",
@@ -1796,23 +2174,34 @@
     "decisionRules": [
       {
         "title": "Test Pyramid Distribution Rule",
-        "text": "- *Maintain* the distribution ratio: **70% Unit Tests, 20% Integration Tests, 10% End-to-End Tests** *because* e2e tests are slow, resource-heavy, and prone to environmental flakiness, while unit/integration tests provide fast, isolated feedback in seconds [BEST PRACTICE: PRACTICAL-TEST-PYRAMID]."
+        "lines": [
+          "*Maintain* the distribution ratio: **70% Unit Tests, 20% Integration Tests, 10% End-to-End Tests** *because* e2e tests are slow, resource-heavy, and prone to environmental flakiness, while unit/integration tests provide fast, isolated feedback in seconds [BEST PRACTICE: PRACTICAL-TEST-PYRAMID]."
+        ]
       },
       {
         "title": "End-to-End Test Boundary Rule",
-        "text": "- *If* writing Playwright e2e tests, *restrict* them strictly to **money-making and mission-critical journeys** (Signup, Login, Core Value Flow, Checkout) *because* attempting 100% e2e coverage on every UI branch creates maintenance paralysis and slows down developer deployment cycles."
+        "lines": [
+          "*If* writing Playwright e2e tests, *restrict* them strictly to **money-making and mission-critical journeys** (Signup, Login, Core Value Flow, Checkout) *because* attempting 100% e2e coverage on every UI branch creates maintenance paralysis and slows down developer deployment cycles."
+        ]
       },
       {
         "title": "Flaky Test Zero-Tolerance Rule",
-        "text": "- *If* a test fails intermittently without code changes, *immediately quarantine* the test to a non-blocking quarantine suite and file an urgent remediation issue *because* developers learn to ignore red CI builds when flaky tests are tolerated, allowing real regressions into production."
+        "lines": [
+          "*If* a test fails intermittently without code changes, *immediately quarantine* the test to a non-blocking quarantine suite and file an urgent remediation issue *because* developers learn to ignore red CI builds when flaky tests are tolerated, allowing real regressions into production."
+        ]
       },
       {
         "title": "Mocking Boundary Rule",
-        "text": "- *Never* mock internal domain functions or database queries when integration testing; *only mock* **external network boundaries** (third-party payment gateways, email deliverability APIs, cloud storage) *because* mocking internal state creates brittle tests that pass while the production application is broken."
+        "lines": [
+          "*Never* mock internal domain functions or database queries when integration testing; *only mock* **external network boundaries** (third-party payment gateways, email deliverability APIs, cloud storage) *because* mocking internal state creates brittle tests that pass while the production application is broken."
+        ]
       },
       {
         "title": "SQAT Quality Gate & Mutation Testing Rule",
-        "text": "- *Require* that before code is promoted to production, it passes the **SQAT Quality Gate**: zero blocker/critical static analysis defects, cyclomatic complexity <= 10 per function, line coverage >= 80%, and a mutation testing score >= 70% on core business calculations [BEST PRACTICE: SONARQUBE-QUALITY-GATES, STRYKER-MUTATOR].\n\n---"
+        "lines": [
+          "*Require* that before code is promoted to production, it passes the **SQAT Quality Gate**: zero blocker/critical static analysis defects, cyclomatic complexity <= 10 per function, line coverage >= 80%, and a mutation testing score >= 70% on core business calculations [BEST PRACTICE: SONARQUBE-QUALITY-GATES, STRYKER-MUTATOR].",
+          "--"
+        ]
       }
     ],
     "steps": [
@@ -1838,16 +2227,42 @@
       }
     ],
     "antiPatterns": [
-      "**Vacuous Tests:** Tests that execute code to inflate line coverage metrics without making concrete assertions (caught by mutation testing).",
-      "**Sleeping in Tests:** Using `page.waitForTimeout(5000)` instead of web-first assertions (`await expect(locator).toBeVisible()`).",
-      "**Assertion-Free Tests:** Calling an endpoint or rendering a component without making concrete, falsifiable assertions.",
-      "**CSS Selector Coupling:** Writing selectors like `div > div:nth-child(2) > span` that break with any minor visual redesign.",
-      "**Shared State Contamination:** Tests depending on the execution order of previous tests or sharing mutable database records.",
-      "**Asserting on Implementation Details:** Testing that an internal private method was called instead of testing the public output or state change.\n\n---"
+      {
+        "title": "Vacuous Tests",
+        "desc": "Tests that execute code to inflate line coverage metrics without making concrete assertions (caught by mutation testing)."
+      },
+      {
+        "title": "Sleeping in Tests",
+        "desc": "Using `page.waitForTimeout(5000)` instead of web-first assertions (`await expect(locator).toBeVisible()`)."
+      },
+      {
+        "title": "Assertion-Free Tests",
+        "desc": "Calling an endpoint or rendering a component without making concrete, falsifiable assertions."
+      },
+      {
+        "title": "CSS Selector Coupling",
+        "desc": "Writing selectors like `div > div:nth-child(2) > span` that break with any minor visual redesign."
+      },
+      {
+        "title": "Shared State Contamination",
+        "desc": "Tests depending on the execution order of previous tests or sharing mutable database records."
+      },
+      {
+        "title": "Asserting on Implementation Details",
+        "desc": "Testing that an internal private method was called instead of testing the public output or state change.\n\n---"
+      }
     ],
     "verifications": [
-      "Execute these automated verification checks:",
-      "1. Verify that `SKILL.md` contains all required sections:\n   ```bash\n   node -e \"\n   const fs = require('fs');\n   const text = fs.readFileSync('skills/08-testing-qa/SKILL.md', 'utf8');\n   const required = ['Specialist Stance', 'When to Use', 'Inputs and Outputs', 'Decision Rules', 'Procedure', 'Anti-Patterns', 'Verification'];\n   const missing = required.filter(r => !text.includes(r));\n   console.log('SQAT skill structure:', missing.length === 0 ? 'PASS' : 'FAIL: ' + missing.join(', '));\n   \"\n   ```\n   *Expected output:* `SQAT skill structure: PASS`\n\n---"
+      {
+        "title": "Automated Test Suite Execution",
+        "desc": "Runs full suite of unit, integration, and end-to-end tests. Terminal execution with exit code 0 required (\"No evidence, no ship\").",
+        "cmd": "npm test && npx playwright test"
+      },
+      {
+        "title": "Test Flakiness & Mutation Audit",
+        "desc": "Validates deterministic execution with zero flaky test tolerance across 3 consecutive test runs.",
+        "cmd": "npm run test:flakiness"
+      }
     ],
     "escalate": [
       "A mission-critical e2e test fails in CI and represents an unhandled regression in core business logic.",
@@ -1875,9 +2290,21 @@
     ],
     "refuse": "I refuse to permit unrepeatable manual deployments, production releases that lack an automated zero-downtime rollback mechanism, hardcoded secrets or environment variables committed to git, unmonitored production services without health probes, or unverified database backups that have never undergone a restore drill.",
     "questions": [
-      "1. **Automated Rollback & Health Probes:** If the newly deployed service fails health checks or throws 500 errors post-deployment, does the pipeline automatically roll back to the last known good release within 60 seconds without human intervention?",
-      "2. **Declarative Infrastructure & Parity:** Is 100% of the environment configuration and cloud infrastructure defined declaratively in source control, ensuring dev, staging, and production parity?",
-      "3. **Observability & Disaster Recovery:** Are structured JSON logs, latency metrics, and error alerts instrumented, and has a database restore drill been successfully executed from an automated snapshot within the last 30 days?\n\n---"
+      {
+        "num": 1,
+        "title": "Automated Rollback & Health Probes",
+        "text": "If the newly deployed service fails health checks or throws 500 errors post-deployment, does the pipeline automatically roll back to the last known good release within 60 seconds without human intervention?"
+      },
+      {
+        "num": 2,
+        "title": "Declarative Infrastructure & Parity",
+        "text": "Is 100% of the environment configuration and cloud infrastructure defined declaratively in source control, ensuring dev, staging, and production parity?"
+      },
+      {
+        "num": 3,
+        "title": "Observability & Disaster Recovery",
+        "text": "Are structured JSON logs, latency metrics, and error alerts instrumented, and has a database restore drill been successfully executed from an automated snapshot within the last 30 days?\n\n---"
+      }
     ],
     "whenToUse": [
       "Creating or updating CI/CD pipelines (GitHub Actions, GitLab CI, CircleCI).",
@@ -1906,19 +2333,28 @@
     "decisionRules": [
       {
         "title": "Rollback Verification Rule (No Rollback, No Ship)",
-        "text": "- *Never* approve a production deployment pipeline that does not include an automated rollback step triggered by failed health probes *because* shipping code without automated rollback turns a minor bad release into an existential extended outage [BEST PRACTICE: GOOGLE-SRE-BOOK]."
+        "lines": [
+          "*Never* approve a production deployment pipeline that does not include an automated rollback step triggered by failed health probes *because* shipping code without automated rollback turns a minor bad release into an existential extended outage [BEST PRACTICE: GOOGLE-SRE-BOOK]."
+        ]
       },
       {
         "title": "Secrets Injection Rule (Twelve-Factor Config)",
-        "text": "- *Never* bake secrets, tokens, or environment-specific values into Docker container images or Git repositories; *inject* secrets strictly at runtime via environment variables or cloud secrets managers (AWS Secrets Manager, Doppler, Vault) *because* container images are cached, shared across registries, and accessible to unauthorized team members [FACT: 12-FACTOR-CONFIG]."
+        "lines": [
+          "*Never* bake secrets, tokens, or environment-specific values into Docker container images or Git repositories; *inject* secrets strictly at runtime via environment variables or cloud secrets managers (AWS Secrets Manager, Doppler, Vault) *because* container images are cached, shared across registries, and accessible to unauthorized team members [FACT: 12-FACTOR-CONFIG]."
+        ]
       },
       {
         "title": "Observability Standards Rule (Structured JSON Logging)",
-        "text": "- *Mandate* that all application stdout/stderr logs are emitted as single-line structured JSON containing `timestamp`, `level`, `trace_id`, and `message` *because* unstructured text logs cannot be efficiently indexed, parsed, or alerted on by log aggregation tools at scale [FACT: OPEN-TELEMETRY]."
+        "lines": [
+          "*Mandate* that all application stdout/stderr logs are emitted as single-line structured JSON containing `timestamp`, `level`, `trace_id`, and `message` *because* unstructured text logs cannot be efficiently indexed, parsed, or alerted on by log aggregation tools at scale [FACT: OPEN-TELEMETRY]."
+        ]
       },
       {
         "title": "Environment Parity Rule",
-        "text": "- *If* deploying to production, *mandate* that staging uses the exact same container image SHA and database engine as production *because* differences in database versions (e.g. SQLite in dev, PostgreSQL in prod) produce catastrophic runtime discrepancies during migrations [BEST PRACTICE: 12-FACTOR-CONFIG].\n\n---"
+        "lines": [
+          "*If* deploying to production, *mandate* that staging uses the exact same container image SHA and database engine as production *because* differences in database versions (e.g. SQLite in dev, PostgreSQL in prod) produce catastrophic runtime discrepancies during migrations [BEST PRACTICE: 12-FACTOR-CONFIG].",
+          "--"
+        ]
       }
     ],
     "steps": [
@@ -1940,15 +2376,38 @@
       }
     ],
     "antiPatterns": [
-      "**Deploying via SSH and Git Pull:** Logging into a production VPS over SSH and running `git pull && npm restart` manually.",
-      "**Root Containers:** Running Docker containers as `USER root` inside production clusters.",
-      "**Baking `.env` into Images:** Running `COPY .env .env` inside a Dockerfile.",
-      "**Unverified Backups:** Generating database dump files daily that have never been tested in a restoration drill (untested backups do not exist).",
-      "**Silent Failures in CI:** Using `|| true` on test or lint commands to force a green pipeline build.\n\n---"
+      {
+        "title": "Deploying via SSH and Git Pull",
+        "desc": "Logging into a production VPS over SSH and running `git pull && npm restart` manually."
+      },
+      {
+        "title": "Root Containers",
+        "desc": "Running Docker containers as `USER root` inside production clusters."
+      },
+      {
+        "title": "Baking `.env` into Images",
+        "desc": "Running `COPY .env .env` inside a Dockerfile."
+      },
+      {
+        "title": "Unverified Backups",
+        "desc": "Generating database dump files daily that have never been tested in a restoration drill (untested backups do not exist)."
+      },
+      {
+        "title": "Silent Failures in CI",
+        "desc": "Using `|| true` on test or lint commands to force a green pipeline build.\n\n---"
+      }
     ],
     "verifications": [
-      "Run these automated verification checks:",
-      "1. Verify that `SKILL.md` contains all required sections:\n   ```bash\n   node -e \"\n   const fs = require('fs');\n   const text = fs.readFileSync('skills/09-devops-infra/SKILL.md', 'utf8');\n   const required = ['Specialist Stance', 'When to Use', 'Inputs and Outputs', 'Decision Rules', 'Procedure', 'Anti-Patterns', 'Verification'];\n   const missing = required.filter(r => !text.includes(r));\n   console.log('DevOps skill structure:', missing.length === 0 ? 'PASS' : 'FAIL: ' + missing.join(', '));\n   \"\n   ```\n   *Expected output:* `DevOps skill structure: PASS`\n\n---"
+      {
+        "title": "Automated Rollback Verification",
+        "desc": "Ensures documented rollback script operates successfully in staging before triggering production release (\"No rollback, no ship\").",
+        "cmd": "bash scripts/verify-rollback.sh"
+      },
+      {
+        "title": "Health Endpoint & Config Parity",
+        "desc": "Probes HTTP /healthz endpoint returning 200 OK and validates environment parity across staging and production.",
+        "cmd": "curl -f http://localhost:3000/api/healthz"
+      }
     ],
     "escalate": [
       "A production deployment fails health probes and automatic rollback is also failing or unavailable, threatening extended downtime.",
@@ -1975,9 +2434,21 @@
     ],
     "refuse": "I refuse to permit uncompressed or oversized media assets, unoptimized render-blocking resources that delay Largest Contentful Paint (LCP > 2.5s), main-thread blocking JavaScript that damages Interaction to Next Paint (INP > 200ms), unsized dynamic content causing layout shifts (CLS > 0.1), or un-cached static assets.",
     "questions": [
-      "1. **Core Web Vitals Thresholds:** Does this route meet the 75th percentile targets on simulated mobile 4G networks: LCP <= 2.5s, INP <= 200ms, and CLS <= 0.1?",
-      "2. **Critical Rendering Path:** Are web fonts preloaded with `font-display: swap`, critical CSS inlined or preloaded, and non-critical scripts deferred with `defer` or `async`?",
-      "3. **Caching & CDN Headers:** Does every static asset possess an immutable cache header (`Cache-Control: public, max-age=31536000, immutable`), and are dynamic API responses tagged with fine-grained `stale-while-revalidate` directives?\n\n---"
+      {
+        "num": 1,
+        "title": "Core Web Vitals Thresholds",
+        "text": "Does this route meet the 75th percentile targets on simulated mobile 4G networks: LCP <= 2.5s, INP <= 200ms, and CLS <= 0.1?"
+      },
+      {
+        "num": 2,
+        "title": "Critical Rendering Path",
+        "text": "Are web fonts preloaded with `font-display: swap`, critical CSS inlined or preloaded, and non-critical scripts deferred with `defer` or `async`?"
+      },
+      {
+        "num": 3,
+        "title": "Caching & CDN Headers",
+        "text": "Does every static asset possess an immutable cache header (`Cache-Control: public, max-age=31536000, immutable`), and are dynamic API responses tagged with fine-grained `stale-while-revalidate` directives?\n\n---"
+      }
     ],
     "whenToUse": [
       "Auditing pages against Google Core Web Vitals (LCP, INP, CLS).",
@@ -2005,19 +2476,28 @@
     "decisionRules": [
       {
         "title": "Largest Contentful Paint (LCP) Optimization Rule",
-        "text": "- *If* an image is the Largest Contentful Paint element (e.g. hero banner), *always* serve it in **AVIF or WebP** with `fetchpriority=\"high\"` and responsive `srcset`; *never* lazy-load the LCP image (`loading=\"lazy\"` on LCP is an anti-pattern that delays render by up to 1 second) [FACT: WEB-DEV-CWV]."
+        "lines": [
+          "*If* an image is the Largest Contentful Paint element (e.g. hero banner), *always* serve it in **AVIF or WebP** with `fetchpriority=\"high\"` and responsive `srcset`; *never* lazy-load the LCP image (`loading=\"lazy\"` on LCP is an anti-pattern that delays render by up to 1 second) [FACT: WEB-DEV-CWV]."
+        ]
       },
       {
         "title": "Cumulative Layout Shift (CLS) Prevention Rule",
-        "text": "- *Always* declare explicit `width` and `height` aspect ratio attributes on all `<img>`, `<video>`, and `<iframe>` elements, or reserve space using CSS `aspect-ratio` *because* unsized elements push existing content down when rendered, causing layout shifts that fail CLS (>0.1) [FACT: WEB-DEV-CWV]."
+        "lines": [
+          "*Always* declare explicit `width` and `height` aspect ratio attributes on all `<img>`, `<video>`, and `<iframe>` elements, or reserve space using CSS `aspect-ratio` *because* unsized elements push existing content down when rendered, causing layout shifts that fail CLS (>0.1) [FACT: WEB-DEV-CWV]."
+        ]
       },
       {
         "title": "Web Font Loading Rule",
-        "text": "- *Self-host* web fonts as **WOFF2 format with unicode-range subsetting**, preload the primary weight (`<link rel=\"preload\" as=\"font\" type=\"font/woff2\" crossorigin>`), and declare `font-display: swap` *because* third-party font CDNs (like Google Fonts) add DNS/TLS connection overhead and cause invisible text flashes (FOIT) [BEST PRACTICE: HIGH-PERF-BROWSER-NETWORKING]."
+        "lines": [
+          "*Self-host* web fonts as **WOFF2 format with unicode-range subsetting**, preload the primary weight (`<link rel=\"preload\" as=\"font\" type=\"font/woff2\" crossorigin>`), and declare `font-display: swap` *because* third-party font CDNs (like Google Fonts) add DNS/TLS connection overhead and cause invisible text flashes (FOIT) [BEST PRACTICE: HIGH-PERF-BROWSER-NETWORKING]."
+        ]
       },
       {
         "title": "Static Asset Caching Rule",
-        "text": "- *If* an asset includes a content hash in its filename (e.g. `main.a8f2b.js`, `logo.9c3d1.webp`), *set* `Cache-Control: public, max-age=31536000, immutable` *because* immutable assets can be cached permanently by the browser and CDN edge without revalidation roundtrips.\n\n---"
+        "lines": [
+          "*If* an asset includes a content hash in its filename (e.g. `main.a8f2b.js`, `logo.9c3d1.webp`), *set* `Cache-Control: public, max-age=31536000, immutable` *because* immutable assets can be cached permanently by the browser and CDN edge without revalidation roundtrips.",
+          "--"
+        ]
       }
     ],
     "steps": [
@@ -2039,15 +2519,38 @@
       }
     ],
     "antiPatterns": [
-      "**Lazy Loading the Hero Image:** Setting `loading=\"lazy\"` on the LCP banner, which forces the browser to wait until layout calculation before downloading.",
-      "**Unsized Images:** Omitting `width` and `height` attributes on images, triggering layout shifts (CLS failure).",
-      "**External Google Fonts CSS:** Linking to `fonts.googleapis.com` which requires two separate external domain DNS/TLS handshakes.",
-      "**Render-Blocking Third-Party Tags:** Placing un-deferred marketing scripts directly in `<head>`, blocking the initial paint for up to several seconds.",
-      "**Massive Icon Libraries:** Importing an entire icon library (e.g. `import * from 'lucide-react'`) instead of tree-shaken individual SVGs.\n\n---"
+      {
+        "title": "Lazy Loading the Hero Image",
+        "desc": "Setting `loading=\"lazy\"` on the LCP banner, which forces the browser to wait until layout calculation before downloading."
+      },
+      {
+        "title": "Unsized Images",
+        "desc": "Omitting `width` and `height` attributes on images, triggering layout shifts (CLS failure)."
+      },
+      {
+        "title": "External Google Fonts CSS",
+        "desc": "Linking to `fonts.googleapis.com` which requires two separate external domain DNS/TLS handshakes."
+      },
+      {
+        "title": "Render-Blocking Third-Party Tags",
+        "desc": "Placing un-deferred marketing scripts directly in `<head>`, blocking the initial paint for up to several seconds."
+      },
+      {
+        "title": "Massive Icon Libraries",
+        "desc": "Importing an entire icon library (e.g. `import * from 'lucide-react'`) instead of tree-shaken individual SVGs.\n\n---"
+      }
     ],
     "verifications": [
-      "Run these automated verification checks:",
-      "1. Verify that `SKILL.md` contains all required sections:\n   ```bash\n   node -e \"\n   const fs = require('fs');\n   const text = fs.readFileSync('skills/10-performance/SKILL.md', 'utf8');\n   const required = ['Specialist Stance', 'When to Use', 'Inputs and Outputs', 'Decision Rules', 'Procedure', 'Anti-Patterns', 'Verification'];\n   const missing = required.filter(r => !text.includes(r));\n   console.log('Performance skill structure:', missing.length === 0 ? 'PASS' : 'FAIL: ' + missing.join(', '));\n   \"\n   ```\n   *Expected output:* `Performance skill structure: PASS`\n\n---"
+      {
+        "title": "Core Web Vitals SLA Audit",
+        "desc": "Lighthouse / Playwright audit verifying LCP <= 2.5s, INP <= 200ms, and CLS <= 0.1 on standard mobile viewports.",
+        "cmd": "npx lighthouse-ci collect"
+      },
+      {
+        "title": "Edge Caching & ETag Validation",
+        "desc": "Verifies Cache-Control s-maxage headers, conditional GET 304 Not Modified response handling, and asset gzip/brotli.",
+        "cmd": "curl -I http://localhost:3000/api/cached"
+      }
     ],
     "escalate": [
       "Core Web Vitals on a critical revenue route (e.g. Checkout or Landing) fail Google search ranking thresholds (LCP > 4.0s, INP > 500ms) with third-party tag blocking.",
@@ -2074,9 +2577,21 @@
     ],
     "refuse": "I refuse to permit un-rendered client-only content on public indexable pages, missing canonical URL tags, invalid or hallucinated Schema.org JSON-LD markup, uninstrumented conversion funnels, or broken Open Graph social sharing previews.",
     "questions": [
-      "1. **Server-Side Rendered HTML:** Can web crawlers and AI search agents fetch and parse full content and metadata directly from the initial HTTP response without relying on client-side JavaScript execution?",
-      "2. **Canonicalization & Clean Indexing:** Does every public route declare a clean self-referential canonical URL tag, and are dynamic sitemaps and `robots.txt` directives strictly valid?",
-      "3. **Structured Data & Rich Snippets:** Is valid Schema.org JSON-LD (Product, Article, Organization, FAQ) embedded in the page, and does it pass Google's Rich Results test without warnings?\n\n---"
+      {
+        "num": 1,
+        "title": "Server-Side Rendered HTML",
+        "text": "Can web crawlers and AI search agents fetch and parse full content and metadata directly from the initial HTTP response without relying on client-side JavaScript execution?"
+      },
+      {
+        "num": 2,
+        "title": "Canonicalization & Clean Indexing",
+        "text": "Does every public route declare a clean self-referential canonical URL tag, and are dynamic sitemaps and `robots.txt` directives strictly valid?"
+      },
+      {
+        "num": 3,
+        "title": "Structured Data & Rich Snippets",
+        "text": "Is valid Schema.org JSON-LD (Product, Article, Organization, FAQ) embedded in the page, and does it pass Google's Rich Results test without warnings?\n\n---"
+      }
     ],
     "whenToUse": [
       "Auditing technical SEO, indexing rules, and server-rendered HTML.",
@@ -2104,19 +2619,28 @@
     "decisionRules": [
       {
         "title": "Server-Side Rendering for Public Routes Rule",
-        "text": "- *If* a route is intended to be indexed by search engines or shared on social media, *mandate* **Server-Side Rendering (SSR) or Static Generation (SSG)**; *never* deploy a client-rendered SPA on public marketing pages *because* web crawlers and social media scrapers (Twitter, Slack, LinkedIn, WhatsApp) do not execute heavy client-side JavaScript when generating previews [FACT: GOOGLE-SEARCH-CENTRAL]."
+        "lines": [
+          "*If* a route is intended to be indexed by search engines or shared on social media, *mandate* **Server-Side Rendering (SSR) or Static Generation (SSG)**; *never* deploy a client-rendered SPA on public marketing pages *because* web crawlers and social media scrapers (Twitter, Slack, LinkedIn, WhatsApp) do not execute heavy client-side JavaScript when generating previews [FACT: GOOGLE-SEARCH-CENTRAL]."
+        ]
       },
       {
         "title": "Canonical URL Rule",
-        "text": "- *Always* include an explicit `<link rel=\"canonical\" href=\"https://example.com/clean-path\">` on every public page *because* URL query parameters (UTM tracking, session IDs, pagination) create duplicate content penalties in search engine indexes [FACT: GOOGLE-SEARCH-CENTRAL]."
+        "lines": [
+          "*Always* include an explicit `<link rel=\"canonical\" href=\"https://example.com/clean-path\">` on every public page *because* URL query parameters (UTM tracking, session IDs, pagination) create duplicate content penalties in search engine indexes [FACT: GOOGLE-SEARCH-CENTRAL]."
+        ]
       },
       {
         "title": "Structured Data Format Rule (JSON-LD)",
-        "text": "- *Always* author structured data as **inline JSON-LD scripts (`<script type=\"application/ld+json\">`)** rather than Microdata or RDFa attributes in HTML *because* JSON-LD decouples structured data from presentation markup and is Google's explicitly recommended format [FACT: GOOGLE-SEARCH-CENTRAL, SCHEMA-ORG]."
+        "lines": [
+          "*Always* author structured data as **inline JSON-LD scripts (`<script type=\"application/ld+json\">`)** rather than Microdata or RDFa attributes in HTML *because* JSON-LD decouples structured data from presentation markup and is Google's explicitly recommended format [FACT: GOOGLE-SEARCH-CENTRAL, SCHEMA-ORG]."
+        ]
       },
       {
         "title": "Analytics Privacy & Naming Rule",
-        "text": "- *Mandate* an Object-Action naming convention (e.g. `signup_completed`, `checkout_started`, `document_exported`), and *never* transmit PII (passwords, emails, phone numbers) inside analytics event properties *because* unstandardized event names destroy funnel reporting and violating PII prohibitions breaks analytics terms of service.\n\n---"
+        "lines": [
+          "*Mandate* an Object-Action naming convention (e.g. `signup_completed`, `checkout_started`, `document_exported`), and *never* transmit PII (passwords, emails, phone numbers) inside analytics event properties *because* unstandardized event names destroy funnel reporting and violating PII prohibitions breaks analytics terms of service.",
+          "--"
+        ]
       }
     ],
     "steps": [
@@ -2138,15 +2662,38 @@
       }
     ],
     "antiPatterns": [
-      "**Client-Side Only Meta Tags:** Using client-side `useEffect` to inject `<title>` and `<meta>` tags on SPAs, resulting in blank social previews.",
-      "**Missing or Broken Canonical Links:** Allowing `/page`, `/page?ref=twitter`, and `/page/` to be indexed as 3 duplicate pages.",
-      "**Hallucinated Schema.org Properties:** Inventing properties in JSON-LD that do not exist in the official Schema.org vocabulary.",
-      "**Spamming Keywords:** Stuffing meta keywords or hidden text, triggering Google algorithmic search penalties.",
-      "**Tracking Without Consent:** Firing analytics events before verifying user consent status in GDPR jurisdictions.\n\n---"
+      {
+        "title": "Client-Side Only Meta Tags",
+        "desc": "Using client-side `useEffect` to inject `<title>` and `<meta>` tags on SPAs, resulting in blank social previews."
+      },
+      {
+        "title": "Missing or Broken Canonical Links",
+        "desc": "Allowing `/page`, `/page?ref=twitter`, and `/page/` to be indexed as 3 duplicate pages."
+      },
+      {
+        "title": "Hallucinated Schema.org Properties",
+        "desc": "Inventing properties in JSON-LD that do not exist in the official Schema.org vocabulary."
+      },
+      {
+        "title": "Spamming Keywords",
+        "desc": "Stuffing meta keywords or hidden text, triggering Google algorithmic search penalties."
+      },
+      {
+        "title": "Tracking Without Consent",
+        "desc": "Firing analytics events before verifying user consent status in GDPR jurisdictions.\n\n---"
+      }
     ],
     "verifications": [
-      "Run these automated verification checks:",
-      "1. Verify that `SKILL.md` contains all required sections:\n   ```bash\n   node -e \"\n   const fs = require('fs');\n   const text = fs.readFileSync('skills/11-seo-marketing/SKILL.md', 'utf8');\n   const required = ['Specialist Stance', 'When to Use', 'Inputs and Outputs', 'Decision Rules', 'Procedure', 'Anti-Patterns', 'Verification'];\n   const missing = required.filter(r => !text.includes(r));\n   console.log('SEO skill structure:', missing.length === 0 ? 'PASS' : 'FAIL: ' + missing.join(', '));\n   \"\n   ```\n   *Expected output:* `SEO skill structure: PASS`\n\n---"
+      {
+        "title": "Sitemap & Robots.txt Conformance",
+        "desc": "Validates that /sitemap.xml returns valid XML with priority tags and /robots.txt disallows private /admin routes.",
+        "cmd": "curl -s http://localhost:3000/sitemap.xml | xmllint --noout -"
+      },
+      {
+        "title": "Structured Data (JSON-LD) & OpenGraph",
+        "desc": "Verifies Schema.org JSON-LD microdata syntax, canonical URLs, and 1200x630 OpenGraph preview tags.",
+        "cmd": "npm test -- --filter=metadata"
+      }
     ],
     "escalate": [
       "A critical public marketing redesign is proposed as a client-side SPA without SSR/SSG, risking complete loss of search engine indexation.",
@@ -2173,9 +2720,21 @@
     ],
     "refuse": "I refuse to permit fragile billing workflows that lose revenue, unhandled subscription state transitions (prorations, failed renewals, cancellations), trusting client-side price claims, storing raw credit card numbers on application servers (PCI-DSS violation), or ignoring statutory sales tax/VAT compliance obligations.",
     "questions": [
-      "1. **Server-Authoritative Pricing:** Is pricing strictly determined and verified on the server side (never accepting price amounts or plan IDs submitted by client browsers)?",
-      "2. **Subscription State Machine & Edge Cases:** Does the billing state machine correctly handle prorated upgrades/downgrades, dunning retry grace periods, payment method updates, and instant vs end-of-period cancellations?",
-      "3. **Tax & Merchant of Record Obligations:** Are sales tax, EU VAT MOSS/OSS, and invoicing obligations handled compliantly (either via Stripe Tax/TaxJar or a Merchant of Record like Lemon Squeezy/Paddle)?\n\n---"
+      {
+        "num": 1,
+        "title": "Server-Authoritative Pricing",
+        "text": "Is pricing strictly determined and verified on the server side (never accepting price amounts or plan IDs submitted by client browsers)?"
+      },
+      {
+        "num": 2,
+        "title": "Subscription State Machine & Edge Cases",
+        "text": "Does the billing state machine correctly handle prorated upgrades/downgrades, dunning retry grace periods, payment method updates, and instant vs end-of-period cancellations?"
+      },
+      {
+        "num": 3,
+        "title": "Tax & Merchant of Record Obligations",
+        "text": "Are sales tax, EU VAT MOSS/OSS, and invoicing obligations handled compliantly (either via Stripe Tax/TaxJar or a Merchant of Record like Lemon Squeezy/Paddle)?\n\n---"
+      }
     ],
     "whenToUse": [
       "Designing subscription tiers, usage meters, or one-time payment checkouts.",
@@ -2203,19 +2762,29 @@
     "decisionRules": [
       {
         "title": "Merchant of Record (MoR) vs Direct Gateway Rule",
-        "text": "- *If* a software project is an MVP or early-stage global SaaS with small team (<5 engineers), *recommend* a **Merchant of Record (e.g. Lemon Squeezy, Paddle)** *because* an MoR acts as the legal seller, assuming liability for calculating, filing, and remitting global sales tax/VAT across 100+ tax jurisdictions automatically [JUDGMENT].\n   - *If* the project has established domestic volume or custom enterprise contracts [PROD/SCALE], *choose* **Direct Gateway (Stripe + Stripe Tax)** *because* transaction processing fees are lower (2.9% + $0.30 vs 5% + $0.50) and API customizability is maximum."
+        "lines": [
+          "*If* a software project is an MVP or early-stage global SaaS with small team (<5 engineers), *recommend* a **Merchant of Record (e.g. Lemon Squeezy, Paddle)** *because* an MoR acts as the legal seller, assuming liability for calculating, filing, and remitting global sales tax/VAT across 100+ tax jurisdictions automatically [JUDGMENT].",
+          "*If* the project has established domestic volume or custom enterprise contracts [PROD/SCALE], *choose* **Direct Gateway (Stripe + Stripe Tax)** *because* transaction processing fees are lower (2.9% + $0.30 vs 5% + $0.50) and API customizability is maximum."
+        ]
       },
       {
         "title": "Payment Card Industry (PCI-DSS) Zero-Storage Rule",
-        "text": "- *Never* accept, process, or store raw Credit Card numbers (PAN) or CVVs on application servers; *mandate* client-side tokenization via Stripe Elements or hosted checkout pages *because* touching raw cardholder data brings severe PCI-DSS Level 1 compliance burdens and massive liability in the event of a breach [FACT: STRIPE-ENGINEERING-DOCS]."
+        "lines": [
+          "*Never* accept, process, or store raw Credit Card numbers (PAN) or CVVs on application servers; *mandate* client-side tokenization via Stripe Elements or hosted checkout pages *because* touching raw cardholder data brings severe PCI-DSS Level 1 compliance burdens and massive liability in the event of a breach [FACT: STRIPE-ENGINEERING-DOCS]."
+        ]
       },
       {
         "title": "Subscription Cancellation Rule (Consumer Protection)",
-        "text": "- *If* a customer cancels an ongoing subscription, *default* to granting access until the end of the current paid billing period (`cancel_at_period_end: true`), and *mandate* a self-service cancellation flow that is as simple to cancel as it was to subscribe *because* FTC Click-to-Cancel rules and EU consumer law prohibit dark patterns that force phone calls or human retention chats to cancel [FACT: FTC-FTC-ACT]."
+        "lines": [
+          "*If* a customer cancels an ongoing subscription, *default* to granting access until the end of the current paid billing period (`cancel_at_period_end: true`), and *mandate* a self-service cancellation flow that is as simple to cancel as it was to subscribe *because* FTC Click-to-Cancel rules and EU consumer law prohibit dark patterns that force phone calls or human retention chats to cancel [FACT: FTC-FTC-ACT]."
+        ]
       },
       {
         "title": "Idempotent Webhook Handling Rule",
-        "text": "- *Always* treat payment webhooks as untrusted at-least-once deliveries; *record* processed transaction IDs before provisioning subscriptions *because* duplicate webhook deliveries otherwise trigger duplicate account credits.\n\n---"
+        "lines": [
+          "*Always* treat payment webhooks as untrusted at-least-once deliveries; *record* processed transaction IDs before provisioning subscriptions *because* duplicate webhook deliveries otherwise trigger duplicate account credits.",
+          "--"
+        ]
       }
     ],
     "steps": [
@@ -2237,15 +2806,38 @@
       }
     ],
     "antiPatterns": [
-      "**Client-Specified Pricing:** Passing the price from client frontend to server (e.g. `fetch('/checkout', { body: JSON.stringify({ amount: 2900 }) })`), allowing malicious users to modify prices.",
-      "**Storing Cardholder PANs:** Attempting to store raw credit card numbers or CVVs in application database tables.",
-      "**Immediate Hard-Lockout on Failed Renewal:** Revoking user access instantly on the first failed payment retry instead of providing a 3-to-7 day dunning grace period.",
-      "**Click-to-Cancel Dark Patterns:** Hiding the cancel button or forcing users to email support or call a phone number to cancel recurring charges.",
-      "**Silent Currency Rounding:** Storing prices as floats instead of integer cents (e.g. $29.00 stored as 2900 cents).\n\n---"
+      {
+        "title": "Client-Specified Pricing",
+        "desc": "Passing the price from client frontend to server (e.g. `fetch('/checkout', { body: JSON.stringify({ amount: 2900 }) })`), allowing malicious users to modify prices."
+      },
+      {
+        "title": "Storing Cardholder PANs",
+        "desc": "Attempting to store raw credit card numbers or CVVs in application database tables."
+      },
+      {
+        "title": "Immediate Hard-Lockout on Failed Renewal",
+        "desc": "Revoking user access instantly on the first failed payment retry instead of providing a 3-to-7 day dunning grace period."
+      },
+      {
+        "title": "Click-to-Cancel Dark Patterns",
+        "desc": "Hiding the cancel button or forcing users to email support or call a phone number to cancel recurring charges."
+      },
+      {
+        "title": "Silent Currency Rounding",
+        "desc": "Storing prices as floats instead of integer cents (e.g. $29.00 stored as 2900 cents).\n\n---"
+      }
     ],
     "verifications": [
-      "Run these automated verification checks:",
-      "1. Verify that `SKILL.md` contains all required sections:\n   ```bash\n   node -e \"\n   const fs = require('fs');\n   const text = fs.readFileSync('skills/12-business-monetization/SKILL.md', 'utf8');\n   const required = ['Specialist Stance', 'When to Use', 'Inputs and Outputs', 'Decision Rules', 'Procedure', 'Anti-Patterns', 'Verification'];\n   const missing = required.filter(r => !text.includes(r));\n   console.log('Business skill structure:', missing.length === 0 ? 'PASS' : 'FAIL: ' + missing.join(', '));\n   \"\n   ```\n   *Expected output:* `Business skill structure: PASS`\n\n---"
+      {
+        "title": "Stripe Webhook Idempotency & Signature",
+        "desc": "Simulates webhook event replays to verify cryptographic signature validation and state machine idempotency.",
+        "cmd": "stripe trigger payment_intent.succeeded"
+      },
+      {
+        "title": "PCI-DSS Zero Raw Card Storage Check",
+        "desc": "Scans backend models and logs to prove raw credit card numbers or CVV codes are never stored on self-hosted disks.",
+        "cmd": "npm run test:pci"
+      }
     ],
     "escalate": [
       "User chargeback / dispute rates exceed 0.75%, threatening immediate merchant account termination by Visa/Mastercard/Stripe.",
@@ -2270,9 +2862,21 @@
     ],
     "refuse": "I refuse to permit uncoordinated \"cowboy\" deployments without a go-live checklist, releases where any specialist gate has failed without explicit recorded risk acceptance, launching without designated on-call incident owners, or closing outages without an actionable, blameless postmortem.",
     "questions": [
-      "1. **Four-Gate Sign-Off:** Have all four gatekeepers—Security (HARD VETO), Privacy (HARD VETO), QA (No evidence, no ship), and DevOps (No rollback, no ship)—certified readiness in writing?",
-      "2. **Pre-Launch Smoke Verification:** Has an end-to-end smoke test passed on the staging environment verifying DNS, SSL/TLS, database migrations, and external integrations?",
-      "3. **Incident Response & Postmortem Readiness:** Is there an active on-call lead, defined SEV1–SEV4 escalation protocols, and a blameless postmortem template ready if an outage occurs?\n\n---"
+      {
+        "num": 1,
+        "title": "Four-Gate Sign-Off",
+        "text": "Have all four gatekeepers—Security (HARD VETO), Privacy (HARD VETO), QA (No evidence, no ship), and DevOps (No rollback, no ship)—certified readiness in writing?"
+      },
+      {
+        "num": 2,
+        "title": "Pre-Launch Smoke Verification",
+        "text": "Has an end-to-end smoke test passed on the staging environment verifying DNS, SSL/TLS, database migrations, and external integrations?"
+      },
+      {
+        "num": 3,
+        "title": "Incident Response & Postmortem Readiness",
+        "text": "Is there an active on-call lead, defined SEV1–SEV4 escalation protocols, and a blameless postmortem template ready if an outage occurs?\n\n---"
+      }
     ],
     "whenToUse": [
       "Conducting a Production Readiness Review (PRR) or pre-launch audit.",
@@ -2300,19 +2904,28 @@
     "decisionRules": [
       {
         "title": "Pre-Launch Four-Gate Rule (Launch Gate)",
-        "text": "- *Never* authorize a production release (Launch Gate = `GO`) if any of the mandatory gates (Security, Privacy, QA, DevOps) are in a failed state *unless* an explicit entry is recorded in `DECISIONS.md` under `ACCEPTED-RISK` with documented user authorization [BEST PRACTICE: LAUNCH-CHECKLISTS]."
+        "lines": [
+          "*Never* authorize a production release (Launch Gate = `GO`) if any of the mandatory gates (Security, Privacy, QA, DevOps) are in a failed state *unless* an explicit entry is recorded in `DECISIONS.md` under `ACCEPTED-RISK` with documented user authorization [BEST PRACTICE: LAUNCH-CHECKLISTS]."
+        ]
       },
       {
         "title": "Staged Canary Rollout Rule",
-        "text": "- *If* releasing a major version to >10k users [SCALE], *mandate* a staged rollout (5% -> 25% -> 50% -> 100%) governed by error rate thresholds *because* immediate 100% blast-radius deployments expose all active customers to catastrophic regressions before metrics can register anomalies [BEST PRACTICE: GOOGLE-SRE-BOOK]."
+        "lines": [
+          "*If* releasing a major version to >10k users [SCALE], *mandate* a staged rollout (5% -> 25% -> 50% -> 100%) governed by error rate thresholds *because* immediate 100% blast-radius deployments expose all active customers to catastrophic regressions before metrics can register anomalies [BEST PRACTICE: GOOGLE-SRE-BOOK]."
+        ]
       },
       {
         "title": "Blameless Incident Investigation Rule",
-        "text": "- *When* an outage or regression occurs, *strictly mandate* that postmortems focus on systemic failures, missing tooling, and process gaps, and *explicitly prohibit* assigning individual human blame *because* blame cultures incentivize concealing mistakes, leading to repeated and more severe outages [BEST PRACTICE: BLAMELESS-POSTMORTEMS]."
+        "lines": [
+          "*When* an outage or regression occurs, *strictly mandate* that postmortems focus on systemic failures, missing tooling, and process gaps, and *explicitly prohibit* assigning individual human blame *because* blame cultures incentivize concealing mistakes, leading to repeated and more severe outages [BEST PRACTICE: BLAMELESS-POSTMORTEMS]."
+        ]
       },
       {
         "title": "Maintenance Window Communication Rule",
-        "text": "- *If* an update requires unavoidable maintenance downtime, *schedule* it during the lowest-traffic historical window and broadcast notifications to users at least 48 hours in advance *because* surprise downtime destroys customer trust and triggers support queue floods.\n\n---"
+        "lines": [
+          "*If* an update requires unavoidable maintenance downtime, *schedule* it during the lowest-traffic historical window and broadcast notifications to users at least 48 hours in advance *because* surprise downtime destroys customer trust and triggers support queue floods.",
+          "--"
+        ]
       }
     ],
     "steps": [
@@ -2334,14 +2947,34 @@
       }
     ],
     "antiPatterns": [
-      "**Friday Afternoon Deployments:** Shipping major un-tested releases late on Friday afternoon when support and engineering staffing are minimal.",
-      "**Blaming the Human:** Stating root cause as \"Developer typo\" instead of \"CI pipeline lacked automated linting/validation to catch syntax error\".",
-      "**Launching Without Smoke Tests:** Declaring success immediately upon container deployment without verifying end-to-end functionality in the live environment.",
-      "**Unmonitored Canary Deployments:** Deploying to 10% of users without checking error logs or metric alarms before proceeding to 100%.\n\n---"
+      {
+        "title": "Friday Afternoon Deployments",
+        "desc": "Shipping major un-tested releases late on Friday afternoon when support and engineering staffing are minimal."
+      },
+      {
+        "title": "Blaming the Human",
+        "desc": "Stating root cause as \"Developer typo\" instead of \"CI pipeline lacked automated linting/validation to catch syntax error\"."
+      },
+      {
+        "title": "Launching Without Smoke Tests",
+        "desc": "Declaring success immediately upon container deployment without verifying end-to-end functionality in the live environment."
+      },
+      {
+        "title": "Unmonitored Canary Deployments",
+        "desc": "Deploying to 10% of users without checking error logs or metric alarms before proceeding to 100%.\n\n---"
+      }
     ],
     "verifications": [
-      "Run these automated verification checks:",
-      "1. Verify that `SKILL.md` contains all required sections:\n   ```bash\n   node -e \"\n   const fs = require('fs');\n   const text = fs.readFileSync('skills/13-launch-operations/SKILL.md', 'utf8');\n   const required = ['Specialist Stance', 'When to Use', 'Inputs and Outputs', 'Decision Rules', 'Procedure', 'Anti-Patterns', 'Verification'];\n   const missing = required.filter(r => !text.includes(r));\n   console.log('Launch skill structure:', missing.length === 0 ? 'PASS' : 'FAIL: ' + missing.join(', '));\n   \"\n   ```\n   *Expected output:* `Launch skill structure: PASS`\n\n---"
+      {
+        "title": "Five-Gate Launch Report Sign-Off",
+        "desc": "Consolidates sign-offs from Security, Privacy, QA, DevOps, and A11y into templates/schemas/launch-report.schema.json with launch_decision: \"GO\".",
+        "cmd": "npx ajv validate -s templates/schemas/launch-report.schema.json -d launch-report.json"
+      },
+      {
+        "title": "Post-Deployment Smoke Test",
+        "desc": "Runs automated production smoke tests against critical user journeys immediately following deployment.",
+        "cmd": "npm run test:smoke"
+      }
     ],
     "escalate": [
       "A SEV1 outage exceeds 30 minutes of downtime without a clear root cause, requiring decision to execute full database disaster recovery restore.",
@@ -2367,9 +3000,21 @@
     ],
     "refuse": "I refuse to permit unmaintained dependencies with known unpatched security vulnerabilities, uncataloged technical debt accumulating in secret, large-scale rewrites without incremental characterization tests, or introducing distributed complexity before objective telemetry metrics trigger the need.",
     "questions": [
-      "1. **Dependency Freshness & Supply Chain:** Are automated dependency updates (Dependabot/Renovate) active with locked version pins, and are all indirect dependencies scanned for abandoned packages and CVEs?",
-      "2. **Technical Debt & Deprecation Register:** Is every architectural compromise, temporary workaround, or deprecated API recorded in a centralized technical debt register with an assigned remediation owner and target milestone?",
-      "3. **Objective Scaling Triggers:** Does an objective telemetry threshold (e.g. database CPU > 70%, worker queue lag > 60s, p95 latency > 500ms) justify introducing caching or infrastructure expansion, rather than guesswork?\n\n---"
+      {
+        "num": 1,
+        "title": "Dependency Freshness & Supply Chain",
+        "text": "Are automated dependency updates (Dependabot/Renovate) active with locked version pins, and are all indirect dependencies scanned for abandoned packages and CVEs?"
+      },
+      {
+        "num": 2,
+        "title": "Technical Debt & Deprecation Register",
+        "text": "Is every architectural compromise, temporary workaround, or deprecated API recorded in a centralized technical debt register with an assigned remediation owner and target milestone?"
+      },
+      {
+        "num": 3,
+        "title": "Objective Scaling Triggers",
+        "text": "Does an objective telemetry threshold (e.g. database CPU > 70%, worker queue lag > 60s, p95 latency > 500ms) justify introducing caching or infrastructure expansion, rather than guesswork?\n\n---"
+      }
     ],
     "whenToUse": [
       "Planning and executing framework upgrades (e.g. Next.js major version, Node LTS).",
@@ -2397,15 +3042,27 @@
     "decisionRules": [
       {
         "title": "Incremental Refactoring Over Rewrites Rule",
-        "text": "- *Never* authorize a complete \"ground-up rewrite\" of an active production system; *mandate* the **Strangler Fig pattern with characterization tests** *because* ground-up rewrites almost universally fail, blow past delivery schedules, and reintroduce subtle bugs that were already solved in the legacy code [BEST PRACTICE: LEGACY-CODE-FEATHERS]."
+        "lines": [
+          "*Never* authorize a complete \"ground-up rewrite\" of an active production system; *mandate* the **Strangler Fig pattern with characterization tests** *because* ground-up rewrites almost universally fail, blow past delivery schedules, and reintroduce subtle bugs that were already solved in the legacy code [BEST PRACTICE: LEGACY-CODE-FEATHERS]."
+        ]
       },
       {
         "title": "Dependency Upgrade Cadence Rule",
-        "text": "- *Group* dependency updates into two distinct categories:\n     - Patch/Minor updates: Automated weekly merge after green CI test runs.\n     - Major version updates: Handled as isolated technical debt tasks with dedicated regression testing [BEST PRACTICE: DEPENDENCY-HEALTH]."
+        "lines": [
+          "*Group* dependency updates into two distinct categories:",
+          "Patch/Minor updates: Automated weekly merge after green CI test runs.",
+          "Major version updates: Handled as isolated technical debt tasks with dedicated regression testing [BEST PRACTICE: DEPENDENCY-HEALTH]."
+        ]
       },
       {
         "title": "Objective Scaling Trigger Rule",
-        "text": "- *Never* introduce a distributed cache (e.g. Redis) or worker queue (e.g. BullMQ) until metrics cross an objective scaling trigger:\n     - Database CPU sustained > 70% or query p95 > 250ms -> Add caching or indexes.\n     - Synchronous request handler execution > 300ms -> Offload to worker queue.\n     - Read-to-write query ratio > 5:1 with primary database exhaustion -> Add read replica.\n\n---"
+        "lines": [
+          "*Never* introduce a distributed cache (e.g. Redis) or worker queue (e.g. BullMQ) until metrics cross an objective scaling trigger:",
+          "Database CPU sustained > 70% or query p95 > 250ms -> Add caching or indexes.",
+          "Synchronous request handler execution > 300ms -> Offload to worker queue.",
+          "Read-to-write query ratio > 5:1 with primary database exhaustion -> Add read replica.",
+          "--"
+        ]
       }
     ],
     "steps": [
@@ -2427,15 +3084,38 @@
       }
     ],
     "antiPatterns": [
-      "**Big-Bang Rewrites:** Halting all feature development for 6 months to rewrite an application from scratch.",
-      "**Ignoring Dependency Alerts:** Silencing npm audit warnings or closing Dependabot PRs without upgrading.",
-      "**Premature Caching:** Adding Redis caching to mask poorly indexed SQL queries instead of adding a simple B-tree index.",
-      "**Ghost Deprecations:** Marking an API as deprecated without establishing a concrete sunset date or migration guide for consumers.",
-      "**Refactoring Without Tests:** Attempting large-scale refactorings on untested codebases based on memory and intuition.\n\n---"
+      {
+        "title": "Big-Bang Rewrites",
+        "desc": "Halting all feature development for 6 months to rewrite an application from scratch."
+      },
+      {
+        "title": "Ignoring Dependency Alerts",
+        "desc": "Silencing npm audit warnings or closing Dependabot PRs without upgrading."
+      },
+      {
+        "title": "Premature Caching",
+        "desc": "Adding Redis caching to mask poorly indexed SQL queries instead of adding a simple B-tree index."
+      },
+      {
+        "title": "Ghost Deprecations",
+        "desc": "Marking an API as deprecated without establishing a concrete sunset date or migration guide for consumers."
+      },
+      {
+        "title": "Refactoring Without Tests",
+        "desc": "Attempting large-scale refactorings on untested codebases based on memory and intuition.\n\n---"
+      }
     ],
     "verifications": [
-      "Run these automated verification checks:",
-      "1. Verify that `SKILL.md` contains all required sections:\n   ```bash\n   node -e \"\n   const fs = require('fs');\n   const text = fs.readFileSync('skills/14-maintenance/SKILL.md', 'utf8');\n   const required = ['Specialist Stance', 'When to Use', 'Inputs and Outputs', 'Decision Rules', 'Procedure', 'Anti-Patterns', 'Verification'];\n   const missing = required.filter(r => !text.includes(r));\n   console.log('Maintenance skill structure:', missing.length === 0 ? 'PASS' : 'FAIL: ' + missing.join(', '));\n   \"\n   ```\n   *Expected output:* `Maintenance skill structure: PASS`\n\n---"
+      {
+        "title": "Characterization Test Suite Check",
+        "desc": "Verifies 100% green behavioral preservation when refactoring legacy modules using the Strangler Fig pattern.",
+        "cmd": "npm test -- --filter=characterization"
+      },
+      {
+        "title": "Dependency Vulnerability Burndown",
+        "desc": "Audits supply chain dependencies for deprecations, major version drift, and security advisories.",
+        "cmd": "npm audit && npm outdated"
+      }
     ],
     "escalate": [
       "A core framework dependency reaches statutory End-of-Life (EOL) with no direct backward-compatible upgrade path.",
@@ -4279,6 +4959,16 @@
     // Helper: Formats plain markdown with bold, italic, code, and bullet lists
     function formatProse(text) {
       if (!text) return '';
+      if (typeof text !== 'string') {
+        if (typeof text === 'object') {
+          if (text.text) text = text.text;
+          else if (text.desc) text = text.desc;
+          else if (text.title) text = text.title;
+          else return '';
+        } else {
+          text = String(text);
+        }
+      }
       let escaped = text.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
         .replace(/\*\*([^\*]+)\*\*/g, '<strong>$1</strong>')
         .replace(/\*([^\*]+)\*/g, '<em>$1</em>')
@@ -4296,6 +4986,13 @@
 
       for (let line of lines) {
         let trimmed = line.trim();
+
+        if (trimmed === '---' || trimmed === '***') {
+          if (inUl) { html += '</ul>'; inUl = false; }
+          if (inOl) { html += '</ol>'; inOl = false; }
+          html += '<hr style="border: none; border-top: 1px solid var(--border-subtle); margin: 16px 0;" />';
+          continue;
+        }
 
         if (trimmed.startsWith('```')) {
           if (!inCode) {
@@ -4454,13 +5151,19 @@
         <div class="doc-pagination">
           ${prev ? `
             <button class="pagination-btn prev" onclick="loadContent('${prev.key}')">
-              <span class="pagination-label">← Previous</span>
+              <span class="pagination-label" style="display:flex; align-items:center; gap:4px;">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"></polyline></svg>
+                <span>Previous</span>
+              </span>
               <span class="pagination-title">${prev.title}</span>
             </button>
           ` : '<div></div>'}
           ${next ? `
             <button class="pagination-btn next" onclick="loadContent('${next.key}')">
-              <span class="pagination-label">Next →</span>
+              <span class="pagination-label" style="display:flex; align-items:center; gap:4px; justify-content:flex-end;">
+                <span>Next</span>
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
+              </span>
               <span class="pagination-title">${next.title}</span>
             </button>
           ` : '<div></div>'}
@@ -4478,13 +5181,19 @@
         <div class="doc-pagination">
           ${prev ? `
             <button class="pagination-btn prev" onclick="loadContent('${prev.isHub ? 'specialists' : 'spec-' + prev.id}')">
-              <span class="pagination-label">← Previous Specialist</span>
+              <span class="pagination-label" style="display:flex; align-items:center; gap:4px;">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"></polyline></svg>
+                <span>Previous Specialist</span>
+              </span>
               <span class="pagination-title">${prev.name.split('/')[0].trim()}</span>
             </button>
           ` : '<div></div>'}
           ${next ? `
             <button class="pagination-btn next" onclick="loadContent('spec-${next.id}')">
-              <span class="pagination-label">Next Specialist →</span>
+              <span class="pagination-label" style="display:flex; align-items:center; gap:4px; justify-content:flex-end;">
+                <span>Next Specialist</span>
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
+              </span>
               <span class="pagination-title">${next.name.split('/')[0].trim()}</span>
             </button>
           ` : '<div></div>'}
@@ -4608,8 +5317,10 @@
         <li><a href="#quick-install" class="toc-a">2. Quick Install</a></li>
         <li><a href="#metrics" class="toc-a">3. Repository Metrics</a></li>
         <li><a href="#pillars" class="toc-a">4. Four Core Pillars</a></li>
-        <li><a href="#execution" class="toc-a">5. Execution Modes</a></li>
-        <li><a href="#roster" class="toc-a">6. Specialist Directory</a></li>
+        <li><a href="#tier-comparison" class="toc-a">5. 3-Tier Rigor Matrix</a></li>
+        <li><a href="#binding-gates" class="toc-a">6. 5 Binding Quality Gates</a></li>
+        <li><a href="#execution" class="toc-a">7. Execution Modes</a></li>
+        <li><a href="#roster" class="toc-a">8. 15 Specialists Directory</a></li>
       `;
 
       main.innerHTML = `
@@ -4700,6 +5411,101 @@
           </div>
         </div>
 
+        <!-- 3-Tier Rigor Matrix Comparison -->
+        <div class="doc-block" id="tier-comparison">
+          <h2 class="doc-subheading">3-Tier Rigor Matrix Comparison</h2>
+          <p class="doc-paragraph">Every project is classified into one of three rigor tiers based on concrete operational signals. Always build to the highest tier triggered:</p>
+          
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 14px; margin-top: 14px;">
+            <div class="clean-card" style="border-top: 3px solid var(--cyan);">
+              <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px;">
+                <strong style="color: var(--cyan); font-size: 1.05rem;">MVP Tier</strong>
+                <span class="tier-pill tier-pill-mvp">Prototype Speed</span>
+              </div>
+              <p class="doc-paragraph" style="font-size: 0.84rem; margin-bottom: 10px;">For internal tools, proofs of concept, and early customer discovery where speed of validation takes priority.</p>
+              <ul class="doc-list" style="font-size: 0.82rem; margin-bottom: 0;">
+                <li><strong>Signals:</strong> Internal only, zero payments, mock auth, disposable data.</li>
+                <li><strong>Testing:</strong> Happy-path unit tests; smoke test passes.</li>
+                <li><strong>Gates:</strong> Basic linting; security veto relaxed for prototypes.</li>
+              </ul>
+            </div>
+
+            <div class="clean-card" style="border-top: 3px solid var(--amber);">
+              <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px;">
+                <strong style="color: var(--amber); font-size: 1.05rem;">PROD Tier</strong>
+                <span class="tier-pill tier-pill-prod">Production Rigor</span>
+              </div>
+              <p class="doc-paragraph" style="font-size: 0.84rem; margin-bottom: 10px;">For any public application, real customer accounts, payments, or sensitive data capture.</p>
+              <ul class="doc-list" style="font-size: 0.82rem; margin-bottom: 0;">
+                <li><strong>Signals:</strong> Public internet, user accounts, email capture, Stripe checkout.</li>
+                <li><strong>Testing:</strong> Comprehensive unit, integration, and Playwright E2E tests.</li>
+                <li><strong>Gates:</strong> Hard Security Veto, Privacy Veto, Zero-Downtime DB migrations.</li>
+              </ul>
+            </div>
+
+            <div class="clean-card" style="border-top: 3px solid var(--rose);">
+              <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px;">
+                <strong style="color: var(--rose); font-size: 1.05rem;">SCALE Tier</strong>
+                <span class="tier-pill tier-pill-scale">High-Volume Enterprise</span>
+              </div>
+              <p class="doc-paragraph" style="font-size: 0.84rem; margin-bottom: 10px;">For high-volume platforms, multi-tenant boundaries, spiky traffic, and strict SLA requirements.</p>
+              <ul class="doc-list" style="font-size: 0.82rem; margin-bottom: 0;">
+                <li><strong>Signals:</strong> &gt;100k MAU, spiky throughput, high financial volume, regulated PII.</li>
+                <li><strong>Testing:</strong> Load & stress testing, chaos engineering, edge cache hit ratio audits.</li>
+                <li><strong>Gates:</strong> Circuit breakers, automated rollback, telemetry APM, multi-region SLAs.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- 5 Binding Quality Gates -->
+        <div class="doc-block" id="binding-gates">
+          <h2 class="doc-subheading">The 5 Binding Quality Gates</h2>
+          <p class="doc-paragraph">Five specialists hold unilateral authority to block shipments or deployments until verifiable terminal evidence passes:</p>
+          
+          <div style="display: flex; flex-direction: column; gap: 10px; margin-top: 14px;">
+            <div class="clean-card" style="border-left: 3px solid var(--rose); padding: 14px 18px;">
+              <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 4px;">
+                <strong style="color: var(--rose); font-size: 0.92rem;">1. Application Security Lead (06-security)</strong>
+                <span class="tier-pill tier-pill-scale" style="font-size: 0.65rem;">HARD VETO</span>
+              </div>
+              <p class="doc-paragraph" style="margin: 0; font-size: 0.84rem;">Blocks any shipment containing hardcoded secrets, SQL injection, insecure crypto, unescaped user inputs, or vulnerable dependencies.</p>
+            </div>
+
+            <div class="clean-card" style="border-left: 3px solid var(--rose); padding: 14px 18px;">
+              <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 4px;">
+                <strong style="color: var(--rose); font-size: 0.92rem;">2. Privacy & Compliance Officer (07-privacy-compliance)</strong>
+                <span class="tier-pill tier-pill-scale" style="font-size: 0.65rem;">HARD VETO</span>
+              </div>
+              <p class="doc-paragraph" style="margin: 0; font-size: 0.84rem;">Blocks any code with unconsented third-party tracking, missing GDPR/CCPA consent banners, or unencrypted PII at rest.</p>
+            </div>
+
+            <div class="clean-card" style="border-left: 3px solid var(--emerald); padding: 14px 18px;">
+              <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 4px;">
+                <strong style="color: var(--emerald); font-size: 0.92rem;">3. SQAT & SDET Lead (08-testing-qa)</strong>
+                <span class="tier-pill tier-pill-prod" style="font-size: 0.65rem;">NO EVIDENCE, NO SHIP</span>
+              </div>
+              <p class="doc-paragraph" style="margin: 0; font-size: 0.84rem;">Mandates terminal test suite execution with exit code 0 and automated E2E verification before any merge or release.</p>
+            </div>
+
+            <div class="clean-card" style="border-left: 3px solid var(--amber); padding: 14px 18px;">
+              <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 4px;">
+                <strong style="color: var(--amber); font-size: 0.92rem;">4. DevOps Lead (09-devops-infra)</strong>
+                <span class="tier-pill tier-pill-prod" style="font-size: 0.65rem;">NO ROLLBACK, NO SHIP</span>
+              </div>
+              <p class="doc-paragraph" style="margin: 0; font-size: 0.84rem;">Requires verified automated rollback mechanisms, health probes (/api/health/liveness & readiness), and zero-downtime database migrations.</p>
+            </div>
+
+            <div class="clean-card" style="border-left: 3px solid var(--cyan); padding: 14px 18px;">
+              <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 4px;">
+                <strong style="color: var(--cyan); font-size: 0.92rem;">5. Launch Operations Manager (13-launch-operations)</strong>
+                <span class="tier-pill tier-pill-mvp" style="font-size: 0.65rem;">LAUNCH GATE</span>
+              </div>
+              <p class="doc-paragraph" style="margin: 0; font-size: 0.84rem;">Synthesizes sign-offs from all 4 upstream gates into templates/schemas/launch-report.schema.json with explicit launch_decision: "GO".</p>
+            </div>
+          </div>
+        </div>
+
         <!-- Execution Modes -->
         <div class="doc-block" id="execution">
           <h2 class="doc-subheading">Agent Execution Modes</h2>
@@ -4721,7 +5527,7 @@
               <button class="clean-card" onclick="loadContent('spec-${s.id}')" style="text-align: left; cursor: pointer; transition: all 0.15s ease; border: 1px solid var(--border-subtle); background: var(--bg-card); padding: 14px 16px;">
                 <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 6px;">
                   <span class="nav-item-num">${s.num}</span>
-                  <span class="tier-pill tier-pill-all" style="font-size: 0.65rem;">${s.auth}</span>
+                  <span class="tier-pill ${s.authType === 'veto' ? 'tier-pill-scale' : (s.authType === 'ship' ? 'tier-pill-prod' : 'tier-pill-mvp')}" style="font-size: 0.65rem;">${(s.authority || 'Specialist').split('(')[0].trim()}</span>
                 </div>
                 <div style="font-weight: 600; color: var(--text-1); font-size: 0.9rem;">${s.name}</div>
                 <div style="font-size: 0.78rem; color: var(--text-4); margin-top: 4px; line-height: 1.4;">${s.triggers.slice(0, 3).join(', ')}</div>
@@ -4972,9 +5778,9 @@
     // View: Tabbed Specialist Page (Deep, Specification-Driven)
     function renderSpecialistPage(spec, main, toc) {
       let alertClass = 'alert-gate';
-      let authBadge = '⚖️ PROCESS GATE';
-      if (spec.authType === 'veto') { alertClass = 'alert-veto'; authBadge = '🛡️ HARD VETO'; }
-      else if (spec.authType === 'ship') { alertClass = 'alert-ship'; authBadge = '🚀 BINDING SHIP GATE'; }
+      let authBadge = 'PROCESS GATE';
+      if (spec.authType === 'veto') { alertClass = 'alert-veto'; authBadge = 'HARD VETO'; }
+      else if (spec.authType === 'ship') { alertClass = 'alert-ship'; authBadge = 'BINDING SHIP GATE'; }
 
       toc.innerHTML = `
         <li><a href="javascript:void(0)" onclick="setDocTab('tab-overview')" class="toc-a active">1. Overview & Rules</a></li>
@@ -5011,15 +5817,21 @@
         ` : ''}
 
         ${spec.questions && spec.questions.length ? `
-          <div class="clean-card" style="margin-bottom: 24px; border-left: 3px solid var(--cyan); background: var(--bg-surface);">
-            <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 10px;">
+          <div style="margin-bottom: 24px;">
+            <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 12px;">
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color: var(--cyan);"><circle cx="12" cy="12" r="10"></circle><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
-              <strong style="color: var(--text-1); font-size: 0.92rem;">Three Questions I Always Ask First</strong>
+              <h2 class="doc-subheading" style="margin: 0; border: none; padding: 0;">Three Diagnostic Questions I Always Ask First</h2>
             </div>
-            <div style="display: flex; flex-direction: column; gap: 10px;">
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 12px;">
               ${spec.questions.map(q => `
-                <div style="font-size: 0.88rem; color: var(--text-2); line-height: 1.6; padding-left: 4px;">
-                  ${formatProse(q)}
+                <div class="clean-card" style="padding: 14px 16px; border: 1px solid var(--border-medium); background: var(--bg-card); display: flex; flex-direction: column; justify-content: space-between;">
+                  <div>
+                    <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 8px;">
+                      <span class="nav-item-num" style="background: rgba(56, 189, 248, 0.15); color: var(--cyan); border: 1px solid rgba(56, 189, 248, 0.3); font-weight: 700;">Q0${q.num || 1}</span>
+                      <strong style="color: var(--text-1); font-size: 0.9rem;">${q.title || 'Diagnostic Question'}</strong>
+                    </div>
+                    <div style="font-size: 0.84rem; color: var(--text-2); line-height: 1.55;">${formatProse(q.text || '')}</div>
+                  </div>
                 </div>
               `).join('')}
             </div>
@@ -5056,8 +5868,23 @@
             <div style="display: flex; flex-direction: column; gap: 12px;">
               ${spec.decisionRules.map(r => `
                 <div class="clean-card" style="padding: 16px 20px; border-left: 3px solid var(--cyan);">
-                  <strong style="color: var(--cyan); font-size: 0.95rem;">${r.title}</strong>
-                  <div style="font-size: 0.88rem; color: var(--text-2); margin-top: 6px; line-height: 1.65;">${formatProse(r.text)}</div>
+                  <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px;">
+                    <strong style="color: var(--cyan); font-size: 0.96rem;">${r.title}</strong>
+                    <span class="tier-pill tier-pill-mvp" style="font-size: 0.65rem;">MANDATE</span>
+                  </div>
+                  <ul class="doc-list" style="margin-bottom: 0;">
+                    ${(r.lines || [r.text || '']).map(l => {
+                      let badge = 'RULE';
+                      let color = 'var(--cyan)';
+                      const cleanL = l.replace(/^[\*\_]+/, '').trim();
+                      if (/^if\b/i.test(cleanL)) { badge = 'IF'; color = 'var(--purple)'; }
+                      else if (/^always\b/i.test(cleanL)) { badge = 'ALWAYS'; color = 'var(--emerald)'; }
+                      else if (/^never\b/i.test(cleanL)) { badge = 'NEVER'; color = 'var(--rose)'; }
+                      else if (/^limit\b/i.test(cleanL)) { badge = 'LIMIT'; color = 'var(--amber)'; }
+                      else if (/^otherwise\b/i.test(cleanL)) { badge = 'DEFAULT'; color = 'var(--cyan)'; }
+                      return `<li style="margin-bottom: 8px;"><span class="tier-pill" style="background: rgba(255,255,255,0.06); color: ${color}; border: 1px solid var(--border-medium); font-size: 0.68rem; margin-right: 6px; padding: 1px 6px;">${badge}</span>${formatProse(l)}</li>`;
+                    }).join('')}
+                  </ul>
                 </div>
               `).join('')}
             </div>
@@ -5076,9 +5903,9 @@
             </div>
             <div id="stepsTextContainer" style="display: flex; flex-direction: column; gap: 14px;">
               ${spec.steps.map((st, idx) => `
-                <div class="clean-card" style="border-left: 3px solid var(--cyan);">
+                <div class="clean-card" style="border-left: 3px solid var(--cyan); padding: 16px 20px;">
                   <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 8px;">
-                    <span class="nav-item-num">0${idx + 1}</span>
+                    <span class="nav-item-num" style="font-weight: 700;">0${idx + 1}</span>
                     <strong style="font-size: 0.98rem; color: var(--text-1);">${st.title}</strong>
                   </div>
                   <div style="font-size: 0.88rem; color: var(--text-2); line-height: 1.65;">${formatProse(st.details)}</div>
@@ -5091,21 +5918,44 @@
         <!-- TAB 3: DEFENSE & ANTI-PATTERNS -->
         <div class="tab-pane" id="tab-verification">
           <div class="doc-block">
-            <h2 class="doc-subheading">Automated Verification Checks</h2>
-            <div style="display: flex; flex-direction: column; gap: 10px; margin-bottom: 24px;">
+            <h2 class="doc-subheading">Production Verification Pipeline (Evidence to Call Done)</h2>
+            <p class="doc-paragraph">Every specialist must verify operational criteria in the terminal prior to declaring completion or passing handoffs ("No evidence, no ship"):</p>
+            <div style="display: flex; flex-direction: column; gap: 12px; margin-bottom: 28px;">
               ${spec.verifications.map((v, vIdx) => `
-                <div class="clean-card" style="padding: 12px 16px; border-left: 3px solid var(--emerald);">
-                  <div style="font-size: 0.88rem; color: var(--text-2); line-height: 1.6;">${formatProse(v)}</div>
+                <div class="clean-card" style="border-left: 3px solid var(--emerald); padding: 16px 20px;">
+                  <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px;">
+                    <div style="display: flex; align-items: center; gap: 8px;">
+                      <span class="nav-item-num" style="background: rgba(16, 185, 129, 0.15); color: var(--emerald); border: 1px solid rgba(16, 185, 129, 0.3); font-weight: 700;">CHECK 0${vIdx + 1}</span>
+                      <strong style="font-size: 0.95rem; color: var(--text-1);">${v.title || 'Verification Check'}</strong>
+                    </div>
+                    <span class="tier-pill tier-pill-prod" style="font-size: 0.65rem;">EXIT CODE 0</span>
+                  </div>
+                  <p class="doc-paragraph" style="margin: 0 0 10px 0; font-size: 0.85rem; color: var(--text-2);">${v.desc || ''}</p>
+                  ${v.cmd ? `
+                    <div class="code-snippet-box" style="margin-top: 8px;">
+                      <div class="snippet-top">
+                        <span style="font-family: var(--font-mono); font-size: 0.72rem; color: var(--text-3);">Terminal Command</span>
+                        <button class="snippet-copy-btn" onclick="copyText('${v.cmd.replace(/'/g, "\\'")}', this)">Copy</button>
+                      </div>
+                      <pre><code>$ ${v.cmd}</code></pre>
+                    </div>
+                  ` : ''}
                 </div>
               `).join('')}
             </div>
 
             ${spec.antiPatterns && spec.antiPatterns.length ? `
               <h2 class="doc-subheading">Strictly Forbidden Anti-Patterns</h2>
-              <div class="clean-card" style="border-left: 3px solid var(--rose); margin-bottom: 24px;">
-                <ul class="doc-list" style="margin-bottom: 0;">
-                  ${spec.antiPatterns.map(a => `<li><span style="color: var(--rose); font-weight:600; margin-right:4px;">[BANNED]</span>${a}</li>`).join('')}
-                </ul>
+              <div style="display: flex; flex-direction: column; gap: 10px; margin-bottom: 28px;">
+                ${spec.antiPatterns.map(a => `
+                  <div class="clean-card" style="border-left: 3px solid var(--rose); padding: 14px 18px;">
+                    <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 6px;">
+                      <span class="tier-pill tier-pill-scale" style="font-size: 0.65rem; background: rgba(244, 63, 94, 0.15); color: var(--rose); border: 1px solid rgba(244, 63, 94, 0.3);">FORBIDDEN</span>
+                      <strong style="color: var(--text-1); font-size: 0.92rem;">${a.title || 'Anti-Pattern'}</strong>
+                    </div>
+                    <div style="font-size: 0.86rem; color: var(--text-2); line-height: 1.6;">${a.desc || ''}</div>
+                  </div>
+                `).join('')}
               </div>
             ` : ''}
 
@@ -6014,7 +6864,7 @@ Never hardcode secrets. Passwords must use scrypt/argon2 with unique salts. Vali
       }
     }
 
-    // Initialize Page with Hash Router
+    // Initialize Page with Hash Router (Resilient to readyState and file:// execution)
     function handleInitialRoute() {
       renderNav();
       const hash = window.location.hash.replace(/^#/, '').trim();
@@ -6025,11 +6875,18 @@ Never hardcode secrets. Passwords must use scrypt/argon2 with unique salts. Vali
       }
     }
 
-    window.addEventListener('DOMContentLoaded', handleInitialRoute);
+    if (document.readyState === 'loading') {
+      window.addEventListener('DOMContentLoaded', handleInitialRoute);
+    } else {
+      handleInitialRoute();
+    }
+
     window.addEventListener('hashchange', () => {
       const hash = window.location.hash.replace(/^#/, '').trim();
       if (hash && hash !== 'content' && hash !== '') {
         loadContent(hash);
+      } else {
+        loadContent('overview');
       }
     });
   </script>
