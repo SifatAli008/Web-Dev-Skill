@@ -1,0 +1,95 @@
+{
+  "skill_id": "01-product-discovery",
+  "positive_triggers": [
+    {
+      "prompt": "I have an idea for an AI meeting summary app. Help me define the target personas, Jobs-to-be-Done (JTBD), and write a PRD.",
+      "reason": "Direct product discovery, persona definition, and PRD authoring."
+    },
+    {
+      "prompt": "Our feature backlog has 35 requested features for our MVP launch. How do we execute a MoSCoW cut to ship in 3 weeks?",
+      "reason": "Scope pruning and MoSCoW prioritization."
+    },
+    {
+      "prompt": "Write user stories with Given-When-Then acceptance criteria for our user onboarding and workspace invite flow.",
+      "reason": "User stories and testable acceptance criteria authoring."
+    },
+    {
+      "prompt": "Define measurable success metrics and explicit kill criteria for our new team collaboration feature.",
+      "reason": "Product metrics and kill criteria formulation."
+    },
+    {
+      "prompt": "The founder wants to add social media sharing, AI avatars, and crypto tipping to an MVP invoice app. How do we push back?",
+      "reason": "Scope-creep control and defending minimal viable product scope."
+    }
+  ],
+  "negative_near_misses": [
+    {
+      "prompt": "Design the PostgreSQL schema and foreign keys for invoices and line items.",
+      "expected_route": "05-backend-data",
+      "reason": "Relational schema design owned by Backend/Data Lead."
+    },
+    {
+      "prompt": "Decide whether we should build this as a modular monolith or split it into 4 microservices.",
+      "expected_route": "02-architecture",
+      "reason": "System topology and architectural decisions owned by Solution Architect."
+    },
+    {
+      "prompt": "Write Playwright tests for verifying the signup modal input validation.",
+      "expected_route": "08-testing-qa",
+      "reason": "Automated e2e test authoring owned by QA/SDET."
+    },
+    {
+      "prompt": "Audit our cookie banner for GDPR compliance and user consent tracking.",
+      "expected_route": "07-privacy-compliance",
+      "reason": "Regulatory privacy compliance owned by Privacy Officer."
+    },
+    {
+      "prompt": "Style the pricing table cards with responsive Tailwind CSS classes.",
+      "expected_route": "04-frontend",
+      "reason": "UI styling and frontend components owned by Frontend Lead."
+    }
+  ],
+  "evaluation_tasks": [
+    {
+      "task_id": "prod-task-01",
+      "prompt": "A client presents a 10-page list of 40 features for a 'version 1' pet-walking booking app. Walk them through a MoSCoW prioritization to identify the minimal viable cut.",
+      "pass_criteria": [
+        "Limits 'Must Have' list to 3-5 core capabilities (e.g. Find walker, Book slot, Process payment).",
+        "Relegates nice-to-haves (e.g. GPS live tracking, pet social feed, rewards store) to Could/Won't Have.",
+        "Explains the trade-offs in clear business terms (speed to market, testing core hypothesis).",
+        "Outputs a structured PRD conforming to `prd.schema.json`."
+      ],
+      "fail_criteria": [
+        "Accepts all 40 features as 'Must Haves'.",
+        "Fails to establish explicit 'Won't Have' boundaries."
+      ]
+    },
+    {
+      "task_id": "prod-task-02",
+      "prompt": "Draft user stories with acceptance criteria for a user changing their account email address.",
+      "pass_criteria": [
+        "Uses testable Given-When-Then format.",
+        "Covers happy path (confirmation email sent to new address with secure token).",
+        "Covers negative path (email already in use, invalid email format, expired token).",
+        "Specifies notification sent to old email address for security alert."
+      ],
+      "fail_criteria": [
+        "Writes vague criteria without boundary conditions.",
+        "Omits confirmation verification step before updating email."
+      ]
+    },
+    {
+      "task_id": "prod-task-03",
+      "prompt": "Define the Jobs-to-be-Done (JTBD) and kill criteria for an automated invoice reminder feature.",
+      "pass_criteria": [
+        "Frames JTBD using standard 'When / I want to / So I can' format.",
+        "Defines clear quantifiable metric (e.g. % of overdue invoices collected within 7 days).",
+        "Defines an unambiguous kill criteria threshold (e.g. if fewer than 10% of users enable it or complaint rate > 2%)."
+      ],
+      "fail_criteria": [
+        "Omits kill criteria entirely.",
+        "Defines unverifiable subjective success metrics."
+      ]
+    }
+  ]
+}
