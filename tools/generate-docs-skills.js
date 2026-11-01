@@ -1068,7 +1068,7 @@ const accordionSidebarMarkup = `
     </nav>
 `;
 
-const navRegex = new RegExp('<nav class="app-nav"[\\s\\S]*?<\\/nav>');
+const navRegex = /(?:<!-- Left Navigation -->\s*)*<nav class="app-nav"[\s\S]*?<\/nav>/;
 if (navRegex.test(html)) {
   html = html.replace(navRegex, accordionSidebarMarkup.trim());
 }
