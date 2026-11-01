@@ -1,0 +1,96 @@
+{
+  "skill_id": "12-business-monetization",
+  "positive_triggers": [
+    {
+      "prompt": "How should we integrate Stripe Checkout for a monthly SaaS subscription with automatic tax calculation and self-service cancellation?",
+      "reason": "Direct subscription billing, Stripe integration, and tax calculation design."
+    },
+    {
+      "prompt": "Evaluate whether our early-stage SaaS should use Stripe with Stripe Tax vs a Merchant of Record like Lemon Squeezy or Paddle.",
+      "reason": "Payment processor trade-off and tax compliance evaluation."
+    },
+    {
+      "prompt": "Design the subscription lifecycle state machine (active, past_due, canceled, trialing) and map the required Stripe webhooks.",
+      "reason": "Billing state machine and webhook matrix authoring."
+    },
+    {
+      "prompt": "How do we handle subscription upgrades with proration so customers are billed fairly when switching from Basic to Pro mid-month?",
+      "reason": "Proration calculations and mid-cycle plan changes."
+    },
+    {
+      "prompt": "What legal disclosures, terms of service checkboxes, and refund notices must appear on our checkout page under FTC Click-to-Cancel rules?",
+      "reason": "Checkout legal disclosures and consumer protection compliance."
+    }
+  ],
+  "negative_near_misses": [
+    {
+      "prompt": "Style the checkout payment button with Tailwind CSS and add a loading spinner.",
+      "expected_route": "04-frontend",
+      "reason": "Frontend button styling owned by Frontend Lead."
+    },
+    {
+      "prompt": "Write Playwright tests to verify that the credit card expiration dropdown selects correctly.",
+      "expected_route": "08-testing-qa",
+      "reason": "Automated e2e browser testing owned by QA/SDET."
+    },
+    {
+      "prompt": "Configure an AWS CloudWatch alarm for server CPU usage spikes.",
+      "expected_route": "09-devops-infra",
+      "reason": "Cloud infrastructure monitoring owned by DevOps/SRE."
+    },
+    {
+      "prompt": "Audit our API endpoints to ensure they are protected against CSRF and IDOR attacks.",
+      "expected_route": "06-security",
+      "reason": "Defensive security vulnerability audit owned by Application Security Lead."
+    },
+    {
+      "prompt": "Conduct user interviews to determine if customers prefer dark mode or light mode.",
+      "expected_route": "01-product-discovery",
+      "reason": "User research and feature preferences owned by Product Lead."
+    }
+  ],
+  "evaluation_tasks": [
+    {
+      "task_id": "biz-task-01",
+      "prompt": "A developer wrote a checkout endpoint where the frontend passes `{ price: 29.00, plan: 'pro' }` in the POST body to create a charge. Point out the critical vulnerability and rewrite the checkout initiation safely.",
+      "pass_criteria": [
+        "Identifies client-tamperable pricing as a critical flaw (attacker can send `{ price: 0.01 }`).",
+        "Mandates server-authoritative pricing (client passes only `plan_id` or `price_id`).",
+        "Fetches the authoritative price from a trusted server configuration or Stripe Price object.",
+        "Uses hosted Stripe Checkout Session or server-created PaymentIntent."
+      ],
+      "fail_criteria": [
+        "Accepts price from the client request body.",
+        "Fails to recognize price tampering."
+      ]
+    },
+    {
+      "task_id": "biz-task-02",
+      "prompt": "Map the subscription state machine for handling payment failures during monthly renewal. What happens on day 0, day 3, and day 7?",
+      "pass_criteria": [
+        "Day 0: Receives `invoice.payment_failed`; transitions status to `past_due`, keeps access active, sends dunning notification.",
+        "Day 3-5: Automatic retry attempt; customer can update payment method in billing portal without re-subscribing.",
+        "Day 7-14 (Grace period ends): Transitions to `canceled` or `unpaid`; revokes premium feature access.",
+        "Avoids instantaneous access revocation on first failed attempt."
+      ],
+      "fail_criteria": [
+        "Immediately revokes user account on the first failed attempt.",
+        "Omits the dunning grace period."
+      ]
+    },
+    {
+      "task_id": "biz-task-03",
+      "prompt": "Explain the trade-offs between Stripe (Direct Gateway) and Lemon Squeezy (Merchant of Record) for a 2-person software company selling globally.",
+      "pass_criteria": [
+        "Explains Merchant of Record model: Lemon Squeezy handles global VAT/sales tax registration, calculation, and remittance.",
+        "Explains Stripe model: Lower transaction fees (2.9% + $0.30 vs ~5%), but company remains legally responsible for global tax filing.",
+        "Recommends MoR for early stage to avoid accounting overhead in 50+ tax jurisdictions.",
+        "Identifies scale trigger for switching to Stripe (when fee savings outweigh CPA/tax software cost)."
+      ],
+      "fail_criteria": [
+        "Claims Stripe automatically files and remits taxes globally without merchant tax registration.",
+        "Fails to articulate the tax liability difference."
+      ]
+    }
+  ]
+}

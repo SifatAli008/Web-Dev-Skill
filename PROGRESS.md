@@ -32,9 +32,9 @@
 | `03-ux-ui-design` | ux-ui-design | A11y gate | Done | `04-frontend` (Approved) | 13/13 Pass | `90df41f` |
 | `09-devops-infra` | devops-infra | No rollback, no ship | Done | `06-security` (Approved) | 13/13 Pass | `15abc79` |
 | `10-performance` | performance | Warns | Done | `04-frontend` (Approved) | 13/13 Pass | `18cc159` |
-| `11-seo-marketing` | seo-marketing | Advises | Done | `07-privacy-compliance` (Approved) | 13/13 Pass | Pending commit |
-| `12-business-monetization` | business-monetization | Advises | Next | Pending | Pending | Pending |
-| `13-launch-operations` | launch-operations | Launch gate | Pending | Pending | Pending | Pending |
+| `11-seo-marketing` | seo-marketing | Advises | Done | `07-privacy-compliance` (Approved) | 13/13 Pass | `08338a8` |
+| `12-business-monetization` | business-monetization | Advises | Done | `05-backend-data` (Approved) | 13/13 Pass | Pending commit |
+| `13-launch-operations` | launch-operations | Launch gate | Next | Pending | Pending | Pending |
 | `14-maintenance` | maintenance | Advises | Pending | Pending | Pending | Pending |
 | **Phase 4** | Playbooks (cross-sector), templates, checklists, tools. | PENDING | Working linters, scanners, and validated playbooks. |
 | **Phase 5** | Reference projects (3 golden projects), baseline vs with-skills evals, fix/cut weak skills. | PENDING | >= 25% eval win delta, 0 OWASP findings, tests passing. |
