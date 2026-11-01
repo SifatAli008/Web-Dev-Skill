@@ -1,0 +1,7 @@
+---
+description: No rollback, no ship. Container liveness/readiness probes and automated rollback scripts
+globs: **/{Dockerfile,docker-compose*,*.yml,*.yaml,nginx*,k8s*}
+alwaysApply: false
+---
+No rollback, no ship. Expose independent /api/health/liveness and /api/health/readiness probes.
+Provide tested rollback procedures before declaring deployment readiness.

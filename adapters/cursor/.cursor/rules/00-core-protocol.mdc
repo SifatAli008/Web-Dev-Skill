@@ -1,0 +1,7 @@
+---
+description: Universal WebDev team protocol, tier classification (MVP, PROD, SCALE), and behavior rules
+alwaysApply: true
+---
+Follow AGENTS.md protocol. Classify task into MVP, PROD, or SCALE tier based on signals.
+Never build PROD/SCALE signal at MVP rigor. Check skills.index.json and load only relevant specialist SKILL.md files.
+AI Hygiene: Zero placeholder comments (// TODO), no folder sprawl, zero AI vibe-code templates.

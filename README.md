@@ -225,9 +225,10 @@ node evals/harness/run-eval.js
 
 ---
 
-## Contributing & Security
+## Contributing, Community & Security
 
-- Read [`CONTRIBUTING.md`](CONTRIBUTING.md) for skill authoring standards and PR checklists.
+- Read [`CONTRIBUTING.md`](CONTRIBUTING.md) for specialist authoring standards and PR checklists.
+- Read [`CODE_OF_CONDUCT.md`](CODE_OF_CONDUCT.md) for our community standards and pledge.
 - Read [`SECURITY.md`](SECURITY.md) for our vulnerability reporting policy and response SLAs.
 
 ---

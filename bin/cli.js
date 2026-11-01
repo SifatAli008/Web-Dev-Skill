@@ -134,6 +134,21 @@ function installTool(toolKey, destDir) {
   const content = fs.readFileSync(tool.source, 'utf8');
   fs.writeFileSync(targetPath, content, 'utf8');
   console.log(`[PASS] Installed ${tool.name} adapter -> ${path.relative(process.cwd(), targetPath) || targetPath}`);
+
+  // If tool is cursor, also install modern modular .cursor/rules/*.mdc
+  if (toolKey === 'cursor') {
+    const srcRulesDir = path.join(ADAPTERS_DIR, 'cursor', '.cursor', 'rules');
+    if (fs.existsSync(srcRulesDir)) {
+      const destRulesDir = path.join(destDir, '.cursor', 'rules');
+      if (!fs.existsSync(destRulesDir)) fs.mkdirSync(destRulesDir, { recursive: true });
+      const mdcFiles = fs.readdirSync(srcRulesDir).filter(f => f.endsWith('.mdc'));
+      for (const mdc of mdcFiles) {
+        fs.copyFileSync(path.join(srcRulesDir, mdc), path.join(destRulesDir, mdc));
+      }
+      console.log(`[PASS] Installed ${mdcFiles.length} modular Cursor rules -> ${path.relative(process.cwd(), destRulesDir) || destRulesDir}`);
+    }
+  }
+
   return true;
 }
 

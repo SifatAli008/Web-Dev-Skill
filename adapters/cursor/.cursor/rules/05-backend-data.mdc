@@ -1,0 +1,7 @@
+---
+description: ACID transactions, connection pooling, and zero-downtime expand-and-contract migrations
+globs: **/*.{sql,prisma,go,rs,py,ts,js}
+alwaysApply: false
+---
+Always wrap concurrent balance/stock updates in ACID transactions.
+Use expand-and-contract dual-write migrations; never drop or rename columns in a single step.

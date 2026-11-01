@@ -18,6 +18,7 @@ const ALLOWED_ROOT_MD = new Set([
   'README.md',
   'AGENTS.md',
   'CONTRIBUTING.md',
+  'CODE_OF_CONDUCT.md',
   'SECURITY.md',
   'CHANGELOG.md',
   'PROGRESS.md',

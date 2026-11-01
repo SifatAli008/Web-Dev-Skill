@@ -39,7 +39,7 @@ This project is governed by the Universal WebDev Skills engineering framework.
   fs.writeFileSync(path.join(claudeDir, 'CLAUDE.md'), claudeContent);
   console.log('[BUILT] adapters/claude-code/CLAUDE.md');
 
-  // 2. Cursor Adapter (.cursorrules)
+  // 2. Cursor Adapter (.cursorrules and modern .cursor/rules/*.mdc)
   const cursorDir = path.join(ADAPTERS_DIR, 'cursor');
   ensureDir(cursorDir);
   const cursorContent = `# Cursor Universal WebDev Team Rules
@@ -55,6 +55,85 @@ You are an elite 15-specialist web engineering team.
 `;
   fs.writeFileSync(path.join(cursorDir, '.cursorrules'), cursorContent);
   console.log('[BUILT] adapters/cursor/.cursorrules');
+
+  // Modern Cursor Modular Rules (.cursor/rules/*.mdc)
+  const cursorRulesDir = path.join(cursorDir, '.cursor', 'rules');
+  ensureDir(cursorRulesDir);
+
+  const mdcRules = [
+    {
+      file: '00-core-protocol.mdc',
+      desc: 'Universal WebDev team protocol, tier classification (MVP, PROD, SCALE), and behavior rules',
+      alwaysApply: true,
+      content: `Follow AGENTS.md protocol. Classify task into MVP, PROD, or SCALE tier based on signals.
+Never build PROD/SCALE signal at MVP rigor. Check skills.index.json and load only relevant specialist SKILL.md files.
+AI Hygiene: Zero placeholder comments (// TODO), no folder sprawl, zero AI vibe-code templates.`
+    },
+    {
+      file: '03-ux-ui-design.mdc',
+      desc: 'WCAG 2.2 AA accessibility, contrast >= 4.5:1, touch targets >= 44px, and anti-vibe design',
+      globs: '**/*.{tsx,jsx,vue,svelte,html,css,scss}',
+      alwaysApply: false,
+      content: `Enforce WCAG 2.2 Level AA accessibility: contrast >= 4.5:1, visible focus rings (:focus-visible), and 44x44px touch targets.
+Anti-Vibe-Code: Never emit generic AI rainbow gradients, fake macOS window chrome, or hollow cards.`
+    },
+    {
+      file: '04-frontend.mdc',
+      desc: 'Frontend architecture, zero-CLS layout stability, and state partitioning',
+      globs: '**/*.{tsx,jsx,vue,svelte,ts,js}',
+      alwaysApply: false,
+      content: `Keep components Server Components by default; only use 'use client' at interactive leaf nodes.
+Reserve dimensions on dynamic elements and images to guarantee absolute zero Cumulative Layout Shift (CLS = 0).`
+    },
+    {
+      file: '05-backend-data.mdc',
+      desc: 'ACID transactions, connection pooling, and zero-downtime expand-and-contract migrations',
+      globs: '**/*.{sql,prisma,go,rs,py,ts,js}',
+      alwaysApply: false,
+      content: `Always wrap concurrent balance/stock updates in ACID transactions.
+Use expand-and-contract dual-write migrations; never drop or rename columns in a single step.`
+    },
+    {
+      file: '06-security.mdc',
+      desc: 'HARD VETO: OWASP Top 10, parameterized SQL, scrypt hashing, and secret protection',
+      globs: '**/*.{env*,auth*,login*,crypto*,security*,ts,js,py,go}',
+      alwaysApply: false,
+      content: `HARD VETO active: Never concatenate raw SQL strings (mandate driver parameterization).
+Never hardcode secrets. Passwords must use scrypt/argon2 with unique salts. Validate all inputs against strict schemas.`
+    },
+    {
+      file: '08-testing-qa.mdc',
+      desc: 'SQAT quality gates: No evidence, no ship. Automated assertions and mutation tests',
+      globs: '**/*.{test,spec}.*,**/__tests__/**',
+      alwaysApply: false,
+      content: `No evidence, no ship. Every test must show terminal command output and exit code 0.
+Assert both happy paths and edge/error cases (invalid inputs, injection strings, negative stock).`
+    },
+    {
+      file: '09-devops-infra.mdc',
+      desc: 'No rollback, no ship. Container liveness/readiness probes and automated rollback scripts',
+      globs: '**/{Dockerfile,docker-compose*,*.yml,*.yaml,nginx*,k8s*}',
+      alwaysApply: false,
+      content: `No rollback, no ship. Expose independent /api/health/liveness and /api/health/readiness probes.
+Provide tested rollback procedures before declaring deployment readiness.`
+    }
+  ];
+
+  for (const r of mdcRules) {
+    const frontmatter = [
+      '---',
+      `description: ${r.desc}`,
+      r.globs ? `globs: ${r.globs}` : '',
+      `alwaysApply: ${r.alwaysApply}`,
+      '---',
+      '',
+      r.content,
+      ''
+    ].filter(Boolean).join('\n');
+
+    fs.writeFileSync(path.join(cursorRulesDir, r.file), frontmatter);
+    console.log(`[BUILT] adapters/cursor/.cursor/rules/${r.file}`);
+  }
 
   // 3. Antigravity Adapter (GEMINI.md)
   const agyDir = path.join(ADAPTERS_DIR, 'antigravity');

@@ -1,0 +1,7 @@
+---
+description: Frontend architecture, zero-CLS layout stability, and state partitioning
+globs: **/*.{tsx,jsx,vue,svelte,ts,js}
+alwaysApply: false
+---
+Keep components Server Components by default; only use 'use client' at interactive leaf nodes.
+Reserve dimensions on dynamic elements and images to guarantee absolute zero Cumulative Layout Shift (CLS = 0).

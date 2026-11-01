@@ -1,0 +1,7 @@
+---
+description: SQAT quality gates: No evidence, no ship. Automated assertions and mutation tests
+globs: **/*.{test,spec}.*,**/__tests__/**
+alwaysApply: false
+---
+No evidence, no ship. Every test must show terminal command output and exit code 0.
+Assert both happy paths and edge/error cases (invalid inputs, injection strings, negative stock).

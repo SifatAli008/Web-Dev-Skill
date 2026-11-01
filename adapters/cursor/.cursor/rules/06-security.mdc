@@ -1,0 +1,7 @@
+---
+description: HARD VETO: OWASP Top 10, parameterized SQL, scrypt hashing, and secret protection
+globs: **/*.{env*,auth*,login*,crypto*,security*,ts,js,py,go}
+alwaysApply: false
+---
+HARD VETO active: Never concatenate raw SQL strings (mandate driver parameterization).
+Never hardcode secrets. Passwords must use scrypt/argon2 with unique salts. Validate all inputs against strict schemas.

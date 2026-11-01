@@ -1,0 +1,7 @@
+---
+description: WCAG 2.2 AA accessibility, contrast >= 4.5:1, touch targets >= 44px, and anti-vibe design
+globs: **/*.{tsx,jsx,vue,svelte,html,css,scss}
+alwaysApply: false
+---
+Enforce WCAG 2.2 Level AA accessibility: contrast >= 4.5:1, visible focus rings (:focus-visible), and 44x44px touch targets.
+Anti-Vibe-Code: Never emit generic AI rainbow gradients, fake macOS window chrome, or hollow cards.
