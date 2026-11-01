@@ -52,9 +52,7 @@
     "validate:index": "node tools/validate-index.js",
     "build:adapters": "node tools/build-adapters.js",
     "eval": "node evals/harness/run-eval.js",
-    "test:reference": "node tools/run-reference-tests.js",
-    "build:website": "cd website && npm run build",
-    "dev:website": "cd website && npm run dev"
+    "test:reference": "node tools/run-reference-tests.js"
   }
 }
 
