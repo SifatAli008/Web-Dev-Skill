@@ -22,9 +22,9 @@
 | Skill ID | Name | Role / Authority | Status | Peer Reviewer | Tests | Checkpoint Commit |
 |---|---|---|---|---|---|---|
 | `00-orchestrator` | orchestrator | Process gate | Done | Built in Phase 2 | 13/13 Pass | `f21e82f` |
-| `06-security` | security | HARD VETO | Done | `02-architecture` (Approved) | 13/13 Pass | Pending commit |
-| `02-architecture` | architecture | Design gate | Next | Pending | Pending | Pending |
-| `04-frontend` | frontend | Advises | Pending | Pending | Pending | Pending |
+| `06-security` | security | HARD VETO | Done | `02-architecture` (Approved) | 13/13 Pass | `dbebc2e` |
+| `02-architecture` | architecture | Design gate | Done | `06-security` (Approved) | 13/13 Pass | Pending commit |
+| `04-frontend` | frontend | Advises | Next | Pending | Pending | Pending |
 | `05-backend-data` | backend-data | Advises | Pending | Pending | Pending | Pending |
 | `07-privacy-compliance` | privacy-compliance | HARD VETO | Pending | Pending | Pending | Pending |
 | `08-testing-qa` | testing-qa | No evidence, no ship | Pending | Pending | Pending | Pending |

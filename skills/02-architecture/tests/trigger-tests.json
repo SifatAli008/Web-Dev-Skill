@@ -1,0 +1,96 @@
+{
+  "skill_id": "02-architecture",
+  "positive_triggers": [
+    {
+      "prompt": "Should we build our new collaborative document editing platform as a microservices architecture or a modular monolith?",
+      "reason": "Direct system topology and monolith-first architectural decision."
+    },
+    {
+      "prompt": "Design the data models and relationships for a multi-tenant B2B SaaS platform with organizations, workspaces, and team members.",
+      "reason": "Domain modeling, aggregate root definition, and multi-tenant schema design."
+    },
+    {
+      "prompt": "Evaluate whether we should use REST with OpenAPI vs tRPC for our full-stack TypeScript Next.js web application.",
+      "reason": "API protocol and schema synchronization architecture evaluation."
+    },
+    {
+      "prompt": "We need to write an Architectural Decision Record (ADR) explaining our choice of PostgreSQL over DynamoDB for user billing records.",
+      "reason": "Formal ADR authoring according to architecture schema."
+    },
+    {
+      "prompt": "How should we isolate tenant data in our PostgreSQL database: shared schema with RLS, separate schemas, or separate databases?",
+      "reason": "Multi-tenant data isolation architecture decision."
+    }
+  ],
+  "negative_near_misses": [
+    {
+      "prompt": "Fix this PostgreSQL slow query by adding a B-tree index on the created_at column.",
+      "expected_route": "05-backend-data",
+      "reason": "Individual query optimization owned by Backend/Data Lead."
+    },
+    {
+      "prompt": "Conduct an OWASP Top 10 security review of our JWT verification logic.",
+      "expected_route": "06-security",
+      "reason": "Vulnerability audit owned by Application Security Lead."
+    },
+    {
+      "prompt": "Create a responsive sidebar component in React using Tailwind CSS.",
+      "expected_route": "04-frontend",
+      "reason": "UI component implementation owned by Frontend Lead."
+    },
+    {
+      "prompt": "Write Playwright integration tests for our workspace creation modal.",
+      "expected_route": "08-testing-qa",
+      "reason": "Integration test authoring owned by QA/SDET."
+    },
+    {
+      "prompt": "Configure a GitHub Actions workflow to deploy our Docker container to AWS ECS.",
+      "expected_route": "09-devops-infra",
+      "reason": "CI/CD deployment pipeline owned by DevOps/SRE."
+    }
+  ],
+  "evaluation_tasks": [
+    {
+      "task_id": "arch-task-01",
+      "prompt": "A startup team of 2 developers wants to build a new invoicing tool for small businesses. One developer insists on building 5 microservices using Docker, Kubernetes, and Kafka from day one. What architecture do you recommend and why?",
+      "pass_criteria": [
+        "Recommends a modular monolith as the primary architecture [Monolith-First rule].",
+        "Explains the operational, deployment, and cognitive overhead of microservices for a 2-person team.",
+        "Proposes a single relational database (e.g. PostgreSQL) with background job queue.",
+        "Emits a structured ADR capturing the decision, trade-offs, and alternatives considered."
+      ],
+      "fail_criteria": [
+        "Agrees with microservices + Kafka architecture for day-one 2-person startup.",
+        "Fails to articulate the trade-offs of distributed systems."
+      ]
+    },
+    {
+      "task_id": "arch-task-02",
+      "prompt": "Design the domain entity model for a project management tool with Users, Organizations, Projects, Tasks, and Comments. Specify the primary keys, foreign keys, and multi-tenant isolation strategy.",
+      "pass_criteria": [
+        "Defines clear entity relationships with organization scoping.",
+        "Mandates org_id / tenant_id on all tenant entities to prevent cross-tenant data leaks.",
+        "Specifies state transitions for tasks (e.g. Todo -> In_Progress -> Review -> Done).",
+        "Recommends PostgreSQL with Row-Level Security (RLS) or application-level tenant filters."
+      ],
+      "fail_criteria": [
+        "Omits tenant isolation boundaries.",
+        "Creates circular dependencies between domain aggregates."
+      ]
+    },
+    {
+      "task_id": "arch-task-03",
+      "prompt": "Our web application needs to generate complex PDF invoice exports that take 5-10 seconds to compile. The current implementation does this inside the synchronous HTTP request handler, causing server timeouts. Propose the architectural fix.",
+      "pass_criteria": [
+        "Decouples long-running export from the synchronous request-response cycle.",
+        "Introduces an asynchronous background worker queue (e.g. BullMQ, Pg-boss, or Redis).",
+        "Designs an asynchronous API polling or webhook/WebSocket notification pattern.",
+        "Specifies job status states (Queued, Processing, Completed, Failed)."
+      ],
+      "fail_criteria": [
+        "Suggests simply increasing HTTP server timeout to 60 seconds without queue decoupling.",
+        "Proposes running PDF rendering synchronously in client browser without data security checks."
+      ]
+    }
+  ]
+}
