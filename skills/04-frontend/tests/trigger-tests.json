@@ -1,0 +1,96 @@
+{
+  "skill_id": "04-frontend",
+  "positive_triggers": [
+    {
+      "prompt": "How should we structure our Next.js App Router components between Server Components and Client Components for our product catalog?",
+      "reason": "Direct component architecture and RSC rendering strategy question."
+    },
+    {
+      "prompt": "Create an accessible checkout form with React Hook Form, Zod schema validation, and keyboard focus error handling.",
+      "reason": "Form validation, state management, and accessible frontend input handling."
+    },
+    {
+      "prompt": "Our initial JavaScript bundle size is 450kB gzip. How do we audit and code-split heavy modules to bring it under 150kB?",
+      "reason": "Bundle budget, code-splitting, and dynamic imports optimization."
+    },
+    {
+      "prompt": "Implement an Error Boundary and Suspense skeleton loading state for our asynchronous data dashboard.",
+      "reason": "5-state lifecycle and React async error handling."
+    },
+    {
+      "prompt": "Should we use TanStack Query or native Server Actions for managing client-side mutation states and optimistic updates?",
+      "reason": "Data fetching, caching, and client state architecture."
+    }
+  ],
+  "negative_near_misses": [
+    {
+      "prompt": "Design a relational schema in PostgreSQL for multi-tenant organizations and subscriptions.",
+      "expected_route": "05-backend-data",
+      "reason": "Relational schema design owned by Backend/Data Lead."
+    },
+    {
+      "prompt": "Audit our API endpoints to ensure they are protected against CSRF and SQL injection.",
+      "expected_route": "06-security",
+      "reason": "Defensive security and injection audit owned by Application Security Lead."
+    },
+    {
+      "prompt": "Define design tokens for colors, spacing, and typography to meet WCAG 2.2 AA contrast ratios.",
+      "expected_route": "03-ux-ui-design",
+      "reason": "Design token system and contrast calculations owned by UX/UI Lead."
+    },
+    {
+      "prompt": "Write Playwright end-to-end browser automation tests for our cart checkout flow.",
+      "expected_route": "08-testing-qa",
+      "reason": "Automated e2e browser testing owned by QA/SDET."
+    },
+    {
+      "prompt": "Configure an Nginx reverse proxy with TLS termination and gzip compression.",
+      "expected_route": "09-devops-infra",
+      "reason": "Infrastructure reverse proxy configuration owned by DevOps/SRE."
+    }
+  ],
+  "evaluation_tasks": [
+    {
+      "task_id": "front-task-01",
+      "prompt": "A developer wrote a React component that fetches data using `useEffect` on mount, has no loading state, and renders `<div onClick={submit}>Submit</div>`. Review and refactor this component to production standards.",
+      "pass_criteria": [
+        "Replaces unmanaged `useEffect` fetching with TanStack Query, SWR, or Server Component.",
+        "Implements all 5 UI states: loading skeleton, error fallback with retry, empty state, and success.",
+        "Replaces clickable div with semantic `<button type=\"button\">` or adds keyboard/role accessibility attributes.",
+        "Prevents unhandled promise rejections and memory leaks on unmount."
+      ],
+      "fail_criteria": [
+        "Leaves the clickable div without keyboard accessibility.",
+        "Retains raw unhandled useEffect without error boundary or loading state."
+      ]
+    },
+    {
+      "task_id": "front-task-02",
+      "prompt": "Architect a Next.js App Router page `/dashboard` that displays authenticated user stats and a rich chart. Explain where to place `'use client'` and how to optimize bundle size.",
+      "pass_criteria": [
+        "Keeps the page and data-fetching container as a Server Component (RSC).",
+        "Isolates the interactive chart into a leaf Client Component (`'use client'`).",
+        "Uses dynamic import (`next/dynamic` with `ssr: false` or suspense) for the heavy charting library.",
+        "Ensures initial route JavaScript bundle remains within budget (<150kB)."
+      ],
+      "fail_criteria": [
+        "Places `'use client'` at the top of the entire page or layout.",
+        "Imports heavy client-only charting library statically into Server Component."
+      ]
+    },
+    {
+      "task_id": "front-task-03",
+      "prompt": "Build an accessible newsletter subscription form with email validation, loading state during submission, and inline error announcements.",
+      "pass_criteria": [
+        "Uses semantic `<form>`, `<input type=\"email\">`, and `<label>`.",
+        "Links error message to input via `aria-describedby` and sets `aria-invalid`.",
+        "Disables submit button with loading state during network request to prevent double submit.",
+        "Announces success or error feedback clearly to screen readers."
+      ],
+      "fail_criteria": [
+        "Omits `<label>` or accessible name for input.",
+        "Allows duplicate rapid form submissions without disabling or debouncing."
+      ]
+    }
+  ]
+}
