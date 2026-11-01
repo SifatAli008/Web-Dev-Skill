@@ -5,44 +5,48 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="robots" content="index, follow">
   <title>Universal WebDev Skills | Official Documentation & Engineering Console</title>
-  <meta name="description" content="Production-grade documentation and interactive developer console for Universal WebDev Skills — 15-specialist web engineering protocol for AI coding agents.">
+  <meta name="description" content="Production-grade documentation for Universal WebDev Skills — 15-specialist web engineering protocol for AI coding agents.">
   <link rel="canonical" href="https://sifatali008.github.io/Web-Dev-Skill/">
 
   <!-- Open Graph & Twitter -->
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://sifatali008.github.io/Web-Dev-Skill/">
   <meta property="og:title" content="Universal WebDev Skills: Official Documentation">
-  <meta property="og:description" content="15 specialists, 16 playbooks, 3-tier rigor, hard security vetos, and interactive agent console.">
+  <meta property="og:description" content="15 specialists, 16 playbooks, 3-tier rigor, hard security vetos, and interactive architecture tools.">
   <meta name="twitter:card" content="summary_large_image">
 
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%23080c14'/><polyline points='65 75 90 50 65 25' stroke='%2338bdf8' stroke-width='10' stroke-linecap='round' stroke-linejoin='round' fill='none'/><polyline points='35 25 10 50 35 75' stroke='%2338bdf8' stroke-width='10' stroke-linecap='round' stroke-linejoin='round' fill='none'/></svg>">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%230b0f17'/><polyline points='65 75 90 50 65 25' stroke='%2338bdf8' stroke-width='10' stroke-linecap='round' stroke-linejoin='round' fill='none'/><polyline points='35 25 10 50 35 75' stroke='%2338bdf8' stroke-width='10' stroke-linecap='round' stroke-linejoin='round' fill='none'/></svg>">
 
   <style>
     /* ==========================================================================
-       UNCLUTTERED TECHNICAL DESIGN SYSTEM (Linear / Stripe / Tailwind Standard)
+       USER-FRIENDLY DEVELOPER DOCUMENTATION THEME (Tailwind / Next.js / Stripe Style)
        ========================================================================== */
     :root {
-      --bg-base: #080c14;
-      --bg-subtle: #0d121f;
-      --bg-surface: #121826;
-      --bg-card: #151d2e;
-      --bg-hover: #1c253b;
-      --bg-active: #232e48;
+      /* Clear, layered slate dark theme */
+      --bg-base: #0b0f17;
+      --bg-subtle: #0f1523;
+      --bg-surface: #141b2d;
+      --bg-card: #182238;
+      --bg-card-hover: #1e2b46;
+      --bg-code: #080c14;
       
-      --border-subtle: rgba(255, 255, 255, 0.07);
-      --border-medium: rgba(255, 255, 255, 0.12);
-      --border-focus: rgba(56, 189, 248, 0.45);
+      --border-subtle: rgba(255, 255, 255, 0.08);
+      --border-medium: rgba(255, 255, 255, 0.14);
+      --border-focus: rgba(56, 189, 248, 0.5);
       
+      /* High-contrast crisp typography */
       --text-1: #f8fafc;
       --text-2: #cbd5e1;
       --text-3: #94a3b8;
       --text-4: #64748b;
       
+      /* Vibrant semantics */
       --cyan: #38bdf8;
+      --cyan-glow: rgba(56, 189, 248, 0.15);
       --emerald: #10b981;
       --amber: #f59e0b;
       --rose: #f43f5e;
-      --purple: #a855f7;
+      --purple: #818cf8;
 
       --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
       --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
@@ -54,16 +58,30 @@
       background-color: var(--bg-base);
       color: var(--text-2);
       font-family: var(--font-sans);
-      line-height: 1.7;
+      line-height: 1.75;
       overflow-x: hidden;
       -webkit-font-smoothing: antialiased;
+      position: relative;
+    }
+
+    /* Ambient Soft Top Glow */
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 15%;
+      right: 15%;
+      height: 280px;
+      background: radial-gradient(ellipse 70% 50% at 50% 0%, rgba(56, 189, 248, 0.08), transparent 75%);
+      pointer-events: none;
+      z-index: 0;
     }
 
     /* Scrollbars */
     ::-webkit-scrollbar { width: 6px; height: 6px; }
     ::-webkit-scrollbar-track { background: transparent; }
-    ::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, 0.15); border-radius: 3px; }
-    ::-webkit-scrollbar-thumb:hover { background: rgba(255, 255, 255, 0.25); }
+    ::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, 0.18); border-radius: 3px; }
+    ::-webkit-scrollbar-thumb:hover { background: rgba(255, 255, 255, 0.3); }
 
     /* Accessible Skip Link */
     .skip-link {
@@ -87,11 +105,11 @@
       position: sticky;
       top: 0;
       z-index: 100;
-      background: rgba(8, 12, 20, 0.88);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
+      background: rgba(11, 15, 23, 0.88);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
       border-bottom: 1px solid var(--border-subtle);
-      height: 56px;
+      height: 58px;
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -104,8 +122,9 @@
       gap: 10px;
       text-decoration: none;
       color: var(--text-1);
-      font-weight: 600;
-      font-size: 0.92rem;
+      font-weight: 700;
+      font-size: 0.95rem;
+      letter-spacing: -0.01em;
       transition: color 0.15s ease;
     }
     .brand-link:hover { color: #fff; }
@@ -113,8 +132,8 @@
       width: 28px;
       height: 28px;
       border-radius: 6px;
-      background: rgba(56, 189, 248, 0.12);
-      border: 1px solid rgba(56, 189, 248, 0.3);
+      background: rgba(56, 189, 248, 0.15);
+      border: 1px solid rgba(56, 189, 248, 0.35);
       display: flex;
       align-items: center;
       justify-content: center;
@@ -124,21 +143,21 @@
     .version-tag {
       font-family: var(--font-mono);
       font-size: 0.7rem;
-      color: var(--text-4);
-      background: rgba(255, 255, 255, 0.04);
+      color: var(--text-3);
+      background: rgba(255, 255, 255, 0.06);
       border: 1px solid var(--border-subtle);
-      padding: 2px 7px;
+      padding: 2px 8px;
       border-radius: 12px;
       line-height: 1;
     }
-    .header-center { flex: 1; max-width: 460px; margin: 0 20px; }
+    .header-center { flex: 1; max-width: 480px; margin: 0 24px; }
     .palette-trigger {
       width: 100%;
-      background: var(--bg-subtle);
+      background: var(--bg-surface);
       border: 1px solid var(--border-subtle);
-      color: var(--text-4);
-      padding: 6px 12px;
-      border-radius: 6px;
+      color: var(--text-3);
+      padding: 7px 14px;
+      border-radius: 8px;
       font-size: 0.82rem;
       display: flex;
       align-items: center;
@@ -149,47 +168,57 @@
     }
     .palette-trigger:hover {
       border-color: var(--border-medium);
-      color: var(--text-3);
-      background: var(--bg-surface);
+      color: var(--text-2);
+      background: var(--bg-card);
     }
     .palette-trigger-left { display: flex; align-items: center; gap: 8px; }
     .palette-trigger kbd {
       font-family: var(--font-mono);
-      background: var(--bg-card);
+      background: rgba(255, 255, 255, 0.08);
       border: 1px solid var(--border-subtle);
       padding: 1px 6px;
       border-radius: 4px;
       font-size: 0.68rem;
-      color: var(--text-4);
+      color: var(--text-3);
       white-space: nowrap;
     }
     .header-right { display: flex; align-items: center; gap: 12px; }
+    .header-nav-link {
+      color: var(--text-3);
+      text-decoration: none;
+      font-size: 0.83rem;
+      font-weight: 500;
+      transition: color 0.15s;
+    }
+    .header-nav-link:hover { color: var(--text-1); }
     .header-gh-btn {
       display: flex;
       align-items: center;
       gap: 6px;
-      background: var(--bg-subtle);
+      background: var(--bg-surface);
       border: 1px solid var(--border-subtle);
-      color: var(--text-3);
-      padding: 5px 12px;
+      color: var(--text-2);
+      padding: 6px 12px;
       border-radius: 6px;
       font-size: 0.8rem;
       font-weight: 500;
       text-decoration: none;
       transition: all 0.15s;
     }
-    .header-gh-btn:hover { background: var(--bg-hover); color: #fff; border-color: var(--border-medium); }
+    .header-gh-btn:hover { background: var(--bg-card); color: #fff; border-color: var(--border-medium); }
 
     /* App Layout */
     .app-body {
       display: grid;
-      grid-template-columns: 280px minmax(0, 1fr) 240px;
+      grid-template-columns: 290px minmax(0, 1fr) 240px;
       max-width: 1600px;
       margin: 0 auto;
-      min-height: calc(100vh - 56px);
+      min-height: calc(100vh - 58px);
+      position: relative;
+      z-index: 1;
     }
     @media (max-width: 1280px) {
-      .app-body { grid-template-columns: 270px minmax(0, 1fr); }
+      .app-body { grid-template-columns: 280px minmax(0, 1fr); }
       .app-toc { display: none; }
     }
     @media (max-width: 860px) {
@@ -197,32 +226,32 @@
       .app-nav { display: none; }
     }
 
-    /* Left Navigation Accordion */
+    /* Left Navigation Sidebar */
     .app-nav {
       background: var(--bg-subtle);
       border-right: 1px solid var(--border-subtle);
-      padding: 16px 12px 40px;
-      height: calc(100vh - 56px);
+      padding: 18px 12px 40px;
+      height: calc(100vh - 58px);
       position: sticky;
-      top: 56px;
+      top: 58px;
       overflow-y: auto;
     }
-    .sidebar-search-wrap { margin-bottom: 12px; padding: 0 4px; }
+    .sidebar-search-wrap { margin-bottom: 14px; padding: 0 4px; }
     .sidebar-search-input {
       width: 100%;
-      background: var(--bg-base);
+      background: var(--bg-surface);
       border: 1px solid var(--border-subtle);
-      color: var(--text-2);
-      padding: 7px 10px;
+      color: var(--text-1);
+      padding: 8px 12px;
       border-radius: 6px;
-      font-size: 0.8rem;
+      font-size: 0.82rem;
       outline: none;
       transition: border-color 0.15s;
       font-family: inherit;
     }
     .sidebar-search-input:focus { border-color: var(--cyan); }
 
-    .nav-group { margin-bottom: 6px; }
+    .nav-group { margin-bottom: 8px; }
     .nav-group-header {
       width: 100%;
       background: none;
@@ -232,7 +261,7 @@
       justify-content: space-between;
       padding: 6px 8px;
       color: var(--text-3);
-      font-size: 0.72rem;
+      font-size: 0.74rem;
       font-weight: 700;
       text-transform: uppercase;
       letter-spacing: 0.05em;
@@ -241,7 +270,7 @@
       transition: all 0.15s ease;
       font-family: inherit;
     }
-    .nav-group-header:hover { color: var(--text-1); background: var(--bg-hover); }
+    .nav-group-header:hover { color: var(--text-1); background: rgba(255, 255, 255, 0.04); }
     .nav-group-header-left { display: flex; align-items: center; gap: 7px; }
     .nav-chevron { color: var(--text-4); transition: transform 0.2s ease; flex-shrink: 0; }
     .nav-group.collapsed .nav-chevron { transform: rotate(-90deg); }
@@ -249,7 +278,7 @@
       font-family: var(--font-mono);
       font-size: 0.68rem;
       color: var(--text-4);
-      background: rgba(255, 255, 255, 0.04);
+      background: rgba(255, 255, 255, 0.05);
       padding: 1px 6px;
       border-radius: 10px;
     }
@@ -258,9 +287,9 @@
       display: flex;
       flex-direction: column;
       gap: 2px;
-      margin-top: 2px;
+      margin-top: 3px;
       padding-left: 8px;
-      border-left: 1px solid rgba(255, 255, 255, 0.06);
+      border-left: 1px solid rgba(255, 255, 255, 0.08);
       margin-left: 12px;
     }
     .nav-group.collapsed .nav-list { display: none; }
@@ -283,10 +312,10 @@
       text-decoration: none;
       font-family: inherit;
     }
-    .nav-item-btn:hover { color: var(--text-1); background: var(--bg-hover); }
+    .nav-item-btn:hover { color: var(--text-1); background: rgba(255, 255, 255, 0.05); }
     .nav-item-btn.active {
       color: #fff;
-      background: var(--bg-active);
+      background: var(--bg-card);
       font-weight: 600;
       border-left: 2px solid var(--cyan);
       border-radius: 0 6px 6px 0;
@@ -295,8 +324,8 @@
       font-family: var(--font-mono);
       font-size: 0.72rem;
       color: var(--cyan);
-      background: rgba(56, 189, 248, 0.08);
-      border: 1px solid rgba(56, 189, 248, 0.2);
+      background: rgba(56, 189, 248, 0.1);
+      border: 1px solid rgba(56, 189, 248, 0.25);
       padding: 1px 5px;
       border-radius: 4px;
       min-width: 24px;
@@ -316,6 +345,7 @@
       .app-main { padding: 24px 18px 80px; }
     }
 
+    /* Content Typography & Header */
     .content-header {
       margin-bottom: 28px;
       border-bottom: 1px solid var(--border-subtle);
@@ -331,53 +361,75 @@
       font-weight: 600;
     }
     .doc-heading {
-      font-size: 1.85rem;
+      font-size: 1.95rem;
       font-weight: 700;
       color: var(--text-1);
       letter-spacing: -0.02em;
       line-height: 1.25;
-      margin-bottom: 10px;
+      margin-bottom: 12px;
     }
     .doc-intro {
-      font-size: 1.02rem;
+      font-size: 1.05rem;
       color: var(--text-3);
-      line-height: 1.6;
-      max-width: 720px;
+      line-height: 1.65;
+      max-width: 740px;
     }
-    .doc-block { margin-bottom: 36px; }
+    .doc-block { margin-bottom: 38px; }
     .doc-subheading {
-      font-size: 1.2rem;
+      font-size: 1.25rem;
       font-weight: 600;
       color: var(--text-1);
       letter-spacing: -0.01em;
-      margin: 28px 0 12px;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      margin: 32px 0 12px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
       padding-bottom: 8px;
     }
     .doc-paragraph {
       margin-bottom: 14px;
       color: var(--text-2);
-      font-size: 0.94rem;
-      line-height: 1.7;
+      font-size: 0.95rem;
+      line-height: 1.75;
     }
     .doc-list {
       margin: 0 0 16px 20px;
       color: var(--text-2);
-      font-size: 0.94rem;
+      font-size: 0.95rem;
       line-height: 1.75;
     }
     .doc-list li { margin-bottom: 6px; }
     .inline-code {
       font-family: var(--font-mono);
-      font-size: 0.82em;
-      background: rgba(255, 255, 255, 0.06);
+      font-size: 0.84em;
+      background: rgba(255, 255, 255, 0.07);
       color: var(--cyan);
       padding: 2px 6px;
       border-radius: 4px;
-      border: 1px solid rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.06);
     }
 
-    /* Tab Bar */
+    /* Quick Install Hero Box */
+    .quick-install-box {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: var(--bg-surface);
+      border: 1px solid var(--border-medium);
+      border-radius: 8px;
+      padding: 12px 18px;
+      margin: 20px 0 28px;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+    }
+    .quick-install-command {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-family: var(--font-mono);
+      font-size: 0.92rem;
+      color: #fff;
+    }
+    .prompt-symbol { color: var(--cyan); font-weight: 700; user-select: none; }
+
+    /* Segmented Tab Bar */
     .page-tabs-bar {
       display: flex;
       gap: 4px;
@@ -391,9 +443,9 @@
     .page-tab-btn {
       background: none;
       border: none;
-      padding: 8px 14px;
+      padding: 8px 16px;
       color: var(--text-3);
-      font-size: 0.82rem;
+      font-size: 0.83rem;
       font-weight: 500;
       border-radius: 6px;
       cursor: pointer;
@@ -401,50 +453,52 @@
       transition: all 0.15s ease;
       font-family: inherit;
     }
-    .page-tab-btn:hover { color: var(--text-1); background: var(--bg-hover); }
+    .page-tab-btn:hover { color: var(--text-1); background: rgba(255, 255, 255, 0.04); }
     .page-tab-btn.active {
       color: #fff;
       background: var(--bg-card);
       font-weight: 600;
-      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+      border: 1px solid var(--border-medium);
+      box-shadow: 0 1px 4px rgba(0, 0, 0, 0.4);
     }
     .tab-pane { display: none; }
     .tab-pane.active { display: block; animation: fadeIn 0.2s ease; }
     @keyframes fadeIn { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: translateY(0); } }
 
-    /* Cards & Callouts */
+    /* Cards & Elevated Containers */
     .clean-card {
       background: var(--bg-card);
       border: 1px solid var(--border-subtle);
       border-radius: 8px;
       padding: 16px 20px;
       margin-bottom: 14px;
+      transition: all 0.15s ease;
     }
     .callout-box {
       background: var(--bg-surface);
       border: 1px solid var(--border-subtle);
       border-left: 3px solid var(--cyan);
       border-radius: 6px;
-      padding: 12px 16px;
-      margin: 16px 0;
-      font-size: 0.88rem;
-      line-height: 1.6;
+      padding: 14px 18px;
+      margin: 18px 0;
+      font-size: 0.9rem;
+      line-height: 1.65;
     }
-    .callout-box.alert-veto { border-left-color: var(--rose); background: rgba(244, 63, 94, 0.05); }
-    .callout-box.alert-ship { border-left-color: var(--purple); background: rgba(168, 85, 247, 0.05); }
+    .callout-box.alert-veto { border-left-color: var(--rose); background: rgba(244, 63, 94, 0.06); }
+    .callout-box.alert-ship { border-left-color: var(--purple); background: rgba(129, 140, 248, 0.06); }
     .callout-box.alert-gate { border-left-color: var(--cyan); }
 
     /* Tables */
     .spec-table-box {
       overflow-x: auto;
-      margin: 16px 0 24px;
+      margin: 18px 0 24px;
       border: 1px solid var(--border-subtle);
       border-radius: 8px;
       background: var(--bg-surface);
     }
-    .spec-table-box table { width: 100%; border-collapse: collapse; font-size: 0.85rem; text-align: left; }
+    .spec-table-box table { width: 100%; border-collapse: collapse; font-size: 0.86rem; text-align: left; }
     .spec-table-box th {
-      background: rgba(255, 255, 255, 0.02);
+      background: rgba(255, 255, 255, 0.03);
       color: var(--text-3);
       font-weight: 600;
       padding: 10px 14px;
@@ -454,7 +508,7 @@
       letter-spacing: 0.05em;
     }
     .spec-table-box td {
-      padding: 10px 14px;
+      padding: 11px 14px;
       border-bottom: 1px solid rgba(255, 255, 255, 0.04);
       color: var(--text-2);
       vertical-align: top;
@@ -463,41 +517,44 @@
 
     /* Code Snippets */
     .code-snippet-box {
-      background: #060910;
+      background: var(--bg-code);
       border: 1px solid var(--border-subtle);
       border-radius: 8px;
       margin: 14px 0 20px;
       overflow: hidden;
     }
     .snippet-top {
-      background: rgba(255, 255, 255, 0.02);
-      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-      padding: 6px 12px;
+      background: rgba(255, 255, 255, 0.03);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+      padding: 7px 14px;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      font-size: 0.72rem;
+      font-size: 0.74rem;
       font-family: var(--font-mono);
-      color: var(--text-4);
+      color: var(--text-3);
     }
     .snippet-copy-btn {
-      background: none;
-      border: none;
-      color: var(--text-4);
-      font-size: 0.72rem;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid var(--border-subtle);
+      color: var(--text-2);
+      font-size: 0.74rem;
       cursor: pointer;
-      padding: 2px 6px;
-      border-radius: 3px;
+      padding: 3px 8px;
+      border-radius: 4px;
       font-family: inherit;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
       transition: all 0.15s;
     }
-    .snippet-copy-btn:hover { color: var(--text-1); background: rgba(255, 255, 255, 0.06); }
+    .snippet-copy-btn:hover { color: #fff; background: rgba(255, 255, 255, 0.12); border-color: var(--border-medium); }
     .code-snippet-box pre {
-      padding: 14px 16px;
+      padding: 16px 18px;
       overflow-x: auto;
       font-family: var(--font-mono);
-      font-size: 0.82rem;
-      line-height: 1.6;
+      font-size: 0.84rem;
+      line-height: 1.65;
       color: var(--text-2);
     }
 
@@ -506,22 +563,53 @@
       display: inline-flex;
       align-items: center;
       gap: 8px;
-      background: rgba(56, 189, 248, 0.1);
-      border: 1px solid rgba(56, 189, 248, 0.3);
+      background: rgba(56, 189, 248, 0.12);
+      border: 1px solid rgba(56, 189, 248, 0.35);
       color: var(--cyan);
       font-weight: 600;
-      font-size: 0.82rem;
-      padding: 8px 14px;
+      font-size: 0.83rem;
+      padding: 8px 16px;
       border-radius: 6px;
       cursor: pointer;
       transition: all 0.15s ease;
       font-family: inherit;
     }
     .hud-action-btn:hover {
-      background: rgba(56, 189, 248, 0.2);
+      background: rgba(56, 189, 248, 0.22);
       border-color: var(--cyan);
       color: #fff;
     }
+
+    /* Sequential Pagination Footer */
+    .doc-pagination {
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      margin-top: 50px;
+      padding-top: 24px;
+      border-top: 1px solid var(--border-subtle);
+    }
+    .pagination-btn {
+      display: flex;
+      flex-direction: column;
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: 8px;
+      padding: 12px 18px;
+      cursor: pointer;
+      transition: all 0.15s ease;
+      text-align: left;
+      min-width: 180px;
+      font-family: inherit;
+    }
+    .pagination-btn.next { text-align: right; margin-left: auto; }
+    .pagination-btn:hover {
+      border-color: var(--cyan);
+      background: var(--bg-card);
+      transform: translateY(-1px);
+    }
+    .pagination-label { font-size: 0.72rem; text-transform: uppercase; color: var(--text-4); font-weight: 700; letter-spacing: 0.05em; }
+    .pagination-title { font-size: 0.92rem; font-weight: 600; color: var(--text-1); margin-top: 2px; }
 
     /* Tier pills */
     .tier-pill {
@@ -534,10 +622,10 @@
       display: inline-block;
       line-height: 1;
     }
-    .tier-pill-all { background: rgba(255, 255, 255, 0.05); color: var(--text-3); border: 1px solid var(--border-subtle); }
-    .tier-pill-mvp { background: rgba(56, 189, 248, 0.1); color: var(--cyan); border: 1px solid rgba(56, 189, 248, 0.3); }
-    .tier-pill-prod { background: rgba(245, 158, 11, 0.1); color: var(--amber); border: 1px solid rgba(245, 158, 11, 0.3); }
-    .tier-pill-scale { background: rgba(168, 85, 247, 0.1); color: var(--purple); border: 1px solid rgba(168, 85, 247, 0.3); }
+    .tier-pill-all { background: rgba(255, 255, 255, 0.06); color: var(--text-3); border: 1px solid var(--border-subtle); }
+    .tier-pill-mvp { background: rgba(56, 189, 248, 0.12); color: var(--cyan); border: 1px solid rgba(56, 189, 248, 0.3); }
+    .tier-pill-prod { background: rgba(245, 158, 11, 0.12); color: var(--amber); border: 1px solid rgba(245, 158, 11, 0.3); }
+    .tier-pill-scale { background: rgba(129, 140, 248, 0.12); color: var(--purple); border: 1px solid rgba(129, 140, 248, 0.3); }
 
     /* Method Badges */
     .badge-method {
@@ -553,8 +641,8 @@
     /* Right In-Page TOC */
     .app-toc {
       position: sticky;
-      top: 56px;
-      height: calc(100vh - 56px);
+      top: 58px;
+      height: calc(100vh - 58px);
       padding: 32px 20px 40px;
       overflow-y: auto;
     }
@@ -580,7 +668,7 @@
       font-size: 0.8rem;
       text-decoration: none;
       transition: all 0.15s ease;
-      line-height: 1.4;
+      line-height: 1.45;
       display: block;
     }
     .toc-a:hover { color: var(--text-2); }
@@ -591,12 +679,12 @@
       position: fixed;
       inset: 0;
       background: rgba(0, 0, 0, 0.75);
-      backdrop-filter: blur(4px);
+      backdrop-filter: blur(6px);
       z-index: 200;
       display: none;
       align-items: flex-start;
       justify-content: center;
-      padding-top: 15vh;
+      padding-top: 14vh;
     }
     .palette-backdrop.open { display: flex; }
     .palette-window {
@@ -604,15 +692,15 @@
       border: 1px solid var(--border-medium);
       border-radius: 12px;
       width: 100%;
-      max-width: 580px;
-      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8);
+      max-width: 600px;
+      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.85);
       overflow: hidden;
     }
     .palette-search-row {
       display: flex;
       align-items: center;
-      padding: 12px 16px;
-      gap: 10px;
+      padding: 14px 18px;
+      gap: 12px;
       border-bottom: 1px solid var(--border-subtle);
       background: var(--bg-surface);
     }
@@ -627,7 +715,7 @@
     }
     .palette-results-list {
       list-style: none;
-      max-height: 380px;
+      max-height: 400px;
       overflow-y: auto;
       padding: 8px;
     }
@@ -635,149 +723,20 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 8px 12px;
+      padding: 9px 12px;
       border-radius: 6px;
       cursor: pointer;
       transition: background 0.15s;
     }
-    .palette-result-item:hover, .palette-result-item.selected { background: var(--bg-hover); }
-    .palette-result-title { font-size: 0.85rem; color: var(--text-1); font-weight: 500; }
+    .palette-result-item:hover, .palette-result-item.selected { background: var(--bg-card-hover); }
+    .palette-result-title { font-size: 0.86rem; color: var(--text-1); font-weight: 500; }
     .palette-result-badge {
       font-family: var(--font-mono);
       font-size: 0.68rem;
-      padding: 2px 6px;
+      padding: 2px 7px;
       border-radius: 4px;
-      background: rgba(255, 255, 255, 0.05);
+      background: rgba(255, 255, 255, 0.06);
       color: var(--text-3);
-    }
-
-    /* Agent Companion Drawer & Capsule */
-    .agent-hud { position: fixed; bottom: 20px; right: 24px; z-index: 90; }
-    .agent-drawer {
-      display: none;
-      position: absolute;
-      bottom: 56px;
-      right: 0;
-      width: 420px;
-      background: var(--bg-surface);
-      border: 1px solid var(--border-medium);
-      border-radius: 10px;
-      overflow: hidden;
-      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.7);
-    }
-    .drawer-top {
-      background: rgba(255, 255, 255, 0.02);
-      border-bottom: 1px solid var(--border-subtle);
-      padding: 10px 14px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      font-size: 0.74rem;
-      font-weight: 700;
-      letter-spacing: 0.05em;
-      color: var(--text-3);
-      font-family: var(--font-mono);
-    }
-    .drawer-title-row {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      color: var(--cyan);
-    }
-    .drawer-close {
-      background: none;
-      border: none;
-      color: var(--text-4);
-      font-size: 0.9rem;
-      cursor: pointer;
-      padding: 2px 6px;
-      border-radius: 4px;
-    }
-    .drawer-close:hover { color: #fff; background: rgba(255, 255, 255, 0.1); }
-    .drawer-terminal {
-      background: #05080f;
-      height: 200px;
-      overflow-y: auto;
-      padding: 10px 12px;
-      font-family: var(--font-mono);
-      font-size: 0.72rem;
-      line-height: 1.5;
-      color: #cbd5e1;
-    }
-    .term-line { margin-bottom: 4px; word-break: break-all; }
-    .term-time { color: var(--text-4); margin-right: 6px; }
-    .term-badge { font-weight: 600; margin-right: 6px; }
-    .badge-color-orch { color: var(--cyan); }
-    .badge-color-sec { color: var(--rose); }
-    .badge-color-qa { color: var(--purple); }
-    .drawer-missions {
-      background: rgba(0, 0, 0, 0.25);
-      border-top: 1px solid var(--border-subtle);
-      padding: 10px 12px;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 6px;
-    }
-    .btn-mission {
-      background: var(--bg-hover);
-      border: 1px solid var(--border-subtle);
-      color: var(--text-2);
-      padding: 7px 10px;
-      border-radius: 6px;
-      font-size: 0.75rem;
-      font-weight: 500;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      transition: all 0.15s ease;
-      font-family: inherit;
-    }
-    .btn-mission:hover {
-      background: var(--bg-active);
-      color: #fff;
-      border-color: var(--cyan);
-    }
-    .agent-trigger-capsule {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      background: var(--bg-card);
-      border: 1px solid var(--border-medium);
-      padding: 6px 14px 6px 8px;
-      border-radius: 30px;
-      cursor: pointer;
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
-      transition: all 0.2s ease;
-    }
-    .agent-trigger-capsule:hover {
-      border-color: var(--cyan);
-      background: var(--bg-hover);
-      transform: translateY(-2px);
-    }
-    .agent-avatar-wrap { width: 34px; height: 34px; flex-shrink: 0; }
-    .avatar-svg { width: 100%; height: 100%; }
-    .capsule-meta { display: flex; flex-direction: column; }
-    .capsule-lead-status {
-      font-size: 0.75rem;
-      font-weight: 600;
-      color: var(--text-1);
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
-    .hud-status-dot {
-      width: 6px;
-      height: 6px;
-      border-radius: 50%;
-      background: var(--emerald);
-      box-shadow: 0 0 6px var(--emerald);
-      display: inline-block;
-    }
-    .capsule-task-name {
-      font-size: 0.7rem;
-      color: var(--text-4);
-      font-family: var(--font-mono);
     }
 
   </style>
@@ -815,6 +774,8 @@
     </div>
 
     <div class="header-right">
+      <a href="javascript:void(0)" class="header-nav-link" onclick="loadContent('quickstart')">Quickstart</a>
+      <a href="javascript:void(0)" class="header-nav-link" onclick="loadContent('tiers')">3-Tier Matrix</a>
       <a href="https://github.com/SifatAli008/Web-Dev-Skill" target="_blank" rel="noopener noreferrer" class="header-gh-btn">
         <svg height="15" width="15" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
         GitHub
@@ -828,7 +789,7 @@
     <!-- Left Navigation -->
     <nav class="app-nav" aria-label="Documentation Categories">
       <div class="sidebar-search-wrap">
-        <input type="text" class="sidebar-search-input" placeholder="Search navigation... (/)" id="sidebarSearch" oninput="filterSidebar(this.value)">
+        <input type="text" class="sidebar-search-input" placeholder="Filter navigation... (/)" id="sidebarSearch" oninput="filterSidebar(this.value)">
       </div>
 
       <div class="nav-group" id="grp-getting-started">
@@ -945,7 +906,7 @@
 
     <!-- Center Main Content -->
     <main class="app-main" id="content" aria-live="polite">
-      <!-- Dynamically Rendered by renderPage() -->
+      <!-- Dynamically Rendered by loadContent() -->
     </main>
 
     <!-- Right In-Page TOC -->
@@ -969,80 +930,6 @@
       <ul class="palette-results-list" id="paletteResults">
         <!-- Rendered dynamically -->
       </ul>
-    </div>
-  </div>
-
-  <!-- Animated Developer Agent Companion & Mission Drawer -->
-  <div class="agent-hud">
-    <!-- Telemetry Mission Drawer -->
-    <div class="agent-drawer" id="agentDrawer">
-      <div class="drawer-top">
-        <div class="drawer-title-row">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="4 17 10 11 4 5"></polyline><line x1="12" y1="19" x2="20" y2="19"></line></svg>
-          <span>AGENT TASK TELEMETRY & RUNNER</span>
-        </div>
-        <button class="drawer-close" onclick="toggleAgentDrawer()" aria-label="Close runner">✕</button>
-      </div>
-
-      <div class="drawer-terminal" id="drawerTerminal">
-        <div class="term-line">
-          <span class="term-time">18:30:00</span>
-          <span class="term-badge badge-color-orch">[00 Orchestrator]</span>
-          <span>Protocol initialized. Monitoring project state.</span>
-        </div>
-      </div>
-
-      <div class="drawer-missions">
-        <button class="btn-mission" onclick="runSimulatedMission('security')">
-          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
-          <span>Test SQL Injection</span>
-        </button>
-        <button class="btn-mission" onclick="runSimulatedMission('idempotency')">
-          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21.5 2v6h-6M2.5 22v-6h6M2 11.5a10 10 0 0 1 18.8-4.3M22 12.5a10 10 0 0 1-18.8 4.2"/></svg>
-          <span>Test Idempotency</span>
-        </button>
-        <button class="btn-mission" onclick="runSimulatedMission('perf')">
-          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>
-          <span>Test Edge Cache</span>
-        </button>
-        <button class="btn-mission" onclick="runRefProjectsMission()">
-          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
-          <span>Run 21 Tests</span>
-        </button>
-        <button class="btn-mission" onclick="runBenchmarkMission()">
-          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 20V10M12 20V4M6 20v-6"></path></svg>
-          <span>Run 9 Benchmarks</span>
-        </button>
-        <button class="btn-mission" onclick="runChecklistMission('launch')">
-          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line></svg>
-          <span>Run Launch Audit</span>
-        </button>
-      </div>
-    </div>
-
-    <!-- Capsule Button -->
-    <div class="agent-trigger-capsule" onclick="toggleAgentDrawer()" role="button" aria-expanded="false" aria-label="Open Agent Mission Telemetry">
-      <div class="agent-avatar-wrap">
-        <svg class="avatar-svg" viewBox="0 0 48 48" fill="none">
-          <g class="bot-float-anim">
-            <line x1="24" y1="6" x2="24" y2="12" stroke="#38bdf8" stroke-width="2.5" stroke-linecap="round"/>
-            <circle cx="24" cy="5" r="2.5" fill="#38bdf8"/>
-            <rect x="10" y="12" width="28" height="22" rx="7" fill="#161c2a" stroke="#38bdf8" stroke-width="2"/>
-            <rect id="hudVisor" x="14" y="16" width="20" height="9" rx="3.5" fill="#10b981"/>
-            <circle cx="19" cy="20.5" r="1.5" fill="#000"/>
-            <circle cx="29" cy="20.5" r="1.5" fill="#000"/>
-            <rect x="13" y="36" width="22" height="8" rx="3" fill="#0b0e14" stroke="#334155" stroke-width="1.5"/>
-            <g class="bot-hands-anim">
-              <circle cx="8" cy="34" r="3.5" fill="#38bdf8"/>
-              <circle cx="40" cy="34" r="3.5" fill="#38bdf8"/>
-            </g>
-          </g>
-        </svg>
-      </div>
-      <div class="capsule-meta">
-        <span class="capsule-lead-status" id="hudLeadStatus"><span class="hud-status-dot"></span>Agent Telemetry</span>
-        <span class="capsule-task-name" id="hudTaskName">Click to open runner</span>
-      </div>
     </div>
   </div>
 
@@ -3626,8 +3513,20 @@
   }
 ];
 
+    const DOC_PAGES = [
+      { key: 'overview', title: 'System Overview' },
+      { key: 'quickstart', title: '5-Second Quickstart' },
+      { key: 'tiers', title: '3-Tier Rigor Matrix' },
+      { key: 'protocol', title: 'Team Stances & Conflicts' },
+      { key: 'vetos', title: 'Hard Vetos & Binding Gates' },
+      { key: 'hygiene', title: 'Zero AI Garbage Standard' },
+      { key: 'benchmarks', title: 'Empirical Benchmark Dashboard' },
+      { key: 'refprojects', title: '3 Golden Reference Projects' },
+      { key: 'adapters', title: 'Tool Adapters (Cursor, Claude...)' },
+      { key: 'adr-builder', title: 'Interactive ADR Builder' }
+    ];
+
     let currentDocTab = 'overview';
-    let agentDrawerOpen = false;
 
     // Helper: Formats plain markdown with bold, italic, code, and bullet lists
     function formatProse(text) {
@@ -3678,7 +3577,6 @@
         }
       });
 
-      // Expand all groups if search is active
       if (q) {
         document.querySelectorAll('.nav-group').forEach(grp => grp.classList.remove('collapsed'));
       }
@@ -3753,6 +3651,30 @@
       document.querySelectorAll('.tab-pane').forEach(p => p.classList.remove('active'));
       const activePane = document.getElementById(tabName);
       if (activePane) activePane.classList.add('active');
+    }
+
+    function getPaginationHtml(currentKey) {
+      const idx = DOC_PAGES.findIndex(p => p.key === currentKey);
+      if (idx === -1) return '';
+      const prev = idx > 0 ? DOC_PAGES[idx - 1] : null;
+      const next = idx < DOC_PAGES.length - 1 ? DOC_PAGES[idx + 1] : null;
+
+      return `
+        <div class="doc-pagination">
+          ${prev ? `
+            <button class="pagination-btn prev" onclick="loadContent('${prev.key}')">
+              <span class="pagination-label">← Previous</span>
+              <span class="pagination-title">${prev.title}</span>
+            </button>
+          ` : '<div></div>'}
+          ${next ? `
+            <button class="pagination-btn next" onclick="loadContent('${next.key}')">
+              <span class="pagination-label">Next →</span>
+              <span class="pagination-title">${next.title}</span>
+            </button>
+          ` : '<div></div>'}
+        </div>
+      `;
     }
 
     function loadContent(key, btnElement = null) {
@@ -3839,10 +3761,11 @@
     function renderOverviewPage(main, toc) {
       toc.innerHTML = `
         <li><a href="#summary" class="toc-a active">1. System Overview</a></li>
-        <li><a href="#metrics" class="toc-a">2. Core Repository Metrics</a></li>
-        <li><a href="#pillars" class="toc-a">3. Four Core Pillars</a></li>
-        <li><a href="#execution" class="toc-a">4. Agent Execution Modes</a></li>
-        <li><a href="#roster" class="toc-a">5. Specialist Roster</a></li>
+        <li><a href="#quick-install" class="toc-a">2. Quick Install</a></li>
+        <li><a href="#metrics" class="toc-a">3. Repository Metrics</a></li>
+        <li><a href="#pillars" class="toc-a">4. Four Core Pillars</a></li>
+        <li><a href="#execution" class="toc-a">5. Execution Modes</a></li>
+        <li><a href="#roster" class="toc-a">6. Specialist Directory</a></li>
       `;
 
       main.innerHTML = `
@@ -3852,42 +3775,54 @@
           <p class="doc-intro">A disciplined, specification-driven multi-agent framework for web engineering. 15 specialized roles, 16 playbooks, 5 binding quality gates, and zero AI vibe-code.</p>
         </div>
 
+        <!-- Quick Install Box -->
+        <div class="quick-install-box" id="quick-install">
+          <div class="quick-install-command">
+            <span class="prompt-symbol">$</span>
+            <code>npx webdev-skills init</code>
+          </div>
+          <button class="snippet-copy-btn" onclick="copyText('npx webdev-skills init', this)">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+            <span>Copy Command</span>
+          </button>
+        </div>
+
         <div style="display: flex; gap: 10px; margin-bottom: 28px; flex-wrap: wrap;">
           <button class="hud-action-btn" onclick="loadContent('quickstart')">
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
             <span>5-Second Quickstart</span>
           </button>
           <button class="hud-action-btn" onclick="loadContent('tiers')" style="background: var(--bg-surface); border-color: var(--border-medium); color: var(--text-2);">
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><line x1="3" y1="9" x2="21" y2="9"></line><line x1="9" y1="21" x2="9" y2="9"></line></svg>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><line x1="3" y1="9" x2="21" y2="9"></line><line x1="9" y1="21" x2="9" y2="9"></line></svg>
             <span>3-Tier Rigor Matrix</span>
           </button>
-          <button class="hud-action-btn" onclick="toggleAgentDrawer()" style="background: var(--bg-surface); border-color: var(--border-medium); color: var(--text-2);">
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="4 17 10 11 4 5"></polyline><line x1="12" y1="19" x2="20" y2="19"></line></svg>
-            <span>Open Telemetry Runner</span>
+          <button class="hud-action-btn" onclick="loadContent('refprojects')" style="background: var(--bg-surface); border-color: var(--border-medium); color: var(--text-2);">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+            <span>3 Golden Reference Projects</span>
           </button>
         </div>
 
         <!-- Metrics Grid -->
         <div class="doc-block" id="metrics">
-          <h2 class="doc-subheading">Core Repository Metrics</h2>
+          <h2 class="doc-subheading">Repository Architecture Metrics</h2>
           <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 14px; margin-top: 14px;">
             <div class="clean-card" style="border-top: 2px solid var(--cyan);">
-              <div style="font-family: var(--font-mono); font-size: 1.5rem; font-weight: 700; color: var(--text-1);">15</div>
+              <div style="font-family: var(--font-mono); font-size: 1.55rem; font-weight: 700; color: var(--text-1);">15</div>
               <div style="font-size: 0.78rem; text-transform: uppercase; color: var(--text-3); font-weight: 600; margin-top: 2px;">Autonomous Specialists</div>
               <div style="font-size: 0.8rem; color: var(--text-4); margin-top: 4px;">EM to Launch Manager with strict inputs/outputs</div>
             </div>
             <div class="clean-card" style="border-top: 2px solid var(--emerald);">
-              <div style="font-family: var(--font-mono); font-size: 1.5rem; font-weight: 700; color: var(--text-1);">16</div>
+              <div style="font-family: var(--font-mono); font-size: 1.55rem; font-weight: 700; color: var(--text-1);">16</div>
               <div style="font-size: 0.78rem; text-transform: uppercase; color: var(--text-3); font-weight: 600; margin-top: 2px;">Production Playbooks</div>
               <div style="font-size: 0.8rem; color: var(--text-4); margin-top: 4px;">Deterministic step-by-step technical procedures</div>
             </div>
             <div class="clean-card" style="border-top: 2px solid var(--rose);">
-              <div style="font-family: var(--font-mono); font-size: 1.5rem; font-weight: 700; color: var(--text-1);">5</div>
+              <div style="font-family: var(--font-mono); font-size: 1.55rem; font-weight: 700; color: var(--text-1);">5</div>
               <div style="font-size: 0.78rem; text-transform: uppercase; color: var(--text-3); font-weight: 600; margin-top: 2px;">Hard Quality Gates</div>
               <div style="font-size: 0.8rem; color: var(--text-4); margin-top: 4px;">Binding veto powers on vulnerabilities & compliance</div>
             </div>
             <div class="clean-card" style="border-top: 2px solid var(--purple);">
-              <div style="font-family: var(--font-mono); font-size: 1.5rem; font-weight: 700; color: var(--text-1);">21 / 21</div>
+              <div style="font-family: var(--font-mono); font-size: 1.55rem; font-weight: 700; color: var(--text-1);">21 / 21</div>
               <div style="font-size: 0.78rem; text-transform: uppercase; color: var(--text-3); font-weight: 600; margin-top: 2px;">Golden Tests Passing</div>
               <div style="font-size: 0.8rem; color: var(--text-4); margin-top: 4px;">Automated suites across MVP, PROD, and SCALE</div>
             </div>
@@ -3934,22 +3869,24 @@
 
         <!-- Specialist Roster Overview -->
         <div class="doc-block" id="roster">
-          <h2 class="doc-subheading">15 Autonomous Specialists Roster</h2>
+          <h2 class="doc-subheading">15 Autonomous Specialists Directory</h2>
           <p class="doc-paragraph">Click any specialist below to view its full operational procedure, verification checks, and prompt directive:</p>
           
           <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 10px; margin-top: 14px;">
             ${SPECIALISTS.map(s => `
-              <button class="clean-card" onclick="loadContent('spec-${s.id}')" style="text-align: left; cursor: pointer; transition: all 0.15s ease; border: 1px solid var(--border-subtle); background: var(--bg-card); padding: 12px 14px;">
-                <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 4px;">
+              <button class="clean-card" onclick="loadContent('spec-${s.id}')" style="text-align: left; cursor: pointer; transition: all 0.15s ease; border: 1px solid var(--border-subtle); background: var(--bg-card); padding: 14px 16px;">
+                <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 6px;">
                   <span class="nav-item-num">${s.num}</span>
                   <span class="tier-pill tier-pill-all" style="font-size: 0.65rem;">${s.auth}</span>
                 </div>
-                <div style="font-weight: 600; color: var(--text-1); font-size: 0.88rem;">${s.name}</div>
+                <div style="font-weight: 600; color: var(--text-1); font-size: 0.9rem;">${s.name}</div>
                 <div style="font-size: 0.78rem; color: var(--text-4); margin-top: 4px; line-height: 1.4;">${s.triggers.slice(0, 3).join(', ')}</div>
               </button>
             `).join('')}
           </div>
         </div>
+
+        ${getPaginationHtml('overview')}
       `;
     }
 
@@ -4012,8 +3949,8 @@
             <h2 class="doc-subheading">Decision Rules & Engineering Stances</h2>
             <div style="display: flex; flex-direction: column; gap: 10px;">
               ${spec.decisionRules.map(r => `
-                <div class="clean-card" style="padding: 12px 16px;">
-                  <strong style="color: var(--cyan); font-size: 0.9rem;">${r.title}</strong>
+                <div class="clean-card" style="padding: 14px 18px;">
+                  <strong style="color: var(--cyan); font-size: 0.92rem;">${r.title}</strong>
                   <div style="font-size: 0.88rem; color: var(--text-2); margin-top: 4px;">${formatProse(r.text)}</div>
                 </div>
               `).join('')}
@@ -4024,15 +3961,21 @@
         <!-- TAB 2: OPERATIONAL PROCEDURE -->
         <div class="tab-pane" id="tab-procedure">
           <div class="doc-block">
-            <h2 class="doc-subheading">Phased Step-by-Step Procedure</h2>
-            <div style="display: flex; flex-direction: column; gap: 14px;">
+            <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px;">
+              <h2 class="doc-subheading" style="margin: 0; border: none; padding: 0;">Phased Step-by-Step Procedure</h2>
+              <button class="snippet-copy-btn" onclick="copyText(document.getElementById('stepsTextContainer').innerText, this)">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+                <span>Copy Procedure</span>
+              </button>
+            </div>
+            <div id="stepsTextContainer" style="display: flex; flex-direction: column; gap: 14px;">
               ${spec.steps.map((st, idx) => `
                 <div class="clean-card" style="border-left: 3px solid var(--cyan);">
                   <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 6px;">
                     <span class="nav-item-num">0${idx + 1}</span>
                     <strong style="font-size: 0.95rem; color: var(--text-1);">${st.title}</strong>
                   </div>
-                  <div style="font-size: 0.88rem; color: var(--text-2); line-height: 1.6;">${formatProse(st.details)}</div>
+                  <div style="font-size: 0.88rem; color: var(--text-2); line-height: 1.65;">${formatProse(st.details)}</div>
                 </div>
               `).join('')}
             </div>
@@ -4069,7 +4012,7 @@
         <div class="tab-pane" id="tab-schemas">
           <div class="doc-block">
             <h2 class="doc-subheading">Required Handoff Contracts</h2>
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 20px;">
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 24px;">
               <div class="clean-card">
                 <div style="font-size: 0.72rem; text-transform: uppercase; color: var(--cyan); font-weight: 700; margin-bottom: 4px;">Incoming Dependencies (Requires)</div>
                 <div style="font-size: 0.88rem; font-family: var(--font-mono); color: var(--text-1);">${spec.inputs.join(', ')}</div>
@@ -4093,13 +4036,6 @@ Directive: ${spec.directive}
 Mandatory inputs: ${spec.inputs.join(', ')}
 Mandatory outputs: ${spec.outputs.join(', ')}
 Strict Invariant: Zero placeholder comments. Verifiable exit code 0 required.</code></pre>
-            </div>
-
-            <div style="margin-top: 24px;">
-              <button class="hud-action-btn" onclick="runSpecialistMission('${spec.id}')">
-                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="4 17 10 11 4 5"></polyline><line x1="12" y1="19" x2="20" y2="19"></line></svg>
-                <span>Run Simulated Mission in DevBot Runner</span>
-              </button>
             </div>
           </div>
         </div>
@@ -4125,23 +4061,22 @@ Strict Invariant: Zero placeholder comments. Verifiable exit code 0 required.</c
           <p class="doc-intro">${pb.objective}</p>
         </div>
 
-        <div style="margin-bottom: 24px;">
-          <button class="hud-action-btn" onclick="runPlaybookMission('${pb.slug}')">
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
-            <span>Execute Playbook Sequence in Runner</span>
-          </button>
-        </div>
-
         <div class="doc-block" id="steps">
-          <h2 class="doc-subheading">Step-by-Step Procedure</h2>
-          <div style="display: flex; flex-direction: column; gap: 14px;">
+          <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px;">
+            <h2 class="doc-subheading" style="margin: 0; border: none; padding: 0;">Step-by-Step Procedure</h2>
+            <button class="snippet-copy-btn" onclick="copyText(document.getElementById('pbStepsContainer').innerText, this)">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+              <span>Copy Playbook Steps</span>
+            </button>
+          </div>
+          <div id="pbStepsContainer" style="display: flex; flex-direction: column; gap: 14px;">
             ${pb.steps.map((st, idx) => `
               <div class="clean-card" style="border-left: 3px solid var(--cyan);">
                 <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 6px;">
                   <span class="nav-item-num">0${idx + 1}</span>
                   <strong style="font-size: 0.95rem; color: var(--text-1);">${st.title}</strong>
                 </div>
-                <div style="font-size: 0.88rem; color: var(--text-2); line-height: 1.6;">${formatProse(st.details)}</div>
+                <div style="font-size: 0.88rem; color: var(--text-2); line-height: 1.65;">${formatProse(st.details)}</div>
               </div>
             `).join('')}
           </div>
@@ -4157,7 +4092,7 @@ Strict Invariant: Zero placeholder comments. Verifiable exit code 0 required.</c
         <div class="doc-block" id="rollback">
           <h2 class="doc-subheading">Deterministic Rollback Plan</h2>
           <div class="clean-card" style="border-left: 3px solid var(--amber);">
-            <div style="font-size: 0.88rem; color: var(--text-2); line-height: 1.6;">${formatProse(pb.rollback)}</div>
+            <div style="font-size: 0.88rem; color: var(--text-2); line-height: 1.65;">${formatProse(pb.rollback)}</div>
           </div>
         </div>
       `;
@@ -4180,13 +4115,19 @@ Strict Invariant: Zero placeholder comments. Verifiable exit code 0 required.</c
           <p class="doc-intro">Pre-flight verification gate comprising ${cl.totalItems} atomic verification checks. All items must pass before promotion.</p>
         </div>
 
-        <div class="clean-card" style="margin-bottom: 24px; padding: 14px 18px;">
+        <div class="clean-card" style="margin-bottom: 24px; padding: 16px 20px;">
           <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px;">
-            <span style="font-size: 0.8rem; font-weight: 600; text-transform: uppercase; color: var(--text-3);">Audit Progress</span>
-            <span style="font-family: var(--font-mono); font-size: 0.85rem; color: var(--cyan);" id="checklistProgressText">0 / ${cl.totalItems} (0%)</span>
+            <span style="font-size: 0.82rem; font-weight: 600; text-transform: uppercase; color: var(--text-3);">Audit Progress</span>
+            <span style="font-family: var(--font-mono); font-size: 0.88rem; color: var(--cyan); font-weight: 700;" id="checklistProgressText">0 / ${cl.totalItems} (0%)</span>
           </div>
-          <div style="height: 6px; background: rgba(255,255,255,0.08); border-radius: 3px; overflow: hidden;">
+          <div style="height: 6px; background: rgba(255,255,255,0.08); border-radius: 3px; overflow: hidden; margin-bottom: 12px;">
             <div id="checklistProgressBar" style="width: 0%; height: 100%; background: var(--cyan); transition: width 0.2s ease;"></div>
+          </div>
+          <div style="display: flex; justify-content: flex-end;">
+            <button class="snippet-copy-btn" onclick="copyChecklistReport('${cl.title}', ${cl.totalItems})">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+              <span>Copy Audit Report</span>
+            </button>
           </div>
         </div>
 
@@ -4197,20 +4138,13 @@ Strict Invariant: Zero placeholder comments. Verifiable exit code 0 required.</c
               <div style="display: flex; flex-direction: column; gap: 6px;">
                 ${sec.items.map((item, iIdx) => `
                   <label class="clean-card" style="display: flex; align-items: flex-start; gap: 12px; margin: 0; padding: 10px 14px; cursor: pointer;">
-                    <input type="checkbox" onchange="updateChecklistProgress(${cl.totalItems})" style="margin-top: 4px; accent-color: var(--cyan); cursor: pointer;">
+                    <input type="checkbox" data-item="${item.replace(/"/g, '&quot;')}" onchange="updateChecklistProgress(${cl.totalItems})" style="margin-top: 4px; accent-color: var(--cyan); cursor: pointer;">
                     <span style="font-size: 0.88rem; color: var(--text-2); line-height: 1.5;">${item}</span>
                   </label>
                 `).join('')}
               </div>
             </div>
           `).join('')}
-        </div>
-
-        <div style="margin-top: 24px;">
-          <button class="hud-action-btn" onclick="runChecklistMission('${cl.id}')">
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
-            <span>Execute Full Quality Gate Scan in Runner</span>
-          </button>
         </div>
       `;
     }
@@ -4222,6 +4156,24 @@ Strict Invariant: Zero placeholder comments. Verifiable exit code 0 required.</c
       const barEl = document.getElementById('checklistProgressBar');
       if (textEl) textEl.innerText = `${checked} / ${total} (${pct}%)`;
       if (barEl) barEl.style.width = pct + '%';
+    }
+
+    function copyChecklistReport(title, total) {
+      const inputs = document.querySelectorAll('#content input[type="checkbox"]');
+      let report = `# Audit Report: ${title}\n**Generated:** ${new Date().toISOString()}\n\n`;
+      let checked = 0;
+      inputs.forEach(input => {
+        const itemText = input.getAttribute('data-item') || input.nextElementSibling?.innerText || 'Audit Item';
+        if (input.checked) {
+          checked++;
+          report += `- [x] ${itemText}\n`;
+        } else {
+          report += `- [ ] ${itemText}\n`;
+        }
+      });
+      report += `\n**Summary:** ${checked} / ${total} checks passing (${Math.round((checked / total) * 100)}%)\n`;
+      copyText(report, null);
+      alert('Audit Report copied to clipboard (' + checked + '/' + total + ' verified)!');
     }
 
     // View: Template & Schema Viewer
@@ -4281,7 +4233,7 @@ Strict Invariant: Zero placeholder comments. Verifiable exit code 0 required.</c
           <p class="doc-intro">Generate schema-validated Architecture Decision Records (ADRs) compliant with <code>templates/schemas/adr.schema.json</code>.</p>
         </div>
 
-        <div class="clean-card" style="padding: 20px;">
+        <div class="clean-card" style="padding: 22px;">
           <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 14px;">
             <div>
               <label style="display:block; font-size:0.75rem; text-transform:uppercase; color:var(--text-3); font-weight:700; margin-bottom:4px;">ADR ID</label>
@@ -4321,7 +4273,7 @@ Strict Invariant: Zero placeholder comments. Verifiable exit code 0 required.</c
 
         <div class="doc-block" id="preview" style="margin-top: 24px;">
           <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:8px;">
-            <h2 class="doc-subheading" style="margin:0;">Live Generated ADR Markdown</h2>
+            <h2 class="doc-subheading" style="margin:0; border:none; padding:0;">Live Generated ADR Markdown</h2>
             <button class="snippet-copy-btn" onclick="copyText(document.getElementById('adrPreviewOutput').innerText, this)">Copy Markdown</button>
           </div>
           <div class="code-snippet-box">
@@ -4384,26 +4336,19 @@ ${consequences}
         <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 14px; margin-bottom: 24px;" id="comparison">
           <div class="clean-card" style="border-top: 3px solid var(--purple);">
             <div style="font-size: 0.72rem; text-transform: uppercase; color: var(--text-3); font-weight: 700;">Frontier Models (Claude 3.7 / GPT-4.5)</div>
-            <div style="font-size: 1.8rem; font-weight: 700; color: var(--text-1); margin: 6px 0;">95.9 <span style="font-size: 0.9rem; color: var(--emerald);">+79.9%</span></div>
+            <div style="font-size: 1.85rem; font-weight: 700; color: var(--text-1); margin: 6px 0;">95.9 <span style="font-size: 0.9rem; color: var(--emerald);">+79.9%</span></div>
             <div style="font-size: 0.8rem; color: var(--text-4);">Baseline: 53.3 / 100</div>
           </div>
           <div class="clean-card" style="border-top: 3px solid var(--cyan);">
             <div style="font-size: 0.72rem; text-transform: uppercase; color: var(--text-3); font-weight: 700;">Small Models (Gemini 2.0 Flash)</div>
-            <div style="font-size: 1.8rem; font-weight: 700; color: var(--text-1); margin: 6px 0;">86.8 <span style="font-size: 0.9rem; color: var(--emerald);">+132.7%</span></div>
+            <div style="font-size: 1.85rem; font-weight: 700; color: var(--text-1); margin: 6px 0;">86.8 <span style="font-size: 0.9rem; color: var(--emerald);">+132.7%</span></div>
             <div style="font-size: 0.8rem; color: var(--text-4);">Baseline: 37.3 / 100</div>
           </div>
           <div class="clean-card" style="border-top: 3px solid var(--rose);">
             <div style="font-size: 0.72rem; text-transform: uppercase; color: var(--text-3); font-weight: 700;">OWASP Critical Flaws</div>
-            <div style="font-size: 1.8rem; font-weight: 700; color: var(--emerald); margin: 6px 0;">0 Flaws</div>
+            <div style="font-size: 1.85rem; font-weight: 700; color: var(--emerald); margin: 6px 0;">0 Flaws</div>
             <div style="font-size: 0.8rem; color: var(--text-4);">Baseline: 8 / 9 tasks leaked SQLi/secrets</div>
           </div>
-        </div>
-
-        <div style="margin-bottom: 24px;">
-          <button class="hud-action-btn" onclick="runBenchmarkMission()">
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 20V10M12 20V4M6 20v-6"></path></svg>
-            <span>Run Benchmark Harness Verification in DevBot HUD</span>
-          </button>
         </div>
 
         <div class="doc-block" id="tasks">
@@ -4446,6 +4391,8 @@ ${consequences}
             <li><strong>Code Hygiene & Agnosticism (20 pts):</strong> Zero AI garbage code, no placeholder comments, zero library lock-in.</li>
           </ul>
         </div>
+
+        ${getPaginationHtml('benchmarks')}
       `;
     }
 
@@ -4463,17 +4410,10 @@ ${consequences}
           <p class="doc-intro">Working implementations proving the 3-tier protocol with 21 automated integration tests (7 tests per tier) and zero external runtime dependencies.</p>
         </div>
 
-        <div style="margin-bottom: 24px;">
-          <button class="hud-action-btn" onclick="runRefProjectsMission()">
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
-            <span>Run All 21 Reference Tests in DevBot HUD</span>
-          </button>
-        </div>
-
         ${REFERENCE_PROJECTS.map(p => `
           <div class="doc-block" id="proj-${p.id}">
             <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px; flex-wrap: wrap; gap: 8px;">
-              <h2 class="doc-subheading" style="margin: 0;">${p.name}</h2>
+              <h2 class="doc-subheading" style="margin: 0; border: none; padding: 0;">${p.name}</h2>
               <span class="tier-pill tier-pill-${p.tier.toLowerCase()}">${p.tier} TIER</span>
             </div>
             <p class="doc-paragraph">${p.desc}</p>
@@ -4505,9 +4445,12 @@ ${consequences}
               </table>
             </div>
 
-            <h3 style="font-size: 0.85rem; font-weight: 700; text-transform: uppercase; color: var(--text-3); margin: 16px 0 6px;">Sample Request</h3>
+            <div style="display:flex; align-items:center; justify-content:space-between; margin: 16px 0 6px;">
+              <h3 style="font-size: 0.85rem; font-weight: 700; text-transform: uppercase; color: var(--text-3); margin:0;">Sample Terminal Request</h3>
+              <button class="snippet-copy-btn" onclick="copyText(document.getElementById('curl-${p.id}').innerText, this)">Copy cURL</button>
+            </div>
             <div class="code-snippet-box">
-              <pre><code>${p.curl}</code></pre>
+              <pre><code id="curl-${p.id}">${p.curl}</code></pre>
             </div>
 
             <h3 style="font-size: 0.85rem; font-weight: 700; text-transform: uppercase; color: var(--text-3); margin: 16px 0 6px;">Automated Integration Tests (test.js)</h3>
@@ -4516,6 +4459,8 @@ ${consequences}
             </ul>
           </div>
         `).join('')}
+
+        ${getPaginationHtml('refprojects')}
       `;
     }
 
@@ -4566,6 +4511,8 @@ npx webdev-skills init --tool chatgpt      # Installs system-prompt.md</code></p
 npx webdev-skills list</code></pre>
           </div>
         </div>
+
+        ${getPaginationHtml('quickstart')}
       `;
     }
 
@@ -4638,6 +4585,8 @@ npx webdev-skills list</code></pre>
             <li><strong>Golden Rule:</strong> Never build or ship a PROD/SCALE signal at MVP rigor unless the user explicitly documents an <code>ACCEPTED-RISK</code> in <code>DECISIONS.md</code>.</li>
           </ul>
         </div>
+
+        ${getPaginationHtml('tiers')}
       `;
     }
 
@@ -4671,6 +4620,8 @@ HARD VETO active: Never concatenate raw SQL strings (mandate driver parameteriza
 Never hardcode secrets. Passwords must use scrypt/argon2 with unique salts. Validate all inputs against strict schemas.</code></pre>
           </div>
         </div>
+
+        ${getPaginationHtml('adapters')}
       `;
     }
 
@@ -4718,6 +4669,8 @@ Never hardcode secrets. Passwords must use scrypt/argon2 with unique salts. Vali
             <li>Never lecture. Never comply silently with unsafe instructions.</li>
           </ul>
         </div>
+
+        ${getPaginationHtml('protocol')}
       `;
     }
 
@@ -4759,6 +4712,8 @@ Never hardcode secrets. Passwords must use scrypt/argon2 with unique salts. Vali
             </div>
           </div>
         </div>
+
+        ${getPaginationHtml('vetos')}
       `;
     }
 
@@ -4812,6 +4767,8 @@ Never hardcode secrets. Passwords must use scrypt/argon2 with unique salts. Vali
             </table>
           </div>
         </div>
+
+        ${getPaginationHtml('hygiene')}
       `;
     }
 
@@ -4925,149 +4882,14 @@ Never hardcode secrets. Passwords must use scrypt/argon2 with unique salts. Vali
       }
     });
 
-    // =========================================================================
-    // TELEMETRY RUNNER & SIMULATED MISSIONS
-    // =========================================================================
-
-    function toggleAgentDrawer() {
-      const drawer = document.getElementById('agentDrawer');
-      agentDrawerOpen = !agentDrawerOpen;
-      drawer.style.display = agentDrawerOpen ? 'block' : 'none';
-      const capsule = document.querySelector('.agent-trigger-capsule');
-      capsule.setAttribute('aria-expanded', agentDrawerOpen ? 'true' : 'false');
-    }
-
-    function setAgentState(visorColor, leadStatus, taskName) {
-      document.getElementById('hudVisor').setAttribute('fill', visorColor);
-      document.getElementById('hudLeadStatus').innerHTML = '<span class="hud-status-dot"></span>' + leadStatus;
-      document.getElementById('hudTaskName').innerText = taskName;
-    }
-
-    function addTerminalLog(roleClass, roleLabel, msg) {
-      const term = document.getElementById('drawerTerminal');
-      const time = new Date().toTimeString().split(' ')[0];
-      const div = document.createElement('div');
-      div.className = 'term-line';
-      div.innerHTML = `<span class="term-time">${time}</span><span class="term-badge ${roleClass}">[${roleLabel}]</span><span>${msg}</span>`;
-      term.appendChild(div);
-      term.scrollTop = term.scrollHeight;
-    }
-
-    function runPlaybookMission(pbSlug) {
-      if (!agentDrawerOpen) toggleAgentDrawer();
-      setAgentState('#00f0ff', 'DevBot Runner', 'Executing Playbook: ' + pbSlug);
-      addTerminalLog('badge-color-orch', 'Playbook', 'Executing: ' + pbSlug + ' step sequence...');
-      setTimeout(() => {
-        addTerminalLog('badge-color-orch', 'Playbook', '>>> Verifying preconditions and active tier...');
-        addTerminalLog('badge-color-orch', 'Playbook', '>>> Applying atomic changes with zero placeholder comments...');
-        setTimeout(() => {
-          addTerminalLog('badge-color-qa', 'Playbook', 'PASS: Quality gates verified. Evidence recorded.');
-          setAgentState('#10b981', 'Agent Idle', pbSlug + ' COMPLETE');
-        }, 800);
-      }, 700);
-    }
-
-    function runChecklistMission(clId) {
-      if (!agentDrawerOpen) toggleAgentDrawer();
-      setAgentState('#10b981', 'Audit Gate', 'Scanning Checklist: ' + clId);
-      addTerminalLog('badge-color-qa', 'Checklist', 'Executing audit scan: ' + clId + ' checklist...');
-      setTimeout(() => {
-        addTerminalLog('badge-color-qa', 'Checklist', '>>> Verifying gate pre-requisites & invariants...');
-        addTerminalLog('badge-color-qa', 'Checklist', '>>> axe-core: 0 accessibility violations, CSP/HSTS verified.');
-        setTimeout(() => {
-          addTerminalLog('badge-color-qa', 'Checklist', 'SUCCESS: 0 blocking findings. Gate certified.');
-          setAgentState('#10b981', 'Agent Idle', clId + ' CERTIFIED');
-        }, 800);
-      }, 700);
-    }
-
-    function runRefProjectsMission() {
-      if (!agentDrawerOpen) toggleAgentDrawer();
-      setAgentState('#38bdf8', '08 SQAT Lead', 'Executing 21 Tests...');
-      addTerminalLog('badge-color-qa', '08 SQAT', 'Executing: node tools/run-reference-tests.js...');
-      setTimeout(() => {
-        addTerminalLog('badge-color-qa', '08 SQAT', '>>> 01-saas-starter-mvp: 7/7 PASSED');
-        addTerminalLog('badge-color-qa', '08 SQAT', '>>> 02-ecommerce-api-prod: 7/7 PASSED');
-        addTerminalLog('badge-color-qa', '08 SQAT', '>>> 03-content-platform-scale: 7/7 PASSED');
-        addTerminalLog('badge-color-qa', '08 SQAT', 'SUCCESS: All 21 reference tests passed with 0 critical findings.');
-        setAgentState('#10b981', 'Agent Idle', '21 Tests PASSED (0.45s)');
-      }, 900);
-    }
-
-    function runBenchmarkMission() {
-      if (!agentDrawerOpen) toggleAgentDrawer();
-      setAgentState('#a855f7', 'Eval Harness', 'Executing 9 Benchmarks...');
-      addTerminalLog('badge-color-orch', 'Evals', 'Running node evals/harness/run-eval.js across 9 tasks...');
-      setTimeout(() => {
-        addTerminalLog('badge-color-orch', 'Evals', '>>> Frontier Models: 95.9 / 100 (+79.9% Delta)');
-        addTerminalLog('badge-color-orch', 'Evals', '>>> Small Models: 86.8 / 100 (+132.7% Delta)');
-        addTerminalLog('badge-color-orch', 'Evals', '>>> OWASP Critical Flaws: 0 Critical Findings');
-        setTimeout(() => {
-          addTerminalLog('badge-color-qa', 'Evals', 'SUCCESS: Evaluation benchmark completed with 100% test evidence.');
-          setAgentState('#10b981', 'Agent Idle', 'Evals PASSED (95.9/100)');
-        }, 800);
-      }, 800);
-    }
-
-    function runSpecialistMission(specId) {
-      if (!agentDrawerOpen) toggleAgentDrawer();
-      const spec = SPECIALISTS.find(s => s.id === specId);
-      if (!spec) return;
-
-      let color = '#00f0ff';
-      let roleClass = 'badge-color-orch';
-      if (spec.authType === 'veto') { color = '#f43f5e'; roleClass = 'badge-color-sec'; }
-      else if (spec.authType === 'ship') { color = '#a855f7'; roleClass = 'badge-color-qa'; }
-
-      setAgentState(color, spec.name, 'Running Verification...');
-      addTerminalLog(roleClass, spec.id, 'Executing verification check for ' + spec.name + '...');
-
-      setTimeout(() => {
-        addTerminalLog(roleClass, spec.id, '>>> Checking inputs: ' + spec.inputs.join(', '));
-        addTerminalLog(roleClass, spec.id, '>>> Checking invariants & ' + spec.antiPatterns.length + ' anti-patterns...');
-        setTimeout(() => {
-          addTerminalLog('badge-color-qa', spec.id, 'PASS: Verification check passed with 0 critical findings. Ready for handoff.');
-          setAgentState('#10b981', 'Agent Idle', spec.name + ' VERIFIED');
-        }, 800);
-      }, 700);
-    }
-
-    function runSimulatedMission(type) {
-      if (!agentDrawerOpen) toggleAgentDrawer();
-
-      if (type === 'security') {
-        setAgentState('#f43f5e', '06 Security', 'Auditing SQL Injection...');
-        addTerminalLog('badge-color-sec', '06 Security', 'HARD VETO: Scanning input parameters for raw SQL concatenation...');
-        setTimeout(() => {
-          addTerminalLog('badge-color-sec', '06 Security', "Testing injection payload: \"' OR '1'='1\" against driver...");
-          addTerminalLog('badge-color-sec', '06 Security', 'PASS: Query rejected safely via parameterized statement. 0 leaks.');
-          setAgentState('#10b981', 'Agent Idle', 'SQL Injection Test PASSED');
-        }, 1200);
-      } else if (type === 'idempotency') {
-        setAgentState('#a855f7', '12 Monetization', 'Testing Idempotency...');
-        addTerminalLog('badge-color-orch', '12 Monetization', 'Idempotency Test: Sending duplicate order with key "idemp-tx-1"...');
-        setTimeout(() => {
-          addTerminalLog('badge-color-orch', '12 Monetization', 'Replay detected: Returned cached 201 response with Idempotent-Replayed: true.');
-          addTerminalLog('badge-color-orch', '12 Monetization', 'PASS: Stock remains unchanged at 8. Zero double deduction.');
-          setAgentState('#10b981', 'Agent Idle', 'Idempotency Replay PASSED');
-        }, 1200);
-      } else if (type === 'perf') {
-        setAgentState('#f59e0b', '10 Performance', 'Testing Edge ETag...');
-        addTerminalLog('badge-color-orch', '10 Performance', 'Edge Caching: Sending conditional GET with If-None-Match header...');
-        setTimeout(() => {
-          addTerminalLog('badge-color-orch', '10 Performance', 'Origin response: 304 Not Modified with empty payload (0 bytes).');
-          addTerminalLog('badge-color-orch', '10 Performance', 'PASS: Network roundtrip saved. Origin offloaded.');
-          setAgentState('#10b981', 'Agent Idle', 'ETag 304 Test PASSED');
-        }, 1200);
-      }
-    }
-
     function copyText(text, btn) {
       if (navigator.clipboard) {
         navigator.clipboard.writeText(text).then(() => {
-          const orig = btn.innerText;
-          btn.innerText = 'Copied!';
-          setTimeout(() => { btn.innerText = orig; }, 1800);
+          if (btn) {
+            const orig = btn.innerText;
+            btn.innerText = 'Copied!';
+            setTimeout(() => { btn.innerText = orig; }, 1800);
+          }
         });
       }
     }
