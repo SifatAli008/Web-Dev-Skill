@@ -1,0 +1,97 @@
+{
+  "skill_id": "09-devops-infra",
+  "positive_triggers": [
+    {
+      "prompt": "Create a GitHub Actions CI/CD pipeline that runs tests, builds a Docker container, and deploys with zero downtime and automated rollback.",
+      "reason": "Direct CI/CD pipeline automation, container build, and rollback configuration."
+    },
+    {
+      "prompt": "Write a multi-stage Dockerfile for our Next.js application running as a non-root user with optimized layer caching.",
+      "reason": "Containerization best practices and security hardening."
+    },
+    {
+      "prompt": "Set up automated daily PostgreSQL backups in AWS with point-in-time recovery (PITR) and schedule a monthly restore drill.",
+      "reason": "Disaster recovery, automated backup scheduling, and restore drill procedures."
+    },
+    {
+      "prompt": "Instrument health check endpoints (/api/health/liveness and /api/health/readiness) and structured JSON logging for Kubernetes deployment.",
+      "reason": "Observability, health probes, and structured logging instrumentation."
+    },
+    {
+      "prompt": "Create an operational runbook conforming to runbook.schema.json detailing deployment steps, alerts, and emergency rollback commands.",
+      "reason": "Production runbook authoring owned by DevOps/SRE."
+    }
+  ],
+  "negative_near_misses": [
+    {
+      "prompt": "Write an e2e Playwright test verifying that the login modal submits correctly.",
+      "expected_route": "08-testing-qa",
+      "reason": "Automated browser test authoring owned by QA/SDET."
+    },
+    {
+      "prompt": "Optimize this slow PostgreSQL query that is causing high CPU spikes on the database.",
+      "expected_route": "05-backend-data",
+      "reason": "Database index and query tuning owned by Backend/Data Lead."
+    },
+    {
+      "prompt": "Audit our API endpoints to ensure they are protected against CSRF and SQL injection.",
+      "expected_route": "06-security",
+      "reason": "Application security audit owned by Application Security Lead."
+    },
+    {
+      "prompt": "Design a design token system for colors and spacing in our design system.",
+      "expected_route": "03-ux-ui-design",
+      "reason": "Design token contracts owned by UX/UI Lead."
+    },
+    {
+      "prompt": "Audit our website cookie banner for GDPR compliance and user consent tracking.",
+      "expected_route": "07-privacy-compliance",
+      "reason": "Privacy compliance audit owned by Privacy Officer."
+    }
+  ],
+  "evaluation_tasks": [
+    {
+      "task_id": "devops-task-01",
+      "prompt": "A developer created a Dockerfile that copies `.env` into the image, runs as `root`, and is deployed by manually SSHing into an EC2 instance and running `git pull`. Refactor this into a modern, automated, and secure CI/CD workflow.",
+      "pass_criteria": [
+        "Eliminates baking `.env` secrets into the Docker image; injects secrets at runtime.",
+        "Refactors Dockerfile to run as non-root user (e.g. `USER node`).",
+        "Replaces manual SSH git pull with automated CI/CD pipeline (e.g. GitHub Actions).",
+        "Configures automated health check and rollback verification."
+      ],
+      "fail_criteria": [
+        "Retains `.env` copy in Dockerfile.",
+        "Allows container to run as root.",
+        "Leaves deployment as an unverified manual script."
+      ]
+    },
+    {
+      "task_id": "devops-task-02",
+      "prompt": "Design the health probe architecture for a microservice with a web process, database pool, and external cache. Define the distinction between liveness and readiness probes.",
+      "pass_criteria": [
+        "Liveness probe: verifies web server process is responsive (lightweight ping, no external dependencies).",
+        "Readiness probe: verifies database connection and cache reachability before routing traffic.",
+        "Explains risk: failing a database check in a liveness probe causes cascading container restart loops across the entire cluster.",
+        "Specifies reasonable timeouts and retry intervals."
+      ],
+      "fail_criteria": [
+        "Executes heavy database queries in liveness probe.",
+        "Fails to distinguish between liveness and readiness."
+      ]
+    },
+    {
+      "task_id": "devops-task-03",
+      "prompt": "A production release is proposed with no documented rollback mechanism. As DevOps Lead, what is your binding rule and required actions?",
+      "pass_criteria": [
+        "Enforces the binding rule: 'No rollback, no ship'.",
+        "Requires automated zero-downtime rollback mechanism (e.g. Blue-Green router switch or container rollback).",
+        "Demands verifiable proof of rollback test before approving launch.",
+        "Completes a runbook conforming to `runbook.schema.json`."
+      ],
+      "fail_criteria": [
+        "Allows deployment to ship without rollback plan.",
+        "Leaves rollback as an improvised manual emergency procedure."
+      ]
+    }
+  ]
+}
