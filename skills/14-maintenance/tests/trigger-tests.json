@@ -1,0 +1,96 @@
+{
+  "skill_id": "14-maintenance",
+  "positive_triggers": [
+    {
+      "prompt": "How do we upgrade our legacy Next.js Pages router application to Next.js App Router without halting ongoing feature development?",
+      "reason": "Framework version migration and legacy code evolution."
+    },
+    {
+      "prompt": "We inherited an untested 5-year-old Node.js monolith with 18 high-severity CVEs in package.json. How do we rescue and modernize this codebase?",
+      "reason": "Legacy codebase rescue using characterization tests and Strangler Fig pattern."
+    },
+    {
+      "prompt": "Establish a technical debt register to track our unmigrated database columns, deprecated API endpoints, and temporary workarounds.",
+      "reason": "Technical debt cataloging and register maintenance."
+    },
+    {
+      "prompt": "Configure automated Dependabot and Renovate rules to auto-merge patch and minor dependency updates after green CI runs.",
+      "reason": "Automated dependency lifecycle management and lockfile hygiene."
+    },
+    {
+      "prompt": "What objective telemetry metrics (CPU load, p95 latency, query duration) should trigger adding a Redis cache or a database read replica?",
+      "reason": "Objective scaling triggers and architectural capacity planning."
+    }
+  ],
+  "negative_near_misses": [
+    {
+      "prompt": "Write Playwright tests for our new user login page.",
+      "expected_route": "08-testing-qa",
+      "reason": "Automated e2e test suite authoring owned by QA/SDET."
+    },
+    {
+      "prompt": "Design the initial domain entity relationships in PostgreSQL for a new project.",
+      "expected_route": "02-architecture",
+      "reason": "Initial system architecture and domain modeling owned by Solution Architect."
+    },
+    {
+      "prompt": "Audit our API endpoints to ensure they are protected against SQL injection and XSS.",
+      "expected_route": "06-security",
+      "reason": "Security vulnerability audit owned by Application Security Lead."
+    },
+    {
+      "prompt": "Design responsive cards for displaying product search results.",
+      "expected_route": "04-frontend",
+      "reason": "UI component implementation owned by Frontend Lead."
+    },
+    {
+      "prompt": "Define the target customer personas and Jobs-to-be-Done for a new analytics dashboard.",
+      "expected_route": "01-product-discovery",
+      "reason": "Product discovery user research owned by Product Lead."
+    }
+  ],
+  "evaluation_tasks": [
+    {
+      "task_id": "maint-task-01",
+      "prompt": "A startup CTO proposes stopping all customer feature development for 4 months to do a complete ground-up rewrite of their 3-year-old web application because 'the codebase is messy'. As Maintenance Lead, evaluate this proposal and offer a safer migration strategy.",
+      "pass_criteria": [
+        "Pushes back against the big-bang rewrite (cites high failure rate and delayed market feedback).",
+        "Recommends the Strangler Fig pattern (incremental modular replacement).",
+        "Mandates authoring Characterization Tests around legacy behavior before changing code.",
+        "Demonstrates how features and refactoring can proceed concurrently in small, atomic PRs."
+      ],
+      "fail_criteria": [
+        "Endorses the 4-month ground-up rewrite without pushback.",
+        "Proposes refactoring without test coverage."
+      ]
+    },
+    {
+      "task_id": "maint-task-02",
+      "prompt": "Create an automated dependency upgrade policy for a production web application. How should patch, minor, and major updates be handled?",
+      "pass_criteria": [
+        "Patch updates: Automated weekly update and merge if automated CI tests pass.",
+        "Minor updates: Automated PR with changelog link, requiring automated test pass and smoke review.",
+        "Major updates: Handled as planned technical debt tasks with breaking change audit.",
+        "Enforces lockfile integrity (`--frozen-lockfile`) in CI."
+      ],
+      "fail_criteria": [
+        "Suggests disabling automated updates completely.",
+        "Suggests auto-merging major version updates without regression testing."
+      ]
+    },
+    {
+      "task_id": "maint-task-03",
+      "prompt": "Define a concrete Scaling Trigger Matrix for a growing SaaS application explaining when to add Redis caching, when to add background worker queues, and when to add database read replicas.",
+      "pass_criteria": [
+        "Redis Caching: Triggered by database CPU > 70% or repeated read query p95 > 200ms with high cache-hit potential.",
+        "Worker Queues: Triggered by synchronous HTTP requests taking > 300ms or 3rd-party network calls blocking web workers.",
+        "Read Replicas: Triggered by read-to-write ratio > 5:1 with primary database connection or I/O exhaustion.",
+        "Emphasizes measuring telemetry before introducing new infrastructure components."
+      ],
+      "fail_criteria": [
+        "Suggests adding Redis, queues, and read replicas prematurely on day one with zero traffic.",
+        "Lacks objective metric thresholds."
+      ]
+    }
+  ]
+}
