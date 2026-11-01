@@ -1,0 +1,38 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://raw.githubusercontent.com/universal-webdev-skills/universal-webdev-skills/main/templates/schemas/adr.schema.json",
+  "title": "ArchitecturalDecisionRecordSchema",
+  "description": "Schema for specialist handoff from 02-architecture to engineering and security.",
+  "type": "object",
+  "required": ["adr_id", "title", "status", "date", "tier", "context", "decision", "alternatives_considered", "consequences"],
+  "properties": {
+    "adr_id": { "type": "string", "pattern": "^ADR-[0-9]{3,}$" },
+    "title": { "type": "string" },
+    "status": { "type": "string", "enum": ["Proposed", "Accepted", "Rejected", "Deprecated", "Superseded"] },
+    "date": { "type": "string", "format": "date" },
+    "tier": { "type": "string", "enum": ["MVP", "PROD", "SCALE"] },
+    "context": { "type": "string" },
+    "decision": { "type": "string" },
+    "alternatives_considered": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["option", "reason_rejected"],
+        "properties": {
+          "option": { "type": "string" },
+          "reason_rejected": { "type": "string" }
+        }
+      },
+      "minItems": 1
+    },
+    "consequences": {
+      "type": "object",
+      "required": ["positive", "negative", "risks"],
+      "properties": {
+        "positive": { "type": "array", "items": { "type": "string" }, "minItems": 1 },
+        "negative": { "type": "array", "items": { "type": "string" } },
+        "risks": { "type": "array", "items": { "type": "string" } }
+      }
+    }
+  }
+}

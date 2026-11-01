@@ -1,0 +1,53 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://raw.githubusercontent.com/universal-webdev-skills/universal-webdev-skills/main/templates/schemas/postmortem.schema.json",
+  "title": "BlamelessPostmortemSchema",
+  "description": "Schema for blameless incident reviews from 13-launch-operations and 09-devops-infra.",
+  "type": "object",
+  "required": ["incident_id", "severity", "summary", "timeline", "root_cause", "impact", "corrective_actions", "blameless_statement"],
+  "properties": {
+    "incident_id": { "type": "string", "pattern": "^INC-[0-9]{4,}$" },
+    "severity": { "type": "string", "enum": ["SEV1", "SEV2", "SEV3", "SEV4"] },
+    "summary": { "type": "string" },
+    "start_time": { "type": "string", "format": "date-time" },
+    "end_time": { "type": "string", "format": "date-time" },
+    "impact": {
+      "type": "object",
+      "required": ["downtime_minutes", "users_affected", "financial_loss_est"],
+      "properties": {
+        "downtime_minutes": { "type": "integer" },
+        "users_affected": { "type": "integer" },
+        "financial_loss_est": { "type": "string" }
+      }
+    },
+    "timeline": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["time", "event"],
+        "properties": {
+          "time": { "type": "string" },
+          "event": { "type": "string" }
+        }
+      },
+      "minItems": 2
+    },
+    "root_cause": { "type": "string" },
+    "trigger": { "type": "string" },
+    "corrective_actions": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["action_item", "owner", "preventative_type", "status"],
+        "properties": {
+          "action_item": { "type": "string" },
+          "owner": { "type": "string" },
+          "preventative_type": { "type": "string", "enum": ["Process", "Code", "Testing", "Monitoring", "Architecture"] },
+          "status": { "type": "string", "enum": ["Open", "In_Progress", "Closed"] }
+        }
+      },
+      "minItems": 1
+    },
+    "blameless_statement": { "type": "string" }
+  }
+}

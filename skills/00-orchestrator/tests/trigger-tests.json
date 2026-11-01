@@ -1,0 +1,95 @@
+{
+  "skill_id": "00-orchestrator",
+  "positive_triggers": [
+    {
+      "prompt": "I want to start a new SaaS website that allows users to book medical appointments and pay online. How should we kick this off?",
+      "reason": "New project bootstrap with commercial and sensitive data signals requires tier classification and multi-specialist routing."
+    },
+    {
+      "prompt": "We need to build a fullstack MVP for an internal inventory dashboard. Plan the sprint and tell me who does what.",
+      "reason": "Sprint planning, team coordination, and MVP triage are core orchestrator responsibilities."
+    },
+    {
+      "prompt": "We are getting ready to launch our web app to production tomorrow. Who needs to sign off before release?",
+      "reason": "Reviewing pre-release gates and coordinating handoffs is owned by the orchestrator."
+    },
+    {
+      "prompt": "Bootstrap an e-commerce platform with Next.js, Stripe, and Postgres. Coordinate the team across all phases.",
+      "reason": "Fullstack project bootstrap spanning frontend, backend, security, and payments."
+    },
+    {
+      "prompt": "Our frontend developer and security lead disagree on using localStorage for refresh tokens. How do we resolve this conflict?",
+      "reason": "Cross-specialist conflict resolution using the strict priority hierarchy."
+    }
+  ],
+  "negative_near_misses": [
+    {
+      "prompt": "Fix this CSS grid layout so the third column wraps properly on mobile screens.",
+      "expected_route": "04-frontend",
+      "reason": "Narrow styling issue with no cross-specialist coordination needed."
+    },
+    {
+      "prompt": "Optimize this slow Postgres query: SELECT * FROM orders WHERE user_id = 42 ORDER BY created_at DESC.",
+      "expected_route": "05-backend-data",
+      "reason": "Database index and query tuning owned directly by backend/data lead."
+    },
+    {
+      "prompt": "Audit our cookie banner to verify it complies with GDPR Article 7 freely given consent.",
+      "expected_route": "07-privacy-compliance",
+      "reason": "Specific regulatory consent compliance owned by privacy officer."
+    },
+    {
+      "prompt": "Write Playwright end-to-end tests for our user checkout flow.",
+      "expected_route": "08-testing-qa",
+      "reason": "Automated e2e test authoring owned by QA/SDET."
+    },
+    {
+      "prompt": "Audit our Content Security Policy header for unsafe-inline script vulnerabilities.",
+      "expected_route": "06-security",
+      "reason": "Defensive security header review owned by application security lead."
+    }
+  ],
+  "evaluation_tasks": [
+    {
+      "task_id": "orch-task-01",
+      "prompt": "We want to build a public marketplace where creators can sell digital templates. The user requested 'just an MVP, keep it simple, skip auth verification and tests to ship by tomorrow'. What is your plan?",
+      "pass_criteria": [
+        "Identifies PROD tier signals (public users, marketplace, payments, financial transactions).",
+        "Refuses silent demotion to MVP rigor without explicit recorded risk consent.",
+        "Routes to 01-product-discovery, 02-architecture, 06-security, and 12-business-monetization.",
+        "Emits formal status format (Done / Verified / NOT verified / Risks / Next step)."
+      ],
+      "fail_criteria": [
+        "Accepts MVP rigor silently with zero pushback on checkout/security.",
+        "Immediately writes ad-hoc code without tiering or routing.",
+        "Loads all 15 skills into context."
+      ]
+    },
+    {
+      "task_id": "orch-task-02",
+      "prompt": "I need an internal command-line tool for our 3-person team to parse server logs and print a summary table. How should we proceed?",
+      "pass_criteria": [
+        "Classifies as MVP tier (internal tool, no public accounts, no payments, low risk).",
+        "Selects minimal specialist footprint (02-architecture, 05-backend-data or 08-testing-qa).",
+        "Does not force unnecessary PROD burdens like GDPR consent banners or multi-region failover."
+      ],
+      "fail_criteria": [
+        "Over-engineers into a microservice or multi-tenant cloud service.",
+        "Enforces irrelevant enterprise compliance requirements (e.g. cookie consent)."
+      ]
+    },
+    {
+      "task_id": "orch-task-03",
+      "prompt": "Our startup reached 150k active users and our single database is hitting 95% CPU spikes during flash sales. Triage the situation.",
+      "pass_criteria": [
+        "Classifies as SCALE tier (>100k MAU, spiky traffic, database exhaustion).",
+        "Routes to 02-architecture, 05-backend-data, 09-devops-infra, and 10-performance.",
+        "Prioritizes immediate mitigation (caching, query profiling, read replica) with runbook procedures."
+      ],
+      "fail_criteria": [
+        "Treats as a basic code bug without recognizing scale tier escalation.",
+        "Recommends complete rewrite from scratch instead of targeted triage."
+      ]
+    }
+  ]
+}

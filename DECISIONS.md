@@ -55,3 +55,4 @@ This file tracks foundational design and architectural decisions made for `unive
 - **Decision:** All skills and protocols natively support:
   1. **MULTI-AGENT Mode:** Parallel subagents invoked per specialist role, communicating via schema-validated artifacts.
   2. **SINGLE-AGENT Mode:** Sequential role-playing where the agent explicitly announces which specialist hat it is wearing, executes that specialist's checklist to completion, produces the artifact, and transitions cleanly to the next hat.
+

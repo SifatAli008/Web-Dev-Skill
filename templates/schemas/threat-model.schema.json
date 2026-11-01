@@ -1,0 +1,42 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://raw.githubusercontent.com/universal-webdev-skills/universal-webdev-skills/main/templates/schemas/threat-model.schema.json",
+  "title": "ThreatModelSchema",
+  "description": "Schema for specialist handoff from 06-security to engineering and QA.",
+  "type": "object",
+  "required": ["component_name", "tier", "review_date", "attack_surface", "stride_threats", "veto_status", "required_mitigations"],
+  "properties": {
+    "component_name": { "type": "string" },
+    "tier": { "type": "string", "enum": ["MVP", "PROD", "SCALE"] },
+    "review_date": { "type": "string", "format": "date" },
+    "attack_surface": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["endpoint", "auth_required", "data_sensitivity"],
+        "properties": {
+          "endpoint": { "type": "string" },
+          "auth_required": { "type": "boolean" },
+          "data_sensitivity": { "type": "string", "enum": ["Public", "Internal", "Confidential", "Restricted"] }
+        }
+      },
+      "minItems": 1
+    },
+    "stride_threats": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["category", "threat_description", "mitigation", "status"],
+        "properties": {
+          "category": { "type": "string", "enum": ["Spoofing", "Tampering", "Repudiation", "Information Disclosure", "Denial of Service", "Elevation of Privilege"] },
+          "threat_description": { "type": "string" },
+          "mitigation": { "type": "string" },
+          "status": { "type": "string", "enum": ["Mitigated", "Open", "Accepted-Risk"] }
+        }
+      },
+      "minItems": 1
+    },
+    "veto_status": { "type": "string", "enum": ["PASSED", "VETOED"] },
+    "required_mitigations": { "type": "array", "items": { "type": "string" } }
+  }
+}

@@ -1,0 +1,61 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://raw.githubusercontent.com/universal-webdev-skills/universal-webdev-skills/main/templates/schemas/runbook.schema.json",
+  "title": "RunbookSchema",
+  "description": "Schema for specialist handoff from 09-devops-infra defining deployment, monitoring, and rollback operations.",
+  "type": "object",
+  "required": ["service_name", "tier", "deploy_steps", "health_checks", "rollback_procedure", "rollback_verified", "alerts"],
+  "properties": {
+    "service_name": { "type": "string" },
+    "tier": { "type": "string", "enum": ["MVP", "PROD", "SCALE"] },
+    "environment": { "type": "string", "enum": ["development", "staging", "production"] },
+    "deploy_steps": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["step_number", "command_or_action", "expected_output"],
+        "properties": {
+          "step_number": { "type": "integer" },
+          "command_or_action": { "type": "string" },
+          "expected_output": { "type": "string" }
+        }
+      },
+      "minItems": 1
+    },
+    "health_checks": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["endpoint", "expected_status", "timeout_ms"],
+        "properties": {
+          "endpoint": { "type": "string" },
+          "expected_status": { "type": "integer" },
+          "timeout_ms": { "type": "integer" }
+        }
+      },
+      "minItems": 1
+    },
+    "rollback_procedure": {
+      "type": "object",
+      "required": ["trigger_condition", "automated_command", "max_allowed_downtime_seconds"],
+      "properties": {
+        "trigger_condition": { "type": "string" },
+        "automated_command": { "type": "string" },
+        "max_allowed_downtime_seconds": { "type": "integer" }
+      }
+    },
+    "rollback_verified": { "type": "boolean" },
+    "alerts": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["metric", "threshold", "action"],
+        "properties": {
+          "metric": { "type": "string" },
+          "threshold": { "type": "string" },
+          "action": { "type": "string" }
+        }
+      }
+    }
+  }
+}

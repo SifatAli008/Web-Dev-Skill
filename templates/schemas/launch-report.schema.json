@@ -1,0 +1,39 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://raw.githubusercontent.com/universal-webdev-skills/universal-webdev-skills/main/templates/schemas/launch-report.schema.json",
+  "title": "LaunchReportSchema",
+  "description": "Schema for specialist handoff from 13-launch-operations certifying go-live readiness.",
+  "type": "object",
+  "required": ["release_version", "target_tier", "launch_timestamp", "gate_signoffs", "smoke_tests_passed", "launch_decision", "on_call_lead"],
+  "properties": {
+    "release_version": { "type": "string" },
+    "target_tier": { "type": "string", "enum": ["MVP", "PROD", "SCALE"] },
+    "launch_timestamp": { "type": "string", "format": "date-time" },
+    "gate_signoffs": {
+      "type": "object",
+      "required": ["security", "privacy", "qa", "devops"],
+      "properties": {
+        "security": { "type": "string", "enum": ["APPROVED", "ACCEPTED_RISK", "REJECTED"] },
+        "privacy": { "type": "string", "enum": ["APPROVED", "ACCEPTED_RISK", "REJECTED"] },
+        "qa": { "type": "string", "enum": ["APPROVED", "REJECTED"] },
+        "devops": { "type": "string", "enum": ["APPROVED", "REJECTED"] }
+      }
+    },
+    "smoke_tests_passed": { "type": "boolean" },
+    "launch_decision": { "type": "string", "enum": ["GO", "NO-GO"] },
+    "rollback_plan_ready": { "type": "boolean" },
+    "on_call_lead": { "type": "string" },
+    "accepted_risks": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["risk_id", "description", "approved_by"],
+        "properties": {
+          "risk_id": { "type": "string" },
+          "description": { "type": "string" },
+          "approved_by": { "type": "string" }
+        }
+      }
+    }
+  }
+}

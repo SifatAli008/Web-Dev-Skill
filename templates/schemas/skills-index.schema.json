@@ -1,0 +1,60 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://raw.githubusercontent.com/universal-webdev-skills/universal-webdev-skills/main/templates/schemas/skills-index.schema.json",
+  "title": "SkillsIndexSchema",
+  "description": "Validation schema for the L0 skill index routing file used by AI coding agents.",
+  "type": "object",
+  "required": ["$schema", "version", "last_updated", "tiers", "skills"],
+  "properties": {
+    "$schema": { "type": "string" },
+    "version": { "type": "string", "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$" },
+    "last_updated": { "type": "string", "format": "date" },
+    "tiers": {
+      "type": "object",
+      "required": ["MVP", "PROD", "SCALE"],
+      "properties": {
+        "MVP": { "type": "string" },
+        "PROD": { "type": "string" },
+        "SCALE": { "type": "string" }
+      }
+    },
+    "skills": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "id", "name", "title", "authority", "path", "token_cost_est",
+          "tiers", "triggers", "anti_triggers", "inputs", "outputs",
+          "depends_on", "last_verified", "sources"
+        ],
+        "properties": {
+          "id": { "type": "string", "pattern": "^[0-1][0-9]-[a-z0-9-]+$" },
+          "name": { "type": "string" },
+          "title": { "type": "string" },
+          "authority": {
+            "type": "string",
+            "enum": [
+              "Process gate", "Design gate", "A11y gate", "HARD VETO",
+              "No evidence, no ship", "No rollback, no ship", "Launch gate",
+              "Advises", "Warns"
+            ]
+          },
+          "path": { "type": "string" },
+          "token_cost_est": { "type": "integer" },
+          "tiers": {
+            "type": "array",
+            "items": { "type": "string", "enum": ["MVP", "PROD", "SCALE"] },
+            "minItems": 1
+          },
+          "triggers": { "type": "array", "items": { "type": "string" }, "minItems": 3 },
+          "anti_triggers": { "type": "array", "items": { "type": "string" }, "minItems": 2 },
+          "inputs": { "type": "array", "items": { "type": "string" } },
+          "outputs": { "type": "array", "items": { "type": "string" } },
+          "depends_on": { "type": "array", "items": { "type": "string" } },
+          "last_verified": { "type": "string" },
+          "sources": { "type": "array", "items": { "type": "string" } }
+        }
+      }
+    }
+  }
+}

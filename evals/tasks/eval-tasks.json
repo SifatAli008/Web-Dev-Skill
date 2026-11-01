@@ -1,0 +1,77 @@
+{
+  "version": "0.1.0",
+  "tasks": [
+    {
+      "id": "task-01-saas-mvp",
+      "name": "SaaS Landing + Auth + Billing MVP",
+      "tier": "PROD",
+      "prompt": "Build a SaaS landing page with user authentication (email/password + session cookies), Stripe checkout for a $29/mo plan, and an authenticated dashboard page using SQLite/Postgres. Ensure security and test verification.",
+      "expected_specialists": ["00-orchestrator", "02-architecture", "04-frontend", "05-backend-data", "06-security", "12-business-monetization"],
+      "critical_checks": ["HttpOnly session cookies", "Stripe webhook signature validation", "Automated test pass", "No plaintext passwords"]
+    },
+    {
+      "id": "task-02-harden-api",
+      "name": "Harden an Express API",
+      "tier": "PROD",
+      "prompt": "Given an Express API with vulnerable endpoints (SQL injection via raw query params, missing CORS restrictions, and unauthenticated IDOR endpoints), perform a defensive audit and harden the service.",
+      "expected_specialists": ["06-security", "05-backend-data", "08-testing-qa"],
+      "critical_checks": ["Parameterized queries", "Strict CORS policy", "IDOR authorization checks", "Rate limiting applied"]
+    },
+    {
+      "id": "task-03-prelaunch-audit",
+      "name": "Pre-launch Audit of a Next.js Site",
+      "tier": "PROD",
+      "prompt": "Conduct a pre-launch audit of a Next.js web application scheduled for public release. Verify security headers, WCAG 2.2 AA accessibility, Core Web Vitals, and generate a launch report.",
+      "expected_specialists": ["13-launch-operations", "03-ux-ui-design", "06-security", "10-performance"],
+      "critical_checks": ["CSP headers defined", "Contrast ratio >= 4.5:1", "LCP optimization plan", "Launch report schema generated"]
+    },
+    {
+      "id": "task-04-gdpr-consent",
+      "name": "Add GDPR Compliant Consent",
+      "tier": "PROD",
+      "prompt": "Implement user analytics tracking with full GDPR/ePrivacy compliance: ensure no tracking cookies or requests fire before explicit affirmative consent, provide an opt-out mechanism, and document the lawful basis.",
+      "expected_specialists": ["07-privacy-compliance", "04-frontend", "11-seo-marketing"],
+      "critical_checks": ["Zero pre-consent tracking network calls", "Granular accept/reject options", "Documented ROPA entry", "No dark patterns"]
+    },
+    {
+      "id": "task-05-fix-slow-lcp",
+      "name": "Fix Slow Largest Contentful Paint (LCP)",
+      "tier": "PROD",
+      "prompt": "An e-commerce product route has an LCP of 4.8 seconds on mobile 4G due to unoptimized hero images, render-blocking web fonts, and client-side waterfall requests. Diagnose and remediate to bring LCP < 2.5s.",
+      "expected_specialists": ["10-performance", "04-frontend"],
+      "critical_checks": ["Responsive modern image formats (AVIF/WebP)", "Font preloading and swap display", "Eliminate render-blocking waterfalls", "LCP target < 2.5s"]
+    },
+    {
+      "id": "task-06-safe-db-migration",
+      "name": "Safe Database Migration on Live Table",
+      "tier": "SCALE",
+      "prompt": "A PostgreSQL table 'users' with 15 million rows requires splitting 'full_name' into 'first_name' and 'last_name' without table locking or service downtime. Provide the multi-phase migration scripts and rollback plan.",
+      "expected_specialists": ["05-backend-data", "02-architecture", "09-devops-infra"],
+      "critical_checks": ["Expand-and-contract pattern", "No table lock operations", "Dual-write or trigger backfill", "Reversible rollback steps"]
+    },
+    {
+      "id": "task-07-secret-leak-response",
+      "name": "Recover from Leaked Production Secret",
+      "tier": "PROD",
+      "prompt": "A developer committed a production Stripe secret key and database password into a public GitHub repository. Execute immediate containment, key rotation, git scrubbing, and write the incident postmortem.",
+      "expected_specialists": ["06-security", "09-devops-infra", "13-launch-operations"],
+      "critical_checks": ["Immediate key revocation/rotation", "Git history scrubbing (git filter-repo/BFG)", "Audit logs for unauthorized access", "Blameless postmortem schema completed"]
+    },
+    {
+      "id": "task-08-rescue-legacy",
+      "name": "Rescue Legacy Untested Codebase",
+      "tier": "PROD",
+      "prompt": "An inherited Node.js/JavaScript monolithic codebase has zero automated tests, 14 vulnerable outdated dependencies, and frequent regressions during feature additions. Establish a safe rescue plan and testing harness.",
+      "expected_specialists": ["14-maintenance", "08-testing-qa", "02-architecture"],
+      "critical_checks": ["Strangler fig pattern", "Characterization tests before refactoring", "Dependency vulnerability triage", "Tech debt register initialized"]
+    },
+    {
+      "id": "task-09-non-technical-founder",
+      "name": "Serve a Non-Technical Founder",
+      "tier": "MVP",
+      "prompt": "A non-technical founder wants to build an MVP for an online coaching platform. Guide them through scope cuts, explain technical trade-offs in plain business terms, and recommend a minimal boring tech stack.",
+      "expected_specialists": ["00-orchestrator", "01-product-discovery", "02-architecture"],
+      "critical_checks": ["Plain language without unneeded jargon", "MoSCoW scope cut to core value", "Boring proven tech stack recommendation", "Clear cost and timeline expectations"]
+    }
+  ]
+}

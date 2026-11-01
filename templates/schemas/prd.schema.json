@@ -1,0 +1,59 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://raw.githubusercontent.com/universal-webdev-skills/universal-webdev-skills/main/templates/schemas/prd.schema.json",
+  "title": "ProductRequirementsDocumentSchema",
+  "description": "Schema for specialist handoff from 01-product-discovery to architecture and engineering.",
+  "type": "object",
+  "required": ["project_name", "tier", "problem_statement", "target_personas", "jobs_to_be_done", "moscow_scope", "success_metrics", "kill_criteria"],
+  "properties": {
+    "project_name": { "type": "string" },
+    "tier": { "type": "string", "enum": ["MVP", "PROD", "SCALE"] },
+    "problem_statement": { "type": "string" },
+    "target_personas": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["role", "pain_point", "desired_outcome"],
+        "properties": {
+          "role": { "type": "string" },
+          "pain_point": { "type": "string" },
+          "desired_outcome": { "type": "string" }
+        }
+      },
+      "minItems": 1
+    },
+    "jobs_to_be_done": {
+      "type": "array",
+      "items": { "type": "string" },
+      "minItems": 1
+    },
+    "moscow_scope": {
+      "type": "object",
+      "required": ["must_have", "should_have", "could_have", "wont_have"],
+      "properties": {
+        "must_have": { "type": "array", "items": { "type": "string" }, "minItems": 1 },
+        "should_have": { "type": "array", "items": { "type": "string" } },
+        "could_have": { "type": "array", "items": { "type": "string" } },
+        "wont_have": { "type": "array", "items": { "type": "string" } }
+      }
+    },
+    "success_metrics": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["metric", "target", "measurement_method"],
+        "properties": {
+          "metric": { "type": "string" },
+          "target": { "type": "string" },
+          "measurement_method": { "type": "string" }
+        }
+      },
+      "minItems": 1
+    },
+    "kill_criteria": {
+      "type": "array",
+      "items": { "type": "string" },
+      "minItems": 1
+    }
+  }
+}

@@ -1,0 +1,30 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://raw.githubusercontent.com/universal-webdev-skills/universal-webdev-skills/main/templates/schemas/test-report.schema.json",
+  "title": "TestReportSchema",
+  "description": "Schema for specialist handoff from 08-testing-qa verifying evidence it works.",
+  "type": "object",
+  "required": ["timestamp", "tier", "total_tests", "passed", "failed", "skipped", "flaky", "command_executed", "exit_code", "ship_status"],
+  "properties": {
+    "timestamp": { "type": "string", "format": "date-time" },
+    "tier": { "type": "string", "enum": ["MVP", "PROD", "SCALE"] },
+    "total_tests": { "type": "integer", "minimum": 0 },
+    "passed": { "type": "integer", "minimum": 0 },
+    "failed": { "type": "integer", "minimum": 0 },
+    "skipped": { "type": "integer", "minimum": 0 },
+    "flaky": { "type": "integer", "minimum": 0 },
+    "command_executed": { "type": "string" },
+    "exit_code": { "type": "integer" },
+    "stdout_sample": { "type": "string" },
+    "ship_status": { "type": "string", "enum": ["READY_TO_SHIP", "BLOCKED_NO_EVIDENCE", "BLOCKED_TESTS_FAILED"] },
+    "coverage_summary": {
+      "type": "object",
+      "properties": {
+        "statements": { "type": "number" },
+        "branches": { "type": "number" },
+        "functions": { "type": "number" },
+        "lines": { "type": "number" }
+      }
+    }
+  }
+}
