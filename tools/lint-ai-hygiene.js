@@ -12,7 +12,7 @@ const fs = require('fs');
 const path = require('path');
 
 const REPO_ROOT = path.join(__dirname, '..');
-const IGNORED_DIRS = new Set(['.git', 'node_modules', '.gemini']);
+const IGNORED_DIRS = new Set(['.git', 'node_modules', '.gemini', '.next', 'out', 'dist', '_next']);
 
 const ALLOWED_ROOT_MD = new Set([
   'README.md',
