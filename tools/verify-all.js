@@ -20,6 +20,7 @@ const STEPS = [
   { name: 'AI Garbage Code & Artifact Hygiene', cmd: 'node tools/lint-ai-hygiene.js' },
   { name: 'Router Index (skills.index.json) Sync', cmd: 'node tools/validate-index.js' },
   { name: 'Tool Adapters Generator', cmd: 'node tools/build-adapters.js' },
+  { name: 'Documentation Portal Generator', cmd: 'node tools/generate-docs-skills.js' },
   { name: 'Benchmark Evaluation Suite', cmd: 'node evals/harness/run-eval.js' },
   { name: '3 Golden Reference Project Suites', cmd: 'node tools/run-reference-tests.js' }
 ];
