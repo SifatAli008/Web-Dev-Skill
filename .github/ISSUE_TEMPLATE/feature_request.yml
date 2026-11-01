@@ -1,0 +1,52 @@
+name: Feature Request / Playbook Proposal
+description: Suggest a new playbook, checklist, artifact template, or tool enhancement.
+title: "[Feature]: "
+labels: ["enhancement"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Have an idea to improve Universal WebDev Skills? Share your playbook proposal, template request, or adapter improvement.
+  - type: dropdown
+    id: proposal-type
+    attributes:
+      label: Proposal Category
+      options:
+        - "Playbook (Cross-sector engineering procedure)"
+        - "Template (Markdown artifact schema)"
+        - "Checklist (Phase / Quality gate verification)"
+        - "Tool Adapter (Agent compatibility)"
+        - "Verification Linter / Tool"
+        - "Reference Project Enhancement"
+    validations:
+      required: true
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem Statement
+      description: What challenge or gap does this proposal address?
+    validations:
+      required: true
+  - type: textarea
+    id: proposed-solution
+    attributes:
+      label: Proposed Solution / Deliverables
+      description: Describe the procedure, schema, or tool changes you propose.
+    validations:
+      required: true
+  - type: checkboxes
+    id: tier-applicability
+    attributes:
+      label: Tier Applicability
+      description: Which rigor tiers does this proposal apply to?
+      options:
+        - label: "MVP (Fast release, baseline security & auth)"
+        - label: "PROD (Production rigor, ACID transactions, telemetry, SLOs)"
+        - label: "SCALE (Spiky load, edge caching, zero-downtime migrations)"
+    validations:
+      required: true
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives Considered
+      description: Any alternative approaches or workarounds evaluated?

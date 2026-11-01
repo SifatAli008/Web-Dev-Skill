@@ -1,0 +1,51 @@
+name: Specialist RFC (New Specialist Proposal)
+description: Propose a new domain specialist skill or modification to existing specialist authority.
+title: "[Specialist RFC]: "
+labels: ["specialist-rfc", "architecture"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Adding or modifying a specialist skill requires satisfying the strict **Deletion Test**: proving that the domain cannot be absorbed into an existing specialist and provides distinct value.
+  - type: input
+    id: specialist-name
+    attributes:
+      label: Specialist Title & Slug
+      placeholder: "e.g. 15-data-engineering / Data Engineer"
+    validations:
+      required: true
+  - type: dropdown
+    id: proposed-authority
+    attributes:
+      label: Proposed Authority Level
+      options:
+        - "HARD VETO (Binding veto on security, privacy, compliance)"
+        - "Process gate (Workflow and phase transitions)"
+        - "Design gate (Architecture and schema boundaries)"
+        - "No evidence, no ship (Testing and quality gates)"
+        - "No rollback, no ship (Infrastructure and deployment)"
+        - "Advises (Specialist recommendations)"
+        - "Warns (Performance, latency, cost warnings)"
+    validations:
+      required: true
+  - type: textarea
+    id: gap-analysis
+    attributes:
+      label: Domain Gap Analysis
+      description: What specific engineering domain is missing from the existing 15 specialists?
+    validations:
+      required: true
+  - type: textarea
+    id: deletion-test
+    attributes:
+      label: Deletion Test Defense
+      description: Why can this capability NOT be placed in an existing specialist (e.g. 02-architecture, 05-backend-data, 06-security, 09-devops-infra)?
+    validations:
+      required: true
+  - type: textarea
+    id: prompt-budget
+    attributes:
+      label: L1 Token & Structure Budget
+      description: Confirm this skill can fit strictly within <300 markdown lines and <=1,500 prompt tokens.
+    validations:
+      required: true

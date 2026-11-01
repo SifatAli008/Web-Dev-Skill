@@ -4,6 +4,7 @@
 > Takes web projects from napkin idea to production-grade release at the exact right level of rigor.
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+[![CI](https://github.com/SifatAli008/Web-Dev-Skill/actions/workflows/ci.yml/badge.svg)](https://github.com/SifatAli008/Web-Dev-Skill/actions/workflows/ci.yml)
 [![Rigor: 3--Tier](https://img.shields.io/badge/Rigor-MVP%20%7C%20PROD%20%7C%20SCALE-success)](AGENTS.md)
 [![Tests: 195/195 Passing](https://img.shields.io/badge/Tests-195%2F195%20Passing-brightgreen)](skills/)
 [![OWASP Criticals: 0](https://img.shields.io/badge/OWASP%20Criticals-0%20Verified-brightgreen)](reference-projects/)

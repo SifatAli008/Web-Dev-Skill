@@ -1,0 +1,84 @@
+name: Bug Report
+description: Report a bug, broken rule, linter failure, or test discrepancy.
+title: "[Bug]: "
+labels: ["bug", "triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thank you for reporting an issue in Universal WebDev Skills! Please provide detailed, reproducible information.
+  - type: dropdown
+    id: component
+    attributes:
+      label: Component or Specialist Affected
+      description: Which part of the framework has the bug?
+      options:
+        - "00-orchestrator"
+        - "01-product-discovery"
+        - "02-architecture"
+        - "03-ux-ui-design"
+        - "04-frontend"
+        - "05-backend-data"
+        - "06-security"
+        - "07-privacy-compliance"
+        - "08-testing-qa"
+        - "09-devops-infra"
+        - "10-performance"
+        - "11-seo-marketing"
+        - "12-business-monetization"
+        - "13-launch-operations"
+        - "14-maintenance"
+        - "adapters (Claude/Cursor/Antigravity/Copilot/Gemini)"
+        - "playbooks & templates"
+        - "reference-projects"
+        - "tools & verification linters"
+    validations:
+      required: true
+  - type: textarea
+    id: description
+    attributes:
+      label: Problem Description
+      description: A clear and concise description of the bug.
+    validations:
+      required: true
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Steps to Reproduce
+      description: Exact steps, agent prompts, or CLI commands to reproduce the issue.
+      placeholder: |
+        1. Run command '...'
+        2. Give agent prompt '...'
+        3. See error
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected Behavior
+      description: What should have happened according to the specification or skill rule?
+    validations:
+      required: true
+  - type: textarea
+    id: actual-logs
+    attributes:
+      label: Actual Output / Terminal Logs
+      description: Paste terminal output, error traces, or agent responses here.
+      render: shell
+    validations:
+      required: true
+  - type: dropdown
+    id: agent-tool
+    attributes:
+      label: AI Agent / Tool Used
+      options:
+        - "Claude Code"
+        - "Cursor"
+        - "Antigravity"
+        - "GitHub Copilot"
+        - "Gemini CLI"
+        - "ChatGPT / Codex"
+        - "Standalone / Local Test Suite"
+        - "Other"
+    validations:
+      required: true
