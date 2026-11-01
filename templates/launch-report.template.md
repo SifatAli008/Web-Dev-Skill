@@ -33,3 +33,4 @@
 | Risk ID | Description | Approved By | Justification |
 |---|---|---|---|
 | [e.g. RISK-001] | [Deferred multi-region backup replication to v1.1] | [Founder Name] | [Targeting MVP staging launch only] |
+

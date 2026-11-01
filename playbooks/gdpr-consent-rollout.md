@@ -69,3 +69,4 @@ If the consent manager fails or blocks critical essential functionality:
 1. Automated Playwright test run output confirming zero pre-consent network requests.
 2. Screenshot/DOM inspection proving "Accept" and "Reject" buttons have identical visual styling.
 3. Verified ROPA document conforming to `privacy-register.schema.json`.
+

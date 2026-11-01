@@ -30,3 +30,4 @@
   - [ ] Are zero API keys, tokens, or connection strings committed to Git or container images?
   - [ ] Does `npm audit` show 0 high or critical vulnerabilities?
   - [ ] Are dependencies locked via `--frozen-lockfile` in CI?
+

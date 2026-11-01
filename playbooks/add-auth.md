@@ -84,3 +84,4 @@ If auth deployment causes session invalidation or login failures:
    ```http
    Set-Cookie: __Host-session=...; Path=/; HttpOnly; Secure; SameSite=Lax
    ```
+

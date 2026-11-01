@@ -44,3 +44,4 @@
 - **Primary Success Metric:** [e.g. 20% conversion from signup to active invoice within 14 days]
 - **Measurement Method:** [e.g. Automated analytics event funnel `signup_completed` -> `invoice_sent`]
 - **30-Day Kill Criteria:** [e.g. If active adoption is < 5% after 30 days, deprecate feature and archive code]
+

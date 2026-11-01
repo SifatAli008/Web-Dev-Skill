@@ -1,0 +1,13 @@
+{
+  "name": "03-content-platform-scale",
+  "version": "1.0.0",
+  "description": "High-traffic content platform demonstrating Core Web Vitals optimization, edge caching (stale-while-revalidate), Schema.org JSON-LD, and cookieless privacy-first analytics",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "test": "node test.js"
+  },
+  "keywords": ["scale", "cwv", "caching", "seo", "jsonld", "cookieless-analytics"],
+  "license": "MIT",
+  "type": "module"
+}

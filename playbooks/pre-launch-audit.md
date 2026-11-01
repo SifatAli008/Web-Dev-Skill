@@ -81,3 +81,4 @@ If live release triggers high error rates during post-launch smoke testing:
 ## 5. Evidence Required to Call Done
 1. Completed and schema-validated `templates/schemas/launch-report.schema.json` with `launch_decision: "GO"`.
 2. Verified terminal output from CI displaying 100% green tests.
+

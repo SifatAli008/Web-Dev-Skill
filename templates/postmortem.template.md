@@ -48,3 +48,4 @@
 
 ## 6. Blameless Culture Affirmation
 *This postmortem is conducted with the understanding that every team member made the best decision possible based on the information and tools available to them at the time. Our focus is strictly on fixing systemic engineering flaws and automated guardrails.*
+

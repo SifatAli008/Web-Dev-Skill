@@ -72,3 +72,4 @@ If the initial bootstrap fails or dependencies conflict:
 1. `npm test` or `vitest run` passes with 100% green tests.
 2. Initial user can load the application, submit the core interaction form, and view persisted data.
 3. `PROGRESS.md` updated with phase completion.
+

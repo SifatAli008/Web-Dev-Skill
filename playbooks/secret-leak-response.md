@@ -75,3 +75,4 @@ If rotating a database password breaks active application connectivity:
 1. Terminal proof from provider CLI verifying leaked key is in `Inactive` or `Revoked` status.
 2. Git history scan showing secret is completely removed from all commits.
 3. Completed `templates/schemas/postmortem.schema.json`.
+

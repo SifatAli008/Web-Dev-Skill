@@ -1,0 +1,12 @@
+{
+  "name": "saas-starter-mvp",
+  "version": "1.0.0",
+  "description": "Golden Reference Project 1: Minimal Viable SaaS with Auth, Billing, and Defensive Security",
+  "main": "server.js",
+  "scripts": {
+    "test": "node test.js",
+    "start": "node server.js"
+  },
+  "dependencies": {},
+  "devDependencies": {}
+}

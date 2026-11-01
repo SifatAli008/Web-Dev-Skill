@@ -84,3 +84,4 @@ If payment checkout produces erroneous charges or failed webhooks:
 ## 5. Evidence Required to Call Done
 1. Passing automated integration tests verifying signature check and event deduplication.
 2. Verified live/test transaction record in Stripe dashboard with corresponding database row created.
+

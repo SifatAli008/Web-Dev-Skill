@@ -36,3 +36,4 @@
 | HTTP 5xx Error Rate | > 1.0% over 5 min | PagerDuty alert to on-call engineer |
 | Database CPU | > 80% over 10 min | Inspect `pg_stat_statements` for runaway queries |
 | Worker Queue Depth | > 500 unprocessed jobs | Horizontally scale worker container instances |
+

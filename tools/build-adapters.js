@@ -107,3 +107,4 @@ Always verify code changes with terminal execution evidence.
 }
 
 buildAdapters();
+

@@ -29,3 +29,4 @@
 - [ ] **Testing & Verification:**
   - [ ] Happy-path integration test executes with exit code 0.
   - [ ] Basic manual user walkthrough completes successfully end-to-end.
+

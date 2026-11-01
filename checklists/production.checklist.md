@@ -39,3 +39,4 @@
   - [ ] INP <= 200ms; no long main-thread tasks > 50ms.
   - [ ] CLS <= 0.1; explicit dimensions on all media assets.
   - [ ] Immutable caching headers on all hashed static assets.
+

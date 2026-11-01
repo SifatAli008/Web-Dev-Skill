@@ -76,3 +76,4 @@ If a security hardening header (e.g. strict CSP) breaks a legitimate third-party
 1. `npm audit` output displaying 0 high or critical vulnerabilities.
 2. Automated test run displaying passing assertions for IDOR and SQLi protection.
 3. Completed `templates/schemas/threat-model.schema.json` with status `PASSED`.
+

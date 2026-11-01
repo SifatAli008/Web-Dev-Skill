@@ -26,3 +26,4 @@
   - [ ] Are data retention schedules defined and enforced by automated scheduled database purge jobs?
   - [ ] Are signed Data Processing Agreements (DPAs) in place with all cloud sub-processors?
   - [ ] Is cross-border data transfer protected by EU Standard Contractual Clauses (SCCs)?
+

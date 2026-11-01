@@ -75,3 +75,4 @@ If adding an index or caching layer causes locks or data inconsistency:
 ## 5. Evidence Required to Call Done
 1. `pg_stat_statements` query output displaying average query execution time reduced by >= 50%.
 2. APM metrics screenshot/log confirming p95 latency < 250ms under peak traffic.
+

@@ -81,3 +81,4 @@ If asset conversion breaks image rendering in older browsers:
 ## 5. Evidence Required to Call Done
 1. Terminal Lighthouse CI output showing LCP score < 2.5s with green status.
 2. Network waterfall trace showing LCP image request starts downloading in the first critical network chunk.
+

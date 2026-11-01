@@ -93,3 +93,4 @@ If any migration step exceeds lock timeout or causes connection pool exhaustion:
 1. Migration executed successfully in staging database with active synthetic load.
 2. Data validation query showing 100% parity between legacy and new columns.
 3. PostgreSQL query output confirming zero table lock stalls or connection pool spikes.
+

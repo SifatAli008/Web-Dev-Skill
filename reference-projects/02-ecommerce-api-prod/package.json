@@ -1,0 +1,13 @@
+{
+  "name": "02-ecommerce-api-prod",
+  "version": "1.0.0",
+  "description": "Production E-commerce Order API demonstrating idempotency, transactional inventory locking, zero-downtime migrations, and health probes",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "test": "node test.js"
+  },
+  "keywords": ["production", "ecommerce", "idempotency", "zero-downtime", "health-probes"],
+  "license": "MIT",
+  "type": "module"
+}
