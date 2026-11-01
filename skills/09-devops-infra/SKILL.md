@@ -130,3 +130,4 @@ Immediately halt and escalate to the user when:
 1. A production deployment fails health probes and automatic rollback is also failing or unavailable, threatening extended downtime.
 2. Cloud infrastructure spend exceeds monthly budget threshold by >25% due to runaway compute or storage leaks.
 3. A disaster recovery restore drill fails to restore data integrity from automated backups.
+

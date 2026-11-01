@@ -135,3 +135,4 @@ Immediately halt and escalate to the user when:
 1. A mission-critical e2e test fails in CI and represents an unhandled regression in core business logic.
 2. The automated test suite execution time exceeds 15 minutes, requiring sharding or test suite refactoring.
 3. Third-party testing dependencies (e.g. sandbox payment gateways) are experiencing external outages.
+

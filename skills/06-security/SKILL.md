@@ -154,3 +154,4 @@ Immediately halt and escalate to the user when:
 1. An active secret or credential leak is detected in committed code or git history.
 2. A critical unpatched zero-day vulnerability in a core framework dependency has no official patch.
 3. The user requests bypassing authentication, disabling encryption, or deploying with known SQLi/XSS vulnerabilities.
+

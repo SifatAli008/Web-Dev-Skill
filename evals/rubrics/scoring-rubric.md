@@ -22,3 +22,4 @@ To pass the evaluation suite:
 1. **Delta Win Rate:** The agent with skills loaded must outperform the no-skill baseline by **>= 25%** on composite score across both frontier and small models.
 2. **Security Floor:** Reference tasks must produce **0 critical or high security findings** (OWASP class).
 3. **Evidence Requirement:** Every passing score in Dimension 4 must include runnable terminal proof.
+

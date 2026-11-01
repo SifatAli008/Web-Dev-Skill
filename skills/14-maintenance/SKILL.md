@@ -130,3 +130,4 @@ Immediately halt and escalate to the user when:
 1. A core framework dependency reaches statutory End-of-Life (EOL) with no direct backward-compatible upgrade path.
 2. Production telemetry indicates system utilization has reached 90% of architectural capacity, requiring an infrastructure tier jump.
 3. A critical zero-day vulnerability in a core package cannot be patched without breaking changes to database persistence.
+

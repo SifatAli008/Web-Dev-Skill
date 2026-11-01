@@ -29,3 +29,4 @@ This glossary defines standard terminology used across all 15 specialist skills.
 - **STRIDE**: Threat modeling taxonomy: **S**poofing, **T**ampering, **R**epudiation, **I**nformation Disclosure, **D**enial of Service, **E**levation of Privilege.
 - **WCAG 2.2 AA**: Web Content Accessibility Guidelines Level AA compliance, covering minimum contrast ratios (4.5:1 text), keyboard accessibility, focus indicators, and touch targets (44x44 CSS px).
 - **XSS (Cross-Site Scripting)**: An injection attack where malicious scripts are injected into otherwise benign and trusted websites.
+

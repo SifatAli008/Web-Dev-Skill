@@ -129,3 +129,4 @@ Immediately halt and escalate to the user when:
 1. The project targets children under 13 (US COPPA) or under 16 (EU GDPR Art. 8) requiring parental consent verification mechanisms.
 2. An enterprise client requests a Data Protection Impact Assessment (DPIA) due to high-risk automated decision-making or AI profiling.
 3. User demands implementing covert keystroke recording (e.g. session replay without masking) without notifying visitors.
+

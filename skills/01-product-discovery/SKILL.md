@@ -125,3 +125,4 @@ Immediately halt and escalate to the user when:
 1. The stakeholder refuses to select any item for the "Won't Have" list, demanding an un-tiered kitchen-sink release.
 2. The core problem statement changes fundamentally during discovery (e.g. pivoting from B2C consumers to B2B enterprise procurement).
 3. Discovery reveals an established competitor offering the exact same solution for free with high satisfaction.
+

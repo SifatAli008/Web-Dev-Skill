@@ -129,3 +129,4 @@ Immediately halt and escalate to the user when:
 1. The requested third-party UI widget or library has a bundle size that violates the performance budget by >100% with no lightweight alternative.
 2. Browser support requirements require targeting legacy runtimes (e.g. IE11) that contradict modern framework dependencies.
 3. User requests disabling accessibility features (e.g. hiding focus rings without custom styles).
+

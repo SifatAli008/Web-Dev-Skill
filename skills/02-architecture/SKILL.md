@@ -124,3 +124,4 @@ Immediately halt and escalate to the user when:
 1. Architectural requirements mandate non-functional SLAs that exceed the allocated hosting budget (e.g. 99.99% multi-region failover on a $20/month budget).
 2. A third-party SaaS dependency (e.g. Stripe, Auth0) experiences deprecation or licensing changes that require re-architecting the core domain.
 3. The project shifts from single-tenant to multi-tenant B2B mid-development.
+

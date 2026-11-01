@@ -40,3 +40,4 @@
     "required_mitigations": { "type": "array", "items": { "type": "string" } }
   }
 }
+

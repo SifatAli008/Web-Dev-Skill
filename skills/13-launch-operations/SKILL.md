@@ -133,3 +133,4 @@ Immediately halt and escalate to the user when:
 1. A SEV1 outage exceeds 30 minutes of downtime without a clear root cause, requiring decision to execute full database disaster recovery restore.
 2. A required gate sign-off fails (e.g. Security Veto) on the scheduled launch date and stakeholder insists on launching anyway without logged risk acceptance.
 3. Live production smoke test reveals broken payment transactions on launch day.
+

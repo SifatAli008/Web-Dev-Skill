@@ -139,3 +139,4 @@ Immediately halt and escalate to the user when:
 1. A critical public marketing redesign is proposed as a client-side SPA without SSR/SSG, risking complete loss of search engine indexation.
 2. The domain is under an active Google manual action penalty or algorithmic search shadowban.
 3. Marketing requests dark-pattern tracking (e.g. tracking visitors across external third-party sites without consent).
+

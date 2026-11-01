@@ -142,3 +142,4 @@ Immediately halt and escalate to the user when:
 1. A live database migration on a table with >1M rows requires an exclusive lock that exceeds the 2-second safety timeout.
 2. External payment or third-party webhooks do not provide unique event IDs, requiring custom deduplication heuristics.
 3. Persistent database deadlocks occur under high concurrency requiring schema-level redesign.
+

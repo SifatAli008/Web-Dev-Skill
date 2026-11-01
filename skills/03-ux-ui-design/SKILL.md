@@ -125,3 +125,4 @@ Immediately halt and escalate to the user when:
 1. Brand guidelines or marketing assets fail mandatory WCAG 2.2 AA contrast ratios and stakeholder refuses to adjust color values.
 2. Complex bespoke canvas or WebGL interactions cannot be made accessible to screen readers without building a parallel DOM tree.
 3. User requests completely unlabelled icon-only navigation buttons with zero tooltips or text descriptions.
+

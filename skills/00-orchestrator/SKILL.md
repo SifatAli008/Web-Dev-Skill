@@ -135,3 +135,4 @@ Halt and ask the user immediately when:
 1. A user request involves public authentication or payments, but asks to bypass security or tests.
 2. An irreversible action is required: deleting database tables, dropping schemas, force-pushing, or incurring cloud costs.
 3. Requirements are fundamentally contradictory (e.g. strict GDPR compliance requested alongside covert tracking without user consent).
+

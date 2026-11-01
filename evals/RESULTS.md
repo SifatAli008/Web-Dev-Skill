@@ -31,3 +31,4 @@ This document records measured performance metrics comparing agents running **Wi
 | `task-09-non-technical-founder` | Non-Technical Founder | MVP | TBD | TBD | TBD | TBD |
 
 *Note: Benchmarks will be executed systematically during Phase 5.*
+

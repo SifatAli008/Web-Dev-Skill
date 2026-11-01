@@ -45,3 +45,4 @@ This catalogue details documented traps, cognitive failures, and security anti-p
 - **Symptom:** Injecting Google Analytics / Meta Pixel scripts directly into `<head>` without checking user consent or providing opt-out mechanisms.
 - **Root Cause:** Ubiquity of tracking snippets in web examples.
 - **Countermeasure:** `07-privacy-compliance` HARD VETO: Server-side or consent-gated tracking strictly enforced.
+

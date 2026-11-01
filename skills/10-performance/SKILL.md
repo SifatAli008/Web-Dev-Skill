@@ -137,3 +137,4 @@ Immediately halt and escalate to the user when:
 1. Core Web Vitals on a critical revenue route (e.g. Checkout or Landing) fail Google search ranking thresholds (LCP > 4.0s, INP > 500ms) with third-party tag blocking.
 2. Cloud hosting bandwidth costs spike due to un-cached heavy video or high-resolution media delivery.
 3. Server TTFB exceeds 1.5 seconds under standard load due to database connection starvation.
+

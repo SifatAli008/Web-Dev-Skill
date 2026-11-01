@@ -92,3 +92,4 @@ Every technical claim in this repository is tagged with one of three epistemic l
 - **`LEGACY-CODE-FEATHERS`**: Michael Feathers, "Working Effectively with Legacy Code" (Prentice Hall, 2004). [BEST PRACTICE]
 - **`REFACTORING-FOWLER`**: Martin Fowler, "Refactoring: Improving the Design of Existing Code" (Addison-Wesley, 2nd ed. 2018). [BEST PRACTICE]
 - **`DEPENDENCY-HEALTH`**: OpenSSF (Open Source Security Foundation) Scorecard and Dependency Hygiene. https://scorecard.dev/ [BEST PRACTICE]
+

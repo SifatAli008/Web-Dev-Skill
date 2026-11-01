@@ -129,3 +129,4 @@ Immediately halt and escalate to the user when:
 1. User chargeback / dispute rates exceed 0.75%, threatening immediate merchant account termination by Visa/Mastercard/Stripe.
 2. Stripe or payment processor places a hold or reserve on incoming funds due to fraud or compliance flags.
 3. Customer operates in heavily restricted financial or sanctioned jurisdictions (OFAC compliance).
+
