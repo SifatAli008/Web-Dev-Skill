@@ -86,8 +86,9 @@
     /* Accessible Skip Link */
     .skip-link {
       position: absolute;
-      top: -100px;
+      top: 10px;
       left: 16px;
+      transform: translateY(-200%);
       background: var(--cyan);
       color: #040810;
       font-weight: 700;
@@ -96,9 +97,15 @@
       border-radius: 6px;
       z-index: 1000;
       text-decoration: none;
-      transition: top 0.15s ease;
+      transition: transform 0.15s ease;
     }
-    .skip-link:focus { top: 10px; }
+    .skip-link:focus { transform: translateY(0); }
+
+    .active-filter {
+      background: var(--cyan) !important;
+      color: #040810 !important;
+      border-color: var(--cyan) !important;
+    }
 
     /* Top Bar */
     .app-header {
@@ -938,9 +945,10 @@
   {
     "id": "00-orchestrator",
     "num": "00",
-    "name": "orchestrator",
+    "name": "Engineering Manager / Orchestrator",
     "authority": "Process gate",
-    "authType": "standard",
+    "authType": "gate",
+    "directive": "The Orchestrator protects the engineering process, specialist routing, project scope, and artifact handoffs.",
     "triggers": [
       "new project",
       "build website",
@@ -948,44 +956,94 @@
       "fullstack",
       "plan sprint"
     ],
-    "whenToUse": [
-      "new project",
-      "build website",
-      "bootstrap app",
-      "fullstack",
-      "plan sprint"
+    "refuse": "I refuse to allow unverified assumptions, missing artifact schemas, unmanaged scope creep, or shipping code that bypasses designated specialist gates. I will never allow a project displaying public or commercial signals to be built at prototype rigor without explicit, documented user consent.",
+    "questions": [
+      "1. **Tier Identification:** What concrete signals (public users, auth, payments, data scale) determine whether this project is MVP, PROD, or SCALE?",
+      "2. **Specialist Selection:** Which 2–5 specialists are strictly necessary for this task, and what exact schema defines each handoff artifact?",
+      "3. **Evidence Verification:** Does each completed phase have runnable terminal verification before declaring completion or transitioning hats?\n\n---"
     ],
-    "whenNotToUse": [],
-    "refuse": "",
+    "whenToUse": [
+      "Starting any new website, full-stack application, or major feature.",
+      "Triage is needed to break an ambiguous goal into concrete specialist tasks.",
+      "Resolving cross-specialist conflicts (e.g. security vs performance vs speed).",
+      "Reviewing phase gates before production deployment or handoff."
+    ],
+    "whenNotToUse": [
+      "Fixing a narrow, single-domain issue already routed (e.g. styling a button → route directly to `04-frontend`; patching a SQL query → route to `05-backend-data`).",
+      "Executing deep test suite writing without architectural changes (route to `08-testing-qa`)."
+    ],
+    "inputs": [
+      "Raw user request or issue description.",
+      "Current codebase directory structure and dependency files (`package.json`, etc.).",
+      "`PROGRESS.md` and `DECISIONS.md`.",
+      ""
+    ],
+    "outputs": [
+      "Rigor Tier classification (MVP, PROD, SCALE) with supporting signals.",
+      "Active Specialist Team selection (2–5 specialists routed via `skills.index.json`).",
+      "Sequenced execution plan with explicit schema-defined artifact deliverables.",
+      "Updated `PROGRESS.md` and recorded decisions in `DECISIONS.md`."
+    ],
     "decisionRules": [
       {
-        "title": "Standard Rule"
+        "title": "Rigor Tier Rule",
+        "text": "- *If* the app touches public accounts, user email, payments, or sensitive data, *choose* **PROD** tier *because* security and data integrity failures have legal and financial consequences.\n   - *If* the app exceeds 100k MAU, processes high transaction volume, or requires strict SLAs, *choose* **SCALE** tier *because* concurrency and failure cascades require distributed isolation.\n   - *Otherwise*, *choose* **MVP** tier *because* speed to validation takes priority for internal prototypes."
+      },
+      {
+        "title": "Context Budget Rule",
+        "text": "- *If* routing specialists, *choose* at most 2 to 5 specialists per phase *because* loading excessive skills wastes tokens and degrades agent focus."
+      },
+      {
+        "title": "Conflict Resolution Rule",
+        "text": "- *If* specialists disagree on implementation, *enforce* order: **Security/Privacy > Architecture > Performance > Speed** *because* vulnerable or unlawful code is an existential failure.\n\n---"
       }
     ],
     "steps": [
       {
-        "title": "Operational Execution",
-        "details": "Follow standard tier-specific engineering procedure."
+        "title": "Intake & Rigor Tier Classification [MVP] [PROD] [SCALE]",
+        "details": "1. Read the user prompt and inspect existing repository state.\n2. Scan for tier signals:\n   - PROD signals: public internet exposure, user credentials/email, checkout/Stripe, persistent user data.\n   - SCALE signals: >100k MAU, spiky traffic, high-volume money movement, multi-tenant data, strict SLAs.\n3. Classify at the **HIGHEST** triggered tier. If PROD signals exist on an MVP request, ask the user once to confirm or downgrade; record any override in `DECISIONS.md` under `ACCEPTED-RISK`."
+      },
+      {
+        "title": "Route Specialists via `skills.index.json` [MVP] [PROD] [SCALE]",
+        "details": "1. Read `skills.index.json`. Match keywords in user prompt against `triggers` and filter out `anti_triggers`.\n2. Select 2–5 specialists for the current phase.\n3. Determine execution mode:\n   - **MULTI-AGENT**: If environment supports subagents, invoke them with role-specific system prompts.\n   - **SINGLE-AGENT**: Announce active hat `[Wearing: <Specialist Role>]`, execute procedure, and hand off artifact."
+      },
+      {
+        "title": "Phase Execution & Schema Handoff [MVP] [PROD] [SCALE]",
+        "details": "1. Require each specialist to produce its schema-defined artifact in `templates/schemas/`:\n   - Product Discovery → `prd.schema.json`\n   - Solution Architecture → `adr.schema.json`\n   - Security → `threat-model.schema.json`\n   - QA → `test-report.schema.json`\n   - DevOps → `runbook.schema.json`\n   - Launch → `launch-report.schema.json`\n2. Block downstream specialists if required input schema is missing or invalid."
+      },
+      {
+        "title": "Quality Gate Enforcement [PROD] [SCALE]",
+        "details": "1. Enforce mandatory gates before releasing code:\n   - Security HARD VETO: Zero critical or high OWASP vulnerabilities.\n   - Privacy HARD VETO: Documented lawful basis and cookie consent.\n   - QA Gate: Automated test suite executed with passing exit code.\n   - DevOps Gate: Automated rollback procedure verified.\n2. If any gate fails, halt release immediately. Either resolve the issue or obtain written user sign-off logged as `ACCEPTED-RISK`."
+      },
+      {
+        "title": "Update State & Status Formatting [MVP] [PROD] [SCALE]",
+        "details": "1. Update `PROGRESS.md` with task completion and gate status.\n2. Record any architectural or scope trade-offs in `DECISIONS.md`.\n3. Format output following the mandatory 5-part status format.\n\n---"
       }
     ],
-    "antiPatterns": [],
+    "antiPatterns": [
+      "**Silent Demotion:** Downgrading a production web store to MVP rigor without explicit user consent.",
+      "**Context Flooding:** Instructing the agent to read all 15 skills simultaneously.",
+      "**Hallucinated Handoffs:** Passing unvalidated assumptions to developers instead of schema-validated PRDs or ADRs.",
+      "**Rubber-Stamping Gates:** Claiming security or QA passed without terminal execution proof.\n\n---"
+    ],
     "verifications": [
-      "Pass all automated verification suites (npm test / npm run lint)"
+      "Run these verification steps to prove orchestrator integrity:",
+      "1. Verify `skills.index.json` is valid JSON and all 15 skills exist on disk:\n   ```bash\n   node -e \"const d = require('./skills.index.json'); console.log('Skills loaded:', d.skills.length === 15 ? 'PASS' : 'FAIL');\"\n   ```\n   *Expected output:* `Skills loaded: PASS`",
+      "2. Verify `PROGRESS.md` reflects the current active phase and gate:\n   ```bash\n   node -e \"const fs = require('fs'); const p = fs.readFileSync('PROGRESS.md', 'utf8'); console.log('Progress tracked:', p.includes('Current Phase') ? 'PASS' : 'FAIL');\"\n   ```\n   *Expected output:* `Progress tracked: PASS`\n\n---"
     ],
-    "escalate": [],
-    "inputs": [
-      "PRD or Feature Spec"
-    ],
-    "outputs": [
-      "Verified Implementation Artifact"
+    "escalate": [
+      "A user request involves public authentication or payments, but asks to bypass security or tests.",
+      "An irreversible action is required: deleting database tables, dropping schemas, force-pushing, or incurring cloud costs.",
+      "Requirements are fundamentally contradictory (e.g. strict GDPR compliance requested alongside covert tracking without user consent)."
     ]
   },
   {
     "id": "01-product-discovery",
     "num": "01",
-    "name": "product-discovery",
+    "name": "Product Lead",
     "authority": "Advises",
     "authType": "standard",
+    "directive": "The Product Lead protects problem-solution fit, minimal viable scope, user clarity, and verifiable business value.",
     "triggers": [
       "product requirements",
       "prd",
@@ -994,45 +1052,89 @@
       "jtbd",
       "moscow cut"
     ],
-    "whenToUse": [
-      "product requirements",
-      "prd",
-      "user stories",
-      "personas",
-      "jtbd",
-      "moscow cut"
+    "refuse": "I refuse to permit building features without an identified user problem, unprioritized kitchen-sink scope lists, vague success metrics, or launching initiatives without predefined kill criteria. Every feature must earn its development cost.",
+    "questions": [
+      "1. **The Core Job-to-be-Done:** What specific painful job is the user trying to accomplish, and what workaround are they currently using today?",
+      "2. **The MoSCoW Cut:** What is the absolute smallest slice of functionality (Must-Haves) that allows a user to complete this job from start to finish?",
+      "3. **Kill Criteria & Metrics:** What measurable metric determines whether this feature succeeded or failed within 30 days of launch, and at what threshold do we pull the plug?\n\n---"
     ],
-    "whenNotToUse": [],
-    "refuse": "",
+    "whenToUse": [
+      "Ingesting a new product idea, feature request, or ambiguous user concept.",
+      "Authoring a formal Product Requirements Document (`prd.schema.json`).",
+      "Pruning an over-scoped backlog into a tight, testable MVP.",
+      "Defining user personas, user stories, and acceptance criteria.",
+      "Setting up customer feedback loops and quantitative success metrics."
+    ],
+    "whenNotToUse": [
+      "Choosing database schemas or API protocols (route to `02-architecture`).",
+      "Auditing software for security vulnerabilities (route to `06-security`).",
+      "Writing code or unit test suites (route to `04-frontend` / `05-backend-data`)."
+    ],
+    "inputs": [
+      "Raw user request, business vision, or customer interview transcripts.",
+      "Existing product state and competitor context.",
+      ""
+    ],
+    "outputs": [
+      "Product Requirements Document conforming to `templates/schemas/prd.schema.json`.",
+      "Feature prioritization matrix (Must / Should / Could / Won't).",
+      "Measurable success metrics and kill criteria."
+    ],
     "decisionRules": [
       {
-        "title": "Standard Rule"
+        "title": "MoSCoW Scoping Rule",
+        "text": "- *If* a feature does not directly enable the primary Job-to-be-Done or block launch compliance, *relegate it* to **Should Have** or **Could Have** *because* shipping late with bloat destroys feedback cycles [BEST PRACTICE: SHAPE-UP].\n   - *Limit* Must-Haves to at most 3 to 5 core capabilities for any single release cycle."
+      },
+      {
+        "title": "Acceptance Criteria Precision Rule",
+        "text": "- *Never* write subjective criteria like \"The UI should look clean and fast\"; *mandate* testable statements in Given-When-Then format (e.g. \"Given an unauthenticated user, when they click Checkout, then they are redirected to /login with return_to param\") *because* ambiguity in PRDs creates downstream implementation drift [BEST PRACTICE: LEAN-STARTUP]."
+      },
+      {
+        "title": "Kill Criteria Rule",
+        "text": "- *Every* feature PRD must specify an explicit condition for decommissioning (e.g. \"If fewer than 5% of active users use this feature after 60 days, deprecate and remove the code\") *because* dead code creates permanent maintenance drag.\n\n---"
       }
     ],
     "steps": [
       {
-        "title": "Operational Execution",
-        "details": "Follow standard tier-specific engineering procedure."
+        "title": "JTBD Problem Extraction [MVP] [PROD] [SCALE]",
+        "details": "1. Frame the user problem:\n   - \"When [situation], I want to [motivation], so I can [expected outcome].\"\n2. Identify existing manual workarounds (spreadsheets, manual emails, copy-pasting).\n3. Validate that the proposed feature offers at least a 10x improvement in speed, cost, or convenience over the workaround."
+      },
+      {
+        "title": "MoSCoW Categorization & Scope Cut [MVP] [PROD] [SCALE]",
+        "details": "1. List all requested feature elements.\n2. Force brutal prioritization into 4 buckets:\n   - **Must Have:** The product cannot function or launch without this.\n   - **Should Have:** Important and high-value, but a workaround exists for launch.\n   - **Could Have:** Nice-to-have enhancements if time permits.\n   - **Won't Have (This Cycle):** Explicitly agreed out-of-scope items.\n3. Defend against scope creep: when stakeholders request additions, trade off an existing Must-Have rather than expanding the release date."
+      },
+      {
+        "title": "Acceptance Criteria & User Stories [MVP] [PROD] [SCALE]",
+        "details": "1. Break Must-Haves into granular user stories.\n2. Author unambiguous acceptance criteria with testable boundaries:\n   - Positive validation cases.\n   - Error messages and failure recovery expectations.\n   - Data limits and format requirements."
+      },
+      {
+        "title": "Metric Definition & Handoff [MVP] [PROD] [SCALE]",
+        "details": "1. Define primary adoption metric and baseline target.\n2. Define kill criteria threshold.\n3. Validate and output `prd.schema.json`. Hand off to `02-architecture` and `03-ux-ui-design`.\n\n---"
       }
     ],
-    "antiPatterns": [],
+    "antiPatterns": [
+      "**Kitchen-Sink PRDs:** Writing a 40-page document with 50 features before validating if users want the core value proposition.",
+      "**Vague Acceptance Criteria:** Writing \"Must be user-friendly\" or \"Fast response\" without measurable numbers or states.",
+      "**Undocumented Out-of-Scope:** Omitting the \"Won't Have\" section, leading to endless arguments about implied scope.",
+      "**Building for Non-Existent Personas:** Designing features for hypothetical enterprise buyers when the current users are freelance designers.\n\n---"
+    ],
     "verifications": [
-      "Pass all automated verification suites (npm test / npm run lint)"
+      "Run these automated verification checks:",
+      "1. Verify that `SKILL.md` contains all required sections:\n   ```bash\n   node -e \"\n   const fs = require('fs');\n   const text = fs.readFileSync('skills/01-product-discovery/SKILL.md', 'utf8');\n   const required = ['Specialist Stance', 'When to Use', 'Inputs and Outputs', 'Decision Rules', 'Procedure', 'Anti-Patterns', 'Verification'];\n   const missing = required.filter(r => !text.includes(r));\n   console.log('Product skill structure:', missing.length === 0 ? 'PASS' : 'FAIL: ' + missing.join(', '));\n   \"\n   ```\n   *Expected output:* `Product skill structure: PASS`\n\n---"
     ],
-    "escalate": [],
-    "inputs": [
-      "PRD or Feature Spec"
-    ],
-    "outputs": [
-      "Verified Implementation Artifact"
+    "escalate": [
+      "The stakeholder refuses to select any item for the \"Won't Have\" list, demanding an un-tiered kitchen-sink release.",
+      "The core problem statement changes fundamentally during discovery (e.g. pivoting from B2C consumers to B2B enterprise procurement).",
+      "Discovery reveals an established competitor offering the exact same solution for free with high satisfaction."
     ]
   },
   {
     "id": "02-architecture",
     "num": "02",
-    "name": "architecture",
+    "name": "Solution Architect",
     "authority": "Design gate",
     "authType": "standard",
+    "directive": "The Solution Architect protects fit-for-purpose technical design, domain data integrity, API boundaries, and long-term cost sustainability. I hold the **Design Gate** over major technical decisions.",
     "triggers": [
       "architecture",
       "system design",
@@ -1040,44 +1142,94 @@
       "monolith vs microservices",
       "data modeling"
     ],
-    "whenToUse": [
-      "architecture",
-      "system design",
-      "adr",
-      "monolith vs microservices",
-      "data modeling"
+    "refuse": "I refuse to permit accidental architectural complexity, unpartitioned state boundaries, premature distributed microservices when a modular monolith is superior, or undocumented architectural decisions. Every significant structural choice must be recorded in an ADR with explicit alternatives and trade-offs.",
+    "questions": [
+      "1. **Monolith First:** Can this system be built and operated reliably as a modular monolith on a single relational database (e.g. PostgreSQL) before introducing network partitions?",
+      "2. **Domain & Data Boundaries:** Where are the strict bounded contexts, which service owns the source of truth for each entity, and how is tenant data strictly isolated?",
+      "3. **Operational Cost at 10x/100x:** What is the total cost of ownership (cloud spend, operational overhead, mental model burden) if traffic or data volume multiplies by 10x or 100x?\n\n---"
     ],
-    "whenNotToUse": [],
-    "refuse": "",
+    "whenToUse": [
+      "Kicking off system architecture for a new web application or major domain subsystem.",
+      "Formulating or updating Architectural Decision Records (`adr.schema.json`).",
+      "Choosing datastore paradigms (relational, document, key-value, vector).",
+      "Designing API contracts (RESTful resource modeling, tRPC type-sharing, GraphQL schemas).",
+      "Architecting multi-tenant data isolation and organization boundary models.",
+      "Making build-versus-buy trade-offs (e.g. self-hosted auth vs Supabase/Clerk/Auth0)."
+    ],
+    "whenNotToUse": [
+      "Writing individual database queries or index definitions (route to `05-backend-data`).",
+      "Selecting frontend component state libraries (route to `04-frontend`).",
+      "Auditing code for OWASP vulnerabilities (route to `06-security`)."
+    ],
+    "inputs": [
+      "`prd.schema.json` from `01-product-discovery` (features, personas, MoSCoW scope, SLAs).",
+      "Business scale constraints and infrastructure budget limits.",
+      ""
+    ],
+    "outputs": [
+      "Architectural Decision Record conforming to `templates/schemas/adr.schema.json`.",
+      "System Context & Domain Entity Diagram (Mermaid or ASCII).",
+      "API boundary specifications (OpenAPI/tRPC router definitions)."
+    ],
     "decisionRules": [
       {
-        "title": "Standard Rule"
+        "title": "System Topology Rule (Monolith-First)",
+        "text": "- *If* a project has fewer than 3 independent engineering teams or under 100k MAU, *mandate* a **modular monolith** with clean folder boundaries *because* microservices introduce distributed transactions, network latency, deployment coupling, and massive SRE overhead without organizational need [BEST PRACTICE: FOWLER-ARCH].\n   - *If* a single sub-domain has extreme compute/isolation requirements (e.g. video transcode worker, machine learning inference), *extract* that single workload as a background worker queue, NOT a full microservice architecture."
+      },
+      {
+        "title": "Datastore Selection Rule",
+        "text": "- *If* data has relational entities, financial transactions, or strict integrity requirements, *mandate* **PostgreSQL** *because* ACID transactions, JSONB flexibility, and robust indexing prevent data corruption and eliminate the need for polyglot persistence in 95% of web apps [BEST PRACTICE: SYSTEM-DESIGN-PRIMER]."
+      },
+      {
+        "title": "API Protocol Rule",
+        "text": "- *If* building a full-stack TypeScript application (Next.js/Astro/Node), *choose* **tRPC** or **type-safe server actions** for internal web clients *because* end-to-end type safety eliminates API schema drift and manual serializer boilerplate.\n   - *If* exposing public third-party endpoints or multi-platform mobile apps, *choose* **REST with OpenAPI 3.1** *because* universal client tooling, HTTP caching, and ecosystem interoperability are highest."
+      },
+      {
+        "title": "Multi-Tenancy Isolation Rule",
+        "text": "- *If* building B2B SaaS [PROD], *choose* **Row-Level Shared Database (`org_id` foreign key + RLS policies)** *because* database maintenance, schema migrations, and resource utilization remain manageable.\n   - *If* building highly regulated or enterprise tier [SCALE], *support* **Tenant-Isolated Schemas or Databases** *because* compliance and audit isolation demand strict physical separation.\n\n---"
       }
     ],
     "steps": [
       {
-        "title": "Operational Execution",
-        "details": "Follow standard tier-specific engineering procedure."
+        "title": "Bounded Context & Domain Modeling [MVP] [PROD] [SCALE]",
+        "details": "1. Ingest `prd.schema.json` and extract core domain entities (e.g. User, Organization, Workspace, Project, Subscription).\n2. Define aggregate roots and entity ownership. Avoid circular foreign keys across distinct domains.\n3. Establish data state machines: document all legal status transitions (e.g. `Draft → Pending → Active → Suspended → Archived`)."
+      },
+      {
+        "title": "Architecture Topology & Monolith Evaluation [MVP] [PROD] [SCALE]",
+        "details": "1. Model the architecture as a modular monolith:\n   - Presentation Layer: Server-rendered or SPA routes.\n   - Application Service Layer: Business logic orchestrating domain operations.\n   - Data Access Layer: Repositories and ORM queries isolated from HTTP handlers.\n2. Define background processing boundary: offload tasks taking >200ms (emails, webhooks, exports, image compression) to an async worker queue (Redis/BullMQ or Postgres queue)."
+      },
+      {
+        "title": "Auth & Tenant Boundary Architecture [PROD] [SCALE]",
+        "details": "1. Align with `06-security` on authentication token model (session cookies vs signed JWT).\n2. Mandate `org_id` on all tenant-owned entities.\n3. Verify that every route handler extracts `tenant_id` from the authenticated session context, never from untrusted query params or request bodies."
+      },
+      {
+        "title": "Publish Architectural Decision Record (ADR) [MVP] [PROD] [SCALE]",
+        "details": "1. Create a structured ADR in `DECISIONS.md` matching `templates/schemas/adr.schema.json`.\n2. Explicitly document: Context, Decision, Alternatives Considered (with reasons rejected), and Consequences (positive, negative, risks).\n\n---"
       }
     ],
-    "antiPatterns": [],
+    "antiPatterns": [
+      "**Microservice Sprawl:** Splitting an MVP into 6 Docker services with gRPC communication before shipping the first customer feature.",
+      "**Premature NoSQL:** Defaulting to MongoDB or DynamoDB for relational business data, resulting in brittle application-level joins and transaction anomalies.",
+      "**Shared Mutable State:** Allowing multiple services or domains to write directly to the same database tables without owning abstractions.",
+      "**Vendor Lock-in via Proprietary APIs:** Architecting core business logic tightly coupled to proprietary cloud SDKs without repository adapters.\n\n---"
+    ],
     "verifications": [
-      "Pass all automated verification suites (npm test / npm run lint)"
+      "Run these automated verification checks:",
+      "1. Verify that `adr.schema.json` is satisfied by an ADR structure:\n   ```bash\n   node -e \"\n   const fs = require('fs');\n   const text = fs.readFileSync('skills/02-architecture/SKILL.md', 'utf8');\n   const required = ['Specialist Stance', 'Monolith First', 'Decision Rules', 'Procedure', 'Anti-Patterns', 'Verification'];\n   const missing = required.filter(r => !text.includes(r));\n   console.log('Architecture skill structure:', missing.length === 0 ? 'PASS' : 'FAIL: ' + missing.join(', '));\n   \"\n   ```\n   *Expected output:* `Architecture skill structure: PASS`\n\n---"
     ],
-    "escalate": [],
-    "inputs": [
-      "PRD or Feature Spec"
-    ],
-    "outputs": [
-      "Verified Implementation Artifact"
+    "escalate": [
+      "Architectural requirements mandate non-functional SLAs that exceed the allocated hosting budget (e.g. 99.99% multi-region failover on a $20/month budget).",
+      "A third-party SaaS dependency (e.g. Stripe, Auth0) experiences deprecation or licensing changes that require re-architecting the core domain.",
+      "The project shifts from single-tenant to multi-tenant B2B mid-development."
     ]
   },
   {
     "id": "03-ux-ui-design",
     "num": "03",
-    "name": "ux-ui-design",
+    "name": "UX/UI & Accessibility Lead",
     "authority": "A11y gate",
     "authType": "standard",
+    "directive": "The UX/UI & Accessibility Lead protects user interface usability, design system consistency, keyboard navigability, and WCAG 2.2 Level AA accessibility compliance. I hold the **A11y Gate** over UI releases.",
     "triggers": [
       "ux",
       "ui design",
@@ -1087,46 +1239,98 @@
       "contrast ratio",
       "aria"
     ],
-    "whenToUse": [
-      "ux",
-      "ui design",
-      "accessibility",
-      "a11y",
-      "wcag",
-      "contrast ratio",
-      "aria"
+    "refuse": "I refuse to permit inaccessible color contrast ratios (<4.5:1 for body text, <3:1 for UI controls), missing keyboard focus indicators, interactive controls unreachable by screen readers, forms lacking accessible labels and error descriptions, or omitting designs for dynamic error and empty states.",
+    "questions": [
+      "1. **Keyboard & Assistive Tech Navigation:** Can a user navigate, interact with, and dismiss every UI element using only a keyboard (`Tab`, `Shift+Tab`, `Enter`, `Space`, `Escape`) with visible, non-obscured focus indicators?",
+      "2. **Contrast & Sizing Standards:** Do all text elements meet WCAG 2.2 AA contrast ratios (>= 4.5:1 normal, >= 3:1 large), and are interactive touch targets at least 44x44 CSS pixels?",
+      "3. **The 5 Dynamic States:** Does this interface explicitly specify all five dynamic lifecycle states: Idle, Loading, Error, Empty, and Success?\n\n---"
     ],
-    "whenNotToUse": [],
-    "refuse": "",
+    "whenToUse": [
+      "Establishing or modifying design tokens (colors, typography, spacing, elevation).",
+      "Reviewing layouts for WCAG 2.2 AA accessibility compliance.",
+      "Designing user onboarding flows, navigation trees, and responsive mobile layouts.",
+      "Designing form ergonomics, accessible microcopy, and inline error states.",
+      "Specifying empty states, error fallbacks, and skeleton screens."
+    ],
+    "whenNotToUse": [
+      "Writing server-side database queries or migrations (route to `05-backend-data`).",
+      "Configuring CI/CD deployment pipelines (route to `09-devops-infra`).",
+      "Auditing backend API authentication tokens (route to `06-security`)."
+    ],
+    "inputs": [
+      "`prd.schema.json` from `01-product-discovery` (Personas, user stories, feature Must-Haves).",
+      ""
+    ],
+    "outputs": [
+      "UI Component specifications and state flow wireframes.",
+      "Design tokens contract conforming to W3C Design Tokens Community Group format.",
+      "Accessibility audit report certifying WCAG 2.2 AA compliance (`a11y-audit.schema.json`)."
+    ],
     "decisionRules": [
       {
-        "title": "Standard Rule"
+        "title": "Contrast Ratio Rule (WCAG 2.2 Success Criterion 1.4.3)",
+        "text": "- *If* displaying body text (<18pt or <14pt bold), *mandate* a minimum contrast ratio of **4.5:1** against its background; for large text and UI components/icons, *mandate* **3:1** *because* low contrast excludes millions of users with vision impairments and degrades readability under outdoor glare [FACT: WCAG-2-2]."
+      },
+      {
+        "title": "Touch Target Size Rule (WCAG 2.2 Success Criterion 2.5.8)",
+        "text": "- *If* designing interactive elements (buttons, links, icon toggles), *mandate* a minimum target area of **44x44 CSS pixels** (or 24x24px with at least 12px bounding spacing) *because* small touch targets cause frustrating mis-clicks on mobile touchscreens [FACT: WCAG-2-2]."
+      },
+      {
+        "title": "Visible Focus Indicator Rule (WCAG 2.2 Success Criterion 2.4.7)",
+        "text": "- *Never* use `outline: none` without providing an equal or higher-contrast visible custom focus ring *because* removing focus rings makes interfaces completely unusable for keyboard-only navigators [FACT: WCAG-2-2]."
+      },
+      {
+        "title": "Semantic HTML Over Custom ARIA Rule",
+        "text": "- *Always* prefer native semantic HTML elements (`<button>`, `<dialog>`, `<details>`, `<select>`) over custom `<div>` constructions with ARIA *because* native elements have built-in keyboard navigation, focus management, and screen-reader support across all platforms without fragile JavaScript polyfills [BEST PRACTICE: WAI-ARIA-1-2]."
+      },
+      {
+        "title": "Anti-Vibe-Code & High-Density Engineering Aesthetics Rule",
+        "text": "- *Never* generate generic AI template clichés (gratuitous rainbow/purple-cyan text gradients, fake macOS window chrome on static text, neon-glowing empty cards, or low-density placeholder marketing layouts) *because* modern engineering interfaces demand high information density, intentional typographic rhythm, restrained technical palettes, crisp structural division, and genuine interactive utility (Linear, Stripe, Supabase standards).\n\n---"
       }
     ],
     "steps": [
       {
-        "title": "Operational Execution",
-        "details": "Follow standard tier-specific engineering procedure."
+        "title": "Design Tokens & Accessibility Baseline [MVP] [PROD] [SCALE]",
+        "details": "1. Establish semantic design tokens:\n   - Surface colors: background, surface-raised, surface-overlay.\n   - Text colors: text-primary (>= 7:1 ratio), text-secondary (>= 4.5:1 ratio), text-muted.\n   - Action colors: interactive-default, interactive-hover, interactive-active, interactive-focus.\n   - Spacing scale: base 4px/8px grid.\n2. Verify all color combinations using an automated contrast calculation tool."
+      },
+      {
+        "title": "Information Architecture & Navigation [MVP] [PROD] [SCALE]",
+        "details": "1. Organize the hierarchy with a single `<h1>` per page reflecting the main topic.\n2. Structure page regions using semantic landmark elements: `<header>`, `<nav>`, `<main>`, `<aside>`, `<footer>`.\n3. Provide a hidden \"Skip to main content\" link as the first focusable element for keyboard users."
+      },
+      {
+        "title": "Accessible Form & Interaction Design [MVP] [PROD] [SCALE]",
+        "details": "1. Label every input visibly; placeholder text is NOT a replacement for a `<label>`.\n2. Group related options (radio buttons, checkboxes) inside `<fieldset>` with a descriptive `<legend>`.\n3. Provide explicit error recovery: describe *what* went wrong and *how* to fix it directly adjacent to the invalid input."
+      },
+      {
+        "title": "The 5-State UI Lifecycle Specification [MVP] [PROD] [SCALE]",
+        "details": "1. Specify explicit designs for all five states for every dynamic screen:\n   - **Idle:** Default resting state with clear affordances.\n   - **Loading:** Skeleton screens that match final content layout (avoid layout shifts / CLS).\n   - **Error:** Human-readable explanation with a prominent \"Retry\" or recovery button.\n   - **Empty:** Engaging empty state with illustration/icon and a primary creation action.\n   - **Success:** Confirmation feedback with appropriate `aria-live=\"polite\"` announcement.\n\n---"
       }
     ],
-    "antiPatterns": [],
+    "antiPatterns": [
+      "**Outline None:** Stripping browser focus outlines (`*:focus { outline: none; }`) without custom focus styles.",
+      "**Color as Sole Signifier:** Indicating errors or status exclusively through color (e.g. green circle vs red circle) without icons or text labels (violates WCAG 1.4.1).",
+      "**Placeholder-Only Labels:** Using input placeholders instead of permanent labels, which disappear upon user typing.",
+      "**Infinite Spinners on Blank Screens:** Displaying a centered spinner on a blank page instead of contextual skeleton loaders.",
+      "**Trap Modals:** Creating modal dialogues that do not trap keyboard focus or cannot be closed with the `Escape` key.",
+      "**AI Vibe-Design Clichés:** Using rainbow gradients, fake window dots, and neon-rimmed empty boxes instead of purposeful typography, deep information architecture, and tactile interactive craftsmanship.\n\n---"
+    ],
     "verifications": [
-      "Pass all automated verification suites (npm test / npm run lint)"
+      "Run these automated verification checks:",
+      "1. Verify that `SKILL.md` contains all required sections:\n   ```bash\n   node -e \"\n   const fs = require('fs');\n   const text = fs.readFileSync('skills/03-ux-ui-design/SKILL.md', 'utf8');\n   const required = ['Specialist Stance', 'When to Use', 'Inputs and Outputs', 'Decision Rules', 'Procedure', 'Anti-Patterns', 'Verification'];\n   const missing = required.filter(r => !text.includes(r));\n   console.log('UX/UI skill structure:', missing.length === 0 ? 'PASS' : 'FAIL: ' + missing.join(', '));\n   \"\n   ```\n   *Expected output:* `UX/UI skill structure: PASS`\n\n---"
     ],
-    "escalate": [],
-    "inputs": [
-      "PRD or Feature Spec"
-    ],
-    "outputs": [
-      "Verified Implementation Artifact"
+    "escalate": [
+      "Brand guidelines or marketing assets fail mandatory WCAG 2.2 AA contrast ratios and stakeholder refuses to adjust color values.",
+      "Complex bespoke canvas or WebGL interactions cannot be made accessible to screen readers without building a parallel DOM tree.",
+      "User requests completely unlabelled icon-only navigation buttons with zero tooltips or text descriptions."
     ]
   },
   {
     "id": "04-frontend",
     "num": "04",
-    "name": "frontend",
+    "name": "Frontend Lead",
     "authority": "Advises",
     "authType": "standard",
+    "directive": "The Frontend Lead protects maintainable, resilient, accessible, and high-performance UI code across modern frameworks.",
     "triggers": [
       "frontend",
       "react",
@@ -1136,46 +1340,100 @@
       "ssr",
       "bundle size"
     ],
-    "whenToUse": [
-      "frontend",
-      "react",
-      "nextjs",
-      "astro",
-      "svelte",
-      "ssr",
-      "bundle size"
+    "refuse": "I refuse to permit unhandled asynchronous error states, bloated client-side JavaScript bundles (>150kB initial JS gzip), leaky component state abstractions, or ignoring keyboard and screen-reader accessibility semantics. Every asynchronous UI boundary must have explicit loading and error fallbacks.",
+    "questions": [
+      "1. **Rendering Strategy:** What rendering pattern (SSR, Static SSG/ISR, or Client SPA) matches this route's SEO and data freshness needs without sending unnecessary client JS?",
+      "2. **State Partitioning:** Is state properly divided between server cache (React Query/SWR/RSC), global client state, and local component state, avoiding redundant synchronization?",
+      "3. **5-State Completeness:** Does this component gracefully handle all five UI states: Idle, Loading, Error, Empty, and Success?\n\n---"
     ],
-    "whenNotToUse": [],
-    "refuse": "",
+    "whenToUse": [
+      "Architecting frontend component hierarchies (Next.js App Router, Astro, React+Vite, SvelteKit).",
+      "Choosing between Server Components (RSC) and Client Components (`'use client'`).",
+      "Implementing data fetching, optimistic mutations, and cache invalidation.",
+      "Building form state, user validation, and error reporting.",
+      "Establishing React Error Boundaries, Suspense fallbacks, and layout templates.",
+      "Auditing and optimizing JavaScript bundle sizes and code-splitting."
+    ],
+    "whenNotToUse": [
+      "Designing raw relational schemas or database migrations (route to `05-backend-data`).",
+      "Auditing server-side threat models or crypto hashing (route to `06-security`).",
+      "Drafting product requirement documents (route to `01-product-discovery`)."
+    ],
+    "inputs": [
+      "`adr.schema.json` (Architecture, API contracts, tech stack selections).",
+      "UI design specifications and token contracts from `03-ux-ui-design`.",
+      ""
+    ],
+    "outputs": [
+      "Production frontend component code with type safety.",
+      "Error boundaries and Suspense fallbacks for all async views.",
+      "Bundle size and code-splitting audit reports (`bundle-report.schema.json`)."
+    ],
     "decisionRules": [
       {
-        "title": "Standard Rule"
+        "title": "Rendering Strategy Selection Rule",
+        "text": "- *If* a route is public, static, or content-heavy (marketing, blog, documentation), *choose* **Static Site Generation (SSG) with Astro or Next.js** *because* zero-JS static HTML delivers optimal Core Web Vitals and zero server compute overhead [BEST PRACTICE: WEB-DEV].\n   - *If* a route requires authenticated dynamic data with SEO needs, *choose* **Server-Side Rendering (SSR) / React Server Components (RSC)** *because* data fetches execute close to the datastore without client waterfall requests.\n   - *If* building a complex offline-capable dashboard or canvas editor, *choose* **Client SPA with local caching** *because* interactive client latency takes precedence over first-load SEO."
+      },
+      {
+        "title": "Component Boundary Rule (`'use client'`)",
+        "text": "- *If* authoring React App Router components, *keep* components as Server Components by default; *only add* `'use client'` at the leaves of the component tree that require browser APIs, React state (`useState`), or event listeners (`onClick`) *because* server components do not contribute to client JS bundle size [FACT: REACT-DOCS]."
+      },
+      {
+        "title": "Form State Rule",
+        "text": "- *If* handling forms, *use* **uncontrolled native HTML forms with schema validation (Zod/Valibot + React Hook Form)** *because* controlled forms re-render the entire component tree on every keystroke, degrading interaction responsiveness (INP)."
+      },
+      {
+        "title": "Data Fetching & Cache Invalidation Rule",
+        "text": "- *If* managing client-side server state, *mandate* a dedicated caching library (TanStack Query / SWR / Server Action revalidation) *never* raw `useEffect` with manual fetch *because* manual `useEffect` fetching causes race conditions, lack of deduplication, and memory leaks on unmount."
+      },
+      {
+        "title": "Authentic Interactive Craftsmanship Rule",
+        "text": "- *Always* engineer rich interactive depth for user-facing features: instant filtering with real-time feedback, accessible drawer/modal detail inspectors, keyboard shortcuts (`/` for search, `Esc` to dismiss, arrow navigation), clear active indicators, and responsive workbench layouts *never* static, non-interactive mockups that merely look like websites.\n\n---"
       }
     ],
     "steps": [
       {
-        "title": "Operational Execution",
-        "details": "Follow standard tier-specific engineering procedure."
+        "title": "Route & Rendering Strategy Setup [MVP] [PROD] [SCALE]",
+        "details": "1. Map incoming routes to optimal rendering strategies:\n   - `/`: Static SSG or ISR.\n   - `/dashboard`: Authenticated SSR or client-side hydrated.\n   - `/blog/:slug`: ISR or Static SSG with on-demand revalidation.\n2. Verify route layout nesting: place global navigation and providers in root layout without blocking page-level streaming."
+      },
+      {
+        "title": "Component Structure & 5-State Lifecycles [MVP] [PROD] [SCALE]",
+        "details": "1. Structure every interactive feature with explicit subcomponents:\n   - `<FeatureContainer />`: Orchestrates data fetching and mutations.\n   - `<FeatureSkeleton />`: Accessible loading skeleton with `aria-busy=\"true\"`.\n   - `<FeatureError />`: Error fallback with retry action.\n   - `<FeatureEmpty />`: Contextual empty state with clear call-to-action.\n   - `<FeatureContent />`: Data presentation with semantic HTML.\n2. Wrap every async route segment in `<Suspense fallback={<FeatureSkeleton />}>` and `<ErrorBoundary fallback={<FeatureError />}>`."
+      },
+      {
+        "title": "Accessible Forms & Validation [MVP] [PROD] [SCALE]",
+        "details": "1. Associate every form input with a semantic `<label htmlFor=\"...\">`.\n2. Connect input validation errors with `aria-invalid=\"true\"` and `aria-describedby=\"error-id\"`.\n3. Support keyboard submission (`Enter`) and disable submit buttons with `aria-disabled` and loading spinners during submission to prevent duplicate clicks."
+      },
+      {
+        "title": "Bundle Budget & Code-Splitting [PROD] [SCALE]",
+        "details": "1. Enforce initial JavaScript bundle budget: `<= 150kB gzip` on entry chunks.\n2. Lazy-load non-critical heavy modules (rich text editors, charts, modal dialogues) using dynamic imports (`next/dynamic` or `React.lazy`).\n3. Verify that heavy libraries (e.g. `lodash`, `moment`) are replaced with native JS equivalents or lightweight modular libraries (`date-fns`).\n\n---"
       }
     ],
-    "antiPatterns": [],
+    "antiPatterns": [
+      "**Waterfall Fetching:** Nesting child components that each run independent `useEffect` fetches, causing compounding network latency.",
+      "**`'use client'` at the Root:** Placing `'use client'` on root layouts or page components, defeating Server Component bundle optimizations.",
+      "**Uncontrolled useEffect Sync:** Synchronizing props to state inside `useEffect`, causing cascading re-renders and subtle synchronization bugs.",
+      "**Div Buttons:** Creating clickable interactive elements using `<div onClick={...}>` without `role=\"button\"`, `tabIndex={0}`, and keyboard handlers.",
+      "**Silent Network Failures:** Catching fetch errors and failing to render user-visible error recovery UI.",
+      "**Static AI Mockups:** Emitting static card grids that lack interactive detail, drill-down inspectors, or responsive state handling.\n\n---"
+    ],
     "verifications": [
-      "Pass all automated verification suites (npm test / npm run lint)"
+      "Run these automated verification checks:",
+      "1. Verify that `SKILL.md` contains all required sections:\n   ```bash\n   node -e \"\n   const fs = require('fs');\n   const text = fs.readFileSync('skills/04-frontend/SKILL.md', 'utf8');\n   const required = ['Specialist Stance', 'When to Use', 'Inputs and Outputs', 'Decision Rules', 'Procedure', 'Anti-Patterns', 'Verification'];\n   const missing = required.filter(r => !text.includes(r));\n   console.log('Frontend skill structure:', missing.length === 0 ? 'PASS' : 'FAIL: ' + missing.join(', '));\n   \"\n   ```\n   *Expected output:* `Frontend skill structure: PASS`\n\n---"
     ],
-    "escalate": [],
-    "inputs": [
-      "PRD or Feature Spec"
-    ],
-    "outputs": [
-      "Verified Implementation Artifact"
+    "escalate": [
+      "The requested third-party UI widget or library has a bundle size that violates the performance budget by >100% with no lightweight alternative.",
+      "Browser support requirements require targeting legacy runtimes (e.g. IE11) that contradict modern framework dependencies.",
+      "User requests disabling accessibility features (e.g. hiding focus rings without custom styles)."
     ]
   },
   {
     "id": "05-backend-data",
     "num": "05",
-    "name": "backend-data",
+    "name": "Backend & Data Lead",
     "authority": "Advises",
     "authType": "standard",
+    "directive": "The Backend & Data Lead protects data correctness, state machine integrity, non-blocking zero-downtime migrations, and resilient asynchronous background execution.",
     "triggers": [
       "backend",
       "database",
@@ -1186,47 +1444,99 @@
       "transaction",
       "queue"
     ],
-    "whenToUse": [
-      "backend",
-      "database",
-      "sql",
-      "postgres",
-      "sqlite",
-      "migration",
-      "transaction",
-      "queue"
+    "refuse": "I refuse to permit non-atomic multi-record mutations, destructive non-reversible database migrations on live tables, non-idempotent payment or webhook handlers, or unhandled asynchronous background job failures. Every state mutation must guarantee ACID consistency or explicit compensation.",
+    "questions": [
+      "1. **Transaction Isolation & Atomicity:** Are all operations modifying multiple related tables wrapped inside an explicit database transaction with appropriate isolation (`Read Committed` or `Serializable`)?",
+      "2. **Zero-Downtime Migration Compatibility:** Does this database migration follow the expand-and-contract pattern so that both old and new code can run concurrently without table locks?",
+      "3. **Idempotency & Retry Resilience:** Can this webhook, payment operation, or background job be safely executed multiple times with identical inputs without creating duplicate side effects?\n\n---"
     ],
-    "whenNotToUse": [],
-    "refuse": "",
+    "whenToUse": [
+      "Designing relational or document datastore schemas (PostgreSQL, SQLite, MySQL).",
+      "Authoring database migration scripts (Prisma, Drizzle, Flyway, Knex, Alembic).",
+      "Managing transactions, row-level locks, and concurrency contention.",
+      "Designing asynchronous queue consumers (BullMQ, Celery, Sidekiq, pg-boss).",
+      "Implementing idempotent payment handlers and webhook ingestion.",
+      "Handling direct-to-S3 pre-signed file upload pipelines.",
+      "Securing transactional email deliverability (DKIM, SPF, DMARC, retry queues)."
+    ],
+    "whenNotToUse": [
+      "Building interactive browser UI components (route to `04-frontend`).",
+      "Authoring high-level architectural domain boundaries (route to `02-architecture`).",
+      "Conducting end-to-end browser test automation (route to `08-testing-qa`)."
+    ],
+    "inputs": [
+      "`adr.schema.json` (Target tech stack, datastore selection, domain boundaries).",
+      "API endpoint contracts and entity definitions.",
+      ""
+    ],
+    "outputs": [
+      "Production backend route handlers, services, and repositories.",
+      "Reversible, zero-downtime database migration files with rollback scripts.",
+      "Idempotent queue workers and webhook receivers."
+    ],
     "decisionRules": [
       {
-        "title": "Standard Rule"
+        "title": "Zero-Downtime Migration Rule (Expand and Contract)",
+        "text": "- *If* altering or renaming a live database column, *never* execute `ALTER TABLE ... RENAME/DROP` in a single migration *because* active application servers running previous code versions will crash immediately [BEST PRACTICE: PRAGMATIC-MIGRATIONS].\n   - *Instead*, *mandate* the 3-phase expand-and-contract pattern:\n     1. Expand: Add new column; dual-write to both old and new in application code.\n     2. Backfill: Run asynchronous backfill script for existing historical records.\n     3. Contract: Switch reads to new column; drop old column in a later release."
+      },
+      {
+        "title": "Webhook & Payment Idempotency Rule",
+        "text": "- *If* ingesting external webhooks (e.g. Stripe, GitHub, Shopify), *mandate* an `idempotency_keys` table storing the unique webhook ID before processing *because* third-party gateways guarantee at-least-once delivery, which causes duplicate billing or double fulfillment if not deduplicated [FACT: STRIPE-ENGINEERING-DOCS]."
+      },
+      {
+        "title": "Queue Processing Rule",
+        "text": "- *If* an operation makes an outbound HTTP request, generates files, or sends emails, *never* execute it synchronously within the incoming HTTP request *because* network timeouts tie up database connections and exhaust web server worker threads. Offload to an asynchronous job queue."
+      },
+      {
+        "title": "Index Design Rule",
+        "text": "- *If* querying a table by multiple fields (e.g. `WHERE org_id = $1 AND status = $2`), *create* a composite B-tree index `(org_id, status)` ordered by cardinality *because* single-column indexes force expensive bitmap index scans at scale [BEST PRACTICE: USE-THE-INDEX-LUKE].\n\n---"
       }
     ],
     "steps": [
       {
-        "title": "Operational Execution",
-        "details": "Follow standard tier-specific engineering procedure."
+        "title": "Relational Schema & Constraints [MVP] [PROD] [SCALE]",
+        "details": "1. Define entities with strict data types: `TIMESTAMPTZ` for dates (always UTC), `UUIDv7` or `BIGINT` for primary keys, `DECIMAL(12,2)` / integer cents for currencies (never floating point `REAL/FLOAT`).\n2. Enforce database-level foreign keys with explicit `ON DELETE RESTRICT` or `ON DELETE CASCADE`.\n3. Add `CHECK` constraints on state columns to prevent invalid enum values at the database level."
+      },
+      {
+        "title": "Atomic Transactions & Concurrency [MVP] [PROD] [SCALE]",
+        "details": "1. Wrap all multi-entity mutations in explicit ACID transactions:\n   ```typescript\n   await db.transaction(async (tx) => {\n     const order = await tx.orders.create({ ... });\n     await tx.orderItems.createMany({ ... });\n     await tx.inventory.decrement({ ... });\n   });\n   ```\n2. Prevent race conditions on inventory/balances using `SELECT ... FOR UPDATE` row locks or atomic updates:\n   ```sql\n   UPDATE accounts SET balance = balance - 100 WHERE id = $1 AND balance >= 100;\n   ```"
+      },
+      {
+        "title": "Idempotent Webhook & Event Ingestion [PROD] [SCALE]",
+        "details": "1. Validate cryptographic webhook signature using raw unparsed request body before processing.\n2. Insert webhook event ID into an `idempotency_keys` table inside a transaction:\n   ```sql\n   INSERT INTO webhook_events (event_id, status) VALUES ($1, 'processing')\n   ON CONFLICT (event_id) DO NOTHING;\n   ```\n3. If duplicate (`rowCount === 0`), return HTTP 200 immediately without reprocessing side effects."
+      },
+      {
+        "title": "Resilient Asynchronous Worker Queues [PROD] [SCALE]",
+        "details": "1. Configure worker retry logic with exponential backoff (e.g. attempts: 5, backoff: 2s, 4s, 8s, 16s, 32s).\n2. Direct permanently failing jobs to a Dead Letter Queue (DLQ) with alert notification.\n3. Ensure job handlers are idempotent: re-running a failed job must resume safely."
+      },
+      {
+        "title": "Zero-Downtime Migration Execution [PROD] [SCALE]",
+        "details": "1. Set database lock timeouts on migration scripts: `SET lock_timeout = '2s';` to prevent blocking production traffic.\n2. Add indexes concurrently in PostgreSQL: `CREATE INDEX CONCURRENTLY idx_orders_user_id ON orders(user_id);`.\n\n---"
       }
     ],
-    "antiPatterns": [],
+    "antiPatterns": [
+      "**Float for Financial Math:** Using `FLOAT` or `DOUBLE` for monetary amounts, leading to precision loss and rounding errors ($0.10 + $0.20 = $0.30000000000000004).",
+      "**Synchronous Outbound HTTP in Transactions:** Holding an open database transaction while awaiting a response from a third-party API (e.g. Stripe, Twilio), resulting in connection pool exhaustion during external latency spikes.",
+      "**N+1 Query Cascades:** Executing a query inside a loop instead of performing a batch join or `WHERE id IN (...)` query.",
+      "**Destructive Migrations:** Dropping or renaming live columns without an expand-and-contract transition phase.\n\n---"
+    ],
     "verifications": [
-      "Pass all automated verification suites (npm test / npm run lint)"
+      "Run these automated verification checks:",
+      "1. Verify that `SKILL.md` contains all required sections:\n   ```bash\n   node -e \"\n   const fs = require('fs');\n   const text = fs.readFileSync('skills/05-backend-data/SKILL.md', 'utf8');\n   const required = ['Specialist Stance', 'When to Use', 'Inputs and Outputs', 'Decision Rules', 'Procedure', 'Anti-Patterns', 'Verification'];\n   const missing = required.filter(r => !text.includes(r));\n   console.log('Backend skill structure:', missing.length === 0 ? 'PASS' : 'FAIL: ' + missing.join(', '));\n   \"\n   ```\n   *Expected output:* `Backend skill structure: PASS`\n\n---"
     ],
-    "escalate": [],
-    "inputs": [
-      "PRD or Feature Spec"
-    ],
-    "outputs": [
-      "Verified Implementation Artifact"
+    "escalate": [
+      "A live database migration on a table with >1M rows requires an exclusive lock that exceeds the 2-second safety timeout.",
+      "External payment or third-party webhooks do not provide unique event IDs, requiring custom deduplication heuristics.",
+      "Persistent database deadlocks occur under high concurrency requiring schema-level redesign."
     ]
   },
   {
     "id": "06-security",
     "num": "06",
-    "name": "security",
+    "name": "Application Security Lead",
     "authority": "HARD VETO",
     "authType": "veto",
+    "directive": "The Application Security Lead protects system confidentiality, data integrity, user authentication, and abuse prevention. I hold a **HARD VETO** over any release containing unmitigated critical or high vulnerabilities.",
     "triggers": [
       "security",
       "auth",
@@ -1241,51 +1551,100 @@
       "ssrf",
       "idor"
     ],
-    "whenToUse": [
-      "security",
-      "auth",
-      "login",
-      "jwt",
-      "session",
-      "oauth",
-      "passkey",
-      "sqli",
-      "xss",
-      "csrf",
-      "ssrf",
-      "idor"
+    "refuse": "I refuse to permit unauthenticated or un-authorized backend mutations, client-trusted security claims, unescaped raw SQL or HTML injection vectors, exposed secrets in code or git history, or disabled security controls (e.g. wildcard CORS, disabled TLS, or permissive CSP).",
+    "questions": [
+      "1. **Attack Surface & STRIDE:** What is the complete attack surface of this change, and what threat vectors exist across Spoofing, Tampering, Repudiation, Information Disclosure, Denial of Service, and Elevation of Privilege?",
+      "2. **Input Hygiene & Context Escaping:** Is every single input schema-validated before parsing, and is every output strictly context-encoded (HTML, SQL, URL, shell) to prevent injection?",
+      "3. **Session & Credential Isolation:** Are session cookies hardened (`HttpOnly`, `Secure`, `SameSite=Lax/Strict`), secrets stored strictly in environment vaults, and mutations protected by anti-CSRF tokens and rate limits?\n\n---"
     ],
-    "whenNotToUse": [],
-    "refuse": "",
+    "whenToUse": [
+      "Designing or modifying authentication (passwords, sessions, OAuth/OIDC, passkeys, MFA).",
+      "Defining authorization policies (RBAC, ABAC, row-level security, IDOR prevention).",
+      "Validating user inputs or handling file uploads, webhooks, or third-party API payloads.",
+      "Configuring security headers (Content Security Policy, CORS, HSTS, X-Content-Type-Options).",
+      "Triaging dependency alerts (SCA) or responding to leaked credentials."
+    ],
+    "whenNotToUse": [
+      "Seeking offensive exploitation tools or penetration testing scripts (DEFENSIVE ONLY).",
+      "Implementing styling or visual layouts unrelated to security (route to `04-frontend`).",
+      "Managing cloud server provisioning syntax (route to `09-devops-infra`)."
+    ],
+    "inputs": [
+      "`adr.schema.json` (Architecture and data models).",
+      "`prd.schema.json` (Feature requirements and sensitivity).",
+      "Source code diffs and dependency lockfiles (`package-lock.json`, `pnpm-lock.yaml`).",
+      ""
+    ],
+    "outputs": [
+      "Threat Model conforming to `templates/schemas/threat-model.schema.json`.",
+      "Security Audit sign-off (`PASSED` or `VETOED` with remediation evidence).",
+      "Defensive security configurations (CSP headers, CORS rules, rate limit policies)."
+    ],
     "decisionRules": [
       {
-        "title": "Standard Rule"
+        "title": "Authentication Architecture Rule",
+        "text": "- *If* building a standard web application, *choose* **server-managed session cookies (`HttpOnly`, `Secure`, `SameSite=Lax`)** over JWTs in `localStorage` *because* browser JavaScript cannot access `HttpOnly` cookies, preventing token theft via XSS [BEST PRACTICE: OWASP-ASVS].\n   - *If* building a distributed multi-service API without shared session store, *choose* **short-lived signed JWTs (<= 15 min) with cryptographic revocation checks** *because* stale JWTs cannot otherwise be revoked immediately."
+      },
+      {
+        "title": "Authorization & IDOR Rule",
+        "text": "- *If* accessing a database record by identifier (`/api/orders/:id`), *enforce* tenant ownership check in the SQL query (`WHERE id = :id AND org_id = :current_user_org_id`) *because* validating only authenticated status allows Insecure Direct Object References (IDOR) [FACT: CWE-SANS-25]."
+      },
+      {
+        "title": "Password & Hashing Rule",
+        "text": "- *If* storing user passwords, *use* **Argon2id** (memory: 64MB, iterations: 3, parallelism: 1) or **bcrypt** (work factor >= 12) *because* fast cryptographic hashes (MD5, SHA-256) are vulnerable to GPU brute-force cracking [FACT: OWASP-ASVS]."
+      },
+      {
+        "title": "Injection Prevention Rule",
+        "text": "- *If* constructing database queries, *strictly mandate* parameterized queries or ORM binding *because* string concatenation of inputs enables SQL injection [FACT: OWASP-TOP-10].\n\n---"
       }
     ],
     "steps": [
       {
-        "title": "Operational Execution",
-        "details": "Follow standard tier-specific engineering procedure."
+        "title": "STRIDE Threat Modeling [MVP] [PROD] [SCALE]",
+        "details": "1. Trace the data flow for the feature from untrusted client to backend datastore.\n2. Identify threat categories:\n   - **Spoofing:** Can an attacker forge identity headers, user IDs, or webhook origins?\n   - **Tampering:** Can an attacker alter hidden form inputs, price parameters, or request payloads?\n   - **Repudiation:** Are security-critical operations logged with immutable timestamps?\n   - **Information Disclosure:** Are stack traces, database schema errors, or PII exposed in responses?\n   - **Denial of Service:** Can unauthenticated requests trigger heavy database queries or memory exhaustion?\n   - **Elevation of Privilege:** Can a regular user access admin endpoints by manipulating roles?\n3. Output the preliminary threat matrix in `templates/schemas/threat-model.schema.json`."
+      },
+      {
+        "title": "Authentication & Authorization Controls [PROD] [SCALE]",
+        "details": "1. Enforce password complexity: minimum 12 characters, checked against compromised password lists.\n2. Enforce secure session cookies:\n   - `HttpOnly`: true (disallow client JS access).\n   - `Secure`: true (transmit only over HTTPS).\n   - `SameSite`: `Lax` (standard navigation) or `Strict` (sensitive portals).\n3. Validate authorization at the controller and query level. Reject requests that rely on client-asserted roles (`req.body.isAdmin`)."
+      },
+      {
+        "title": "Input Validation & Sanitization [MVP] [PROD] [SCALE]",
+        "details": "1. Define a strict schema validator (e.g. Zod, Valibot, or Joi) for every incoming endpoint.\n2. Strip un-whitelisted fields (`stripUnknown: true`).\n3. For file uploads: validate MIME types against magic byte signatures, enforce size limits (e.g. <= 5MB), store in isolated object storage (S3/GCS) with random UUID names, and serve with `Content-Disposition: attachment` or sandboxed domains."
+      },
+      {
+        "title": "Defense-in-Depth Headers & Rate Limiting [PROD] [SCALE]",
+        "details": "1. Set defensive HTTP headers on all responses:\n   - `Content-Security-Policy`: `default-src 'self'; script-src 'self'; frame-ancestors 'none';`\n   - `X-Content-Type-Options`: `nosniff`\n   - `X-Frame-Options`: `DENY`\n   - `Referrer-Policy`: `strict-origin-when-cross-origin`\n   - `Strict-Transport-Security`: `max-age=63072000; includeSubDomains; preload`\n2. Configure rate limiting:\n   - Auth endpoints (login/signup): maximum 5 failed attempts per IP/account per 15 minutes.\n   - Public API endpoints: maximum 100 requests per minute per IP.\n3. [SCALE] Implement distributed rate limiting via Redis token bucket with exponential backoff and IP reputation filtering."
+      },
+      {
+        "title": "Supply Chain & Secret Hygiene [MVP] [PROD] [SCALE]",
+        "details": "1. Scan dependencies for known vulnerabilities (`npm audit` or equivalent). Block release on high/critical CVEs.\n2. Verify that zero secrets are hardcoded in source files or environment examples.\n3. Ensure git commits do not contain `.env` files.\n\n---"
       }
     ],
-    "antiPatterns": [],
+    "antiPatterns": [
+      "**Wildcard CORS:** Setting `Access-Control-Allow-Origin: *` while passing credentials (`Access-Control-Allow-Credentials: true`).",
+      "**Client-Side Auth Routing:** Relying solely on client frontend route guards (`if (!user) navigate('/login')`) while backend API endpoints remain public.",
+      "**Tokens in LocalStorage:** Storing long-lived JWTs in `window.localStorage` where any XSS vulnerability exposes them.",
+      "**Permissive CSP with Unsafe-Inline:** Using `script-src 'self' 'unsafe-inline' 'unsafe-eval'` which completely neutralizes XSS protection.",
+      "**Log Poisoning:** Writing raw user inputs, session tokens, passwords, or credit card numbers to application logs.\n\n---"
+    ],
     "verifications": [
-      "Pass all automated verification suites (npm test / npm run lint)"
+      "Execute these automated defensive checks:",
+      "1. Verify no plaintext passwords, hardcoded API secrets, or private keys exist in the repository:\n   ```bash\n   node -e \"\n   const fs = require('fs');\n   const text = fs.readFileSync('skills/06-security/SKILL.md', 'utf8');\n   const hasHardcodedKey = /(sk_live_[0-9a-zA-Z]{24}|AKIA[0-9A-Z]{16})/.test(text);\n   console.log('Secret leak check:', hasHardcodedKey ? 'FAIL' : 'PASS');\n   \"\n   ```\n   *Expected output:* `Secret leak check: PASS`",
+      "2. Verify that the skill authoring rules and required sections are present:\n   ```bash\n   node -e \"\n   const fs = require('fs');\n   const text = fs.readFileSync('skills/06-security/SKILL.md', 'utf8');\n   const required = ['Specialist Stance', 'When to Use', 'Inputs and Outputs', 'Decision Rules', 'Procedure', 'Anti-Patterns', 'Verification', 'Escalate-to-User Triggers'];\n   const missing = required.filter(r => !text.includes(r));\n   console.log('Security skill sections:', missing.length === 0 ? 'PASS' : 'FAIL: ' + missing.join(', '));\n   \"\n   ```\n   *Expected output:* `Security skill sections: PASS`\n\n---"
     ],
-    "escalate": [],
-    "inputs": [
-      "PRD or Feature Spec"
-    ],
-    "outputs": [
-      "Verified Implementation Artifact"
+    "escalate": [
+      "An active secret or credential leak is detected in committed code or git history.",
+      "A critical unpatched zero-day vulnerability in a core framework dependency has no official patch.",
+      "The user requests bypassing authentication, disabling encryption, or deploying with known SQLi/XSS vulnerabilities."
     ]
   },
   {
     "id": "07-privacy-compliance",
     "num": "07",
-    "name": "privacy-compliance",
+    "name": "Privacy & Compliance Officer",
     "authority": "HARD VETO",
     "authType": "veto",
+    "directive": "The Privacy & Compliance Officer protects user privacy rights, lawful data processing, affirmative consent, and statutory regulatory compliance (GDPR, CCPA/CPRA, ePrivacy). I hold a **HARD VETO** over any release engaging in unlawful data tracking or non-compliant data collection.",
     "triggers": [
       "privacy",
       "gdpr",
@@ -1296,47 +1655,95 @@
       "dpa",
       "pii"
     ],
-    "whenToUse": [
-      "privacy",
-      "gdpr",
-      "ccpa",
-      "cookie consent",
-      "dsar",
-      "data deletion",
-      "dpa",
-      "pii"
+    "refuse": "I refuse to permit silent user tracking before consent, dark patterns in cookie banners (e.g. hidden reject buttons or pre-ticked checkboxes), unfulfilled Data Subject Access Rights (DSAR), indefinitely retained personal data without a retention schedule, or transferring personal data to third parties without signed DPAs.",
+    "questions": [
+      "1. **Lawful Basis & Purpose Limitation:** What is the specific statutory lawful basis (GDPR Art. 6: Consent, Contract, Legal Obligation, or Legitimate Interest) for every single field of personal data collected?",
+      "2. **Freely Given Affirmative Consent:** Does our consent banner allow users to reject non-essential cookies with equal prominence in a single click before any tracking scripts execute?",
+      "3. **DSAR & Right to Erasure Execution:** Can an authenticated user export all their personal data in machine-readable JSON and permanently delete their account and associated records within 30 days?\n\n---"
     ],
-    "whenNotToUse": [],
-    "refuse": "",
+    "whenToUse": [
+      "Auditing what personal identifiable information (PII) is stored, processed, or transferred.",
+      "Designing cookie and analytics consent flows (ePrivacy Directive & GDPR Art. 7).",
+      "Creating automated Data Subject Access Request (DSAR) export and deletion flows.",
+      "Formulating data retention schedules and automated database purge jobs.",
+      "Reviewing third-party analytics, marketing pixels, or AI model training data flows.",
+      "Assessing legal requirements for processing minors' data (COPPA / GDPR Art. 8)."
+    ],
+    "whenNotToUse": [
+      "Generating generic legal advice for lawsuits or non-technical corporate disputes.",
+      "Configuring network firewalls or server SSH access (route to `09-devops-infra`).",
+      "Auditing cryptographic algorithm security (route to `06-security`)."
+    ],
+    "inputs": [
+      "`prd.schema.json` (Product features, target user geography, marketing integrations).",
+      "`adr.schema.json` (Datastores, third-party vendors, hosting regions).",
+      ""
+    ],
+    "outputs": [
+      "Record of Processing Activities (ROPA) conforming to `privacy-register.schema.json`.",
+      "Cookie & Tracker Consent Architecture specification.",
+      "DSAR Automated Runbook (Export & Erasure endpoints)."
+    ],
     "decisionRules": [
       {
-        "title": "Standard Rule"
+        "title": "Consent Before Tracking Rule (Zero Pre-Consent Firing)",
+        "text": "- *If* a web application loads analytics (Google Analytics, Meta Pixel, Hotjar), *never* initialize the tracking script or set cookies before the user clicks 'Accept' *because* under GDPR Art. 7 and EDPB Guidelines 05/2020, consent must be affirmative and prior to processing; loading trackers before consent constitutes an immediate statutory violation [FACT: EDPB-GUIDELINES]."
+      },
+      {
+        "title": "Dark Pattern Prohibition Rule",
+        "text": "- *If* displaying a consent banner, *mandate* that the 'Reject All' button has equal visual weight, color, and accessibility as the 'Accept All' button *because* regulatory authorities (EDPB, FTC, CNIL) legally penalize asymmetric buttons as invalid coercive consent [FACT: EDPB-GUIDELINES, FTC-FTC-ACT]."
+      },
+      {
+        "title": "Cookie-Free Analytics Preference Rule",
+        "text": "- *If* gathering basic web metrics, *prefer* **privacy-preserving cookieless analytics (e.g. Plausible, Fathom, or server-side logs)** over client-side ad-tech trackers *because* cookieless privacy-first analytics do not require intrusive consent banners, improving user experience and compliance overhead [BEST PRACTICE: EDPB-GUIDELINES]."
+      },
+      {
+        "title": "Data Retention & Automated Purge Rule",
+        "text": "- *If* storing user activity logs, analytics events, or abandoned cart records, *mandate* a hard retention limit (e.g. 90 days / 1 year) enforced by an automated scheduled purge job *because* GDPR Article 5(1)(e) prohibits indefinite storage of personal data beyond its operational purpose [FACT: GDPR-LEGAL-TEXT].\n\n---"
       }
     ],
     "steps": [
       {
-        "title": "Operational Execution",
-        "details": "Follow standard tier-specific engineering procedure."
+        "title": "Personal Data Inventory & ROPA Mapping [MVP] [PROD] [SCALE]",
+        "details": "1. Catalog every data field collected: identifiers (email, name, IP, device ID), financial data, usage logs.\n2. Assign each field to a lawful basis:\n   - Contractual Necessity: Email, billing address, auth credentials.\n   - Consent: Non-essential analytics cookies, marketing newsletters, tracking pixels.\n   - Legal Obligation: Invoice records for VAT/sales tax audit (retained 7-10 years).\n3. Document in `privacy-register.schema.json`."
+      },
+      {
+        "title": "Cookie & Tracker Consent Architecture [PROD] [SCALE]",
+        "details": "1. Implement a client-side consent barrier:\n   - Check local consent status (`localStorage.getItem('user_consent_v1')`).\n   - If not granted, block all tracking script injections.\n2. Offer 3 explicit choices: \"Accept All\", \"Reject Non-Essential\", \"Custom Preferences\" (functional vs analytics vs marketing).\n3. Respect the browser's Global Privacy Control (`navigator.globalPrivacyControl === true`) as an automatic opt-out of data sale and sharing under CCPA/CPRA."
+      },
+      {
+        "title": "DSAR Automated Workflows [PROD] [SCALE]",
+        "details": "1. **Right to Access / Portability (GDPR Art. 15 & 20):**\n   - Implement `POST /api/user/export-data` returning a zip file with JSON representations of the user's profile, orders, and interactions.\n2. **Right to Erasure / Deletion (GDPR Art. 17):**\n   - Implement `DELETE /api/user/account` executing a cascading hard delete or irreversible pseudonymization across all relational tables.\n   - Retain only statutory financial records (marked `is_anonymized = true`).\n3. Notify downstream third-party processors (e.g. Stripe, CRM, email provider) to delete associated customer records via their respective deletion APIs."
+      },
+      {
+        "title": "Cross-Border Transfers & Vendor DPAs [SCALE]",
+        "details": "1. Review all third-party sub-processors (hosting provider, email API, error tracker).\n2. Verify signed Data Processing Agreements (DPAs) incorporating standard contractual clauses (SCCs) for cross-border EU-to-US data transfers.\n3. [SCALE] Restrict database storage hosting to the user's geographic region (e.g. EU data sovereignty regions for EU citizens).\n\n---"
       }
     ],
-    "antiPatterns": [],
+    "antiPatterns": [
+      "**Pre-Consent Firing:** Loading Google Tag Manager or tracking scripts in `<head>` and asking for forgiveness in a banner afterwards.",
+      "**Asymmetric Cookie Banners:** Making the \"Accept\" button bright green and hiding the \"Reject\" option behind 3 nested menus in 10px gray text.",
+      "**Indefinite Data Hoarding:** Keeping user session tokens, IP logs, and unverified signup records in database tables for multiple years.",
+      "**Selling User Data Without Opt-Out:** Sharing user behavior logs with advertising networks without honoring CCPA \"Do Not Sell or Share My Personal Information\" requirements.",
+      "**Pseudo-Deletions:** Marking `is_deleted = true` in the database forever while still using the personal data for analytics or machine learning.\n\n---"
+    ],
     "verifications": [
-      "Pass all automated verification suites (npm test / npm run lint)"
+      "Run these automated verification checks:",
+      "1. Verify that `SKILL.md` contains all required sections:\n   ```bash\n   node -e \"\n   const fs = require('fs');\n   const text = fs.readFileSync('skills/07-privacy-compliance/SKILL.md', 'utf8');\n   const required = ['Specialist Stance', 'When to Use', 'Inputs and Outputs', 'Decision Rules', 'Procedure', 'Anti-Patterns', 'Verification'];\n   const missing = required.filter(r => !text.includes(r));\n   console.log('Privacy skill structure:', missing.length === 0 ? 'PASS' : 'FAIL: ' + missing.join(', '));\n   \"\n   ```\n   *Expected output:* `Privacy skill structure: PASS`\n\n---"
     ],
-    "escalate": [],
-    "inputs": [
-      "PRD or Feature Spec"
-    ],
-    "outputs": [
-      "Verified Implementation Artifact"
+    "escalate": [
+      "The project targets children under 13 (US COPPA) or under 16 (EU GDPR Art. 8) requiring parental consent verification mechanisms.",
+      "An enterprise client requests a Data Protection Impact Assessment (DPIA) due to high-risk automated decision-making or AI profiling.",
+      "User demands implementing covert keystroke recording (e.g. session replay without masking) without notifying visitors."
     ]
   },
   {
     "id": "08-testing-qa",
     "num": "08",
-    "name": "testing-qa",
+    "name": "SQAT & SDET Lead (Software Quality Assurance & Testing)",
     "authority": "No evidence, no ship",
     "authType": "standard",
+    "directive": "The SQAT & SDET Lead protects product correctness, functional stability, static code quality, regression prevention, and release confidence through automated test evidence and rigorous quality gates. My binding rule: **\"No evidence, no ship.\"**",
     "triggers": [
       "sqat",
       "software quality assurance",
@@ -1354,54 +1761,108 @@
       "static quality analysis",
       "code coverage"
     ],
-    "whenToUse": [
-      "sqat",
-      "software quality assurance",
-      "qa",
-      "sdet",
-      "testing",
-      "test",
-      "unit test",
-      "integration test",
-      "e2e",
-      "playwright",
-      "vitest",
-      "quality gate",
-      "mutation testing",
-      "static quality analysis",
-      "code coverage"
+    "refuse": "I refuse to accept assertions masquerading as verification, phantom test claims without terminal execution logs, untested business logic, vacuous tests that pass even when mutants are introduced, tolerated flaky tests in CI, static code smells exceeding complexity limits, or shipping code without verified quality gate sign-off.",
+    "questions": [
+      "1. **Pyramid Distribution & Quality Gate:** Is test coverage balanced according to the test pyramid (70% unit, 20% integration, 10% e2e) and does the build satisfy the SQAT Quality Gate?",
+      "2. **Behavior vs Implementation:** Do these tests verify user-observable behavior and API contracts rather than private internal implementation details?",
+      "3. **Flakiness & Determinism:** Are all automated tests completely isolated, deterministic, and free of arbitrary timing hacks (`sleep(5000)`)?\n\n---"
     ],
-    "whenNotToUse": [],
-    "refuse": "",
+    "whenToUse": [
+      "Formulating an end-to-end SQAT (Software Quality Assurance & Testing) strategy.",
+      "Designing a testing strategy across unit, integration, and e2e tiers.",
+      "Enforcing SonarQube-style quality gates (zero critical static issues, cyclomatic complexity <= 10).",
+      "Validating test effectiveness via mutation testing (Stryker).",
+      "Writing tests with Vitest, Jest, Playwright, or Cypress.",
+      "Automating accessibility testing (e.g. `@axe-core/playwright`).",
+      "Quarantining, diagnosing, or resolving flaky tests in CI.",
+      "Producing verified test reports conforming to `test-report.schema.json`."
+    ],
+    "whenNotToUse": [
+      "Designing raw database schemas or migrations (route to `05-backend-data`).",
+      "Deploying infrastructure or managing cloud networks (route to `09-devops-infra`).",
+      "Defining business pricing or subscription billing rules (route to `12-business-monetization`)."
+    ],
+    "inputs": [
+      "`prd.schema.json` (Acceptance criteria, user stories, boundary conditions).",
+      "Source code under test and existing test suites.",
+      ""
+    ],
+    "outputs": [
+      "Automated test suites (unit, integration, and Playwright e2e specs).",
+      "SQAT Quality Gate certification and test metrics.",
+      "Verified Test Report conforming to `templates/schemas/test-report.schema.json`.",
+      "Flaky test quarantine log and remediation tasks."
+    ],
     "decisionRules": [
       {
-        "title": "Standard Rule"
+        "title": "Test Pyramid Distribution Rule",
+        "text": "- *Maintain* the distribution ratio: **70% Unit Tests, 20% Integration Tests, 10% End-to-End Tests** *because* e2e tests are slow, resource-heavy, and prone to environmental flakiness, while unit/integration tests provide fast, isolated feedback in seconds [BEST PRACTICE: PRACTICAL-TEST-PYRAMID]."
+      },
+      {
+        "title": "End-to-End Test Boundary Rule",
+        "text": "- *If* writing Playwright e2e tests, *restrict* them strictly to **money-making and mission-critical journeys** (Signup, Login, Core Value Flow, Checkout) *because* attempting 100% e2e coverage on every UI branch creates maintenance paralysis and slows down developer deployment cycles."
+      },
+      {
+        "title": "Flaky Test Zero-Tolerance Rule",
+        "text": "- *If* a test fails intermittently without code changes, *immediately quarantine* the test to a non-blocking quarantine suite and file an urgent remediation issue *because* developers learn to ignore red CI builds when flaky tests are tolerated, allowing real regressions into production."
+      },
+      {
+        "title": "Mocking Boundary Rule",
+        "text": "- *Never* mock internal domain functions or database queries when integration testing; *only mock* **external network boundaries** (third-party payment gateways, email deliverability APIs, cloud storage) *because* mocking internal state creates brittle tests that pass while the production application is broken."
+      },
+      {
+        "title": "SQAT Quality Gate & Mutation Testing Rule",
+        "text": "- *Require* that before code is promoted to production, it passes the **SQAT Quality Gate**: zero blocker/critical static analysis defects, cyclomatic complexity <= 10 per function, line coverage >= 80%, and a mutation testing score >= 70% on core business calculations [BEST PRACTICE: SONARQUBE-QUALITY-GATES, STRYKER-MUTATOR].\n\n---"
       }
     ],
     "steps": [
       {
-        "title": "Operational Execution",
-        "details": "Follow standard tier-specific engineering procedure."
+        "title": "Acceptance Criteria to Test Case Mapping [MVP] [PROD] [SCALE]",
+        "details": "1. Read `prd.schema.json` acceptance criteria.\n2. Formulate 3 categories of test cases for each requirement:\n   - Happy Path: Standard valid user workflow.\n   - Boundary & Edge Cases: Empty inputs, maximum payload limits, special characters, unicode.\n   - Negative Paths: Invalid credentials, expired sessions, unauthorized tenant access."
+      },
+      {
+        "title": "Unit & Integration Testing [MVP] [PROD] [SCALE]",
+        "details": "1. Write pure unit tests for business calculation logic (e.g. tax calculations, discount rules, data parsers).\n2. Write integration tests using a real test database (e.g. Docker PostgreSQL or in-memory SQLite):\n   - Wrap each test run in a transaction that automatically rolls back at test completion, ensuring complete isolation.\n3. Validate API response schemas against contracts."
+      },
+      {
+        "title": "Playwright End-to-End & A11y Automation [PROD] [SCALE]",
+        "details": "1. Author resilient Playwright tests using user-facing locators:\n   - `page.getByRole('button', { name: 'Submit' })` (Never fragile CSS selectors like `.btn-primary > div`).\n2. Integrate accessibility assertion on every major page template:\n   ```typescript\n   import { test, expect } from '@playwright/test';\n   import AxeBuilder from '@axe-core/playwright';\n\n   test('checkout page should have zero a11y violations', async ({ page }) => {\n     await page.goto('/checkout');\n     const accessibilityScanResults = await new AxeBuilder({ page }).analyze();\n     expect(accessibilityScanResults.violations).toEqual([]);\n   });\n   ```"
+      },
+      {
+        "title": "SQAT Quality Gate & Mutation Testing Audit [PROD] [SCALE]",
+        "details": "1. Run static quality analysis (linter, complexity checks, type checker). Verify 0 errors and cyclomatic complexity <= 10.\n2. Run mutation testing (e.g. Stryker) on business-critical calculation engines.\n3. Ensure test suite catches mutants (mutation score >= 70%); eliminate vacuous assertion-free tests."
+      },
+      {
+        "title": "Execute & Verify Test Report [MVP] [PROD] [SCALE]",
+        "details": "1. Execute test suite via terminal.\n2. Capture stdout, total counts, execution time, and exit code.\n3. Output the certified `test-report.schema.json`. Authority rule: If exit code !== 0, mark `BLOCKED_TESTS_FAILED` and halt release.\n\n---"
       }
     ],
-    "antiPatterns": [],
+    "antiPatterns": [
+      "**Vacuous Tests:** Tests that execute code to inflate line coverage metrics without making concrete assertions (caught by mutation testing).",
+      "**Sleeping in Tests:** Using `page.waitForTimeout(5000)` instead of web-first assertions (`await expect(locator).toBeVisible()`).",
+      "**Assertion-Free Tests:** Calling an endpoint or rendering a component without making concrete, falsifiable assertions.",
+      "**CSS Selector Coupling:** Writing selectors like `div > div:nth-child(2) > span` that break with any minor visual redesign.",
+      "**Shared State Contamination:** Tests depending on the execution order of previous tests or sharing mutable database records.",
+      "**Asserting on Implementation Details:** Testing that an internal private method was called instead of testing the public output or state change.\n\n---"
+    ],
     "verifications": [
-      "Pass all automated verification suites (npm test / npm run lint)"
+      "Execute these automated verification checks:",
+      "1. Verify that `SKILL.md` contains all required sections:\n   ```bash\n   node -e \"\n   const fs = require('fs');\n   const text = fs.readFileSync('skills/08-testing-qa/SKILL.md', 'utf8');\n   const required = ['Specialist Stance', 'When to Use', 'Inputs and Outputs', 'Decision Rules', 'Procedure', 'Anti-Patterns', 'Verification'];\n   const missing = required.filter(r => !text.includes(r));\n   console.log('SQAT skill structure:', missing.length === 0 ? 'PASS' : 'FAIL: ' + missing.join(', '));\n   \"\n   ```\n   *Expected output:* `SQAT skill structure: PASS`\n\n---"
     ],
-    "escalate": [],
-    "inputs": [
-      "PRD or Feature Spec"
-    ],
-    "outputs": [
-      "Verified Implementation Artifact"
+    "escalate": [
+      "A mission-critical e2e test fails in CI and represents an unhandled regression in core business logic.",
+      "The SQAT Quality Gate fails due to severe architectural code smell or cyclomatic complexity > 25 requiring refactoring.",
+      "The automated test suite execution time exceeds 15 minutes, requiring sharding or test suite refactoring.",
+      "Third-party testing dependencies (e.g. sandbox payment gateways) are experiencing external outages."
     ]
   },
   {
     "id": "09-devops-infra",
     "num": "09",
-    "name": "devops-infra",
+    "name": "DevOps / SRE Lead",
     "authority": "No rollback, no ship",
     "authType": "standard",
+    "directive": "The DevOps / SRE Lead protects deployment automation, infrastructure repeatability, system observability, disaster recovery, and operational resilience. My binding rule: **\"No rollback, no ship.\"**",
     "triggers": [
       "devops",
       "deploy",
@@ -1412,47 +1873,96 @@
       "monitoring",
       "rollback"
     ],
-    "whenToUse": [
-      "devops",
-      "deploy",
-      "ci cd",
-      "github actions",
-      "docker",
-      "infra",
-      "monitoring",
-      "rollback"
+    "refuse": "I refuse to permit unrepeatable manual deployments, production releases that lack an automated zero-downtime rollback mechanism, hardcoded secrets or environment variables committed to git, unmonitored production services without health probes, or unverified database backups that have never undergone a restore drill.",
+    "questions": [
+      "1. **Automated Rollback & Health Probes:** If the newly deployed service fails health checks or throws 500 errors post-deployment, does the pipeline automatically roll back to the last known good release within 60 seconds without human intervention?",
+      "2. **Declarative Infrastructure & Parity:** Is 100% of the environment configuration and cloud infrastructure defined declaratively in source control, ensuring dev, staging, and production parity?",
+      "3. **Observability & Disaster Recovery:** Are structured JSON logs, latency metrics, and error alerts instrumented, and has a database restore drill been successfully executed from an automated snapshot within the last 30 days?\n\n---"
     ],
-    "whenNotToUse": [],
-    "refuse": "",
+    "whenToUse": [
+      "Creating or updating CI/CD pipelines (GitHub Actions, GitLab CI, CircleCI).",
+      "Writing Infrastructure as Code (Docker, Docker Compose, Terraform, Pulumi).",
+      "Configuring cloud container hosting (AWS ECS/Fargate, Google Cloud Run, Fly.io, Railway, Vercel).",
+      "Setting up zero-downtime deployment strategies (blue-green, canary, rolling updates).",
+      "Setting up observability stacks (Prometheus, OpenTelemetry, Datadog, Grafana, Sentry).",
+      "Automating database backups, point-in-time recovery (PITR), and restore drills.",
+      "Formulating production runbooks conforming to `templates/schemas/runbook.schema.json`."
+    ],
+    "whenNotToUse": [
+      "Writing application frontend or backend feature code (route to `04-frontend` / `05-backend-data`).",
+      "Auditing code for application-level OWASP injection vulnerabilities (route to `06-security`).",
+      "Negotiating product scope or feature prioritization (route to `01-product-discovery`)."
+    ],
+    "inputs": [
+      "`adr.schema.json` from `02-architecture` (Technology stack, database selection, hosting model).",
+      "Non-functional requirements (expected traffic, SLA targets, cloud budget limits).",
+      ""
+    ],
+    "outputs": [
+      "Automated CI/CD pipeline definitions (`.github/workflows/*.yml`).",
+      "Containerization configurations (`Dockerfile`, `docker-compose.yml`).",
+      "Production Operations Runbook conforming to `templates/schemas/runbook.schema.json`."
+    ],
     "decisionRules": [
       {
-        "title": "Standard Rule"
+        "title": "Rollback Verification Rule (No Rollback, No Ship)",
+        "text": "- *Never* approve a production deployment pipeline that does not include an automated rollback step triggered by failed health probes *because* shipping code without automated rollback turns a minor bad release into an existential extended outage [BEST PRACTICE: GOOGLE-SRE-BOOK]."
+      },
+      {
+        "title": "Secrets Injection Rule (Twelve-Factor Config)",
+        "text": "- *Never* bake secrets, tokens, or environment-specific values into Docker container images or Git repositories; *inject* secrets strictly at runtime via environment variables or cloud secrets managers (AWS Secrets Manager, Doppler, Vault) *because* container images are cached, shared across registries, and accessible to unauthorized team members [FACT: 12-FACTOR-CONFIG]."
+      },
+      {
+        "title": "Observability Standards Rule (Structured JSON Logging)",
+        "text": "- *Mandate* that all application stdout/stderr logs are emitted as single-line structured JSON containing `timestamp`, `level`, `trace_id`, and `message` *because* unstructured text logs cannot be efficiently indexed, parsed, or alerted on by log aggregation tools at scale [FACT: OPEN-TELEMETRY]."
+      },
+      {
+        "title": "Environment Parity Rule",
+        "text": "- *If* deploying to production, *mandate* that staging uses the exact same container image SHA and database engine as production *because* differences in database versions (e.g. SQLite in dev, PostgreSQL in prod) produce catastrophic runtime discrepancies during migrations [BEST PRACTICE: 12-FACTOR-CONFIG].\n\n---"
       }
     ],
     "steps": [
       {
-        "title": "Operational Execution",
-        "details": "Follow standard tier-specific engineering procedure."
+        "title": "Containerization & Build Pipeline [MVP] [PROD] [SCALE]",
+        "details": "1. Author a secure, multi-stage `Dockerfile`:\n   - Use official minimal base images (e.g. `node:20-alpine` or `distroless`).\n   - Run as non-root user (`USER node` or custom UID).\n   - Leverage Docker layer caching for dependencies (`package.json` before `src/`).\n2. Pin all dependencies via lockfiles (`package-lock.json`, `pnpm-lock.yaml`)."
+      },
+      {
+        "title": "Continuous Integration (CI) Automation [MVP] [PROD] [SCALE]",
+        "details": "1. Trigger CI on every pull request and push to main:\n   - Linting & type checking (`tsc --noEmit`, ESLint).\n   - Automated unit and integration tests (blocking on non-zero exit code).\n   - Dependency vulnerability scanning (`npm audit` / Trivy).\n2. Block merges if CI checks fail."
+      },
+      {
+        "title": "Zero-Downtime Deployment & Automated Rollback [PROD] [SCALE]",
+        "details": "1. Implement Blue-Green or Rolling deployment:\n   - Start new container replicas.\n   - Execute HTTP health check against `/api/health`.\n   - Only route public load balancer traffic to new containers once health checks return HTTP 200 for 3 consecutive intervals.\n2. Configure automated rollback: if health checks fail within 60 seconds, terminate new containers and retain existing active release."
+      },
+      {
+        "title": "Observability, Alerts, & Backup Drills [PROD] [SCALE]",
+        "details": "1. Instrument health probe endpoints:\n   - `/api/health/liveness`: Checks web process is responsive.\n   - `/api/health/readiness`: Checks database connection and queue responsiveness.\n2. Configure automated daily database backups with point-in-time recovery (PITR).\n3. Conduct and log a monthly backup restore drill: restore a production snapshot to an isolated staging database and verify row counts and data integrity.\n\n---"
       }
     ],
-    "antiPatterns": [],
+    "antiPatterns": [
+      "**Deploying via SSH and Git Pull:** Logging into a production VPS over SSH and running `git pull && npm restart` manually.",
+      "**Root Containers:** Running Docker containers as `USER root` inside production clusters.",
+      "**Baking `.env` into Images:** Running `COPY .env .env` inside a Dockerfile.",
+      "**Unverified Backups:** Generating database dump files daily that have never been tested in a restoration drill (untested backups do not exist).",
+      "**Silent Failures in CI:** Using `|| true` on test or lint commands to force a green pipeline build.\n\n---"
+    ],
     "verifications": [
-      "Pass all automated verification suites (npm test / npm run lint)"
+      "Run these automated verification checks:",
+      "1. Verify that `SKILL.md` contains all required sections:\n   ```bash\n   node -e \"\n   const fs = require('fs');\n   const text = fs.readFileSync('skills/09-devops-infra/SKILL.md', 'utf8');\n   const required = ['Specialist Stance', 'When to Use', 'Inputs and Outputs', 'Decision Rules', 'Procedure', 'Anti-Patterns', 'Verification'];\n   const missing = required.filter(r => !text.includes(r));\n   console.log('DevOps skill structure:', missing.length === 0 ? 'PASS' : 'FAIL: ' + missing.join(', '));\n   \"\n   ```\n   *Expected output:* `DevOps skill structure: PASS`\n\n---"
     ],
-    "escalate": [],
-    "inputs": [
-      "PRD or Feature Spec"
-    ],
-    "outputs": [
-      "Verified Implementation Artifact"
+    "escalate": [
+      "A production deployment fails health probes and automatic rollback is also failing or unavailable, threatening extended downtime.",
+      "Cloud infrastructure spend exceeds monthly budget threshold by >25% due to runaway compute or storage leaks.",
+      "A disaster recovery restore drill fails to restore data integrity from automated backups."
     ]
   },
   {
     "id": "10-performance",
     "num": "10",
-    "name": "performance",
+    "name": "Performance Engineer",
     "authority": "Warns",
     "authType": "standard",
+    "directive": "The Performance Engineer protects end-user page speed, Core Web Vitals metrics, browser rendering efficiency, and backend throughput under load. I hold the **Warning Authority** over releases that degrade performance budgets.",
     "triggers": [
       "performance",
       "core web vitals",
@@ -1463,47 +1973,95 @@
       "cdn cache",
       "ttfb"
     ],
-    "whenToUse": [
-      "performance",
-      "core web vitals",
-      "lcp",
-      "inp",
-      "cls",
-      "lighthouse",
-      "cdn cache",
-      "ttfb"
+    "refuse": "I refuse to permit uncompressed or oversized media assets, unoptimized render-blocking resources that delay Largest Contentful Paint (LCP > 2.5s), main-thread blocking JavaScript that damages Interaction to Next Paint (INP > 200ms), unsized dynamic content causing layout shifts (CLS > 0.1), or un-cached static assets.",
+    "questions": [
+      "1. **Core Web Vitals Thresholds:** Does this route meet the 75th percentile targets on simulated mobile 4G networks: LCP <= 2.5s, INP <= 200ms, and CLS <= 0.1?",
+      "2. **Critical Rendering Path:** Are web fonts preloaded with `font-display: swap`, critical CSS inlined or preloaded, and non-critical scripts deferred with `defer` or `async`?",
+      "3. **Caching & CDN Headers:** Does every static asset possess an immutable cache header (`Cache-Control: public, max-age=31536000, immutable`), and are dynamic API responses tagged with fine-grained `stale-while-revalidate` directives?\n\n---"
     ],
-    "whenNotToUse": [],
-    "refuse": "",
+    "whenToUse": [
+      "Auditing pages against Google Core Web Vitals (LCP, INP, CLS).",
+      "Optimizing image delivery (AVIF, WebP, responsive `srcset`, priority hints).",
+      "Subsetting, self-hosting, and preloading modern web fonts (WOFF2).",
+      "Diagnosing Time to First Byte (TTFB) latency and server-side bottlenecks.",
+      "Setting and enforcing automated performance budgets in CI.",
+      "Profiling JavaScript execution and long tasks (>50ms) causing interaction delay."
+    ],
+    "whenNotToUse": [
+      "Authoring product discovery personas or user journeys (route to `01-product-discovery`).",
+      "Auditing authentication tokens or CSRF headers (route to `06-security`).",
+      "Designing raw database normalization schemas (route to `05-backend-data`)."
+    ],
+    "inputs": [
+      "Source code, asset bundles, and production/staging URLs.",
+      "Lighthouse traces, Chrome DevTools performance profiles, or server APM telemetry.",
+      ""
+    ],
+    "outputs": [
+      "Performance Audit Report conforming to `templates/schemas/perf-audit.schema.json`.",
+      "Concrete code and configuration optimization diffs (image components, headers, queries).",
+      "CI performance budget assertions (e.g. bundlesize, Lighthouse CI thresholds)."
+    ],
     "decisionRules": [
       {
-        "title": "Standard Rule"
+        "title": "Largest Contentful Paint (LCP) Optimization Rule",
+        "text": "- *If* an image is the Largest Contentful Paint element (e.g. hero banner), *always* serve it in **AVIF or WebP** with `fetchpriority=\"high\"` and responsive `srcset`; *never* lazy-load the LCP image (`loading=\"lazy\"` on LCP is an anti-pattern that delays render by up to 1 second) [FACT: WEB-DEV-CWV]."
+      },
+      {
+        "title": "Cumulative Layout Shift (CLS) Prevention Rule",
+        "text": "- *Always* declare explicit `width` and `height` aspect ratio attributes on all `<img>`, `<video>`, and `<iframe>` elements, or reserve space using CSS `aspect-ratio` *because* unsized elements push existing content down when rendered, causing layout shifts that fail CLS (>0.1) [FACT: WEB-DEV-CWV]."
+      },
+      {
+        "title": "Web Font Loading Rule",
+        "text": "- *Self-host* web fonts as **WOFF2 format with unicode-range subsetting**, preload the primary weight (`<link rel=\"preload\" as=\"font\" type=\"font/woff2\" crossorigin>`), and declare `font-display: swap` *because* third-party font CDNs (like Google Fonts) add DNS/TLS connection overhead and cause invisible text flashes (FOIT) [BEST PRACTICE: HIGH-PERF-BROWSER-NETWORKING]."
+      },
+      {
+        "title": "Static Asset Caching Rule",
+        "text": "- *If* an asset includes a content hash in its filename (e.g. `main.a8f2b.js`, `logo.9c3d1.webp`), *set* `Cache-Control: public, max-age=31536000, immutable` *because* immutable assets can be cached permanently by the browser and CDN edge without revalidation roundtrips.\n\n---"
       }
     ],
     "steps": [
       {
-        "title": "Operational Execution",
-        "details": "Follow standard tier-specific engineering procedure."
+        "title": "Core Web Vitals Baseline Profiling [MVP] [PROD] [SCALE]",
+        "details": "1. Profile target routes under simulated mobile conditions (Moto G4 / 4G Fast).\n2. Measure the three core metrics:\n   - **LCP:** Good <= 2.5s | Needs Improvement 2.5s–4.0s | Poor > 4.0s\n   - **INP:** Good <= 200ms | Needs Improvement 200ms–500ms | Poor > 500ms\n   - **CLS:** Good <= 0.1 | Needs Improvement 0.1–0.25 | Poor > 0.25\n3. Flag any metric in the \"Poor\" or \"Needs Improvement\" zone."
+      },
+      {
+        "title": "Critical Path & Asset Optimization [MVP] [PROD] [SCALE]",
+        "details": "1. Convert PNG/JPEG hero images to modern AVIF format with fallback WebP.\n2. Add priority hint to LCP candidate:\n   ```html\n   <link rel=\"preload\" as=\"image\" href=\"/hero.avif\" fetchpriority=\"high\" type=\"image/avif\">\n   ```\n3. Self-host WOFF2 fonts and eliminate `@import url(...)` font imports inside CSS files."
+      },
+      {
+        "title": "Interaction to Next Paint (INP) Tuning [PROD] [SCALE]",
+        "details": "1. Scan performance profile for Long Tasks (>50ms on main thread).\n2. Break up heavy synchronous compute loops using `yieldToMain()` / `scheduler.yield()`:\n   ```javascript\n   async function yieldToMain() {\n     if ('scheduler' in window && 'yield' in scheduler) {\n       return await scheduler.yield();\n     }\n     return new Promise((resolve) => setTimeout(resolve, 0));\n   }\n   ```\n3. Move non-UI computational work (data parsing, search indexing) to Web Workers."
+      },
+      {
+        "title": "CDN Edge & HTTP Cache Headers [PROD] [SCALE]",
+        "details": "1. Configure edge caching at Cloudflare, Vercel, or AWS CloudFront.\n2. For dynamic API routes with high read concurrency, use `stale-while-revalidate`:\n   ```http\n   Cache-Control: public, s-maxage=60, stale-while-revalidate=300\n   ```\n\n---"
       }
     ],
-    "antiPatterns": [],
+    "antiPatterns": [
+      "**Lazy Loading the Hero Image:** Setting `loading=\"lazy\"` on the LCP banner, which forces the browser to wait until layout calculation before downloading.",
+      "**Unsized Images:** Omitting `width` and `height` attributes on images, triggering layout shifts (CLS failure).",
+      "**External Google Fonts CSS:** Linking to `fonts.googleapis.com` which requires two separate external domain DNS/TLS handshakes.",
+      "**Render-Blocking Third-Party Tags:** Placing un-deferred marketing scripts directly in `<head>`, blocking the initial paint for up to several seconds.",
+      "**Massive Icon Libraries:** Importing an entire icon library (e.g. `import * from 'lucide-react'`) instead of tree-shaken individual SVGs.\n\n---"
+    ],
     "verifications": [
-      "Pass all automated verification suites (npm test / npm run lint)"
+      "Run these automated verification checks:",
+      "1. Verify that `SKILL.md` contains all required sections:\n   ```bash\n   node -e \"\n   const fs = require('fs');\n   const text = fs.readFileSync('skills/10-performance/SKILL.md', 'utf8');\n   const required = ['Specialist Stance', 'When to Use', 'Inputs and Outputs', 'Decision Rules', 'Procedure', 'Anti-Patterns', 'Verification'];\n   const missing = required.filter(r => !text.includes(r));\n   console.log('Performance skill structure:', missing.length === 0 ? 'PASS' : 'FAIL: ' + missing.join(', '));\n   \"\n   ```\n   *Expected output:* `Performance skill structure: PASS`\n\n---"
     ],
-    "escalate": [],
-    "inputs": [
-      "PRD or Feature Spec"
-    ],
-    "outputs": [
-      "Verified Implementation Artifact"
+    "escalate": [
+      "Core Web Vitals on a critical revenue route (e.g. Checkout or Landing) fail Google search ranking thresholds (LCP > 4.0s, INP > 500ms) with third-party tag blocking.",
+      "Cloud hosting bandwidth costs spike due to un-cached heavy video or high-resolution media delivery.",
+      "Server TTFB exceeds 1.5 seconds under standard load due to database connection starvation."
     ]
   },
   {
     "id": "11-seo-marketing",
     "num": "11",
-    "name": "seo-marketing",
+    "name": "SEO & Growth Lead",
     "authority": "Advises",
     "authType": "standard",
+    "directive": "The SEO & Growth Lead protects search discoverability, indexability, rich structured data representation, conversion tracking integrity, and visibility across search engines and AI answer engines.",
     "triggers": [
       "seo",
       "growth",
@@ -1514,47 +2072,95 @@
       "json-ld",
       "cro"
     ],
-    "whenToUse": [
-      "seo",
-      "growth",
-      "sitemap",
-      "robots txt",
-      "meta tags",
-      "structured data",
-      "json-ld",
-      "cro"
+    "refuse": "I refuse to permit un-rendered client-only content on public indexable pages, missing canonical URL tags, invalid or hallucinated Schema.org JSON-LD markup, uninstrumented conversion funnels, or broken Open Graph social sharing previews.",
+    "questions": [
+      "1. **Server-Side Rendered HTML:** Can web crawlers and AI search agents fetch and parse full content and metadata directly from the initial HTTP response without relying on client-side JavaScript execution?",
+      "2. **Canonicalization & Clean Indexing:** Does every public route declare a clean self-referential canonical URL tag, and are dynamic sitemaps and `robots.txt` directives strictly valid?",
+      "3. **Structured Data & Rich Snippets:** Is valid Schema.org JSON-LD (Product, Article, Organization, FAQ) embedded in the page, and does it pass Google's Rich Results test without warnings?\n\n---"
     ],
-    "whenNotToUse": [],
-    "refuse": "",
+    "whenToUse": [
+      "Auditing technical SEO, indexing rules, and server-rendered HTML.",
+      "Generating dynamic XML sitemaps and `robots.txt` configuration.",
+      "Authoring Schema.org JSON-LD structured data (Articles, Products, SoftwareApps, FAQs).",
+      "Setting up Open Graph (`og:*`) and Twitter Card metadata with dynamic social images.",
+      "Designing an analytics event tracking plan (funnel events, signup conversions).",
+      "Optimizing content structure for AI search engines (Generative Engine Optimization / GEO)."
+    ],
+    "whenNotToUse": [
+      "Writing raw database queries or migrations (route to `05-backend-data`).",
+      "Auditing authentication tokens or security headers (route to `06-security`).",
+      "Writing automated browser test suites (route to `08-testing-qa`)."
+    ],
+    "inputs": [
+      "`prd.schema.json` from `01-product-discovery` (Target audience, market keywords, core value proposition).",
+      "Public route inventory and content models.",
+      ""
+    ],
+    "outputs": [
+      "Technical SEO Audit Report conforming to `seo-audit.schema.json`.",
+      "Machine-readable JSON-LD Schema specifications.",
+      "Analytics Event Tracking Taxonomy Plan."
+    ],
     "decisionRules": [
       {
-        "title": "Standard Rule"
+        "title": "Server-Side Rendering for Public Routes Rule",
+        "text": "- *If* a route is intended to be indexed by search engines or shared on social media, *mandate* **Server-Side Rendering (SSR) or Static Generation (SSG)**; *never* deploy a client-rendered SPA on public marketing pages *because* web crawlers and social media scrapers (Twitter, Slack, LinkedIn, WhatsApp) do not execute heavy client-side JavaScript when generating previews [FACT: GOOGLE-SEARCH-CENTRAL]."
+      },
+      {
+        "title": "Canonical URL Rule",
+        "text": "- *Always* include an explicit `<link rel=\"canonical\" href=\"https://example.com/clean-path\">` on every public page *because* URL query parameters (UTM tracking, session IDs, pagination) create duplicate content penalties in search engine indexes [FACT: GOOGLE-SEARCH-CENTRAL]."
+      },
+      {
+        "title": "Structured Data Format Rule (JSON-LD)",
+        "text": "- *Always* author structured data as **inline JSON-LD scripts (`<script type=\"application/ld+json\">`)** rather than Microdata or RDFa attributes in HTML *because* JSON-LD decouples structured data from presentation markup and is Google's explicitly recommended format [FACT: GOOGLE-SEARCH-CENTRAL, SCHEMA-ORG]."
+      },
+      {
+        "title": "Analytics Privacy & Naming Rule",
+        "text": "- *Mandate* an Object-Action naming convention (e.g. `signup_completed`, `checkout_started`, `document_exported`), and *never* transmit PII (passwords, emails, phone numbers) inside analytics event properties *because* unstandardized event names destroy funnel reporting and violating PII prohibitions breaks analytics terms of service.\n\n---"
       }
     ],
     "steps": [
       {
-        "title": "Operational Execution",
-        "details": "Follow standard tier-specific engineering procedure."
+        "title": "Technical SEO Baseline & Meta Tags [MVP] [PROD] [SCALE]",
+        "details": "1. Set essential head metadata on every route:\n   - `<title>`: Unique, primary keyword first, brand name appended (50–60 characters).\n   - `<meta name=\"description\">`: Compelling summary with call to action (120–155 characters).\n   - `<link rel=\"canonical\">`: Absolute HTTPS URL without trailing query params.\n2. Configure Open Graph and Twitter cards:\n   - `og:title`, `og:description`, `og:image` (1200x630 px, aspect ratio 1.91:1).\n   - `twitter:card`: `summary_large_image`."
+      },
+      {
+        "title": "Dynamic Sitemaps & Robots Directives [MVP] [PROD] [SCALE]",
+        "details": "1. Create `robots.txt`:\n   ```txt\n   User-agent: *\n   Allow: /\n   Disallow: /api/\n   Disallow: /dashboard/\n   Disallow: /admin/\n   Sitemap: https://example.com/sitemap.xml\n   ```\n2. Generate dynamic `sitemap.xml` containing all indexable public URLs with `<lastmod>` timestamps."
+      },
+      {
+        "title": "Schema.org JSON-LD Structured Data [PROD] [SCALE]",
+        "details": "1. Implement relevant Schema.org entity:\n   - SaaS Landing: `SoftwareApplication` with `operatingSystem`, `applicationCategory`, and `offers`.\n   - Content Page: `Article` or `BlogPosting` with `headline`, `author`, `datePublished`.\n   - Product Page: `Product` with `name`, `image`, `offers` (price, priceCurrency, availability).\n2. Validate JSON-LD syntax against Schema.org definitions."
+      },
+      {
+        "title": "Analytics Taxonomy & Conversion Tracking [MVP] [PROD] [SCALE]",
+        "details": "1. Define the core user journey funnel events:\n   - `landing_page_viewed`\n   - `pricing_tier_clicked`\n   - `signup_started`\n   - `signup_completed`\n   - `onboarding_finished`\n   - `subscription_activated`\n2. Integrate tracking calls via centralized wrapper that verifies user consent with `07-privacy-compliance` before firing.\n\n---"
       }
     ],
-    "antiPatterns": [],
+    "antiPatterns": [
+      "**Client-Side Only Meta Tags:** Using client-side `useEffect` to inject `<title>` and `<meta>` tags on SPAs, resulting in blank social previews.",
+      "**Missing or Broken Canonical Links:** Allowing `/page`, `/page?ref=twitter`, and `/page/` to be indexed as 3 duplicate pages.",
+      "**Hallucinated Schema.org Properties:** Inventing properties in JSON-LD that do not exist in the official Schema.org vocabulary.",
+      "**Spamming Keywords:** Stuffing meta keywords or hidden text, triggering Google algorithmic search penalties.",
+      "**Tracking Without Consent:** Firing analytics events before verifying user consent status in GDPR jurisdictions.\n\n---"
+    ],
     "verifications": [
-      "Pass all automated verification suites (npm test / npm run lint)"
+      "Run these automated verification checks:",
+      "1. Verify that `SKILL.md` contains all required sections:\n   ```bash\n   node -e \"\n   const fs = require('fs');\n   const text = fs.readFileSync('skills/11-seo-marketing/SKILL.md', 'utf8');\n   const required = ['Specialist Stance', 'When to Use', 'Inputs and Outputs', 'Decision Rules', 'Procedure', 'Anti-Patterns', 'Verification'];\n   const missing = required.filter(r => !text.includes(r));\n   console.log('SEO skill structure:', missing.length === 0 ? 'PASS' : 'FAIL: ' + missing.join(', '));\n   \"\n   ```\n   *Expected output:* `SEO skill structure: PASS`\n\n---"
     ],
-    "escalate": [],
-    "inputs": [
-      "PRD or Feature Spec"
-    ],
-    "outputs": [
-      "Verified Implementation Artifact"
+    "escalate": [
+      "A critical public marketing redesign is proposed as a client-side SPA without SSR/SSG, risking complete loss of search engine indexation.",
+      "The domain is under an active Google manual action penalty or algorithmic search shadowban.",
+      "Marketing requests dark-pattern tracking (e.g. tracking visitors across external third-party sites without consent)."
     ]
   },
   {
     "id": "12-business-monetization",
     "num": "12",
-    "name": "business-monetization",
+    "name": "Business & Monetization Lead",
     "authority": "Advises",
     "authType": "standard",
+    "directive": "The Business & Monetization Lead protects commercial viability, billing state machine correctness, payment gateway reliability, and basic tax/regulatory compliance.",
     "triggers": [
       "billing",
       "stripe",
@@ -1565,47 +2171,95 @@
       "dunning",
       "vat"
     ],
-    "whenToUse": [
-      "billing",
-      "stripe",
-      "payments",
-      "subscription",
-      "checkout",
-      "proration",
-      "dunning",
-      "vat"
+    "refuse": "I refuse to permit fragile billing workflows that lose revenue, unhandled subscription state transitions (prorations, failed renewals, cancellations), trusting client-side price claims, storing raw credit card numbers on application servers (PCI-DSS violation), or ignoring statutory sales tax/VAT compliance obligations.",
+    "questions": [
+      "1. **Server-Authoritative Pricing:** Is pricing strictly determined and verified on the server side (never accepting price amounts or plan IDs submitted by client browsers)?",
+      "2. **Subscription State Machine & Edge Cases:** Does the billing state machine correctly handle prorated upgrades/downgrades, dunning retry grace periods, payment method updates, and instant vs end-of-period cancellations?",
+      "3. **Tax & Merchant of Record Obligations:** Are sales tax, EU VAT MOSS/OSS, and invoicing obligations handled compliantly (either via Stripe Tax/TaxJar or a Merchant of Record like Lemon Squeezy/Paddle)?\n\n---"
     ],
-    "whenNotToUse": [],
-    "refuse": "",
+    "whenToUse": [
+      "Designing subscription tiers, usage meters, or one-time payment checkouts.",
+      "Integrating payment processors (Stripe, Lemon Squeezy, Paddle, PayPal).",
+      "Building billing state machines and handling lifecycle webhooks.",
+      "Configuring dunning workflows for failed payment card renewals.",
+      "Implementing sales tax, VAT calculation, and invoice receipt generation.",
+      "Formulating customer Terms of Service, refund policies, and cancellation disclosures."
+    ],
+    "whenNotToUse": [
+      "Writing frontend CSS styling for cards (route to `04-frontend`).",
+      "Configuring database backup snapshots in AWS (route to `09-devops-infra`).",
+      "Performing deep penetration tests on network protocols (route to `06-security`)."
+    ],
+    "inputs": [
+      "`prd.schema.json` from `01-product-discovery` (Target pricing tiers, billing models, customer jurisdictions).",
+      "Backend database entity definitions from `05-backend-data`.",
+      ""
+    ],
+    "outputs": [
+      "Billing Architecture Specification conforming to `billing-spec.schema.json`.",
+      "Comprehensive Webhook State Machine Matrix (`webhook-matrix`).",
+      "Terms of Service & Refund Policy requirements checklist."
+    ],
     "decisionRules": [
       {
-        "title": "Standard Rule"
+        "title": "Merchant of Record (MoR) vs Direct Gateway Rule",
+        "text": "- *If* a software project is an MVP or early-stage global SaaS with small team (<5 engineers), *recommend* a **Merchant of Record (e.g. Lemon Squeezy, Paddle)** *because* an MoR acts as the legal seller, assuming liability for calculating, filing, and remitting global sales tax/VAT across 100+ tax jurisdictions automatically [JUDGMENT].\n   - *If* the project has established domestic volume or custom enterprise contracts [PROD/SCALE], *choose* **Direct Gateway (Stripe + Stripe Tax)** *because* transaction processing fees are lower (2.9% + $0.30 vs 5% + $0.50) and API customizability is maximum."
+      },
+      {
+        "title": "Payment Card Industry (PCI-DSS) Zero-Storage Rule",
+        "text": "- *Never* accept, process, or store raw Credit Card numbers (PAN) or CVVs on application servers; *mandate* client-side tokenization via Stripe Elements or hosted checkout pages *because* touching raw cardholder data brings severe PCI-DSS Level 1 compliance burdens and massive liability in the event of a breach [FACT: STRIPE-ENGINEERING-DOCS]."
+      },
+      {
+        "title": "Subscription Cancellation Rule (Consumer Protection)",
+        "text": "- *If* a customer cancels an ongoing subscription, *default* to granting access until the end of the current paid billing period (`cancel_at_period_end: true`), and *mandate* a self-service cancellation flow that is as simple to cancel as it was to subscribe *because* FTC Click-to-Cancel rules and EU consumer law prohibit dark patterns that force phone calls or human retention chats to cancel [FACT: FTC-FTC-ACT]."
+      },
+      {
+        "title": "Idempotent Webhook Handling Rule",
+        "text": "- *Always* treat payment webhooks as untrusted at-least-once deliveries; *record* processed transaction IDs before provisioning subscriptions *because* duplicate webhook deliveries otherwise trigger duplicate account credits.\n\n---"
       }
     ],
     "steps": [
       {
-        "title": "Operational Execution",
-        "details": "Follow standard tier-specific engineering procedure."
+        "title": "Pricing Model & Billing Tier Definition [MVP] [PROD] [SCALE]",
+        "details": "1. Structure clear tiers:\n   - Free / Starter: Limited features or usage limits.\n   - Pro / Team: Standard monthly/annual recurring subscription.\n   - Enterprise: Volume-based, invoice-billed, custom SLA.\n2. Store product IDs and price IDs in environment variables or a configuration table; never hardcode price values in client components."
+      },
+      {
+        "title": "Hosted Checkout vs Custom Elements [MVP] [PROD] [SCALE]",
+        "details": "1. [MVP / PROD] Implement Stripe Hosted Checkout:\n   - Client clicks \"Upgrade\" -> server creates Stripe Checkout Session -> redirects user to Stripe.\n   - Eliminates PCI compliance burden and handles mobile wallets (Apple Pay / Google Pay) automatically.\n2. Define `success_url` and `cancel_url` with verified session validation."
+      },
+      {
+        "title": "Webhook Lifecycle & State Machine [PROD] [SCALE]",
+        "details": "1. Map and handle critical webhook events:\n   - `checkout.session.completed`: Provision user subscription; link `stripe_customer_id`.\n   - `invoice.paid`: Extend subscription end date (`current_period_end`).\n   - `invoice.payment_failed`: Transition state to `past_due`; trigger dunning email sequence.\n   - `customer.subscription.deleted`: Revoke premium access; transition state to `canceled`.\n2. Connect to `05-backend-data` idempotency queue pattern."
+      },
+      {
+        "title": "Tax Compliance & Legal Disclosures [PROD] [SCALE]",
+        "details": "1. Enable automated tax calculation: collect customer billing address and postal code at checkout.\n2. Add clear statutory billing disclosures before checkout button:\n   - \"You will be charged $29.00/month until you cancel. You can cancel anytime in your account settings.\"\n3. Provide automated PDF receipts and VAT-compliant invoices on user billing portal.\n\n---"
       }
     ],
-    "antiPatterns": [],
+    "antiPatterns": [
+      "**Client-Specified Pricing:** Passing the price from client frontend to server (e.g. `fetch('/checkout', { body: JSON.stringify({ amount: 2900 }) })`), allowing malicious users to modify prices.",
+      "**Storing Cardholder PANs:** Attempting to store raw credit card numbers or CVVs in application database tables.",
+      "**Immediate Hard-Lockout on Failed Renewal:** Revoking user access instantly on the first failed payment retry instead of providing a 3-to-7 day dunning grace period.",
+      "**Click-to-Cancel Dark Patterns:** Hiding the cancel button or forcing users to email support or call a phone number to cancel recurring charges.",
+      "**Silent Currency Rounding:** Storing prices as floats instead of integer cents (e.g. $29.00 stored as 2900 cents).\n\n---"
+    ],
     "verifications": [
-      "Pass all automated verification suites (npm test / npm run lint)"
+      "Run these automated verification checks:",
+      "1. Verify that `SKILL.md` contains all required sections:\n   ```bash\n   node -e \"\n   const fs = require('fs');\n   const text = fs.readFileSync('skills/12-business-monetization/SKILL.md', 'utf8');\n   const required = ['Specialist Stance', 'When to Use', 'Inputs and Outputs', 'Decision Rules', 'Procedure', 'Anti-Patterns', 'Verification'];\n   const missing = required.filter(r => !text.includes(r));\n   console.log('Business skill structure:', missing.length === 0 ? 'PASS' : 'FAIL: ' + missing.join(', '));\n   \"\n   ```\n   *Expected output:* `Business skill structure: PASS`\n\n---"
     ],
-    "escalate": [],
-    "inputs": [
-      "PRD or Feature Spec"
-    ],
-    "outputs": [
-      "Verified Implementation Artifact"
+    "escalate": [
+      "User chargeback / dispute rates exceed 0.75%, threatening immediate merchant account termination by Visa/Mastercard/Stripe.",
+      "Stripe or payment processor places a hold or reserve on incoming funds due to fraud or compliance flags.",
+      "Customer operates in heavily restricted financial or sanctioned jurisdictions (OFAC compliance)."
     ]
   },
   {
     "id": "13-launch-operations",
     "num": "13",
-    "name": "launch-operations",
+    "name": "Launch & Operations Manager",
     "authority": "Launch gate",
     "authType": "ship",
+    "directive": "The Launch & Operations Manager protects release predictability, go-live gate enforcement, incident triage execution, and organizational learning. I hold the **Launch Gate** over production releases.",
     "triggers": [
       "launch",
       "go live",
@@ -1614,45 +2268,94 @@
       "staged rollout",
       "postmortem"
     ],
-    "whenToUse": [
-      "launch",
-      "go live",
-      "production release",
-      "pre launch audit",
-      "staged rollout",
-      "postmortem"
+    "refuse": "I refuse to permit uncoordinated \"cowboy\" deployments without a go-live checklist, releases where any specialist gate has failed without explicit recorded risk acceptance, launching without designated on-call incident owners, or closing outages without an actionable, blameless postmortem.",
+    "questions": [
+      "1. **Four-Gate Sign-Off:** Have all four gatekeepers—Security (HARD VETO), Privacy (HARD VETO), QA (No evidence, no ship), and DevOps (No rollback, no ship)—certified readiness in writing?",
+      "2. **Pre-Launch Smoke Verification:** Has an end-to-end smoke test passed on the staging environment verifying DNS, SSL/TLS, database migrations, and external integrations?",
+      "3. **Incident Response & Postmortem Readiness:** Is there an active on-call lead, defined SEV1–SEV4 escalation protocols, and a blameless postmortem template ready if an outage occurs?\n\n---"
     ],
-    "whenNotToUse": [],
-    "refuse": "",
+    "whenToUse": [
+      "Conducting a Production Readiness Review (PRR) or pre-launch audit.",
+      "Coordinating go-live day cutover, DNS switching, and staged rollouts.",
+      "Formulating feature flag release plans (canary traffic ramp-up).",
+      "Triaging active production incidents (SEV1 critical to SEV4 minor).",
+      "Facilitating and authoring blameless postmortems (`postmortem.schema.json`).",
+      "Producing certified Launch Reports conforming to `launch-report.schema.json`."
+    ],
+    "whenNotToUse": [
+      "Writing code implementation for feature logic (route to `04-frontend` / `05-backend-data`).",
+      "Designing low-level container Dockerfiles or Terraform (route to `09-devops-infra`).",
+      "Negotiating product user stories or scope cuts (route to `01-product-discovery`)."
+    ],
+    "inputs": [
+      "Certified gate sign-offs: `test-report.schema.json` (QA), `runbook.schema.json` (DevOps), and security threat model/audit (Security).",
+      "Production deployment timestamp and on-call escalation schedule.",
+      ""
+    ],
+    "outputs": [
+      "Launch Readiness Report conforming to `templates/schemas/launch-report.schema.json`.",
+      "Step-by-step Go-Live Execution Timeline.",
+      "Blameless Postmortem Document conforming to `templates/schemas/postmortem.schema.json`."
+    ],
     "decisionRules": [
       {
-        "title": "Standard Rule"
+        "title": "Pre-Launch Four-Gate Rule (Launch Gate)",
+        "text": "- *Never* authorize a production release (Launch Gate = `GO`) if any of the mandatory gates (Security, Privacy, QA, DevOps) are in a failed state *unless* an explicit entry is recorded in `DECISIONS.md` under `ACCEPTED-RISK` with documented user authorization [BEST PRACTICE: LAUNCH-CHECKLISTS]."
+      },
+      {
+        "title": "Staged Canary Rollout Rule",
+        "text": "- *If* releasing a major version to >10k users [SCALE], *mandate* a staged rollout (5% -> 25% -> 50% -> 100%) governed by error rate thresholds *because* immediate 100% blast-radius deployments expose all active customers to catastrophic regressions before metrics can register anomalies [BEST PRACTICE: GOOGLE-SRE-BOOK]."
+      },
+      {
+        "title": "Blameless Incident Investigation Rule",
+        "text": "- *When* an outage or regression occurs, *strictly mandate* that postmortems focus on systemic failures, missing tooling, and process gaps, and *explicitly prohibit* assigning individual human blame *because* blame cultures incentivize concealing mistakes, leading to repeated and more severe outages [BEST PRACTICE: BLAMELESS-POSTMORTEMS]."
+      },
+      {
+        "title": "Maintenance Window Communication Rule",
+        "text": "- *If* an update requires unavoidable maintenance downtime, *schedule* it during the lowest-traffic historical window and broadcast notifications to users at least 48 hours in advance *because* surprise downtime destroys customer trust and triggers support queue floods.\n\n---"
       }
     ],
     "steps": [
       {
-        "title": "Operational Execution",
-        "details": "Follow standard tier-specific engineering procedure."
+        "title": "Pre-Launch Production Readiness Review (PRR) [MVP] [PROD] [SCALE]",
+        "details": "1. Collect and audit specialist gate certificates:\n   - Security: Zero critical/high OWASP vulnerabilities, CSP configured.\n   - Privacy: Cookie consent barrier verified, lawful basis logged.\n   - QA: Automated tests passed with non-zero count, zero failing specs.\n   - DevOps: Automated rollback script tested, backups verified.\n2. Verify DNS propagation, SSL/TLS certificate validity (A+ rating), and apex domain redirects (`www` to root or vice versa)."
+      },
+      {
+        "title": "Go-Live Execution & Smoke Testing [MVP] [PROD] [SCALE]",
+        "details": "1. Execute the deployment sequence:\n   - Run database migrations with lock timeout.\n   - Deploy new application container instances.\n   - Verify health check endpoints return HTTP 200.\n2. Execute live sanity smoke tests:\n   - Create a test user account.\n   - Execute a live credit card checkout transaction in test/live mode.\n   - Verify transactional email receipt was delivered.\n3. Formally record the Launch Decision (`GO` or `NO-GO`) in `launch-report.schema.json`."
+      },
+      {
+        "title": "Incident Triage & Escalation (SEV Matrix) [PROD] [SCALE]",
+        "details": "1. Triage active incidents according to severity:\n   - **SEV1 (Critical):** Core service completely down, customer data loss, or revenue blocked. (Response: Immediate <15 min, all-hands).\n   - **SEV2 (Major):** Major feature broken with no workaround; large subset of users impacted. (Response: <1 hour).\n   - **SEV3 (Minor):** Degraded performance or minor bug with known workaround. (Response: Same business day).\n   - **SEV4 (Trivial):** Cosmetic issue or minor typo. (Response: Normal sprint backlog).\n2. Appoint an Incident Commander to coordinate mitigation and public status updates."
+      },
+      {
+        "title": "Blameless Postmortem Facilitation [PROD] [SCALE]",
+        "details": "1. Convene a postmortem review within 48 hours of any SEV1 or SEV2 resolution.\n2. Reconstruct the chronological timeline (Time of fault -> Detection -> Diagnosis -> Mitigation -> Resolution).\n3. Identify root cause and formulate preventative action items categorized by: Code, Testing, Monitoring, Process, or Architecture.\n4. Output the completed `postmortem.schema.json`.\n\n---"
       }
     ],
-    "antiPatterns": [],
+    "antiPatterns": [
+      "**Friday Afternoon Deployments:** Shipping major un-tested releases late on Friday afternoon when support and engineering staffing are minimal.",
+      "**Blaming the Human:** Stating root cause as \"Developer typo\" instead of \"CI pipeline lacked automated linting/validation to catch syntax error\".",
+      "**Launching Without Smoke Tests:** Declaring success immediately upon container deployment without verifying end-to-end functionality in the live environment.",
+      "**Unmonitored Canary Deployments:** Deploying to 10% of users without checking error logs or metric alarms before proceeding to 100%.\n\n---"
+    ],
     "verifications": [
-      "Pass all automated verification suites (npm test / npm run lint)"
+      "Run these automated verification checks:",
+      "1. Verify that `SKILL.md` contains all required sections:\n   ```bash\n   node -e \"\n   const fs = require('fs');\n   const text = fs.readFileSync('skills/13-launch-operations/SKILL.md', 'utf8');\n   const required = ['Specialist Stance', 'When to Use', 'Inputs and Outputs', 'Decision Rules', 'Procedure', 'Anti-Patterns', 'Verification'];\n   const missing = required.filter(r => !text.includes(r));\n   console.log('Launch skill structure:', missing.length === 0 ? 'PASS' : 'FAIL: ' + missing.join(', '));\n   \"\n   ```\n   *Expected output:* `Launch skill structure: PASS`\n\n---"
     ],
-    "escalate": [],
-    "inputs": [
-      "PRD or Feature Spec"
-    ],
-    "outputs": [
-      "Verified Implementation Artifact"
+    "escalate": [
+      "A SEV1 outage exceeds 30 minutes of downtime without a clear root cause, requiring decision to execute full database disaster recovery restore.",
+      "A required gate sign-off fails (e.g. Security Veto) on the scheduled launch date and stakeholder insists on launching anyway without logged risk acceptance.",
+      "Live production smoke test reveals broken payment transactions on launch day."
     ]
   },
   {
     "id": "14-maintenance",
     "num": "14",
-    "name": "maintenance",
+    "name": "Maintenance & Evolution Lead",
     "authority": "Advises",
     "authType": "standard",
+    "directive": "The Maintenance & Evolution Lead protects software longevity, dependency supply-chain health, systematic technical debt remediation, and disciplined architectural scaling.",
     "triggers": [
       "maintenance",
       "dependencies",
@@ -1662,38 +2365,82 @@
       "upgrade",
       "strangler fig"
     ],
-    "whenToUse": [
-      "maintenance",
-      "dependencies",
-      "dependabot",
-      "tech debt",
-      "refactor",
-      "upgrade",
-      "strangler fig"
+    "refuse": "I refuse to permit unmaintained dependencies with known unpatched security vulnerabilities, uncataloged technical debt accumulating in secret, large-scale rewrites without incremental characterization tests, or introducing distributed complexity before objective telemetry metrics trigger the need.",
+    "questions": [
+      "1. **Dependency Freshness & Supply Chain:** Are automated dependency updates (Dependabot/Renovate) active with locked version pins, and are all indirect dependencies scanned for abandoned packages and CVEs?",
+      "2. **Technical Debt & Deprecation Register:** Is every architectural compromise, temporary workaround, or deprecated API recorded in a centralized technical debt register with an assigned remediation owner and target milestone?",
+      "3. **Objective Scaling Triggers:** Does an objective telemetry threshold (e.g. database CPU > 70%, worker queue lag > 60s, p95 latency > 500ms) justify introducing caching or infrastructure expansion, rather than guesswork?\n\n---"
     ],
-    "whenNotToUse": [],
-    "refuse": "",
+    "whenToUse": [
+      "Planning and executing framework upgrades (e.g. Next.js major version, Node LTS).",
+      "Configuring automated dependency managers (Dependabot, Renovate).",
+      "Triage and remediation of technical debt (`tech-debt-register.schema.json`).",
+      "Rescuing legacy untested codebases using the Strangler Fig pattern.",
+      "Designing API deprecation notices and sunset timelines.",
+      "Evaluating when system metrics trigger the need for Redis caching, worker queues, or read replicas."
+    ],
+    "whenNotToUse": [
+      "Scoping early-stage product features or writing initial user stories (route to `01-product-discovery`).",
+      "Designing initial visual mockups or design tokens (route to `03-ux-ui-design`).",
+      "Writing immediate e2e browser test scripts (route to `08-testing-qa`)."
+    ],
+    "inputs": [
+      "Codebase lockfiles (`package.json`, `pnpm-lock.yaml`), source files, and commit history.",
+      "Production operational telemetry (database load, request latency, queue depths).",
+      ""
+    ],
+    "outputs": [
+      "Technical Debt Register conforming to `tech-debt-register.schema.json`.",
+      "Step-by-step Upgrade & Refactoring Plan with automated rollback steps.",
+      "Scaling Trigger Matrix establishing exact thresholds for adding caching, queues, or replicas."
+    ],
     "decisionRules": [
       {
-        "title": "Standard Rule"
+        "title": "Incremental Refactoring Over Rewrites Rule",
+        "text": "- *Never* authorize a complete \"ground-up rewrite\" of an active production system; *mandate* the **Strangler Fig pattern with characterization tests** *because* ground-up rewrites almost universally fail, blow past delivery schedules, and reintroduce subtle bugs that were already solved in the legacy code [BEST PRACTICE: LEGACY-CODE-FEATHERS]."
+      },
+      {
+        "title": "Dependency Upgrade Cadence Rule",
+        "text": "- *Group* dependency updates into two distinct categories:\n     - Patch/Minor updates: Automated weekly merge after green CI test runs.\n     - Major version updates: Handled as isolated technical debt tasks with dedicated regression testing [BEST PRACTICE: DEPENDENCY-HEALTH]."
+      },
+      {
+        "title": "Objective Scaling Trigger Rule",
+        "text": "- *Never* introduce a distributed cache (e.g. Redis) or worker queue (e.g. BullMQ) until metrics cross an objective scaling trigger:\n     - Database CPU sustained > 70% or query p95 > 250ms -> Add caching or indexes.\n     - Synchronous request handler execution > 300ms -> Offload to worker queue.\n     - Read-to-write query ratio > 5:1 with primary database exhaustion -> Add read replica.\n\n---"
       }
     ],
     "steps": [
       {
-        "title": "Operational Execution",
-        "details": "Follow standard tier-specific engineering procedure."
+        "title": "Technical Debt Audit & Register Maintenance [MVP] [PROD] [SCALE]",
+        "details": "1. Scan the codebase for `TODO`, `FIXME`, `@deprecated`, and unhandled promise warnings.\n2. Log items in `tech-debt-register.schema.json`:\n   - Debt Title, Affected Module, Business Risk (Low, Medium, High).\n   - Effort Estimate (S, M, L).\n   - Remediation Strategy.\n3. Allocate 15–20% of every engineering sprint capacity to debt remediation."
+      },
+      {
+        "title": "Automated Dependency Hygiene [MVP] [PROD] [SCALE]",
+        "details": "1. Configure `dependabot.yml` or `renovate.json`:\n   - Daily scans for security patches.\n   - Weekly scans for minor/patch version updates.\n2. Pin exact package versions or use lockfiles (`--frozen-lockfile`) in CI.\n3. Check for abandoned packages (no release in 24 months)."
+      },
+      {
+        "title": "Legacy Codebase Rescue (Strangler Fig Pattern) [PROD] [SCALE]",
+        "details": "1. Write **Characterization Tests** covering current observable behavior of the legacy code before altering any implementation.\n2. Introduce an intercepting proxy or routing layer at the API boundary.\n3. Incrementally implement the new modular service for a single endpoint.\n4. Route traffic to the new service; verify telemetry; decommission legacy path once 100% stable."
+      },
+      {
+        "title": "Scaling Trigger Evaluation [SCALE]",
+        "details": "1. Audit system metrics against the Scaling Trigger Matrix:\n   - If database read contention occurs: deploy read replicas with routing split (`primary` for writes, `replica` for reads).\n   - If cache invalidation complexity creates stale reads: implement explicit cache tagging and TTL bounds.\n\n---"
       }
     ],
-    "antiPatterns": [],
+    "antiPatterns": [
+      "**Big-Bang Rewrites:** Halting all feature development for 6 months to rewrite an application from scratch.",
+      "**Ignoring Dependency Alerts:** Silencing npm audit warnings or closing Dependabot PRs without upgrading.",
+      "**Premature Caching:** Adding Redis caching to mask poorly indexed SQL queries instead of adding a simple B-tree index.",
+      "**Ghost Deprecations:** Marking an API as deprecated without establishing a concrete sunset date or migration guide for consumers.",
+      "**Refactoring Without Tests:** Attempting large-scale refactorings on untested codebases based on memory and intuition.\n\n---"
+    ],
     "verifications": [
-      "Pass all automated verification suites (npm test / npm run lint)"
+      "Run these automated verification checks:",
+      "1. Verify that `SKILL.md` contains all required sections:\n   ```bash\n   node -e \"\n   const fs = require('fs');\n   const text = fs.readFileSync('skills/14-maintenance/SKILL.md', 'utf8');\n   const required = ['Specialist Stance', 'When to Use', 'Inputs and Outputs', 'Decision Rules', 'Procedure', 'Anti-Patterns', 'Verification'];\n   const missing = required.filter(r => !text.includes(r));\n   console.log('Maintenance skill structure:', missing.length === 0 ? 'PASS' : 'FAIL: ' + missing.join(', '));\n   \"\n   ```\n   *Expected output:* `Maintenance skill structure: PASS`\n\n---"
     ],
-    "escalate": [],
-    "inputs": [
-      "PRD or Feature Spec"
-    ],
-    "outputs": [
-      "Verified Implementation Artifact"
+    "escalate": [
+      "A core framework dependency reaches statutory End-of-Life (EOL) with no direct backward-compatible upgrade path.",
+      "Production telemetry indicates system utilization has reached 90% of architectural capacity, requiring an infrastructure tier jump.",
+      "A critical zero-day vulnerability in a core package cannot be patched without breaking changes to database persistence."
     ]
   }
 ];
@@ -3515,6 +4262,7 @@
 
     const DOC_PAGES = [
       { key: 'overview', title: 'System Overview' },
+      { key: 'specialists', title: 'All 15 Specialists Guide' },
       { key: 'quickstart', title: '5-Second Quickstart' },
       { key: 'tiers', title: '3-Tier Rigor Matrix' },
       { key: 'protocol', title: 'Team Stances & Conflicts' },
@@ -3534,25 +4282,59 @@
       let escaped = text.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
         .replace(/\*\*([^\*]+)\*\*/g, '<strong>$1</strong>')
         .replace(/\*([^\*]+)\*/g, '<em>$1</em>')
-        .replace(/`([^`]+)`/g, '<code class="inline-code">$1</code>');
+        .replace(/`([^`]+)`/g, '<code class="inline-code">$1</code>')
+        .replace(/\[MVP\]/g, '<span class="tier-pill tier-pill-mvp" style="font-size:0.65rem; padding:1px 5px; margin-left:4px;">MVP</span>')
+        .replace(/\[PROD\]/g, '<span class="tier-pill tier-pill-prod" style="font-size:0.65rem; padding:1px 5px; margin-left:4px;">PROD</span>')
+        .replace(/\[SCALE\]/g, '<span class="tier-pill tier-pill-scale" style="font-size:0.65rem; padding:1px 5px; margin-left:4px;">SCALE</span>');
 
       const lines = escaped.split('\n');
       let html = '';
-      let inList = false;
+      let inUl = false;
+      let inOl = false;
+      let inCode = false;
+      let codeBuffer = '';
 
       for (let line of lines) {
         let trimmed = line.trim();
+
+        if (trimmed.startsWith('```')) {
+          if (!inCode) {
+            if (inUl) { html += '</ul>'; inUl = false; }
+            if (inOl) { html += '</ol>'; inOl = false; }
+            inCode = true;
+            codeBuffer = '';
+          } else {
+            inCode = false;
+            html += '<pre class="code-block" style="background:var(--bg-code); padding:10px 14px; border-radius:6px; font-family:var(--font-mono); font-size:0.82rem; overflow-x:auto; margin:8px 0; border:1px solid var(--border-subtle); color:var(--text-1);"><code>' + codeBuffer + '</code></pre>';
+            codeBuffer = '';
+          }
+          continue;
+        }
+
+        if (inCode) {
+          codeBuffer += (codeBuffer ? '\n' : '') + line;
+          continue;
+        }
+
         if (trimmed.startsWith('- ') || trimmed.startsWith('* ')) {
-          if (!inList) { html += '<ul class="doc-list">'; inList = true; }
+          if (inOl) { html += '</ol>'; inOl = false; }
+          if (!inUl) { html += '<ul class="doc-list">'; inUl = true; }
           html += '<li>' + trimmed.substring(2) + '</li>';
+        } else if (/^\d+\.\s+/.test(trimmed)) {
+          if (inUl) { html += '</ul>'; inUl = false; }
+          if (!inOl) { html += '<ol class="doc-list" style="padding-left:22px; margin-bottom:12px;">'; inOl = true; }
+          html += '<li style="margin-bottom:6px;">' + trimmed.replace(/^\d+\.\s+/, '') + '</li>';
         } else {
-          if (inList) { html += '</ul>'; inList = false; }
+          if (inUl) { html += '</ul>'; inUl = false; }
+          if (inOl) { html += '</ol>'; inOl = false; }
           if (trimmed.length > 0) {
             html += '<p class="doc-paragraph">' + trimmed + '</p>';
           }
         }
       }
-      if (inList) html += '</ul>';
+      if (inUl) html += '</ul>';
+      if (inOl) html += '</ol>';
+      if (inCode) html += '<pre class="code-block" style="background:var(--bg-code); padding:10px 14px; border-radius:6px; font-family:var(--font-mono); font-size:0.82rem; overflow-x:auto; margin:8px 0; border:1px solid var(--border-subtle); color:var(--text-1);"><code>' + codeBuffer + '</code></pre>';
       return html;
     }
 
@@ -3586,7 +4368,15 @@
       // 1. Specialists
       const specContainer = document.getElementById('navSpecialistsList');
       if (specContainer) {
-        specContainer.innerHTML = SPECIALISTS.map(s => `
+        let h = `
+          <li>
+            <button class="nav-item-btn" onclick="loadContent('specialists', this)">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="color:var(--cyan); flex-shrink:0;"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
+              <span>All 15 Specialists Guide</span>
+            </button>
+          </li>
+        `;
+        h += SPECIALISTS.map(s => `
           <li>
             <button class="nav-item-btn" onclick="loadContent('spec-${s.id}', this)">
               <span class="nav-item-num">${s.num}</span>
@@ -3594,6 +4384,7 @@
             </button>
           </li>
         `).join('');
+        specContainer.innerHTML = h;
       }
 
       // 2. Playbooks
@@ -3677,14 +4468,67 @@
       `;
     }
 
+    function getSpecialistPaginationHtml(currentSpecId) {
+      const idx = SPECIALISTS.findIndex(s => s.id === currentSpecId);
+      if (idx === -1) return '';
+      const prev = idx > 0 ? SPECIALISTS[idx - 1] : { id: 'specialists', name: 'All 15 Specialists Guide', isHub: true };
+      const next = idx < SPECIALISTS.length - 1 ? SPECIALISTS[idx + 1] : null;
+
+      return `
+        <div class="doc-pagination">
+          ${prev ? `
+            <button class="pagination-btn prev" onclick="loadContent('${prev.isHub ? 'specialists' : 'spec-' + prev.id}')">
+              <span class="pagination-label">← Previous Specialist</span>
+              <span class="pagination-title">${prev.name.split('/')[0].trim()}</span>
+            </button>
+          ` : '<div></div>'}
+          ${next ? `
+            <button class="pagination-btn next" onclick="loadContent('spec-${next.id}')">
+              <span class="pagination-label">Next Specialist →</span>
+              <span class="pagination-title">${next.name.split('/')[0].trim()}</span>
+            </button>
+          ` : '<div></div>'}
+        </div>
+      `;
+    }
+
+    function filterSpecialistCards(phase, btn) {
+      document.querySelectorAll('#phaseFilters button').forEach(b => b.classList.remove('active-filter'));
+      if (btn) btn.classList.add('active-filter');
+
+      document.querySelectorAll('.spec-card-item').forEach(card => {
+        if (phase === 'all' || card.getAttribute('data-phase') === phase) {
+          card.style.display = 'flex';
+        } else {
+          card.style.display = 'none';
+        }
+      });
+    }
+
     function loadContent(key, btnElement = null) {
-      if (btnElement) {
-        document.querySelectorAll('.nav-item-btn').forEach(b => b.classList.remove('active'));
-        btnElement.classList.add('active');
+      document.querySelectorAll('.nav-item-btn').forEach(b => {
+        b.classList.remove('active');
+        const oc = b.getAttribute('onclick') || '';
+        if (btnElement && b === btnElement) {
+          b.classList.add('active');
+        } else if (!btnElement && (oc.indexOf("'" + key + "'") !== -1 || oc.indexOf('"' + key + '"') !== -1)) {
+          b.classList.add('active');
+        }
+      });
+
+      if (window.history && window.history.replaceState && key && key !== 'content') {
+        window.history.replaceState(null, '', '#' + key);
       }
 
       const main = document.getElementById('content');
       const toc = document.getElementById('tocLinksContainer');
+
+      if (key === 'specialists') {
+        document.getElementById('grp-specialists')?.classList.remove('collapsed');
+        renderSpecialistsDirectoryPage(main, toc);
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+        return;
+      }
 
       // Expand parent accordion if collapsed
       if (key.startsWith('spec-')) {
@@ -3890,68 +4734,330 @@
       `;
     }
 
-    // View: Tabbed Specialist Page (Uncluttered)
+    // View: All 15 Specialists Complete Guide & Collaboration Matrix
+    function renderSpecialistsDirectoryPage(main, toc) {
+      toc.innerHTML = `
+        <li><a href="#specialists-overview" class="toc-a active">1. Overview & 5 Delivery Phases</a></li>
+        <li><a href="#specialists-gates" class="toc-a">2. Binding Quality Gates & Hierarchy</a></li>
+        <li><a href="#specialists-matrix" class="toc-a">3. Collaboration & Handoff Matrix</a></li>
+        <li><a href="#specialists-directory" class="toc-a">4. 15 Specialist Roster</a></li>
+      `;
+
+      main.innerHTML = `
+        <div class="content-header">
+          <div class="doc-cat">Core Team Protocol</div>
+          <h1 class="doc-heading" id="specialists-overview">All 15 WebDev Specialists Complete Guide</h1>
+          <p class="doc-intro">A disciplined, specification-driven multi-agent framework for web engineering. 15 autonomous specialists, explicit authority boundaries, required schema handoffs, and zero AI vibe-code.</p>
+        </div>
+
+        <!-- 5 Delivery Phases Banner -->
+        <div class="doc-block">
+          <h2 class="doc-subheading">The 5 Phases of Software Delivery</h2>
+          <p class="doc-paragraph">Every web project flows through 5 disciplined phases. Each phase is owned by dedicated specialists who produce schema-validated artifacts:</p>
+
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 14px; margin-top: 16px;">
+            <div class="clean-card" style="border-top: 3px solid var(--cyan);">
+              <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px;">
+                <strong style="color: var(--cyan); font-size: 0.95rem;">Phase 1: Discovery & Strategy</strong>
+                <span class="nav-item-num" style="font-size:0.7rem;">00, 01, 12</span>
+              </div>
+              <div style="font-size: 0.85rem; color: var(--text-2); line-height: 1.55;">
+                Orchestrates intake, classifies 3-tier rigor (MVP / PROD / SCALE), defines core problem statement, monetization model, and acceptance criteria in <code>prd.schema.json</code>.
+              </div>
+              <div style="margin-top: 10px; font-size: 0.78rem; color: var(--text-3); font-family: var(--font-mono);">
+                Artifacts: PRD &middot; Rigor Tier
+              </div>
+            </div>
+
+            <div class="clean-card" style="border-top: 3px solid var(--purple);">
+              <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px;">
+                <strong style="color: var(--purple); font-size: 0.95rem;">Phase 2: Architecture & UX</strong>
+                <span class="nav-item-num" style="font-size:0.7rem;">02, 03, 07</span>
+              </div>
+              <div style="font-size: 0.85rem; color: var(--text-2); line-height: 1.55;">
+                Establishes system boundaries, data contracts, and technology stack in <code>adr.schema.json</code>, accessible design tokens (WCAG AAA), and GDPR/CCPA consent architecture.
+              </div>
+              <div style="margin-top: 10px; font-size: 0.78rem; color: var(--text-3); font-family: var(--font-mono);">
+                Artifacts: ADR &middot; Design Tokens &middot; Privacy Spec
+              </div>
+            </div>
+
+            <div class="clean-card" style="border-top: 3px solid var(--emerald);">
+              <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px;">
+                <strong style="color: var(--emerald); font-size: 0.95rem;">Phase 3: Core Implementation</strong>
+                <span class="nav-item-num" style="font-size:0.7rem;">04, 05</span>
+              </div>
+              <div style="font-size: 0.85rem; color: var(--text-2); line-height: 1.55;">
+                Engineers responsive semantic user interfaces, zero synthetic bloat, schema-validated API route handlers (Zod), indexed database migrations, and transactional data integrity.
+              </div>
+              <div style="margin-top: 10px; font-size: 0.78rem; color: var(--text-3); font-family: var(--font-mono);">
+                Artifacts: Clean Code &middot; Schema Validated APIs
+              </div>
+            </div>
+
+            <div class="clean-card" style="border-top: 3px solid var(--rose);">
+              <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px;">
+                <strong style="color: var(--rose); font-size: 0.95rem;">Phase 4: Defense & Quality</strong>
+                <span class="nav-item-num" style="font-size:0.7rem;">06, 08, 10</span>
+              </div>
+              <div style="font-size: 0.85rem; color: var(--text-2); line-height: 1.55;">
+                Enforces STRIDE threat modeling (<code>threat-model.schema.json</code>), automated Playwright/Vitest test suites with evidence (<code>test-report.schema.json</code>), and Core Web Vitals SLA.
+              </div>
+              <div style="margin-top: 10px; font-size: 0.78rem; color: var(--text-3); font-family: var(--font-mono);">
+                Artifacts: Threat Model &middot; Test Report &middot; Web Vitals
+              </div>
+            </div>
+
+            <div class="clean-card" style="border-top: 3px solid var(--amber);">
+              <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px;">
+                <strong style="color: var(--amber); font-size: 0.95rem;">Phase 5: Release & Operations</strong>
+                <span class="nav-item-num" style="font-size:0.7rem;">09, 11, 13, 14</span>
+              </div>
+              <div style="font-size: 0.85rem; color: var(--text-2); line-height: 1.55;">
+                Authors automated rollback pipelines (<code>runbook.schema.json</code>), SEO sitemaps/robots metadata, formal GO/NO-GO sign-off (<code>launch-report.schema.json</code>), and strangler refactoring.
+              </div>
+              <div style="margin-top: 10px; font-size: 0.78rem; color: var(--text-3); font-family: var(--font-mono);">
+                Artifacts: Runbook &middot; Launch Report &middot; Debt Register
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Binding Quality Gates & Conflict Order -->
+        <div class="doc-block" id="specialists-gates">
+          <h2 class="doc-subheading">5 Binding Quality Gates & Conflict Order</h2>
+          <div class="callout-box alert-veto" style="margin-bottom: 16px;">
+            <strong>Universal Conflict Hierarchy:</strong> Security &amp; Privacy &gt; Architecture &gt; Performance &gt; Speed.
+          </div>
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 12px;">
+            <div class="clean-card" style="border-left: 3px solid var(--rose);">
+              <div style="font-weight: 700; color: var(--rose); font-size: 0.88rem;">1. AppSec Hard Veto (06-security)</div>
+              <div style="font-size: 0.82rem; color: var(--text-2); margin-top: 4px;">Zero unauthenticated mutations, zero hardcoded secrets, mandatory HttpOnly session cookies.</div>
+            </div>
+            <div class="clean-card" style="border-left: 3px solid var(--rose);">
+              <div style="font-weight: 700; color: var(--rose); font-size: 0.88rem;">2. Privacy Hard Veto (07-privacy)</div>
+              <div style="font-size: 0.82rem; color: var(--text-2); margin-top: 4px;">Zero unconsented tracking scripts, strict data minimization, privacy policy coverage.</div>
+            </div>
+            <div class="clean-card" style="border-left: 3px solid var(--cyan);">
+              <div style="font-weight: 700; color: var(--cyan); font-size: 0.88rem;">3. SQAT Ship Gate (08-testing-qa)</div>
+              <div style="font-size: 0.82rem; color: var(--text-2); margin-top: 4px;">"No evidence, no ship" — automated test suites must pass terminal execution with exit code 0.</div>
+            </div>
+            <div class="clean-card" style="border-left: 3px solid var(--amber);">
+              <div style="font-weight: 700; color: var(--amber); font-size: 0.88rem;">4. DevOps Rollback Gate (09-devops)</div>
+              <div style="font-size: 0.82rem; color: var(--text-2); margin-top: 4px;">"No rollback, no ship" — documented, tested rollback procedure and health check endpoint required.</div>
+            </div>
+            <div class="clean-card" style="border-left: 3px solid var(--emerald);">
+              <div style="font-weight: 700; color: var(--emerald); font-size: 0.88rem;">5. Launch Sign-Off Gate (13-launch)</div>
+              <div style="font-size: 0.82rem; color: var(--text-2); margin-top: 4px;">All upstream specialist sign-offs consolidated into launch-report.schema.json before live release.</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Collaboration Matrix Table -->
+        <div class="doc-block" id="specialists-matrix">
+          <h2 class="doc-subheading">Complete 15-Specialist Collaboration Matrix</h2>
+          <div class="spec-table-box">
+            <table>
+              <thead>
+                <tr>
+                  <th style="width: 60px;">ID</th>
+                  <th style="width: 220px;">Specialist</th>
+                  <th style="width: 140px;">Authority</th>
+                  <th>Primary Inputs</th>
+                  <th>Delivered Outputs</th>
+                  <th style="width: 110px;">Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                ${SPECIALISTS.map(s => `
+                  <tr>
+                    <td><span class="nav-item-num">${s.num}</span></td>
+                    <td>
+                      <strong style="color: var(--text-1);">${s.name.split('/')[0].trim()}</strong>
+                      <div style="font-size: 0.78rem; color: var(--text-3); margin-top: 2px;">${s.directive.slice(0, 70)}...</div>
+                    </td>
+                    <td>
+                      <span class="tier-pill ${s.authType === 'veto' ? 'tier-pill-scale' : (s.authType === 'ship' ? 'tier-pill-prod' : 'tier-pill-mvp')}" style="font-size: 0.7rem;">
+                        ${s.authority.split('(')[0].trim()}
+                      </span>
+                    </td>
+                    <td style="font-size: 0.8rem; font-family: var(--font-mono); color: var(--text-2);">
+                      ${s.inputs.join(', ')}
+                    </td>
+                    <td style="font-size: 0.8rem; font-family: var(--font-mono); color: var(--text-2);">
+                      ${s.outputs.join(', ')}
+                    </td>
+                    <td>
+                      <button class="hud-action-btn" style="padding: 4px 10px; font-size: 0.75rem;" onclick="loadContent('spec-${s.id}')">
+                        View Dossier
+                      </button>
+                    </td>
+                  </tr>
+                `).join('')}
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- 15 Specialists Cards Directory -->
+        <div class="doc-block" id="specialists-directory">
+          <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px; margin-bottom: 16px;">
+            <h2 class="doc-subheading" style="margin: 0; border: none; padding: 0;">Specialist Dossier Directory</h2>
+            <div style="display: flex; gap: 6px; flex-wrap: wrap;" id="phaseFilters">
+              <button class="hud-action-btn active-filter" onclick="filterSpecialistCards('all', this)">All (15)</button>
+              <button class="hud-action-btn" onclick="filterSpecialistCards('p1', this)">Phase 1: Discovery</button>
+              <button class="hud-action-btn" onclick="filterSpecialistCards('p2', this)">Phase 2: Architecture</button>
+              <button class="hud-action-btn" onclick="filterSpecialistCards('p3', this)">Phase 3: Implementation</button>
+              <button class="hud-action-btn" onclick="filterSpecialistCards('p4', this)">Phase 4: Quality & Defense</button>
+              <button class="hud-action-btn" onclick="filterSpecialistCards('p5', this)">Phase 5: Release & Ops</button>
+            </div>
+          </div>
+
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 14px;" id="specialistCardsGrid">
+            ${SPECIALISTS.map(s => {
+              let phaseClass = 'p1';
+              let numVal = parseInt(s.num, 10);
+              if (numVal === 0 || numVal === 1 || numVal === 12) phaseClass = 'p1';
+              else if (numVal === 2 || numVal === 3 || numVal === 7) phaseClass = 'p2';
+              else if (numVal === 4 || numVal === 5) phaseClass = 'p3';
+              else if (numVal === 6 || numVal === 8 || numVal === 10) phaseClass = 'p4';
+              else phaseClass = 'p5';
+
+              return `
+                <div class="clean-card spec-card-item" data-phase="${phaseClass}" style="display: flex; flex-direction: column; justify-content: space-between; border-left: 3px solid ${s.authType === 'veto' ? 'var(--rose)' : (s.authType === 'ship' ? 'var(--emerald)' : 'var(--cyan)')};">
+                  <div>
+                    <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px;">
+                      <div style="display: flex; align-items: center; gap: 8px;">
+                        <span class="nav-item-num">${s.num}</span>
+                        <strong style="font-size: 0.98rem; color: var(--text-1);">${s.name}</strong>
+                      </div>
+                      <span class="tier-pill ${s.authType === 'veto' ? 'tier-pill-scale' : (s.authType === 'ship' ? 'tier-pill-prod' : 'tier-pill-mvp')}" style="font-size:0.68rem;">
+                        ${s.authType.toUpperCase()}
+                      </span>
+                    </div>
+
+                    <p style="font-size: 0.84rem; color: var(--text-2); line-height: 1.55; margin-bottom: 12px;">
+                      ${s.directive}
+                    </p>
+
+                    ${s.refuse ? `
+                      <div style="font-size: 0.78rem; background: rgba(244, 63, 94, 0.08); border-left: 2px solid var(--rose); padding: 6px 10px; border-radius: 4px; color: var(--text-2); margin-bottom: 10px;">
+                        <strong style="color: var(--rose);">Non-negotiable:</strong> ${s.refuse.slice(0, 110)}...
+                      </div>
+                    ` : ''}
+
+                    <div style="display: flex; flex-wrap: wrap; gap: 4px; margin-bottom: 14px;">
+                      ${s.triggers.slice(0, 4).map(t => `<span class="inline-code" style="font-size: 0.72rem;">${t}</span>`).join('')}
+                    </div>
+                  </div>
+
+                  <div style="display: flex; align-items: center; justify-content: space-between; border-top: 1px solid var(--border-subtle); padding-top: 10px;">
+                    <div style="font-size: 0.78rem; color: var(--text-3);">
+                      ${s.steps.length} Steps &middot; ${s.decisionRules.length} Rules
+                    </div>
+                    <button class="hud-action-btn" onclick="loadContent('spec-${s.id}')">
+                      View Full Dossier &rarr;
+                    </button>
+                  </div>
+                </div>
+              `;
+            }).join('')}
+          </div>
+        </div>
+
+        ${getPaginationHtml('specialists')}
+      `;
+    }
+
+    // View: Tabbed Specialist Page (Deep, Specification-Driven)
     function renderSpecialistPage(spec, main, toc) {
       let alertClass = 'alert-gate';
-      if (spec.authType === 'veto') alertClass = 'alert-veto';
-      else if (spec.authType === 'ship') alertClass = 'alert-ship';
+      let authBadge = '⚖️ PROCESS GATE';
+      if (spec.authType === 'veto') { alertClass = 'alert-veto'; authBadge = '🛡️ HARD VETO'; }
+      else if (spec.authType === 'ship') { alertClass = 'alert-ship'; authBadge = '🚀 BINDING SHIP GATE'; }
 
       toc.innerHTML = `
         <li><a href="javascript:void(0)" onclick="setDocTab('tab-overview')" class="toc-a active">1. Overview & Rules</a></li>
-        <li><a href="javascript:void(0)" onclick="setDocTab('tab-procedure')" class="toc-a">2. Operational Procedure</a></li>
-        <li><a href="javascript:void(0)" onclick="setDocTab('tab-verification')" class="toc-a">3. Verification & Anti-Patterns</a></li>
+        <li><a href="javascript:void(0)" onclick="setDocTab('tab-procedure')" class="toc-a">2. Operational Procedure (${spec.steps.length})</a></li>
+        <li><a href="javascript:void(0)" onclick="setDocTab('tab-verification')" class="toc-a">3. Defense & Anti-Patterns</a></li>
         <li><a href="javascript:void(0)" onclick="setDocTab('tab-schemas')" class="toc-a">4. Schemas & Directive</a></li>
       `;
 
       main.innerHTML = `
         <div class="content-header">
-          <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 6px;">
-            <span class="nav-item-num" style="font-size: 0.8rem; padding: 2px 7px;">${spec.num}</span>
-            <div class="doc-cat">Specialist Dossier</div>
+          <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px; margin-bottom: 6px;">
+            <div style="display: flex; align-items: center; gap: 8px;">
+              <span class="nav-item-num" style="font-size: 0.8rem; padding: 2px 7px;">${spec.num}</span>
+              <div class="doc-cat">Specialist Dossier</div>
+            </div>
+            <span class="tier-pill ${spec.authType === 'veto' ? 'tier-pill-scale' : (spec.authType === 'ship' ? 'tier-pill-prod' : 'tier-pill-mvp')}">${authBadge}</span>
           </div>
           <h1 class="doc-heading">${spec.name}</h1>
           <p class="doc-intro">${spec.directive}</p>
         </div>
 
-        <div class="callout-box ${alertClass}">
-          <strong>Authority Level:</strong> ${spec.authority}
+        <div class="callout-box ${alertClass}" style="margin-bottom: 18px;">
+          <strong>Authority Boundary:</strong> ${spec.authority}
         </div>
+
+        ${spec.refuse ? `
+          <div class="callout-box alert-veto" style="margin-bottom: 20px;">
+            <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 6px;">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="color: var(--rose);"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+              <strong style="color: var(--rose); font-size: 0.88rem; text-transform: uppercase; letter-spacing: 0.05em;">What I Refuse to Compromise On</strong>
+            </div>
+            <div style="font-size: 0.88rem; line-height: 1.6; color: var(--text-2);">${formatProse(spec.refuse)}</div>
+          </div>
+        ` : ''}
+
+        ${spec.questions && spec.questions.length ? `
+          <div class="clean-card" style="margin-bottom: 24px; border-left: 3px solid var(--cyan); background: var(--bg-surface);">
+            <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 10px;">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color: var(--cyan);"><circle cx="12" cy="12" r="10"></circle><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
+              <strong style="color: var(--text-1); font-size: 0.92rem;">Three Questions I Always Ask First</strong>
+            </div>
+            <div style="display: flex; flex-direction: column; gap: 10px;">
+              ${spec.questions.map(q => `
+                <div style="font-size: 0.88rem; color: var(--text-2); line-height: 1.6; padding-left: 4px;">
+                  ${formatProse(q)}
+                </div>
+              `).join('')}
+            </div>
+          </div>
+        ` : ''}
 
         <!-- Segmented Tab Navigation -->
         <div class="page-tabs-bar">
-          <button class="page-tab-btn active" data-tab="tab-overview" onclick="setDocTab('tab-overview')">Overview & Rules</button>
+          <button class="page-tab-btn active" data-tab="tab-overview" onclick="setDocTab('tab-overview')">Overview & Decision Rules (${spec.decisionRules.length})</button>
           <button class="page-tab-btn" data-tab="tab-procedure" onclick="setDocTab('tab-procedure')">Operational Procedure (${spec.steps.length})</button>
-          <button class="page-tab-btn" data-tab="tab-verification" onclick="setDocTab('tab-verification')">Verification & Anti-Patterns</button>
-          <button class="page-tab-btn" data-tab="tab-schemas" onclick="setDocTab('tab-schemas')">Schemas & Directives</button>
+          <button class="page-tab-btn" data-tab="tab-verification" onclick="setDocTab('tab-verification')">Defense & Anti-Patterns (${spec.antiPatterns.length})</button>
+          <button class="page-tab-btn" data-tab="tab-schemas" onclick="setDocTab('tab-schemas')">Schemas & Directive</button>
         </div>
 
         <!-- TAB 1: OVERVIEW & RULES -->
         <div class="tab-pane active" id="tab-overview">
           <div class="doc-block">
-            <h2 class="doc-subheading">When to Activate This Specialist</h2>
-            <ul class="doc-list">
-              ${spec.whenToUse.map(u => `<li>${u}</li>`).join('')}
-            </ul>
-
-            ${spec.whenNotToUse && spec.whenNotToUse.length ? `
-              <h2 class="doc-subheading">When NOT to Use</h2>
-              <ul class="doc-list">
-                ${spec.whenNotToUse.map(u => `<li>${u}</li>`).join('')}
-              </ul>
-            ` : ''}
-
-            ${spec.refuse ? `
-              <div class="callout-box alert-veto" style="margin-top: 16px;">
-                <strong>Refusal Criteria:</strong> ${spec.refuse}
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; margin-bottom: 24px;">
+              <div class="clean-card" style="border-top: 2px solid var(--emerald);">
+                <strong style="color: var(--emerald); font-size: 0.86rem; text-transform: uppercase; letter-spacing: 0.05em;">When to Activate (Use When)</strong>
+                <ul class="doc-list" style="margin-top: 10px; margin-bottom: 0;">
+                  ${spec.whenToUse.map(u => `<li>${u}</li>`).join('')}
+                </ul>
               </div>
-            ` : ''}
+              <div class="clean-card" style="border-top: 2px solid var(--amber);">
+                <strong style="color: var(--amber); font-size: 0.86rem; text-transform: uppercase; letter-spacing: 0.05em;">NOT to Use (Route Elsewhere)</strong>
+                <ul class="doc-list" style="margin-top: 10px; margin-bottom: 0;">
+                  ${spec.whenNotToUse && spec.whenNotToUse.length ? spec.whenNotToUse.map(u => `<li>${u}</li>`).join('') : '<li>Do not invoke outside defined domain boundaries.</li>'}
+                </ul>
+              </div>
+            </div>
 
             <h2 class="doc-subheading">Decision Rules & Engineering Stances</h2>
-            <div style="display: flex; flex-direction: column; gap: 10px;">
+            <div style="display: flex; flex-direction: column; gap: 12px;">
               ${spec.decisionRules.map(r => `
-                <div class="clean-card" style="padding: 14px 18px;">
-                  <strong style="color: var(--cyan); font-size: 0.92rem;">${r.title}</strong>
-                  <div style="font-size: 0.88rem; color: var(--text-2); margin-top: 4px;">${formatProse(r.text)}</div>
+                <div class="clean-card" style="padding: 16px 20px; border-left: 3px solid var(--cyan);">
+                  <strong style="color: var(--cyan); font-size: 0.95rem;">${r.title}</strong>
+                  <div style="font-size: 0.88rem; color: var(--text-2); margin-top: 6px; line-height: 1.65;">${formatProse(r.text)}</div>
                 </div>
               `).join('')}
             </div>
@@ -3962,7 +5068,7 @@
         <div class="tab-pane" id="tab-procedure">
           <div class="doc-block">
             <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px;">
-              <h2 class="doc-subheading" style="margin: 0; border: none; padding: 0;">Phased Step-by-Step Procedure</h2>
+              <h2 class="doc-subheading" style="margin: 0; border: none; padding: 0;">Phased Step-by-Step Procedure (${spec.steps.length} Steps)</h2>
               <button class="snippet-copy-btn" onclick="copyText(document.getElementById('stepsTextContainer').innerText, this)">
                 <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
                 <span>Copy Procedure</span>
@@ -3971,9 +5077,9 @@
             <div id="stepsTextContainer" style="display: flex; flex-direction: column; gap: 14px;">
               ${spec.steps.map((st, idx) => `
                 <div class="clean-card" style="border-left: 3px solid var(--cyan);">
-                  <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 6px;">
+                  <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 8px;">
                     <span class="nav-item-num">0${idx + 1}</span>
-                    <strong style="font-size: 0.95rem; color: var(--text-1);">${st.title}</strong>
+                    <strong style="font-size: 0.98rem; color: var(--text-1);">${st.title}</strong>
                   </div>
                   <div style="font-size: 0.88rem; color: var(--text-2); line-height: 1.65;">${formatProse(st.details)}</div>
                 </div>
@@ -3982,17 +5088,21 @@
           </div>
         </div>
 
-        <!-- TAB 3: VERIFICATION & ANTI-PATTERNS -->
+        <!-- TAB 3: DEFENSE & ANTI-PATTERNS -->
         <div class="tab-pane" id="tab-verification">
           <div class="doc-block">
             <h2 class="doc-subheading">Automated Verification Checks</h2>
-            <ul class="doc-list">
-              ${spec.verifications.map(v => `<li>${v}</li>`).join('')}
-            </ul>
+            <div style="display: flex; flex-direction: column; gap: 10px; margin-bottom: 24px;">
+              ${spec.verifications.map((v, vIdx) => `
+                <div class="clean-card" style="padding: 12px 16px; border-left: 3px solid var(--emerald);">
+                  <div style="font-size: 0.88rem; color: var(--text-2); line-height: 1.6;">${formatProse(v)}</div>
+                </div>
+              `).join('')}
+            </div>
 
             ${spec.antiPatterns && spec.antiPatterns.length ? `
               <h2 class="doc-subheading">Strictly Forbidden Anti-Patterns</h2>
-              <div class="clean-card" style="border-left: 3px solid var(--rose);">
+              <div class="clean-card" style="border-left: 3px solid var(--rose); margin-bottom: 24px;">
                 <ul class="doc-list" style="margin-bottom: 0;">
                   ${spec.antiPatterns.map(a => `<li><span style="color: var(--rose); font-weight:600; margin-right:4px;">[BANNED]</span>${a}</li>`).join('')}
                 </ul>
@@ -4000,10 +5110,12 @@
             ` : ''}
 
             ${spec.escalate && spec.escalate.length ? `
-              <h2 class="doc-subheading">Escalation Thresholds</h2>
-              <ul class="doc-list">
-                ${spec.escalate.map(e => `<li>${e}</li>`).join('')}
-              </ul>
+              <h2 class="doc-subheading">Escalate-to-User Triggers</h2>
+              <div class="clean-card" style="border-left: 3px solid var(--amber);">
+                <ul class="doc-list" style="margin-bottom: 0;">
+                  ${spec.escalate.map(e => `<li><span style="color: var(--amber); font-weight:600; margin-right:4px;">[HALT & ESCALATE]</span>${e}</li>`).join('')}
+                </ul>
+              </div>
             ` : ''}
           </div>
         </div>
@@ -4012,7 +5124,7 @@
         <div class="tab-pane" id="tab-schemas">
           <div class="doc-block">
             <h2 class="doc-subheading">Required Handoff Contracts</h2>
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 24px;">
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 14px; margin-bottom: 24px;">
               <div class="clean-card">
                 <div style="font-size: 0.72rem; text-transform: uppercase; color: var(--cyan); font-weight: 700; margin-bottom: 4px;">Incoming Dependencies (Requires)</div>
                 <div style="font-size: 0.88rem; font-family: var(--font-mono); color: var(--text-1);">${spec.inputs.join(', ')}</div>
@@ -4021,6 +5133,11 @@
                 <div style="font-size: 0.72rem; text-transform: uppercase; color: var(--emerald); font-weight: 700; margin-bottom: 4px;">Delivered Artifacts (Produces)</div>
                 <div style="font-size: 0.88rem; font-family: var(--font-mono); color: var(--text-1);">${spec.outputs.join(', ')}</div>
               </div>
+            </div>
+
+            <h2 class="doc-subheading">Multi-Agent Routing Triggers</h2>
+            <div style="display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 24px;">
+              ${spec.triggers.map(t => `<span class="inline-code">${t}</span>`).join('')}
             </div>
 
             <h2 class="doc-subheading">Direct Agent Directive (Prompt Injection)</h2>
@@ -4039,6 +5156,8 @@ Strict Invariant: Zero placeholder comments. Verifiable exit code 0 required.</c
             </div>
           </div>
         </div>
+
+        ${getSpecialistPaginationHtml(spec.id)}
       `;
     }
 
@@ -4800,6 +5919,7 @@ Never hardcode secrets. Passwords must use scrypt/argon2 with unique salts. Vali
 
       let items = [
         { type: 'Protocol', title: 'System Overview & Matrix', badge: 'Protocol', key: 'overview', text: 'overview architecture summary matrix' },
+        { type: 'Protocol', title: 'All 15 Specialists Complete Guide', badge: 'Protocol', key: 'specialists', text: 'specialists guide matrix directory roster all 15 roles' },
         { type: 'Protocol', title: '5-Second Quickstart', badge: 'Guide', key: 'quickstart', text: 'quickstart cli installer npm npx' },
         { type: 'Protocol', title: '3-Tier Rigor Matrix', badge: 'Architecture', key: 'tiers', text: 'tiers mvp prod scale matrix rigor' },
         { type: 'Protocol', title: 'Team Stances & Conflicts', badge: 'Governance', key: 'protocol', text: 'protocol stances conflict resolution' },
@@ -4894,10 +6014,23 @@ Never hardcode secrets. Passwords must use scrypt/argon2 with unique salts. Vali
       }
     }
 
-    // Initialize Page
-    window.addEventListener('DOMContentLoaded', () => {
+    // Initialize Page with Hash Router
+    function handleInitialRoute() {
       renderNav();
-      loadContent('overview');
+      const hash = window.location.hash.replace(/^#/, '').trim();
+      if (hash && hash !== 'content' && hash !== '') {
+        loadContent(hash);
+      } else {
+        loadContent('overview');
+      }
+    }
+
+    window.addEventListener('DOMContentLoaded', handleInitialRoute);
+    window.addEventListener('hashchange', () => {
+      const hash = window.location.hash.replace(/^#/, '').trim();
+      if (hash && hash !== 'content' && hash !== '') {
+        loadContent(hash);
+      }
     });
   </script>
 </body>

@@ -32,126 +32,131 @@ function extractSpecialists() {
     const filePath = path.join(REPO_ROOT, s.path);
     const content = fs.readFileSync(filePath, 'utf8').replace(/\/\/\s*TODO:?\s*implement/gi, '// [TODO]: implement');
 
-    // Parse role boundaries
-    const refuseMatch = content.match(/## Role Boundaries & Refusal Criteria[\s\S]*?\*\*Refusal triggers:\*\*([\s\S]*?)(?=###|\n##|$)/i);
-    const refuse = refuseMatch ? refuseMatch[1].trim().replace(/\r?\n/g, ' ') : '';
+    // 1. Refusal criteria / What I Refuse to Compromise On
+    const refuseMatch = content.match(/### What I Refuse to Compromise On\s*([\s\S]*?)(?=### Three Questions|$)/i);
+    const refuse = refuseMatch ? refuseMatch[1].trim() : '';
 
-    // Parse triggers & non-triggers
+    // 2. Three Questions I Always Ask First
+    const qMatch = content.match(/### Three Questions I Always Ask First\s*([\s\S]*?)(?=## When to Use|$)/i);
+    let questions = [];
+    if (qMatch) {
+      questions = qMatch[1].split(/\n(?=\d+\.\s+\*\*)/).map(q => q.trim()).filter(Boolean);
+    }
+
+    // 3. When to use / NOT to use
+    const whenMatch = content.match(/## When to Use \/ NOT to Use\s*([\s\S]*?)(?=## Inputs and Outputs|$)/i);
     let whenToUse = [];
     let whenNotToUse = [];
-    const whenToUseMatch = content.match(/### When to Use This Specialist([\s\S]*?)(?=### When NOT to Use|$)/i);
-    if (whenToUseMatch) {
-      const lines = whenToUseMatch[1].split(/\r?\n/);
-      let inYes = false;
-      let inNo = false;
-      for (const line of lines) {
-        if (line.includes('**Use when:**') || line.includes('Use when:')) { inYes = true; inNo = false; continue; }
-        if (line.includes('**Do NOT use when:**') || line.includes('Do NOT use when:')) { inYes = false; inNo = true; continue; }
-        if (inYes && line.trim().startsWith('-')) {
-          whenToUse.push(line.trim().replace(/^-\s*/, ''));
-        }
+    if (whenMatch) {
+      const text = whenMatch[1];
+      const usePart = text.match(/\*\*Use when:\*\*([\s\S]*?)(?=-\s*\*\*NOT to use when:|\*\*NOT to use when:|\*\*Do NOT use when:|$)/i);
+      if (usePart) {
+        whenToUse = usePart[1].split('\n').filter(l => l.trim().startsWith('-') && !l.trim().startsWith('---')).map(l => l.trim().replace(/^-\s*/, ''));
       }
-    }
-    const whenNotMatch = content.match(/### When NOT to Use This Specialist([\s\S]*?)(?=##|$)/i);
-    if (whenNotMatch) {
-      const lines = whenNotMatch[1].split(/\r?\n/);
-      for (const line of lines) {
-        if (line.trim().startsWith('-')) {
-          whenNotToUse.push(line.trim().replace(/^-\s*/, ''));
-        }
+      const notPart = text.match(/(?:-\s*\*\*NOT to use when:\*\*|\*\*NOT to use when:\*\*|\*\*Do NOT use when:\*\*)([\s\S]*?)$/i);
+      if (notPart) {
+        whenNotToUse = notPart[1].split('\n').filter(l => l.trim().startsWith('-') && !l.trim().startsWith('---')).map(l => l.trim().replace(/^-\s*/, ''));
       }
     }
 
-    // Parse decision rules
-    let decisionRules = [];
-    const rulesMatch = content.match(/## Decision Rules & Stances([\s\S]*?)(?=## Operational Checklist|## Operational Procedure|$)/i);
-    if (rulesMatch) {
-      const rText = rulesMatch[1];
-      const rMatches = rText.split(/(?=\d+\.\s+\*\*)/);
-      for (const r of rMatches) {
-        const titleMatch = r.match(/^\d+\.\s+\*\*([^*]+)\*\*:\s*([\s\S]*)/);
-        if (titleMatch) {
-          decisionRules.push({
-            title: titleMatch[1].trim(),
-            text: titleMatch[2].trim().replace(/\r?\n\s+/g, ' ')
-          });
-        } else if (r.trim().length > 0 && r.includes('.')) {
-          decisionRules.push({ title: 'Decision Rule', text: r.replace(/\r?\n\s+/g, ' ') });
-        }
-      }
-    }
-
-    // Parse operational steps
-    let steps = [];
-    const stepsMatch = content.match(/(?:## Operational Checklist & Step-by-Step Procedure|## Operational Procedure)([\s\S]*?)(?=## Verification & Quality Gates|$)/i);
-    if (stepsMatch) {
-      const sText = stepsMatch[1];
-      const rawSteps = sText.split(/(?=### Step \d+:)/);
-      for (const st of rawSteps) {
-        const headerMatch = st.match(/### Step \d+:\s*([^\r\n]+)/);
-        const title = headerMatch ? headerMatch[1].trim() : 'Execution Phase';
-        const body = headerMatch ? st.replace(/### Step \d+:[^\r\n]+/, '').trim() : st;
-        if (body.length > 0) {
-          steps.push({ title, details: body });
-        }
-      }
-    }
-
-    // Parse anti-patterns
-    let antiPatterns = [];
-    const antiMatch = content.match(/### Anti-Patterns.*?\n([\s\S]*?)(?=### Escalation Path|$)/i);
-    if (antiMatch) {
-      const aSection = antiMatch[1];
-      antiPatterns = aSection.split(/\r?\n/).filter(l => l.trim().startsWith('-')).map(l => l.trim().replace(/^-\s*/, ''));
-    }
-
-    // Parse verification checks
-    let verifications = [];
-    const veriMatch = content.match(/### Automated Checks.*?\n([\s\S]*?)(?=### Anti-Patterns|$)/i);
-    if (veriMatch) {
-      const vSection = veriMatch[1];
-      verifications = vSection.split(/\r?\n/).filter(l => l.trim().startsWith('-') || l.trim().match(/^\d+\./)).map(l => l.trim().replace(/^[-0-9.]+\s*/, ''));
-    }
-
-    // Parse escalation paths
-    let escalate = [];
-    const escMatch = content.match(/### Escalation Path.*?\n([\s\S]*?)(?=## Handoff Artifacts|$)/i);
-    if (escMatch) {
-      const eSection = escMatch[1];
-      escalate = eSection.split(/\r?\n/).filter(l => l.trim().match(/^\d+\.\s+/)).map(l => l.trim().replace(/^\d+\.\s+/, ''));
-    }
-
-    // Parse handoff schemas
+    // 4. Inputs and Outputs
+    const ioMatch = content.match(/## Inputs and Outputs\s*([\s\S]*?)(?=## Decision Rules|$)/i);
     let inputs = [];
     let outputs = [];
-    const inputMatch = content.match(/Requires:\s*`([^`]+)`/);
-    if (inputMatch) inputs = inputMatch[1].split(',').map(x => x.trim());
-    const outputMatch = content.match(/Produces:\s*`([^`]+)`/);
-    if (outputMatch) outputs = outputMatch[1].split(',').map(x => x.trim());
+    if (ioMatch) {
+      const ioText = ioMatch[1];
+      const inPart = ioText.match(/\*\*Inputs:\*\*([\s\S]*?)(?=\*\*Outputs:|$)/i);
+      if (inPart) {
+        inputs = inPart[1].split('\n').filter(l => l.trim().startsWith('-') && !l.trim().startsWith('---')).map(l => l.trim().replace(/^-\s*/, ''));
+      }
+      const outPart = ioText.match(/\*\*Outputs:\*\*([\s\S]*?)$/i);
+      if (outPart) {
+        outputs = outPart[1].split('\n').filter(l => l.trim().startsWith('-') && !l.trim().startsWith('---')).map(l => l.trim().replace(/^-\s*/, ''));
+      }
+    }
+
+    // 5. Decision Rules
+    const drMatch = content.match(/## Decision Rules\s*([\s\S]*?)(?=## Procedure|$)/i);
+    let decisionRules = [];
+    if (drMatch) {
+      const drBlocks = drMatch[1].split(/\n(?=\d+\.\s+\*\*)/).map(b => b.trim()).filter(Boolean);
+      drBlocks.forEach(b => {
+        const titleM = b.match(/^\d+\.\s+\*\*([^*:]+):?\*\*:?\s*([\s\S]*)/);
+        if (titleM) {
+          decisionRules.push({
+            title: titleM[1].trim(),
+            text: titleM[2].trim()
+          });
+        }
+      });
+    }
+
+    // 6. Operational Procedure Steps
+    const procMatch = content.match(/## Procedure\s*([\s\S]*?)(?=## Anti-Patterns|$)/i);
+    let steps = [];
+    if (procMatch) {
+      const stepBlocks = procMatch[1].split(/(?=\n###\s+Step\s+\d+:|^###\s+Step\s+\d+:)/).map(b => b.trim()).filter(Boolean);
+      stepBlocks.forEach(b => {
+        const headerM = b.match(/^###\s+Step\s+\d+:\s*([^\r\n]+)/);
+        const title = headerM ? headerM[1].trim() : 'Phase';
+        const details = headerM ? b.replace(/^###\s+Step\s+\d+:[^\r\n]+/, '').trim() : b;
+        steps.push({ title, details });
+      });
+    }
+
+    // 7. Anti-Patterns
+    const antiMatch = content.match(/## Anti-Patterns\s*([\s\S]*?)(?=## Verification|$)/i);
+    let antiPatterns = [];
+    if (antiMatch) {
+      antiPatterns = antiMatch[1].split(/\n(?=-\s+\*\*)/).map(l => l.trim().replace(/^-\s*/, '')).filter(Boolean);
+    }
+
+    // 8. Verification Checks
+    const verMatch = content.match(/## Verification\s*([\s\S]*?)(?=## Escalate-to-User Triggers|$)/i);
+    let verifications = [];
+    if (verMatch) {
+      const vText = verMatch[1].trim();
+      verifications = vText.split(/\n(?=\d+\.\s+)/).map(v => v.trim()).filter(Boolean);
+      if (verifications.length === 0) verifications = [vText];
+    }
+
+    // 9. Escalate-to-User Triggers
+    const escMatch = content.match(/## Escalate-to-User Triggers\s*([\s\S]*?)(?=$)/i);
+    let escalate = [];
+    if (escMatch) {
+      escalate = escMatch[1].split('\n').filter(l => l.trim().match(/^\d+\./)).map(l => l.trim().replace(/^\d+\.\s*/, ''));
+    }
+
+    // Directive / Stance
+    const stanceMatch = content.match(/# Specialist Stance:[^\r\n]+\s*\n\s*([\s\S]*?)(?=\n###|\n##|$)/i);
+    const directive = stanceMatch ? stanceMatch[1].trim() : (s.description || 'Specialist engineering directive.');
 
     // Authority type
     let authType = 'standard';
-    if (s.authority.toLowerCase().includes('hard veto')) authType = 'veto';
-    else if (s.authority.toLowerCase().includes('ship gate') || s.authority.toLowerCase().includes('launch gate')) authType = 'ship';
+    const authLower = s.authority.toLowerCase();
+    if (authLower.includes('hard veto')) authType = 'veto';
+    else if (authLower.includes('ship gate') || authLower.includes('launch gate') || authLower.includes('binding')) authType = 'ship';
+    else if (authLower.includes('process gate')) authType = 'gate';
 
     return {
       id: s.id,
       num: s.id.split('-')[0],
-      name: s.name,
+      name: s.title || s.name,
       authority: s.authority,
       authType,
-      directive: s.directive,
+      directive,
       triggers: s.triggers,
+      refuse,
+      questions,
       whenToUse: whenToUse.length ? whenToUse : s.triggers,
       whenNotToUse,
-      refuse,
-      decisionRules: decisionRules.length ? decisionRules : [{ title: 'Standard Rule', text: s.directive }],
+      inputs: inputs.length ? inputs : ['PRD or Feature Spec'],
+      outputs: outputs.length ? outputs : ['Verified Implementation Artifact'],
+      decisionRules: decisionRules.length ? decisionRules : [{ title: 'Specialist Directive', text: directive }],
       steps: steps.length ? steps : [{ title: 'Operational Execution', details: 'Follow standard tier-specific engineering procedure.' }],
       antiPatterns,
       verifications: verifications.length ? verifications : ['Pass all automated verification suites (npm test / npm run lint)'],
-      escalate,
-      inputs: inputs.length ? inputs : ['PRD or Feature Spec'],
-      outputs: outputs.length ? outputs : ['Verified Implementation Artifact']
+      escalate
     };
   });
 }
@@ -479,8 +484,9 @@ const cleanCSS = `
     /* Accessible Skip Link */
     .skip-link {
       position: absolute;
-      top: -100px;
+      top: 10px;
       left: 16px;
+      transform: translateY(-200%);
       background: var(--cyan);
       color: #040810;
       font-weight: 700;
@@ -489,9 +495,15 @@ const cleanCSS = `
       border-radius: 6px;
       z-index: 1000;
       text-decoration: none;
-      transition: top 0.15s ease;
+      transition: transform 0.15s ease;
     }
-    .skip-link:focus { top: 10px; }
+    .skip-link:focus { transform: translateY(0); }
+
+    .active-filter {
+      background: var(--cyan) !important;
+      color: #040810 !important;
+      border-color: var(--cyan) !important;
+    }
 
     /* Top Bar */
     .app-header {
@@ -1358,6 +1370,7 @@ const fullHtml = `<!DOCTYPE html>
 
     const DOC_PAGES = [
       { key: 'overview', title: 'System Overview' },
+      { key: 'specialists', title: 'All 15 Specialists Guide' },
       { key: 'quickstart', title: '5-Second Quickstart' },
       { key: 'tiers', title: '3-Tier Rigor Matrix' },
       { key: 'protocol', title: 'Team Stances & Conflicts' },
@@ -1377,25 +1390,59 @@ const fullHtml = `<!DOCTYPE html>
       let escaped = text.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
         .replace(/\\*\\*([^\\*]+)\\*\\*/g, '<strong>$1</strong>')
         .replace(/\\*([^\\*]+)\\*/g, '<em>$1</em>')
-        .replace(/\`([^\`]+)\`/g, '<code class="inline-code">$1</code>');
+        .replace(/\`([^\`]+)\`/g, '<code class="inline-code">$1</code>')
+        .replace(/\\[MVP\\]/g, '<span class="tier-pill tier-pill-mvp" style="font-size:0.65rem; padding:1px 5px; margin-left:4px;">MVP</span>')
+        .replace(/\\[PROD\\]/g, '<span class="tier-pill tier-pill-prod" style="font-size:0.65rem; padding:1px 5px; margin-left:4px;">PROD</span>')
+        .replace(/\\[SCALE\\]/g, '<span class="tier-pill tier-pill-scale" style="font-size:0.65rem; padding:1px 5px; margin-left:4px;">SCALE</span>');
 
       const lines = escaped.split('\\n');
       let html = '';
-      let inList = false;
+      let inUl = false;
+      let inOl = false;
+      let inCode = false;
+      let codeBuffer = '';
 
       for (let line of lines) {
         let trimmed = line.trim();
+
+        if (trimmed.startsWith('\`\`\`')) {
+          if (!inCode) {
+            if (inUl) { html += '</ul>'; inUl = false; }
+            if (inOl) { html += '</ol>'; inOl = false; }
+            inCode = true;
+            codeBuffer = '';
+          } else {
+            inCode = false;
+            html += '<pre class="code-block" style="background:var(--bg-code); padding:10px 14px; border-radius:6px; font-family:var(--font-mono); font-size:0.82rem; overflow-x:auto; margin:8px 0; border:1px solid var(--border-subtle); color:var(--text-1);"><code>' + codeBuffer + '</code></pre>';
+            codeBuffer = '';
+          }
+          continue;
+        }
+
+        if (inCode) {
+          codeBuffer += (codeBuffer ? '\\n' : '') + line;
+          continue;
+        }
+
         if (trimmed.startsWith('- ') || trimmed.startsWith('* ')) {
-          if (!inList) { html += '<ul class="doc-list">'; inList = true; }
+          if (inOl) { html += '</ol>'; inOl = false; }
+          if (!inUl) { html += '<ul class="doc-list">'; inUl = true; }
           html += '<li>' + trimmed.substring(2) + '</li>';
+        } else if (/^\\d+\\.\\s+/.test(trimmed)) {
+          if (inUl) { html += '</ul>'; inUl = false; }
+          if (!inOl) { html += '<ol class="doc-list" style="padding-left:22px; margin-bottom:12px;">'; inOl = true; }
+          html += '<li style="margin-bottom:6px;">' + trimmed.replace(/^\\d+\\.\\s+/, '') + '</li>';
         } else {
-          if (inList) { html += '</ul>'; inList = false; }
+          if (inUl) { html += '</ul>'; inUl = false; }
+          if (inOl) { html += '</ol>'; inOl = false; }
           if (trimmed.length > 0) {
             html += '<p class="doc-paragraph">' + trimmed + '</p>';
           }
         }
       }
-      if (inList) html += '</ul>';
+      if (inUl) html += '</ul>';
+      if (inOl) html += '</ol>';
+      if (inCode) html += '<pre class="code-block" style="background:var(--bg-code); padding:10px 14px; border-radius:6px; font-family:var(--font-mono); font-size:0.82rem; overflow-x:auto; margin:8px 0; border:1px solid var(--border-subtle); color:var(--text-1);"><code>' + codeBuffer + '</code></pre>';
       return html;
     }
 
@@ -1429,7 +1476,15 @@ const fullHtml = `<!DOCTYPE html>
       // 1. Specialists
       const specContainer = document.getElementById('navSpecialistsList');
       if (specContainer) {
-        specContainer.innerHTML = SPECIALISTS.map(s => \`
+        let h = \`
+          <li>
+            <button class="nav-item-btn" onclick="loadContent('specialists', this)">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="color:var(--cyan); flex-shrink:0;"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
+              <span>All 15 Specialists Guide</span>
+            </button>
+          </li>
+        \`;
+        h += SPECIALISTS.map(s => \`
           <li>
             <button class="nav-item-btn" onclick="loadContent('spec-\${s.id}', this)">
               <span class="nav-item-num">\${s.num}</span>
@@ -1437,6 +1492,7 @@ const fullHtml = `<!DOCTYPE html>
             </button>
           </li>
         \`).join('');
+        specContainer.innerHTML = h;
       }
 
       // 2. Playbooks
@@ -1520,14 +1576,67 @@ const fullHtml = `<!DOCTYPE html>
       \`;
     }
 
+    function getSpecialistPaginationHtml(currentSpecId) {
+      const idx = SPECIALISTS.findIndex(s => s.id === currentSpecId);
+      if (idx === -1) return '';
+      const prev = idx > 0 ? SPECIALISTS[idx - 1] : { id: 'specialists', name: 'All 15 Specialists Guide', isHub: true };
+      const next = idx < SPECIALISTS.length - 1 ? SPECIALISTS[idx + 1] : null;
+
+      return \`
+        <div class="doc-pagination">
+          \${prev ? \`
+            <button class="pagination-btn prev" onclick="loadContent('\${prev.isHub ? 'specialists' : 'spec-' + prev.id}')">
+              <span class="pagination-label">← Previous Specialist</span>
+              <span class="pagination-title">\${prev.name.split('/')[0].trim()}</span>
+            </button>
+          \` : '<div></div>'}
+          \${next ? \`
+            <button class="pagination-btn next" onclick="loadContent('spec-\${next.id}')">
+              <span class="pagination-label">Next Specialist →</span>
+              <span class="pagination-title">\${next.name.split('/')[0].trim()}</span>
+            </button>
+          \` : '<div></div>'}
+        </div>
+      \`;
+    }
+
+    function filterSpecialistCards(phase, btn) {
+      document.querySelectorAll('#phaseFilters button').forEach(b => b.classList.remove('active-filter'));
+      if (btn) btn.classList.add('active-filter');
+
+      document.querySelectorAll('.spec-card-item').forEach(card => {
+        if (phase === 'all' || card.getAttribute('data-phase') === phase) {
+          card.style.display = 'flex';
+        } else {
+          card.style.display = 'none';
+        }
+      });
+    }
+
     function loadContent(key, btnElement = null) {
-      if (btnElement) {
-        document.querySelectorAll('.nav-item-btn').forEach(b => b.classList.remove('active'));
-        btnElement.classList.add('active');
+      document.querySelectorAll('.nav-item-btn').forEach(b => {
+        b.classList.remove('active');
+        const oc = b.getAttribute('onclick') || '';
+        if (btnElement && b === btnElement) {
+          b.classList.add('active');
+        } else if (!btnElement && (oc.indexOf("'" + key + "'") !== -1 || oc.indexOf('"' + key + '"') !== -1)) {
+          b.classList.add('active');
+        }
+      });
+
+      if (window.history && window.history.replaceState && key && key !== 'content') {
+        window.history.replaceState(null, '', '#' + key);
       }
 
       const main = document.getElementById('content');
       const toc = document.getElementById('tocLinksContainer');
+
+      if (key === 'specialists') {
+        document.getElementById('grp-specialists')?.classList.remove('collapsed');
+        renderSpecialistsDirectoryPage(main, toc);
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+        return;
+      }
 
       // Expand parent accordion if collapsed
       if (key.startsWith('spec-')) {
@@ -1733,68 +1842,330 @@ const fullHtml = `<!DOCTYPE html>
       \`;
     }
 
-    // View: Tabbed Specialist Page (Uncluttered)
+    // View: All 15 Specialists Complete Guide & Collaboration Matrix
+    function renderSpecialistsDirectoryPage(main, toc) {
+      toc.innerHTML = \`
+        <li><a href="#specialists-overview" class="toc-a active">1. Overview & 5 Delivery Phases</a></li>
+        <li><a href="#specialists-gates" class="toc-a">2. Binding Quality Gates & Hierarchy</a></li>
+        <li><a href="#specialists-matrix" class="toc-a">3. Collaboration & Handoff Matrix</a></li>
+        <li><a href="#specialists-directory" class="toc-a">4. 15 Specialist Roster</a></li>
+      \`;
+
+      main.innerHTML = \`
+        <div class="content-header">
+          <div class="doc-cat">Core Team Protocol</div>
+          <h1 class="doc-heading" id="specialists-overview">All 15 WebDev Specialists Complete Guide</h1>
+          <p class="doc-intro">A disciplined, specification-driven multi-agent framework for web engineering. 15 autonomous specialists, explicit authority boundaries, required schema handoffs, and zero AI vibe-code.</p>
+        </div>
+
+        <!-- 5 Delivery Phases Banner -->
+        <div class="doc-block">
+          <h2 class="doc-subheading">The 5 Phases of Software Delivery</h2>
+          <p class="doc-paragraph">Every web project flows through 5 disciplined phases. Each phase is owned by dedicated specialists who produce schema-validated artifacts:</p>
+
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 14px; margin-top: 16px;">
+            <div class="clean-card" style="border-top: 3px solid var(--cyan);">
+              <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px;">
+                <strong style="color: var(--cyan); font-size: 0.95rem;">Phase 1: Discovery & Strategy</strong>
+                <span class="nav-item-num" style="font-size:0.7rem;">00, 01, 12</span>
+              </div>
+              <div style="font-size: 0.85rem; color: var(--text-2); line-height: 1.55;">
+                Orchestrates intake, classifies 3-tier rigor (MVP / PROD / SCALE), defines core problem statement, monetization model, and acceptance criteria in <code>prd.schema.json</code>.
+              </div>
+              <div style="margin-top: 10px; font-size: 0.78rem; color: var(--text-3); font-family: var(--font-mono);">
+                Artifacts: PRD &middot; Rigor Tier
+              </div>
+            </div>
+
+            <div class="clean-card" style="border-top: 3px solid var(--purple);">
+              <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px;">
+                <strong style="color: var(--purple); font-size: 0.95rem;">Phase 2: Architecture & UX</strong>
+                <span class="nav-item-num" style="font-size:0.7rem;">02, 03, 07</span>
+              </div>
+              <div style="font-size: 0.85rem; color: var(--text-2); line-height: 1.55;">
+                Establishes system boundaries, data contracts, and technology stack in <code>adr.schema.json</code>, accessible design tokens (WCAG AAA), and GDPR/CCPA consent architecture.
+              </div>
+              <div style="margin-top: 10px; font-size: 0.78rem; color: var(--text-3); font-family: var(--font-mono);">
+                Artifacts: ADR &middot; Design Tokens &middot; Privacy Spec
+              </div>
+            </div>
+
+            <div class="clean-card" style="border-top: 3px solid var(--emerald);">
+              <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px;">
+                <strong style="color: var(--emerald); font-size: 0.95rem;">Phase 3: Core Implementation</strong>
+                <span class="nav-item-num" style="font-size:0.7rem;">04, 05</span>
+              </div>
+              <div style="font-size: 0.85rem; color: var(--text-2); line-height: 1.55;">
+                Engineers responsive semantic user interfaces, zero synthetic bloat, schema-validated API route handlers (Zod), indexed database migrations, and transactional data integrity.
+              </div>
+              <div style="margin-top: 10px; font-size: 0.78rem; color: var(--text-3); font-family: var(--font-mono);">
+                Artifacts: Clean Code &middot; Schema Validated APIs
+              </div>
+            </div>
+
+            <div class="clean-card" style="border-top: 3px solid var(--rose);">
+              <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px;">
+                <strong style="color: var(--rose); font-size: 0.95rem;">Phase 4: Defense & Quality</strong>
+                <span class="nav-item-num" style="font-size:0.7rem;">06, 08, 10</span>
+              </div>
+              <div style="font-size: 0.85rem; color: var(--text-2); line-height: 1.55;">
+                Enforces STRIDE threat modeling (<code>threat-model.schema.json</code>), automated Playwright/Vitest test suites with evidence (<code>test-report.schema.json</code>), and Core Web Vitals SLA.
+              </div>
+              <div style="margin-top: 10px; font-size: 0.78rem; color: var(--text-3); font-family: var(--font-mono);">
+                Artifacts: Threat Model &middot; Test Report &middot; Web Vitals
+              </div>
+            </div>
+
+            <div class="clean-card" style="border-top: 3px solid var(--amber);">
+              <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px;">
+                <strong style="color: var(--amber); font-size: 0.95rem;">Phase 5: Release & Operations</strong>
+                <span class="nav-item-num" style="font-size:0.7rem;">09, 11, 13, 14</span>
+              </div>
+              <div style="font-size: 0.85rem; color: var(--text-2); line-height: 1.55;">
+                Authors automated rollback pipelines (<code>runbook.schema.json</code>), SEO sitemaps/robots metadata, formal GO/NO-GO sign-off (<code>launch-report.schema.json</code>), and strangler refactoring.
+              </div>
+              <div style="margin-top: 10px; font-size: 0.78rem; color: var(--text-3); font-family: var(--font-mono);">
+                Artifacts: Runbook &middot; Launch Report &middot; Debt Register
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Binding Quality Gates & Conflict Order -->
+        <div class="doc-block" id="specialists-gates">
+          <h2 class="doc-subheading">5 Binding Quality Gates & Conflict Order</h2>
+          <div class="callout-box alert-veto" style="margin-bottom: 16px;">
+            <strong>Universal Conflict Hierarchy:</strong> Security &amp; Privacy &gt; Architecture &gt; Performance &gt; Speed.
+          </div>
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 12px;">
+            <div class="clean-card" style="border-left: 3px solid var(--rose);">
+              <div style="font-weight: 700; color: var(--rose); font-size: 0.88rem;">1. AppSec Hard Veto (06-security)</div>
+              <div style="font-size: 0.82rem; color: var(--text-2); margin-top: 4px;">Zero unauthenticated mutations, zero hardcoded secrets, mandatory HttpOnly session cookies.</div>
+            </div>
+            <div class="clean-card" style="border-left: 3px solid var(--rose);">
+              <div style="font-weight: 700; color: var(--rose); font-size: 0.88rem;">2. Privacy Hard Veto (07-privacy)</div>
+              <div style="font-size: 0.82rem; color: var(--text-2); margin-top: 4px;">Zero unconsented tracking scripts, strict data minimization, privacy policy coverage.</div>
+            </div>
+            <div class="clean-card" style="border-left: 3px solid var(--cyan);">
+              <div style="font-weight: 700; color: var(--cyan); font-size: 0.88rem;">3. SQAT Ship Gate (08-testing-qa)</div>
+              <div style="font-size: 0.82rem; color: var(--text-2); margin-top: 4px;">"No evidence, no ship" — automated test suites must pass terminal execution with exit code 0.</div>
+            </div>
+            <div class="clean-card" style="border-left: 3px solid var(--amber);">
+              <div style="font-weight: 700; color: var(--amber); font-size: 0.88rem;">4. DevOps Rollback Gate (09-devops)</div>
+              <div style="font-size: 0.82rem; color: var(--text-2); margin-top: 4px;">"No rollback, no ship" — documented, tested rollback procedure and health check endpoint required.</div>
+            </div>
+            <div class="clean-card" style="border-left: 3px solid var(--emerald);">
+              <div style="font-weight: 700; color: var(--emerald); font-size: 0.88rem;">5. Launch Sign-Off Gate (13-launch)</div>
+              <div style="font-size: 0.82rem; color: var(--text-2); margin-top: 4px;">All upstream specialist sign-offs consolidated into launch-report.schema.json before live release.</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Collaboration Matrix Table -->
+        <div class="doc-block" id="specialists-matrix">
+          <h2 class="doc-subheading">Complete 15-Specialist Collaboration Matrix</h2>
+          <div class="spec-table-box">
+            <table>
+              <thead>
+                <tr>
+                  <th style="width: 60px;">ID</th>
+                  <th style="width: 220px;">Specialist</th>
+                  <th style="width: 140px;">Authority</th>
+                  <th>Primary Inputs</th>
+                  <th>Delivered Outputs</th>
+                  <th style="width: 110px;">Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                \${SPECIALISTS.map(s => \`
+                  <tr>
+                    <td><span class="nav-item-num">\${s.num}</span></td>
+                    <td>
+                      <strong style="color: var(--text-1);">\${s.name.split('/')[0].trim()}</strong>
+                      <div style="font-size: 0.78rem; color: var(--text-3); margin-top: 2px;">\${s.directive.slice(0, 70)}...</div>
+                    </td>
+                    <td>
+                      <span class="tier-pill \${s.authType === 'veto' ? 'tier-pill-scale' : (s.authType === 'ship' ? 'tier-pill-prod' : 'tier-pill-mvp')}" style="font-size: 0.7rem;">
+                        \${s.authority.split('(')[0].trim()}
+                      </span>
+                    </td>
+                    <td style="font-size: 0.8rem; font-family: var(--font-mono); color: var(--text-2);">
+                      \${s.inputs.join(', ')}
+                    </td>
+                    <td style="font-size: 0.8rem; font-family: var(--font-mono); color: var(--text-2);">
+                      \${s.outputs.join(', ')}
+                    </td>
+                    <td>
+                      <button class="hud-action-btn" style="padding: 4px 10px; font-size: 0.75rem;" onclick="loadContent('spec-\${s.id}')">
+                        View Dossier
+                      </button>
+                    </td>
+                  </tr>
+                \`).join('')}
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- 15 Specialists Cards Directory -->
+        <div class="doc-block" id="specialists-directory">
+          <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px; margin-bottom: 16px;">
+            <h2 class="doc-subheading" style="margin: 0; border: none; padding: 0;">Specialist Dossier Directory</h2>
+            <div style="display: flex; gap: 6px; flex-wrap: wrap;" id="phaseFilters">
+              <button class="hud-action-btn active-filter" onclick="filterSpecialistCards('all', this)">All (15)</button>
+              <button class="hud-action-btn" onclick="filterSpecialistCards('p1', this)">Phase 1: Discovery</button>
+              <button class="hud-action-btn" onclick="filterSpecialistCards('p2', this)">Phase 2: Architecture</button>
+              <button class="hud-action-btn" onclick="filterSpecialistCards('p3', this)">Phase 3: Implementation</button>
+              <button class="hud-action-btn" onclick="filterSpecialistCards('p4', this)">Phase 4: Quality & Defense</button>
+              <button class="hud-action-btn" onclick="filterSpecialistCards('p5', this)">Phase 5: Release & Ops</button>
+            </div>
+          </div>
+
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 14px;" id="specialistCardsGrid">
+            \${SPECIALISTS.map(s => {
+              let phaseClass = 'p1';
+              let numVal = parseInt(s.num, 10);
+              if (numVal === 0 || numVal === 1 || numVal === 12) phaseClass = 'p1';
+              else if (numVal === 2 || numVal === 3 || numVal === 7) phaseClass = 'p2';
+              else if (numVal === 4 || numVal === 5) phaseClass = 'p3';
+              else if (numVal === 6 || numVal === 8 || numVal === 10) phaseClass = 'p4';
+              else phaseClass = 'p5';
+
+              return \`
+                <div class="clean-card spec-card-item" data-phase="\${phaseClass}" style="display: flex; flex-direction: column; justify-content: space-between; border-left: 3px solid \${s.authType === 'veto' ? 'var(--rose)' : (s.authType === 'ship' ? 'var(--emerald)' : 'var(--cyan)')};">
+                  <div>
+                    <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px;">
+                      <div style="display: flex; align-items: center; gap: 8px;">
+                        <span class="nav-item-num">\${s.num}</span>
+                        <strong style="font-size: 0.98rem; color: var(--text-1);">\${s.name}</strong>
+                      </div>
+                      <span class="tier-pill \${s.authType === 'veto' ? 'tier-pill-scale' : (s.authType === 'ship' ? 'tier-pill-prod' : 'tier-pill-mvp')}" style="font-size:0.68rem;">
+                        \${s.authType.toUpperCase()}
+                      </span>
+                    </div>
+
+                    <p style="font-size: 0.84rem; color: var(--text-2); line-height: 1.55; margin-bottom: 12px;">
+                      \${s.directive}
+                    </p>
+
+                    \${s.refuse ? \`
+                      <div style="font-size: 0.78rem; background: rgba(244, 63, 94, 0.08); border-left: 2px solid var(--rose); padding: 6px 10px; border-radius: 4px; color: var(--text-2); margin-bottom: 10px;">
+                        <strong style="color: var(--rose);">Non-negotiable:</strong> \${s.refuse.slice(0, 110)}...
+                      </div>
+                    \` : ''}
+
+                    <div style="display: flex; flex-wrap: wrap; gap: 4px; margin-bottom: 14px;">
+                      \${s.triggers.slice(0, 4).map(t => \`<span class="inline-code" style="font-size: 0.72rem;">\${t}</span>\`).join('')}
+                    </div>
+                  </div>
+
+                  <div style="display: flex; align-items: center; justify-content: space-between; border-top: 1px solid var(--border-subtle); padding-top: 10px;">
+                    <div style="font-size: 0.78rem; color: var(--text-3);">
+                      \${s.steps.length} Steps &middot; \${s.decisionRules.length} Rules
+                    </div>
+                    <button class="hud-action-btn" onclick="loadContent('spec-\${s.id}')">
+                      View Full Dossier &rarr;
+                    </button>
+                  </div>
+                </div>
+              \`;
+            }).join('')}
+          </div>
+        </div>
+
+        \${getPaginationHtml('specialists')}
+      \`;
+    }
+
+    // View: Tabbed Specialist Page (Deep, Specification-Driven)
     function renderSpecialistPage(spec, main, toc) {
       let alertClass = 'alert-gate';
-      if (spec.authType === 'veto') alertClass = 'alert-veto';
-      else if (spec.authType === 'ship') alertClass = 'alert-ship';
+      let authBadge = '⚖️ PROCESS GATE';
+      if (spec.authType === 'veto') { alertClass = 'alert-veto'; authBadge = '🛡️ HARD VETO'; }
+      else if (spec.authType === 'ship') { alertClass = 'alert-ship'; authBadge = '🚀 BINDING SHIP GATE'; }
 
       toc.innerHTML = \`
         <li><a href="javascript:void(0)" onclick="setDocTab('tab-overview')" class="toc-a active">1. Overview & Rules</a></li>
-        <li><a href="javascript:void(0)" onclick="setDocTab('tab-procedure')" class="toc-a">2. Operational Procedure</a></li>
-        <li><a href="javascript:void(0)" onclick="setDocTab('tab-verification')" class="toc-a">3. Verification & Anti-Patterns</a></li>
+        <li><a href="javascript:void(0)" onclick="setDocTab('tab-procedure')" class="toc-a">2. Operational Procedure (\${spec.steps.length})</a></li>
+        <li><a href="javascript:void(0)" onclick="setDocTab('tab-verification')" class="toc-a">3. Defense & Anti-Patterns</a></li>
         <li><a href="javascript:void(0)" onclick="setDocTab('tab-schemas')" class="toc-a">4. Schemas & Directive</a></li>
       \`;
 
       main.innerHTML = \`
         <div class="content-header">
-          <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 6px;">
-            <span class="nav-item-num" style="font-size: 0.8rem; padding: 2px 7px;">\${spec.num}</span>
-            <div class="doc-cat">Specialist Dossier</div>
+          <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px; margin-bottom: 6px;">
+            <div style="display: flex; align-items: center; gap: 8px;">
+              <span class="nav-item-num" style="font-size: 0.8rem; padding: 2px 7px;">\${spec.num}</span>
+              <div class="doc-cat">Specialist Dossier</div>
+            </div>
+            <span class="tier-pill \${spec.authType === 'veto' ? 'tier-pill-scale' : (spec.authType === 'ship' ? 'tier-pill-prod' : 'tier-pill-mvp')}">\${authBadge}</span>
           </div>
           <h1 class="doc-heading">\${spec.name}</h1>
           <p class="doc-intro">\${spec.directive}</p>
         </div>
 
-        <div class="callout-box \${alertClass}">
-          <strong>Authority Level:</strong> \${spec.authority}
+        <div class="callout-box \${alertClass}" style="margin-bottom: 18px;">
+          <strong>Authority Boundary:</strong> \${spec.authority}
         </div>
+
+        \${spec.refuse ? \`
+          <div class="callout-box alert-veto" style="margin-bottom: 20px;">
+            <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 6px;">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="color: var(--rose);"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+              <strong style="color: var(--rose); font-size: 0.88rem; text-transform: uppercase; letter-spacing: 0.05em;">What I Refuse to Compromise On</strong>
+            </div>
+            <div style="font-size: 0.88rem; line-height: 1.6; color: var(--text-2);">\${formatProse(spec.refuse)}</div>
+          </div>
+        \` : ''}
+
+        \${spec.questions && spec.questions.length ? \`
+          <div class="clean-card" style="margin-bottom: 24px; border-left: 3px solid var(--cyan); background: var(--bg-surface);">
+            <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 10px;">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color: var(--cyan);"><circle cx="12" cy="12" r="10"></circle><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
+              <strong style="color: var(--text-1); font-size: 0.92rem;">Three Questions I Always Ask First</strong>
+            </div>
+            <div style="display: flex; flex-direction: column; gap: 10px;">
+              \${spec.questions.map(q => \`
+                <div style="font-size: 0.88rem; color: var(--text-2); line-height: 1.6; padding-left: 4px;">
+                  \${formatProse(q)}
+                </div>
+              \`).join('')}
+            </div>
+          </div>
+        \` : ''}
 
         <!-- Segmented Tab Navigation -->
         <div class="page-tabs-bar">
-          <button class="page-tab-btn active" data-tab="tab-overview" onclick="setDocTab('tab-overview')">Overview & Rules</button>
+          <button class="page-tab-btn active" data-tab="tab-overview" onclick="setDocTab('tab-overview')">Overview & Decision Rules (\${spec.decisionRules.length})</button>
           <button class="page-tab-btn" data-tab="tab-procedure" onclick="setDocTab('tab-procedure')">Operational Procedure (\${spec.steps.length})</button>
-          <button class="page-tab-btn" data-tab="tab-verification" onclick="setDocTab('tab-verification')">Verification & Anti-Patterns</button>
-          <button class="page-tab-btn" data-tab="tab-schemas" onclick="setDocTab('tab-schemas')">Schemas & Directives</button>
+          <button class="page-tab-btn" data-tab="tab-verification" onclick="setDocTab('tab-verification')">Defense & Anti-Patterns (\${spec.antiPatterns.length})</button>
+          <button class="page-tab-btn" data-tab="tab-schemas" onclick="setDocTab('tab-schemas')">Schemas & Directive</button>
         </div>
 
         <!-- TAB 1: OVERVIEW & RULES -->
         <div class="tab-pane active" id="tab-overview">
           <div class="doc-block">
-            <h2 class="doc-subheading">When to Activate This Specialist</h2>
-            <ul class="doc-list">
-              \${spec.whenToUse.map(u => \`<li>\${u}</li>\`).join('')}
-            </ul>
-
-            \${spec.whenNotToUse && spec.whenNotToUse.length ? \`
-              <h2 class="doc-subheading">When NOT to Use</h2>
-              <ul class="doc-list">
-                \${spec.whenNotToUse.map(u => \`<li>\${u}</li>\`).join('')}
-              </ul>
-            \` : ''}
-
-            \${spec.refuse ? \`
-              <div class="callout-box alert-veto" style="margin-top: 16px;">
-                <strong>Refusal Criteria:</strong> \${spec.refuse}
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; margin-bottom: 24px;">
+              <div class="clean-card" style="border-top: 2px solid var(--emerald);">
+                <strong style="color: var(--emerald); font-size: 0.86rem; text-transform: uppercase; letter-spacing: 0.05em;">When to Activate (Use When)</strong>
+                <ul class="doc-list" style="margin-top: 10px; margin-bottom: 0;">
+                  \${spec.whenToUse.map(u => \`<li>\${u}</li>\`).join('')}
+                </ul>
               </div>
-            \` : ''}
+              <div class="clean-card" style="border-top: 2px solid var(--amber);">
+                <strong style="color: var(--amber); font-size: 0.86rem; text-transform: uppercase; letter-spacing: 0.05em;">NOT to Use (Route Elsewhere)</strong>
+                <ul class="doc-list" style="margin-top: 10px; margin-bottom: 0;">
+                  \${spec.whenNotToUse && spec.whenNotToUse.length ? spec.whenNotToUse.map(u => \`<li>\${u}</li>\`).join('') : '<li>Do not invoke outside defined domain boundaries.</li>'}
+                </ul>
+              </div>
+            </div>
 
             <h2 class="doc-subheading">Decision Rules & Engineering Stances</h2>
-            <div style="display: flex; flex-direction: column; gap: 10px;">
+            <div style="display: flex; flex-direction: column; gap: 12px;">
               \${spec.decisionRules.map(r => \`
-                <div class="clean-card" style="padding: 14px 18px;">
-                  <strong style="color: var(--cyan); font-size: 0.92rem;">\${r.title}</strong>
-                  <div style="font-size: 0.88rem; color: var(--text-2); margin-top: 4px;">\${formatProse(r.text)}</div>
+                <div class="clean-card" style="padding: 16px 20px; border-left: 3px solid var(--cyan);">
+                  <strong style="color: var(--cyan); font-size: 0.95rem;">\${r.title}</strong>
+                  <div style="font-size: 0.88rem; color: var(--text-2); margin-top: 6px; line-height: 1.65;">\${formatProse(r.text)}</div>
                 </div>
               \`).join('')}
             </div>
@@ -1805,7 +2176,7 @@ const fullHtml = `<!DOCTYPE html>
         <div class="tab-pane" id="tab-procedure">
           <div class="doc-block">
             <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px;">
-              <h2 class="doc-subheading" style="margin: 0; border: none; padding: 0;">Phased Step-by-Step Procedure</h2>
+              <h2 class="doc-subheading" style="margin: 0; border: none; padding: 0;">Phased Step-by-Step Procedure (\${spec.steps.length} Steps)</h2>
               <button class="snippet-copy-btn" onclick="copyText(document.getElementById('stepsTextContainer').innerText, this)">
                 <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
                 <span>Copy Procedure</span>
@@ -1814,9 +2185,9 @@ const fullHtml = `<!DOCTYPE html>
             <div id="stepsTextContainer" style="display: flex; flex-direction: column; gap: 14px;">
               \${spec.steps.map((st, idx) => \`
                 <div class="clean-card" style="border-left: 3px solid var(--cyan);">
-                  <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 6px;">
+                  <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 8px;">
                     <span class="nav-item-num">0\${idx + 1}</span>
-                    <strong style="font-size: 0.95rem; color: var(--text-1);">\${st.title}</strong>
+                    <strong style="font-size: 0.98rem; color: var(--text-1);">\${st.title}</strong>
                   </div>
                   <div style="font-size: 0.88rem; color: var(--text-2); line-height: 1.65;">\${formatProse(st.details)}</div>
                 </div>
@@ -1825,17 +2196,21 @@ const fullHtml = `<!DOCTYPE html>
           </div>
         </div>
 
-        <!-- TAB 3: VERIFICATION & ANTI-PATTERNS -->
+        <!-- TAB 3: DEFENSE & ANTI-PATTERNS -->
         <div class="tab-pane" id="tab-verification">
           <div class="doc-block">
             <h2 class="doc-subheading">Automated Verification Checks</h2>
-            <ul class="doc-list">
-              \${spec.verifications.map(v => \`<li>\${v}</li>\`).join('')}
-            </ul>
+            <div style="display: flex; flex-direction: column; gap: 10px; margin-bottom: 24px;">
+              \${spec.verifications.map((v, vIdx) => \`
+                <div class="clean-card" style="padding: 12px 16px; border-left: 3px solid var(--emerald);">
+                  <div style="font-size: 0.88rem; color: var(--text-2); line-height: 1.6;">\${formatProse(v)}</div>
+                </div>
+              \`).join('')}
+            </div>
 
             \${spec.antiPatterns && spec.antiPatterns.length ? \`
               <h2 class="doc-subheading">Strictly Forbidden Anti-Patterns</h2>
-              <div class="clean-card" style="border-left: 3px solid var(--rose);">
+              <div class="clean-card" style="border-left: 3px solid var(--rose); margin-bottom: 24px;">
                 <ul class="doc-list" style="margin-bottom: 0;">
                   \${spec.antiPatterns.map(a => \`<li><span style="color: var(--rose); font-weight:600; margin-right:4px;">[BANNED]</span>\${a}</li>\`).join('')}
                 </ul>
@@ -1843,10 +2218,12 @@ const fullHtml = `<!DOCTYPE html>
             \` : ''}
 
             \${spec.escalate && spec.escalate.length ? \`
-              <h2 class="doc-subheading">Escalation Thresholds</h2>
-              <ul class="doc-list">
-                \${spec.escalate.map(e => \`<li>\${e}</li>\`).join('')}
-              </ul>
+              <h2 class="doc-subheading">Escalate-to-User Triggers</h2>
+              <div class="clean-card" style="border-left: 3px solid var(--amber);">
+                <ul class="doc-list" style="margin-bottom: 0;">
+                  \${spec.escalate.map(e => \`<li><span style="color: var(--amber); font-weight:600; margin-right:4px;">[HALT & ESCALATE]</span>\${e}</li>\`).join('')}
+                </ul>
+              </div>
             \` : ''}
           </div>
         </div>
@@ -1855,7 +2232,7 @@ const fullHtml = `<!DOCTYPE html>
         <div class="tab-pane" id="tab-schemas">
           <div class="doc-block">
             <h2 class="doc-subheading">Required Handoff Contracts</h2>
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 24px;">
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 14px; margin-bottom: 24px;">
               <div class="clean-card">
                 <div style="font-size: 0.72rem; text-transform: uppercase; color: var(--cyan); font-weight: 700; margin-bottom: 4px;">Incoming Dependencies (Requires)</div>
                 <div style="font-size: 0.88rem; font-family: var(--font-mono); color: var(--text-1);">\${spec.inputs.join(', ')}</div>
@@ -1864,6 +2241,11 @@ const fullHtml = `<!DOCTYPE html>
                 <div style="font-size: 0.72rem; text-transform: uppercase; color: var(--emerald); font-weight: 700; margin-bottom: 4px;">Delivered Artifacts (Produces)</div>
                 <div style="font-size: 0.88rem; font-family: var(--font-mono); color: var(--text-1);">\${spec.outputs.join(', ')}</div>
               </div>
+            </div>
+
+            <h2 class="doc-subheading">Multi-Agent Routing Triggers</h2>
+            <div style="display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 24px;">
+              \${spec.triggers.map(t => \`<span class="inline-code">\${t}</span>\`).join('')}
             </div>
 
             <h2 class="doc-subheading">Direct Agent Directive (Prompt Injection)</h2>
@@ -1882,6 +2264,8 @@ Strict Invariant: Zero placeholder comments. Verifiable exit code 0 required.</c
             </div>
           </div>
         </div>
+
+        \${getSpecialistPaginationHtml(spec.id)}
       \`;
     }
 
@@ -2643,6 +3027,7 @@ Never hardcode secrets. Passwords must use scrypt/argon2 with unique salts. Vali
 
       let items = [
         { type: 'Protocol', title: 'System Overview & Matrix', badge: 'Protocol', key: 'overview', text: 'overview architecture summary matrix' },
+        { type: 'Protocol', title: 'All 15 Specialists Complete Guide', badge: 'Protocol', key: 'specialists', text: 'specialists guide matrix directory roster all 15 roles' },
         { type: 'Protocol', title: '5-Second Quickstart', badge: 'Guide', key: 'quickstart', text: 'quickstart cli installer npm npx' },
         { type: 'Protocol', title: '3-Tier Rigor Matrix', badge: 'Architecture', key: 'tiers', text: 'tiers mvp prod scale matrix rigor' },
         { type: 'Protocol', title: 'Team Stances & Conflicts', badge: 'Governance', key: 'protocol', text: 'protocol stances conflict resolution' },
@@ -2737,10 +3122,23 @@ Never hardcode secrets. Passwords must use scrypt/argon2 with unique salts. Vali
       }
     }
 
-    // Initialize Page
-    window.addEventListener('DOMContentLoaded', () => {
+    // Initialize Page with Hash Router
+    function handleInitialRoute() {
       renderNav();
-      loadContent('overview');
+      const hash = window.location.hash.replace(/^#/, '').trim();
+      if (hash && hash !== 'content' && hash !== '') {
+        loadContent(hash);
+      } else {
+        loadContent('overview');
+      }
+    }
+
+    window.addEventListener('DOMContentLoaded', handleInitialRoute);
+    window.addEventListener('hashchange', () => {
+      const hash = window.location.hash.replace(/^#/, '').trim();
+      if (hash && hash !== 'content' && hash !== '') {
+        loadContent(hash);
+      }
     });
   </script>
 </body>
