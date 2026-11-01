@@ -1,0 +1,96 @@
+{
+  "skill_id": "11-seo-marketing",
+  "positive_triggers": [
+    {
+      "prompt": "How do we generate dynamic XML sitemaps and a robots.txt file in Next.js App Router for our blog and public pages?",
+      "reason": "Direct technical SEO sitemap and robots.txt generation."
+    },
+    {
+      "prompt": "Implement Schema.org JSON-LD structured data for our SaaS pricing page using SoftwareApplication and Product types.",
+      "reason": "Structured data and JSON-LD schema markup implementation."
+    },
+    {
+      "prompt": "Create dynamic Open Graph social preview cards (og:image, og:title) that render crisp 1200x630 previews when shared on Twitter or LinkedIn.",
+      "reason": "Open Graph and social card metadata generation."
+    },
+    {
+      "prompt": "Design an analytics event tracking taxonomy plan with consistent naming for our signup and upgrade funnels.",
+      "reason": "Analytics event planning, funnel tracking, and CRO instrumentation."
+    },
+    {
+      "prompt": "Our new website pages are not getting indexed by Google. How do we audit canonical tags, noindex directives, and SSR rendering?",
+      "reason": "Technical SEO indexing audit and canonicalization troubleshooting."
+    }
+  ],
+  "negative_near_misses": [
+    {
+      "prompt": "Optimize our hero image to improve Largest Contentful Paint (LCP) from 4.2s to 1.8s.",
+      "expected_route": "10-performance",
+      "reason": "Core Web Vitals tuning owned by Performance Engineer."
+    },
+    {
+      "prompt": "Write Playwright tests to verify that the signup form submits without validation errors.",
+      "expected_route": "08-testing-qa",
+      "reason": "Automated e2e testing owned by QA/SDET."
+    },
+    {
+      "prompt": "Configure an AWS CloudFront CDN distribution with SSL certificate and origin request policies.",
+      "expected_route": "09-devops-infra",
+      "reason": "Cloud infrastructure and CDN provisioning owned by DevOps/SRE."
+    },
+    {
+      "prompt": "Audit our cookie banner to verify it complies with GDPR Article 7 freely given consent.",
+      "expected_route": "07-privacy-compliance",
+      "reason": "Regulatory privacy compliance owned by Privacy Officer."
+    },
+    {
+      "prompt": "Design the domain entity model in PostgreSQL for user subscriptions and invoices.",
+      "expected_route": "02-architecture",
+      "reason": "Domain modeling and architectural data contracts owned by Solution Architect."
+    }
+  ],
+  "evaluation_tasks": [
+    {
+      "task_id": "seo-task-01",
+      "prompt": "A developer built a client-rendered React SPA for an e-commerce store where products are fetched via `useEffect` on mount. When shared on Twitter or crawled by search bots, preview cards show blank content and meta tags are missing. Explain why and provide the solution.",
+      "pass_criteria": [
+        "Explains that search bots and social crawlers (Twitter, LinkedIn, Slack) do not execute heavy client-side JavaScript when scraping meta tags.",
+        "Recommends migrating public marketing/product routes to Server-Side Rendering (SSR) or Static Site Generation (SSG) with Next.js/Astro.",
+        "Shows proper `<head>` tags: `<title>`, `<meta name=\"description\">`, `<link rel=\"canonical\">`, and `og:*` properties rendered in initial server HTML.",
+        "Includes absolute image URLs for `og:image` (1200x630 px)."
+      ],
+      "fail_criteria": [
+        "Suggests using client-side `useEffect` or `react-helmet` without SSR/prerendering.",
+        "Uses relative paths for Open Graph image tags."
+      ]
+    },
+    {
+      "task_id": "seo-task-02",
+      "prompt": "Write a valid Schema.org JSON-LD structured data script for a SaaS product 'DevTracker' offering a Pro tier for $29/month.",
+      "pass_criteria": [
+        "Uses `<script type=\"application/ld+json\">` format.",
+        "Declares `@context`: 'https://schema.org' and `@type`: 'SoftwareApplication'.",
+        "Includes required fields: `name`, `operatingSystem`, `applicationCategory`, and `offers`.",
+        "Specifies price ($29), priceCurrency ('USD'), and availability ('https://schema.org/InStock')."
+      ],
+      "fail_criteria": [
+        "Uses hallucinated properties not found in Schema.org.",
+        "Emits invalid JSON syntax."
+      ]
+    },
+    {
+      "task_id": "seo-task-03",
+      "prompt": "Design an analytics event tracking taxonomy plan for an onboarding flow (Landing -> Signup -> Onboarding -> Subscription Activated). Specify event names, properties, and privacy constraints.",
+      "pass_criteria": [
+        "Uses consistent Object-Action naming convention (e.g. `signup_completed`, `subscription_activated`).",
+        "Includes relevant contextual properties (e.g. `plan_type`, `billing_interval`, `source_referral`).",
+        "Strictly prohibits transmitting personal identifiable information (PII: plaintext emails, passwords, credit card numbers).",
+        "Coordinates with privacy consent manager before dispatching events."
+      ],
+      "fail_criteria": [
+        "Includes raw user passwords or payment card details in event properties.",
+        "Uses erratic, unstructured event naming (e.g. mixing `click-button` with `UserSignedUp`)."
+      ]
+    }
+  ]
+}
