@@ -17,6 +17,7 @@ const STEPS = [
   { name: 'Internal Link & Reference Checker', cmd: 'node tools/check-links.js' },
   { name: 'Skill Freshness Audit (<=180 days)', cmd: 'node tools/check-freshness.js' },
   { name: 'Security Invariant & Injection Scanner', cmd: 'node tools/scan-skills.js' },
+  { name: 'AI Garbage Code & Artifact Hygiene', cmd: 'node tools/lint-ai-hygiene.js' },
   { name: 'Router Index (skills.index.json) Sync', cmd: 'node tools/validate-index.js' },
   { name: 'Tool Adapters Generator', cmd: 'node tools/build-adapters.js' },
   { name: 'Benchmark Evaluation Suite', cmd: 'node evals/harness/run-eval.js' },

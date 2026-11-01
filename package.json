@@ -29,6 +29,7 @@
   "scripts": {
     "test": "node tools/verify-all.js",
     "lint": "node tools/lint-skills.js",
+    "lint:hygiene": "node tools/lint-ai-hygiene.js",
     "check:links": "node tools/check-links.js",
     "check:freshness": "node tools/check-freshness.js",
     "check:security": "node tools/scan-skills.js",

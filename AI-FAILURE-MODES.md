@@ -12,7 +12,7 @@ This catalogue details documented traps, cognitive failures, and security anti-p
 - **Countermeasure:** [AGENTS.md Rule 2] Verify that a package and version exists in registry before importing. Test imports in terminal.
 
 ### FM-02: Insecure Defaults & False Security
-- **Symptom:** Generating SQL queries with template literals (`SELECT * FROM users WHERE id = ${id}`), disabling CORS (`*`), using `dangerouslySetInnerHTML`, storing plaintext passwords, or disabling TLS verification (`NODE_TLS_REJECT_UNAUTHORIZED=0`).
+- **Symptom:** Generating SQL queries with template literals (`SELECT * FROM users WHERE id = ${id}`), disabling CORS (`*`), using `dangerouslySetInnerHTML`, storing plaintext passwords, or disabling TLS verification.
 - **Root Cause:** Training corpora containing quick tutorial snippets optimized for brief tutorials rather than production security.
 - **Countermeasure:** `06-security` holds HARD VETO. Require parameterized queries, strict CSP headers, and schema-enforced input validation (Zod/Valibot).
 
@@ -46,3 +46,17 @@ This catalogue details documented traps, cognitive failures, and security anti-p
 - **Root Cause:** Ubiquity of tracking snippets in web examples.
 - **Countermeasure:** `07-privacy-compliance` HARD VETO: Server-side or consent-gated tracking strictly enforced.
 
+### FM-09: AI Garbage Code & Boilerplate Pollution
+- **Symptom:** Injecting placeholder comments (`// TODO: implement later`, `// Add logic here`), generating gratuitous single-line wrappers (`function isNull(x) { return x === null; }`), duplicating existing project utilities, leaving dead commented-out code, or generating overly verbose abstractions.
+- **Root Cause:** LLMs favor generating high-token responses and often simulate completeness with comments rather than fully implementing observable behavior.
+- **Countermeasure:** [AGENTS.md Rule 9] Zero AI Garbage Code: Never emit placeholder comments. Prefer native language features directly. Maintain dead-code elimination and run `tools/lint-ai-hygiene.js`.
+
+### FM-10: Unnecessary Folder Sprawl & Architectural Bloat
+- **Symptom:** Proliferating deeply nested directories (`src/modules/user/services/handlers/helpers/utils/`), creating folders for a single trivial file, or creating empty scaffolding folders before code exists.
+- **Root Cause:** Misapplied enterprise Java patterns to modern lightweight JavaScript/TypeScript stacks.
+- **Countermeasure:** [AGENTS.md Rule 10] Flat-Hierarchy Rule: Keep directory structures flat (maximum 3 levels from source root). Never create a folder unless at least 3 distinct files belong to that domain.
+
+### FM-11: Uncontrolled Artifact Proliferation & Workspace Littering
+- **Symptom:** Littering the workspace root with unrequested markdown documents, stray scratchpad files (`temp.js`, `notes.md`, `test-plan.md`), unmanaged logs, or duplicate diff dumps.
+- **Root Cause:** AI agents "thinking out loud" on the filesystem without adhering to lifecycle policies.
+- **Countermeasure:** [AGENTS.md Rule 10] Strict Artifact Control: Only write schema-validated handoff artifacts in `templates/schemas/`. Never create unrequested markdown summaries or temporary files in production paths. Clean up or quarantine ephemeral scratch files.

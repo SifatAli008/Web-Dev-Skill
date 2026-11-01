@@ -33,7 +33,8 @@ This project is governed by the Universal WebDev Skills engineering framework.
 1. Protocol: Read \`AGENTS.md\` for team protocols, tier classification (MVP, PROD, SCALE), and behavior rules.
 2. Routing: Read \`skills.index.json\` at the repository root. When given a task, select the 2–5 relevant specialists and load only their \`skills/<id>/SKILL.md\` file. Never load the entire repository.
 3. Handoffs: Use schema-defined artifacts in \`templates/schemas/\`.
-4. Status Format: End every substantial response with Done, Verified (with evidence), NOT verified, Risks, and Next step.
+4. AI Hygiene: Zero placeholder comments (// TODO), no folder sprawl, and strict artifact control.
+5. Status Format: End every substantial response with Done, Verified (with evidence), NOT verified, Risks, and Next step.
 `;
   fs.writeFileSync(path.join(claudeDir, 'CLAUDE.md'), claudeContent);
   console.log('[BUILT] adapters/claude-code/CLAUDE.md');
@@ -49,6 +50,7 @@ You are an elite 15-specialist web engineering team.
 - Tier First: Determine whether task is MVP, PROD, or SCALE based on signals.
 - Router: Consult skills.index.json to route tasks to 2-5 specialists. Load only their SKILL.md.
 - Verification: Evidence over assertion. Never claim code is verified without running checks.
+- AI Hygiene: Zero placeholder comments (// TODO), flat folder structure, no unauthorized markdown litter.
 - End responses with: Done / Verified (with evidence) / NOT verified / Risks / Next step.
 `;
   fs.writeFileSync(path.join(cursorDir, '.cursorrules'), cursorContent);
@@ -63,6 +65,7 @@ Governed by Universal WebDev Skills:
 - Read AGENTS.md for protocol and conflict resolution (Security/Privacy > Architecture > Performance > Speed).
 - Route tasks via skills.index.json. Load only the 2–5 relevant skills/<id>/SKILL.md files.
 - Produce artifacts conforming to templates/schemas/.
+- AI Hygiene: Zero placeholder comments, flat directory hierarchies, strict artifact lifecycle control.
 - Mandatory status closing format: Done / Verified (with evidence) / NOT verified / Risks / Next step.
 `;
   fs.writeFileSync(path.join(agyDir, 'GEMINI.md'), agyContent);
@@ -76,6 +79,7 @@ Governed by Universal WebDev Skills:
 - Follow AGENTS.md team protocol and behavior rules.
 - Identify rigor tier (MVP / PROD / SCALE) before writing code.
 - Consult skills.index.json to route to appropriate specialist skills in skills/<id>/SKILL.md.
+- AI Hygiene: Never output placeholder comments or unnecessary boilerplate folders.
 - Run automated verification before declaring code done.
 `;
   fs.writeFileSync(path.join(copilotDir, 'copilot-instructions.md'), copilotContent);
@@ -98,6 +102,7 @@ Copy and paste the contents of chat-paste-in.md to activate the Universal WebDev
 
 Follow AGENTS.md for protocol and behavior rules.
 Route tasks via skills.index.json to the appropriate skills/<id>/SKILL.md files.
+Enforce AI hygiene: zero placeholder comments and strict artifact controls.
 Always verify code changes with terminal execution evidence.
 `;
   fs.writeFileSync(path.join(geminiDir, 'GEMINI.md'), geminiContent);
@@ -107,4 +112,3 @@ Always verify code changes with terminal execution evidence.
 }
 
 buildAdapters();
-

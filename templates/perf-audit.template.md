@@ -47,3 +47,4 @@
 - [ ] **Priority 1 (LCP):** [e.g. Add `<link rel="preload" as="image" fetchpriority="high">` to hero asset].
 - [ ] **Priority 2 (CLS):** [e.g. Reserve aspect-ratio on ad slots and dynamic content containers].
 - [ ] **Priority 3 (INP):** [e.g. Break up long script task via `scheduler.yield()` or Web Worker].
+

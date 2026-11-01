@@ -23,7 +23,8 @@ Most AI agents act as eager junior developers: they generate code fast, but skip
 2. **Context Budgeting (L0 / L1 / L2):** Typical tasks consume under **10,000 tokens** by routing through an index router (`skills.index.json`) and loading only the 2–5 specialists required.
 3. **Binding Gates & Hard Vetos:** Application Security and Privacy officers hold absolute, non-overridable veto power. SQAT Lead enforces *"No evidence, no ship"* and Quality Gates; DevOps enforces *"No rollback, no ship"*.
 4. **Evidence Over Assertion:** Agents must run terminal commands, verify exit codes, and show exact test output before claiming code is verified.
-5. **Universal Tool Compatibility:** Adapters ensure instant integration with any leading AI development environment in under 2 minutes.
+5. **AI Garbage Code & Artifact Control:** Zero placeholder comments (`// TODO`), strict folder de-bloating (max 3 levels deep), and strict artifact lifecycle control to prevent workspace littering.
+6. **Universal Tool Compatibility:** Adapters ensure instant integration with any leading AI development environment in under 2 minutes.
 
 ---
 
@@ -159,9 +160,9 @@ universal-webdev-skills/
 ├── DECISIONS.md              # Architectural Decision Records (ADRs)
 ├── skills/                   # 15 specialist skill directories
 │   └── <00..14>-<name>/      # SKILL.md (<300 lines), references/, tests/
-├── playbooks/                # 15 cross-sector operational playbooks
+├── playbooks/                # 16 cross-sector operational playbooks
 ├── templates/                # 8 artifact templates (PRD, ADR, Threat Model, Perf Audit, etc.)
-│   └── schemas/              # 8 strict JSON schemas
+│   └── schemas/              # 9 strict JSON schemas
 ├── checklists/               # 5 verification checklists (MVP, PROD, Security, etc.)
 ├── reference-projects/       # 3 golden reference projects (CI-tested)
 ├── evals/                    # Tasks, rubrics, harness, and certified RESULTS.md
