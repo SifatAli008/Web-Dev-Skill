@@ -2,16 +2,16 @@
 
 /**
  * Universal WebDev Skills Security Scanner (scan-skills)
- * Scans all skills, playbooks, and references for prompt injection vectors,
- * dangerous shell execution patterns (e.g. curl | bash), remote exfiltration,
- * or instructions attempting to disable security controls.
+ * Scans all skills, playbooks, templates, checklists, adapters, reference-projects,
+ * and root documentation for prompt injection vectors, dangerous shell execution
+ * patterns (e.g. curl | bash), remote exfiltration, or disabled security controls.
  */
 
 const fs = require('fs');
 const path = require('path');
 
 const REPO_ROOT = path.join(__dirname, '..');
-const SCAN_DIRS = ['skills', 'playbooks', 'templates'];
+const SCAN_DIRS = ['skills', 'playbooks', 'templates', 'checklists', 'adapters', 'reference-projects'];
 
 // Dangerous execution and injection regex patterns
 const RISKY_PATTERNS = [
@@ -40,7 +40,7 @@ function scanDirectory(dirPath) {
 
 function scanFile(filePath) {
   const relativePath = path.relative(REPO_ROOT, filePath);
-  // Skip this scanner itself and AI failure modes catalogue (which discusses the anti-patterns)
+  // Skip this scanner itself and AI failure modes catalogue (which discusses anti-patterns)
   if (relativePath.includes('scan-skills.js') || relativePath.includes('AI-FAILURE-MODES.md')) {
     return;
   }
@@ -56,12 +56,19 @@ function scanFile(filePath) {
 }
 
 function runScanner() {
-  console.log('=== Scanning Skills & Playbooks for Security Invariants ===\n');
+  console.log('=== Scanning Skills, Playbooks, Checklists, Adapters & Projects for Security Invariants ===\n');
 
   SCAN_DIRS.forEach(dir => {
     const targetDir = path.join(REPO_ROOT, dir);
     if (fs.existsSync(targetDir)) {
       scanDirectory(targetDir);
+    }
+  });
+
+  // Scan root markdown and js files
+  fs.readdirSync(REPO_ROOT).forEach(file => {
+    if (file.endsWith('.md') || (file.endsWith('.js') && file !== 'scan-skills.js')) {
+      scanFile(path.join(REPO_ROOT, file));
     }
   });
 
@@ -74,4 +81,3 @@ function runScanner() {
 }
 
 runScanner();
-

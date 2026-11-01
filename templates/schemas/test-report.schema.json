@@ -25,6 +25,15 @@
         "functions": { "type": "number" },
         "lines": { "type": "number" }
       }
+    },
+    "sqat_quality_gate": {
+      "type": "object",
+      "properties": {
+        "status": { "type": "string", "enum": ["PASSED", "FAILED"] },
+        "static_analysis_issues": { "type": "integer" },
+        "mutation_score": { "type": "number" },
+        "max_cyclomatic_complexity": { "type": "integer" }
+      }
     }
   }
 }

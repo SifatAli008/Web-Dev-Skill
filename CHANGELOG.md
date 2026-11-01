@@ -51,3 +51,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Benchmark Evaluation Suite (`evals/`):**
   - 9 standardized benchmark tasks, 100-point evaluation rubric, and automated runner ([`evals/harness/run-eval.js`](file:///f:/Web%20Dev%20Skill/evals/harness/run-eval.js)).
   - Certified results: **+79.9% win delta** on Frontier models, **+132.7% win delta** on Small models, **0 OWASP critical findings**.
+

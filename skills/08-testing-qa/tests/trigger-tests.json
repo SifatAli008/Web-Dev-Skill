@@ -18,6 +18,10 @@
       "reason": "Test pyramid design and test case formulation for business calculation logic."
     },
     {
+      "prompt": "Establish an SQAT (Software Quality Assurance and Testing) quality gate in CI with mutation testing and static code complexity checks.",
+      "reason": "Direct SQAT quality gate and mutation testing enforcement."
+    },
+    {
       "prompt": "Generate a test report certifying test execution evidence before we ship this release to production.",
       "reason": "Test report schema generation and release certification."
     }

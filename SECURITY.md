@@ -26,7 +26,7 @@ Every skill, playbook, template, and reference project in this repository is sta
 
 1. **No Remote Execution Pipes:** Never instruct an agent or user to execute unverified remote shell pipes (e.g., `curl | sh`, `wget | bash`). All dependencies and tools must be pinned or installed via verifiable package managers.
 2. **Zero Plaintext Secrets:** No passwords, API keys, tokens, or private certificates may be hardcoded or committed to git history. Environment variables and secret managers are mandatory.
-3. **No TLS/SSL Bypass:** Instructions must never disable certificate verification (e.g., `NODE_TLS_REJECT_UNAUTHORIZED=0`, `curl -k`, `--insecure`).
+3. **No TLS/SSL Bypass:** Instructions must never disable certificate verification (such as disabling Node TLS verification or passing insecure/unverified flags to HTTP clients).
 4. **Strict SQL Parameterization:** All database queries must use prepared statements and parameterized inputs. Raw string concatenation into queries is forbidden.
 5. **Binding Gate Authority:** Application Security Lead (`skills/06-security`) and Privacy Officer (`skills/07-privacy-compliance`) retain absolute, non-overridable veto power over software releases unless explicitly acknowledged in `DECISIONS.md` under an `ACCEPTED-RISK` entry.
 
@@ -38,3 +38,4 @@ Every skill, playbook, template, and reference project in this repository is sta
 |---|---|---|
 | `v0.1.x` | Yes | Active maintenance and patch updates |
 | `< v0.1.0` | No | Pre-release; please upgrade to v0.1.0 |
+

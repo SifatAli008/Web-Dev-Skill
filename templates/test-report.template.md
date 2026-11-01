@@ -28,7 +28,14 @@
 - **Functions:** [e.g. 91.0%]
 - **Lines:** [e.g. 89.1%]
 
-## 4. Terminal Output Proof
+## 4. SQAT Quality Gate Certification
+- **Static Quality Analysis:** [0 errors, 0 warnings]
+- **Max Cyclomatic Complexity:** [e.g. 7 (Limit: <= 10)]
+- **Mutation Testing Score:** [e.g. 78.4% (Threshold: >= 70%)]
+- **Flaky Tests in Branch:** [0]
+- **SQAT Quality Gate Status:** [PASSED | FAILED]
+
+## 5. Terminal Output Proof
 ```text
 [Paste terminal test execution output here with exit code]
 ```

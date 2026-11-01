@@ -58,10 +58,15 @@ Every technical claim in this repository is tagged with one of three epistemic l
 - **`CCPA-CPRA`**: California Consumer Privacy Act of 2018 as amended by the California Privacy Rights Act of 2020. Cal. Civ. Code § 1798.100 et seq. [FACT]
 - **`FTC-FTC-ACT`**: Federal Trade Commission Act, 15 U.S.C. § 45 (Unfair or Deceptive Acts or Practices). [FACT]
 
-### 08 · QA & Testing
+### 08 · QA & Testing (SQAT)
 - **`PRACTICAL-TEST-PYRAMID`**: Ham Vocke, The Practical Test Pyramid. Martin Fowler bliki. https://martinfowler.com/articles/practical-test-pyramid.html [BEST PRACTICE]
 - **`PLAYWRIGHT-DOCS`**: Playwright Official Documentation, Microsoft. https://playwright.dev/ [FACT]
 - **`TEST-IN-PROD`**: Charity Majors et al., Observability and Testing in Production. [BEST PRACTICE]
+- **`ISO-29119`**: ISO/IEC/IEEE 29119 Software and Systems Engineering — Software Testing standards. https://www.iso.org/standard/64818.html [FACT]
+- **`ISO-25010`**: ISO/IEC 25010 Systems and software Quality Requirements and Evaluation (SQuaRE). https://iso25000.com/index.php/en/iso-25000-standards/iso-25010 [FACT]
+- **`ISTQB-SQAT`**: International Software Testing Qualifications Board (ISTQB) Certified Tester Foundation and Advanced Syllabi. https://www.istqb.org/ [BEST PRACTICE]
+- **`SONARQUBE-QUALITY-GATES`**: SonarQube Clean as You Code Quality Gate methodology and static code metrics. https://docs.sonarsource.com/sonarqube/latest/instance-administration/quality-gates/ [BEST PRACTICE]
+- **`STRYKER-MUTATOR`**: Stryker Mutator: Mutation Testing for JavaScript and TypeScript. https://stryker-mutator.io/ [BEST PRACTICE]
 
 ### 09 · DevOps & Infrastructure
 - **`GOOGLE-SRE-BOOK`**: Site Reliability Engineering: How Google Runs Production Systems, Betsy Beyer et al. (O'Reilly, 2016). https://sre.google/sre-book/table-of-contents/ [BEST PRACTICE]

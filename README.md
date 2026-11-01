@@ -21,7 +21,7 @@ Most AI agents act as eager junior developers: they generate code fast, but skip
 **Universal WebDev Skills fixes this by enforcing:**
 1. **Tier-First Classification:** Every task is evaluated at the appropriate rigor tier: **MVP**, **PROD**, or **SCALE**. The agent automatically adopts the highest tier triggered.
 2. **Context Budgeting (L0 / L1 / L2):** Typical tasks consume under **10,000 tokens** by routing through an index router (`skills.index.json`) and loading only the 2–5 specialists required.
-3. **Binding Gates & Hard Vetos:** Application Security and Privacy officers hold absolute, non-overridable veto power. QA enforces *"No evidence, no ship"*; DevOps enforces *"No rollback, no ship"*.
+3. **Binding Gates & Hard Vetos:** Application Security and Privacy officers hold absolute, non-overridable veto power. SQAT Lead enforces *"No evidence, no ship"* and Quality Gates; DevOps enforces *"No rollback, no ship"*.
 4. **Evidence Over Assertion:** Agents must run terminal commands, verify exit codes, and show exact test output before claiming code is verified.
 5. **Universal Tool Compatibility:** Adapters ensure instant integration with any leading AI development environment in under 2 minutes.
 
@@ -39,7 +39,7 @@ Most AI agents act as eager junior developers: they generate code fast, but skip
 | **05** | **Backend & Data Lead** | `skills/05-backend-data` | ACID transactions, expand-and-contract migrations | Advises |
 | **06** | **Application Security Lead** | `skills/06-security` | Confidentiality, OWASP Top 10, threat modeling | **HARD VETO** |
 | **07** | **Privacy & Compliance Officer** | `skills/07-privacy-compliance` | GDPR/ePrivacy consent, zero pre-consent tracking | **HARD VETO** |
-| **08** | **QA / SDET Lead** | `skills/08-testing-qa` | Automated test suites, coverage, test reports | **No evidence, no ship** |
+| **08** | **SQAT & SDET Lead** | `skills/08-testing-qa` | Software Quality Assurance & Testing, Quality Gates, mutation testing | **No evidence, no ship** |
 | **09** | **DevOps / SRE Lead** | `skills/09-devops-infra` | CI/CD, liveness/readiness probes, rollback scripts | **No rollback, no ship** |
 | **10** | **Performance Engineer** | `skills/10-performance` | Core Web Vitals (LCP < 2.5s, CLS = 0), budgets | Warns |
 | **11** | **SEO & Growth Lead** | `skills/11-seo-marketing` | Schema.org JSON-LD, XML sitemaps, robots.txt | Advises |
@@ -204,3 +204,4 @@ node evals/harness/run-eval.js
 ## License
 
 Distributed under the [MIT License](LICENSE). Copyright &copy; 2026 Universal WebDev Skills Contributors.
+

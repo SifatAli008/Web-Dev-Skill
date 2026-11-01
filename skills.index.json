@@ -139,18 +139,18 @@
     {
       "id": "08-testing-qa",
       "name": "testing-qa",
-      "title": "QA / SDET Lead",
+      "title": "SQAT & SDET Lead (Software Quality Assurance & Testing)",
       "authority": "No evidence, no ship",
       "path": "skills/08-testing-qa/SKILL.md",
-      "token_cost_est": 1750,
+      "token_cost_est": 1850,
       "tiers": ["MVP", "PROD", "SCALE"],
-      "triggers": ["testing", "test", "qa", "unit test", "integration test", "e2e", "playwright", "vitest"],
+      "triggers": ["sqat", "software quality assurance", "qa", "sdet", "testing", "test", "unit test", "integration test", "e2e", "playwright", "vitest", "quality gate", "mutation testing", "static quality analysis", "code coverage"],
       "anti_triggers": ["color palette", "legal disclaimer text"],
       "inputs": ["prd.schema.json", "code_under_test"],
       "outputs": ["test-report.schema.json", "test-suites"],
       "depends_on": ["04-frontend", "05-backend-data"],
       "last_verified": "2026-11-01",
-      "sources": ["PRACTICAL-TEST-PYRAMID", "PLAYWRIGHT-DOCS"]
+      "sources": ["PRACTICAL-TEST-PYRAMID", "PLAYWRIGHT-DOCS", "ISO-29119", "ISTQB-SQAT", "SONARQUBE-QUALITY-GATES", "STRYKER-MUTATOR"]
     },
     {
       "id": "09-devops-infra",

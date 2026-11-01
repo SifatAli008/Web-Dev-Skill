@@ -23,8 +23,10 @@
   - [ ] Automated Data Subject Access Request (DSAR) export and deletion endpoints operational.
   - [ ] Statutory data retention limits enforced via automated purge jobs.
 
-- [ ] **Automated Testing & QA:**
+- [ ] **SQAT & Automated Testing (Software Quality Assurance & Testing):**
+  - [ ] Static Quality Gate: 0 linter errors, cyclomatic complexity <= 10 per function, strict type checking.
   - [ ] Full automated test suite passes in CI: Unit, Integration, and E2E (Playwright).
+  - [ ] Mutation Testing: Mutation score >= 70% on critical business calculations (no vacuous tests).
   - [ ] axe-core automated accessibility scan passes with 0 violations.
   - [ ] Zero quarantined or flaky tests tolerated on the main deployment branch.
 
