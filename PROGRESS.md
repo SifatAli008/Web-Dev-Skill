@@ -26,9 +26,9 @@
 | `02-architecture` | architecture | Design gate | Done | `06-security` (Approved) | 13/13 Pass | `2003804` |
 | `04-frontend` | frontend | Advises | Done | `03-ux-ui-design` (Approved) | 13/13 Pass | `d127051` |
 | `05-backend-data` | backend-data | Advises | Done | `06-security` (Approved) | 13/13 Pass | `2c51d64` |
-| `07-privacy-compliance` | privacy-compliance | HARD VETO | Done | `01-product-discovery` (Approved) | 13/13 Pass | Pending commit |
-| `08-testing-qa` | testing-qa | No evidence, no ship | Next | Pending | Pending | Pending |
-| `01-product-discovery` | product-discovery | Advises | Pending | Pending | Pending | Pending |
+| `07-privacy-compliance` | privacy-compliance | HARD VETO | Done | `01-product-discovery` (Approved) | 13/13 Pass | `488aee2` |
+| `08-testing-qa` | testing-qa | No evidence, no ship | Done | `09-devops-infra` (Approved) | 13/13 Pass | Pending commit |
+| `01-product-discovery` | product-discovery | Advises | Next | Pending | Pending | Pending |
 | `03-ux-ui-design` | ux-ui-design | A11y gate | Pending | Pending | Pending | Pending |
 | `09-devops-infra` | devops-infra | No rollback, no ship | Pending | Pending | Pending | Pending |
 | `10-performance` | performance | Warns | Pending | Pending | Pending | Pending |

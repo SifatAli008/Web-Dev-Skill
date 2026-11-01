@@ -1,0 +1,97 @@
+{
+  "skill_id": "08-testing-qa",
+  "positive_triggers": [
+    {
+      "prompt": "How do we write a Playwright end-to-end test suite for our user registration and email confirmation flow?",
+      "reason": "Direct e2e automated browser test authoring using Playwright."
+    },
+    {
+      "prompt": "Our CI pipeline has 3 flaky tests that randomly fail on network requests. How do we quarantine and fix them?",
+      "reason": "Flaky test triage, isolation, and quarantine procedure."
+    },
+    {
+      "prompt": "Automate accessibility testing in our CI pipeline using axe-core and Playwright to catch WCAG violations.",
+      "reason": "Automated a11y testing integration and test assertion."
+    },
+    {
+      "prompt": "Design a unit and integration test strategy for our new shopping cart discount calculator.",
+      "reason": "Test pyramid design and test case formulation for business calculation logic."
+    },
+    {
+      "prompt": "Generate a test report certifying test execution evidence before we ship this release to production.",
+      "reason": "Test report schema generation and release certification."
+    }
+  ],
+  "negative_near_misses": [
+    {
+      "prompt": "Configure an AWS ECS Fargate cluster with an Application Load Balancer using Terraform.",
+      "expected_route": "09-devops-infra",
+      "reason": "Infrastructure as Code and cloud deployment owned by DevOps/SRE."
+    },
+    {
+      "prompt": "Optimize this slow PostgreSQL query that takes 3 seconds to run on our production database.",
+      "expected_route": "05-backend-data",
+      "reason": "Database query optimization owned by Backend/Data Lead."
+    },
+    {
+      "prompt": "Audit our API endpoints to ensure they are protected against CSRF and IDOR attacks.",
+      "expected_route": "06-security",
+      "reason": "Vulnerability security audit owned by Application Security Lead."
+    },
+    {
+      "prompt": "Build an accessible modal dialogue in React using native HTML `<dialog>`.",
+      "expected_route": "04-frontend",
+      "reason": "Frontend UI component implementation owned by Frontend Lead."
+    },
+    {
+      "prompt": "Audit our cookie consent banner to verify it complies with GDPR Article 7.",
+      "expected_route": "07-privacy-compliance",
+      "reason": "Privacy compliance audit owned by Privacy Officer."
+    }
+  ],
+  "evaluation_tasks": [
+    {
+      "task_id": "test-task-01",
+      "prompt": "A developer wrote a Playwright test with arbitrary sleeps: `await page.click('#submit'); await page.waitForTimeout(5000); expect(await page.innerText('.msg')).toBe('Success');`. Point out the anti-pattern and refactor using web-first best practices.",
+      "pass_criteria": [
+        "Identifies `page.waitForTimeout` as a flaky anti-pattern.",
+        "Replaces ID/class selectors with accessible role-based locators (e.g. `getByRole('button', { name: 'Submit' })`).",
+        "Uses Playwright auto-waiting web-first assertions (`await expect(page.getByText('Success')).toBeVisible()`).",
+        "Explains how auto-waiting eliminates flakiness and reduces test duration."
+      ],
+      "fail_criteria": [
+        "Keeps the arbitrary `waitForTimeout` or increases sleep time to 10000ms.",
+        "Retains fragile CSS selectors like `.msg` without user-facing locator."
+      ]
+    },
+    {
+      "task_id": "test-task-02",
+      "prompt": "Formulate a comprehensive test strategy for an e-commerce checkout workflow (Unit, Integration, E2E). Specify what is tested at each level of the pyramid.",
+      "pass_criteria": [
+        "Applies the test pyramid distribution (~70% unit, 20% integration, 10% e2e).",
+        "Unit level: Cart totals, tax/discount calculation, coupon expiration logic.",
+        "Integration level: Database order persistence, transactional inventory reduction, idempotency keys.",
+        "E2E level: Complete browser checkout journey with credit card payment mock.",
+        "Specifies mocking boundaries: only external network boundaries (payment gateway) are mocked."
+      ],
+      "fail_criteria": [
+        "Recommends writing 100% e2e tests for every validation error permutation.",
+        "Mocks internal database calls in integration tests."
+      ]
+    },
+    {
+      "task_id": "test-task-03",
+      "prompt": "A pull request is ready for deployment. The developer states 'All tests pass on my machine, we can ship'. As QA Lead, what is your binding response and required evidence?",
+      "pass_criteria": [
+        "Enforces the binding rule: 'No evidence, no ship'.",
+        "Requires terminal execution evidence from CI with exit code 0.",
+        "Requires a schema-compliant test report (`test-report.schema.json`).",
+        "Refuses verbal assertion without automated test proof."
+      ],
+      "fail_criteria": [
+        "Approves deployment based solely on developer verbal reassurance.",
+        "Bypasses automated CI verification."
+      ]
+    }
+  ]
+}
