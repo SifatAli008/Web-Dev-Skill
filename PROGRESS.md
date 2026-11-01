@@ -30,9 +30,9 @@
 | `08-testing-qa` | testing-qa | No evidence, no ship | Done | `09-devops-infra` (Approved) | 13/13 Pass | `0adb61c` |
 | `01-product-discovery` | product-discovery | Advises | Done | `00-orchestrator` (Approved) | 13/13 Pass | `3be869c` |
 | `03-ux-ui-design` | ux-ui-design | A11y gate | Done | `04-frontend` (Approved) | 13/13 Pass | `90df41f` |
-| `09-devops-infra` | devops-infra | No rollback, no ship | Done | `06-security` (Approved) | 13/13 Pass | Pending commit |
-| `10-performance` | performance | Warns | Next | Pending | Pending | Pending |
-| `11-seo-marketing` | seo-marketing | Advises | Pending | Pending | Pending | Pending |
+| `09-devops-infra` | devops-infra | No rollback, no ship | Done | `06-security` (Approved) | 13/13 Pass | `15abc79` |
+| `10-performance` | performance | Warns | Done | `04-frontend` (Approved) | 13/13 Pass | Pending commit |
+| `11-seo-marketing` | seo-marketing | Advises | Next | Pending | Pending | Pending |
 | `12-business-monetization` | business-monetization | Advises | Pending | Pending | Pending | Pending |
 | `13-launch-operations` | launch-operations | Launch gate | Pending | Pending | Pending | Pending |
 | `14-maintenance` | maintenance | Advises | Pending | Pending | Pending | Pending |

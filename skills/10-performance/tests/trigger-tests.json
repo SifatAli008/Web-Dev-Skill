@@ -1,0 +1,97 @@
+{
+  "skill_id": "10-performance",
+  "positive_triggers": [
+    {
+      "prompt": "Our homepage has a slow Largest Contentful Paint (LCP) of 4.2 seconds on mobile. How do we optimize the hero image and fonts to bring it under 2.5s?",
+      "reason": "Direct Core Web Vitals (LCP) diagnosis and critical path optimization."
+    },
+    {
+      "prompt": "Our Google Search Console shows Cumulative Layout Shift (CLS) failing with 0.35 on our blog posts. How do we eliminate layout shift?",
+      "reason": "Direct Core Web Vitals (CLS) prevention and aspect ratio fixing."
+    },
+    {
+      "prompt": "Users complain that clicking the search filter dropdown feels laggy and unresponsive (INP is 380ms). How do we optimize main thread long tasks?",
+      "reason": "Interaction to Next Paint (INP) and main thread long task optimization."
+    },
+    {
+      "prompt": "Configure optimal HTTP Cache-Control and CDN edge caching headers for our Next.js static assets and dynamic API endpoints.",
+      "reason": "Caching directives (immutable, stale-while-revalidate) and CDN edge tuning."
+    },
+    {
+      "prompt": "How do we self-host and preload WOFF2 fonts with unicode-range subsetting to eliminate Flash of Invisible Text (FOIT)?",
+      "reason": "Web font optimization, self-hosting, and FOIT elimination."
+    }
+  ],
+  "negative_near_misses": [
+    {
+      "prompt": "Configure an automated database backup job in AWS RDS with 30-day retention.",
+      "expected_route": "09-devops-infra",
+      "reason": "Infrastructure backup operations owned by DevOps/SRE."
+    },
+    {
+      "prompt": "Verify that all button colors meet WCAG 2.2 AA contrast ratios against their backgrounds.",
+      "expected_route": "03-ux-ui-design",
+      "reason": "Accessibility contrast compliance owned by UX/UI Lead."
+    },
+    {
+      "prompt": "Implement user authentication with HttpOnly session cookies in Express.",
+      "expected_route": "06-security",
+      "reason": "Authentication architecture owned by Application Security Lead."
+    },
+    {
+      "prompt": "Write Playwright tests for our checkout submission form.",
+      "expected_route": "08-testing-qa",
+      "reason": "E2E automated testing owned by QA/SDET."
+    },
+    {
+      "prompt": "Draft user stories and acceptance criteria for a new bookmarking feature.",
+      "expected_route": "01-product-discovery",
+      "reason": "Product requirements and user stories owned by Product Lead."
+    }
+  ],
+  "evaluation_tasks": [
+    {
+      "task_id": "perf-task-01",
+      "prompt": "A client's landing page has an LCP of 5.1 seconds on 4G mobile. Inspection reveals a 4.2MB PNG hero image loaded with `<img src=\"hero.png\" loading=\"lazy\">` and external Google Fonts loaded via `@import url('https://fonts.googleapis.com/...')` in CSS. Provide the full remediation plan.",
+      "pass_criteria": [
+        "Removes `loading=\"lazy\"` from the hero image (identifies it as an LCP anti-pattern).",
+        "Converts image to modern compressed AVIF/WebP with responsive `srcset` and dimensions.",
+        "Adds `<link rel=\"preload\" as=\"image\" href=\"...\" fetchpriority=\"high\">` for the LCP candidate.",
+        "Replaces external Google Fonts `@import` with self-hosted WOFF2 fonts with `font-display: swap`."
+      ],
+      "fail_criteria": [
+        "Leaves `loading=\"lazy\"` on the hero image.",
+        "Retains uncompressed 4MB PNG.",
+        "Fails to address font-induced render blocking."
+      ]
+    },
+    {
+      "task_id": "perf-task-02",
+      "prompt": "A news website has a high Cumulative Layout Shift (CLS = 0.28). Ads and banner images load dynamically into the page without reserved space. Propose the technical fix.",
+      "pass_criteria": [
+        "Specifies explicit `width` and `height` attributes on image and ad container tags.",
+        "Uses CSS `aspect-ratio` or `min-height` placeholders to reserve space before content loads.",
+        "Uses `font-display: optional` or metric overrides (`size-adjust`) to prevent font layout shifts.",
+        "Brings target CLS to <= 0.1."
+      ],
+      "fail_criteria": [
+        "Fails to reserve dimensional space before asset load.",
+        "Accepts layout shifts as unavoidable."
+      ]
+    },
+    {
+      "task_id": "perf-task-03",
+      "prompt": "An interactive data table exhibits poor Interaction to Next Paint (INP = 420ms) when filtering 10,000 rows on the client. Provide the optimization strategy.",
+      "pass_criteria": [
+        "Identifies long synchronous JavaScript task blocking the main thread.",
+        "Breaks up processing using `scheduler.yield()` / `setTimeout` or offloads to a Web Worker.",
+        "Uses virtualized scrolling (e.g. TanStack Virtual) to render only visible DOM nodes.",
+        "Wraps filtering update in `startTransition` to prioritize user keystroke rendering."
+      ],
+      "fail_criteria": [
+        "Suggests keeping all 10,000 DOM nodes in the active DOM without virtualization.",
+        "Fails to address main-thread blocking."
+      ]
+    }
+  ]
+}
