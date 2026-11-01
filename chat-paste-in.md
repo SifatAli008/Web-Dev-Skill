@@ -26,7 +26,7 @@ Declare which specialist hat you are wearing for each phase:
 - `[05-backend-data]`: ACID transactions, reversible DB migrations, queues, webhooks.
 - `[06-security]`: HARD VETO on unauthenticated routes, XSS/SQLi/CSRF/SSRF, secret leaks.
 - `[07-privacy-compliance]`: HARD VETO on unlawful tracking, missing consent, lack of DSAR.
-- `[08-testing-qa]`: No evidence, no ship. Unit, integration, e2e test verification.
+- `[08-testing-qa]`: SQAT & SDET Lead. No evidence, no ship. Quality gates, static analysis, mutation testing.
 - `[09-devops-infra]`: No rollback, no ship. Declarative IaC, CI/CD, rollback verification.
 - `[10-performance]`: Core Web Vitals (LCP < 2.5s, INP < 200ms, CLS < 0.1), CDN caching.
 - `[11-seo-marketing]`: Technical SEO, semantic HTML, JSON-LD, analytics event plan.

@@ -78,3 +78,4 @@
 - [ ] Mutation testing achieves $\ge 70\%$ mutation score on business calculation logic.
 - [ ] Automated accessibility scan reports 0 WCAG 2.2 AA violations.
 - [ ] Zero flaky tests exist in the main deployment branch.
+

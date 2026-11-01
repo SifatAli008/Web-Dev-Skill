@@ -1,0 +1,40 @@
+{
+  "name": "universal-webdev-skills",
+  "version": "0.1.0",
+  "description": "Open-source, tool-agnostic skills repository turning any AI coding agent into a disciplined 15-specialist web engineering team",
+  "keywords": [
+    "ai-agents",
+    "web-development",
+    "claude-code",
+    "cursor",
+    "antigravity",
+    "copilot",
+    "gemini-cli",
+    "sqat",
+    "software-engineering"
+  ],
+  "homepage": "https://github.com/universal-webdev-skills/universal-webdev-skills#readme",
+  "bugs": {
+    "url": "https://github.com/universal-webdev-skills/universal-webdev-skills/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/universal-webdev-skills/universal-webdev-skills.git"
+  },
+  "license": "MIT",
+  "author": "Universal WebDev Skills Contributors",
+  "engines": {
+    "node": ">=20.0.0"
+  },
+  "scripts": {
+    "test": "node tools/verify-all.js",
+    "lint": "node tools/lint-skills.js",
+    "check:links": "node tools/check-links.js",
+    "check:freshness": "node tools/check-freshness.js",
+    "check:security": "node tools/scan-skills.js",
+    "validate:index": "node tools/validate-index.js",
+    "build:adapters": "node tools/build-adapters.js",
+    "eval": "node evals/harness/run-eval.js",
+    "test:reference": "node tools/run-reference-tests.js"
+  }
+}

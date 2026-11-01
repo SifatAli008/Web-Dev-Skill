@@ -128,3 +128,4 @@ A flaky test is any test that passes and fails intermittently without code modif
 2. **Defect Tracking:** File an urgent P1 remediation ticket detailing failure timestamps, environment, and stack trace.
 3. **Isolation Root-Cause Analysis:** Run the test in a 100-iteration loop locally to identify timing dependencies, race conditions, or unmocked network sockets.
 4. **Graduation Standard:** A quarantined test may only be reintroduced to the main blocking suite after **100 consecutive successful runs** in CI with zero failures.
+

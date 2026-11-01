@@ -1,0 +1,31 @@
+name: CI Verification & Freshness Audit
+
+on:
+  push:
+    branches: [ master, main ]
+  pull_request:
+    branches: [ master, main ]
+  schedule:
+    # Run every Sunday at midnight to audit 180-day skill freshness
+    - cron: '0 0 * * 0'
+
+jobs:
+  verify:
+    name: Verify Skills, Linters, Evals & Reference Projects
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [ 20.x, 22.x, 24.x ]
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - name: Run Master Verification Suite
+        run: node tools/verify-all.js
