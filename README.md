@@ -25,6 +25,7 @@ Most AI agents act as eager junior developers: they generate code fast, but skip
 4. **Evidence Over Assertion:** Agents must run terminal commands, verify exit codes, and show exact test output before claiming code is verified.
 5. **AI Garbage Code & Artifact Control:** Zero placeholder comments (`// TODO`), strict folder de-bloating (max 3 levels deep), and strict artifact lifecycle control to prevent workspace littering.
 6. **Universal Tool Compatibility:** Adapters ensure instant integration with any leading AI development environment in under 2 minutes.
+7. **Zero-Dependency & Language Agnostic:** Enforces universal engineering principles across ANY language (TypeScript, Python, Go, Rust, Ruby, PHP, Java). The entire repository operates with **0 external dependencies** and runs out-of-the-box.
 
 ---
 

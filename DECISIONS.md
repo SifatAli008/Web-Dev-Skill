@@ -68,3 +68,15 @@ This file tracks foundational design and architectural decisions made for `unive
   2. Adapters in `adapters/` are thin configuration pointers, generated strictly via `tools/build-adapters.js` and never hand-edited.
   3. Installation takes under 2 minutes per tool by copying or symlinking a single file or instruction snippet.
 - **Consequences:** Changes to team behavior, specialist stances, or checklists immediately propagate across all AI coding environments upon running `node tools/build-adapters.js`.
+
+---
+
+## ADR-007: Zero External Dependencies & Language/Tool Neutrality
+
+- **Status:** Accepted (Hygiene & Agnosticism Certification)
+- **Context:** Framework lock-in, heavy external npm dependency graphs, or language biases severely limit adoption and introduce third-party supply-chain risks.
+- **Decision:**
+  1. **Zero External Dependencies:** The repository contains zero third-party dependencies (`dependencies: {}`, `devDependencies: {}`). All 9 verification tools, evaluation runners, and reference test suites run exclusively on standard runtime built-ins (`node:fs`, `node:path`, `node:child_process`, `node:crypto`, `node:http`, `node:sqlite`, `node:assert`). No `npm install` is ever required to run the suite.
+  2. **Language & Framework Neutrality:** Core engineering skills enforce universal mathematical and architectural invariants (OWASP defenses, ACID isolation, WCAG 2.2 accessibility, RFC 8594 headers, test pyramid ratios) that apply universally to Python, TypeScript, Go, Rust, Ruby, PHP, Java, or C#. Any framework-specific code is strictly an illustrative example.
+  3. **Universal Agent Neutrality:** The entire core is plain Markdown and standard JSON, ensuring zero friction across any LLM or agent environment.
+- **Consequences:** Eliminates supply-chain vulnerabilities, eliminates version conflicts, and ensures immediate out-of-the-box execution on any machine or CI pipeline.

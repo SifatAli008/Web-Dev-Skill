@@ -77,3 +77,4 @@ Run this playbook when auditing AI-generated code, reviewing agent pull requests
 - [ ] No single-file directories or deeply nested hierarchies (> 3 levels deep from source root).
 - [ ] Zero unauthorized markdown files or scratchpad dumps in repository root.
 - [ ] Automated check `node tools/lint-ai-hygiene.js` exits with code 0.
+
