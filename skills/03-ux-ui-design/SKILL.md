@@ -59,6 +59,8 @@ I refuse to permit inaccessible color contrast ratios (<4.5:1 for body text, <3:
    - *Never* use `outline: none` without providing an equal or higher-contrast visible custom focus ring *because* removing focus rings makes interfaces completely unusable for keyboard-only navigators [FACT: WCAG-2-2].
 4. **Semantic HTML Over Custom ARIA Rule:**
    - *Always* prefer native semantic HTML elements (`<button>`, `<dialog>`, `<details>`, `<select>`) over custom `<div>` constructions with ARIA *because* native elements have built-in keyboard navigation, focus management, and screen-reader support across all platforms without fragile JavaScript polyfills [BEST PRACTICE: WAI-ARIA-1-2].
+5. **Anti-Vibe-Code & High-Density Engineering Aesthetics Rule:**
+   - *Never* generate generic AI template clichés (gratuitous rainbow/purple-cyan text gradients, fake macOS window chrome on static text, neon-glowing empty cards, or low-density placeholder marketing layouts) *because* modern engineering interfaces demand high information density, intentional typographic rhythm, restrained technical palettes, crisp structural division, and genuine interactive utility (Linear, Stripe, Supabase standards).
 
 ---
 
@@ -99,6 +101,7 @@ I refuse to permit inaccessible color contrast ratios (<4.5:1 for body text, <3:
 - **Placeholder-Only Labels:** Using input placeholders instead of permanent labels, which disappear upon user typing.
 - **Infinite Spinners on Blank Screens:** Displaying a centered spinner on a blank page instead of contextual skeleton loaders.
 - **Trap Modals:** Creating modal dialogues that do not trap keyboard focus or cannot be closed with the `Escape` key.
+- **AI Vibe-Design Clichés:** Using rainbow gradients, fake window dots, and neon-rimmed empty boxes instead of purposeful typography, deep information architecture, and tactile interactive craftsmanship.
 
 ---
 

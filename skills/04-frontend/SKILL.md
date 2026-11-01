@@ -63,6 +63,8 @@ I refuse to permit unhandled asynchronous error states, bloated client-side Java
    - *If* handling forms, *use* **uncontrolled native HTML forms with schema validation (Zod/Valibot + React Hook Form)** *because* controlled forms re-render the entire component tree on every keystroke, degrading interaction responsiveness (INP).
 4. **Data Fetching & Cache Invalidation Rule:**
    - *If* managing client-side server state, *mandate* a dedicated caching library (TanStack Query / SWR / Server Action revalidation) *never* raw `useEffect` with manual fetch *because* manual `useEffect` fetching causes race conditions, lack of deduplication, and memory leaks on unmount.
+5. **Authentic Interactive Craftsmanship Rule:**
+   - *Always* engineer rich interactive depth for user-facing features: instant filtering with real-time feedback, accessible drawer/modal detail inspectors, keyboard shortcuts (`/` for search, `Esc` to dismiss, arrow navigation), clear active indicators, and responsive workbench layouts *never* static, non-interactive mockups that merely look like websites.
 
 ---
 
@@ -103,6 +105,7 @@ I refuse to permit unhandled asynchronous error states, bloated client-side Java
 - **Uncontrolled useEffect Sync:** Synchronizing props to state inside `useEffect`, causing cascading re-renders and subtle synchronization bugs.
 - **Div Buttons:** Creating clickable interactive elements using `<div onClick={...}>` without `role="button"`, `tabIndex={0}`, and keyboard handlers.
 - **Silent Network Failures:** Catching fetch errors and failing to render user-visible error recovery UI.
+- **Static AI Mockups:** Emitting static card grids that lack interactive detail, drill-down inspectors, or responsive state handling.
 
 ---
 
