@@ -32,6 +32,14 @@
   - `CHANGELOG.md`: Standard Keep a Changelog v0.1.0 release records.
   - `LICENSE`: MIT License.
   - `DECISIONS.md`: ADR-006 recorded.
+- [x] **Developer CLI Installer (`bin/cli.js`):**
+  - Zero-dependency interactive installer (`npx webdev-skills init`), specialist explorer (`npx webdev-skills list`), and setup diagnostics (`npx webdev-skills doctor`).
+- [x] **GitHub Community Standards & Issue Forms (`.github/`):**
+  - YAML issue forms (`bug_report.yml`, `feature_request.yml`, `specialist_proposal.yml`, `config.yml`) and `pull_request_template.md`.
+- [x] **Interactive Documentation Portal (`docs/index.html`):**
+  - Standalone GitHub Pages web portal with live specialist search, 3-tier comparison, and quickstart command copy.
+- [x] **Git Release Tag (`v0.1.0`):**
+  - Annotated tag published and synced to `origin/main`.
 - [x] **Verification:**
   - All linters, link checkers, freshness audits, security scans, and reference project tests pass with 0 errors.
 
