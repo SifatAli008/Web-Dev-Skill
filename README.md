@@ -56,7 +56,35 @@ Most AI agents act as eager junior developers: they generate code fast, but skip
 
 Universal WebDev Skills works with any repository and any markdown-reading agent.
 
-### Option A: Claude Code
+### Instant Install (Recommended)
+
+Run the interactive installer directly in any project root:
+
+```bash
+npx webdev-skills init
+```
+
+Or specify your target tool directly:
+```bash
+npx webdev-skills init --tool cursor       # Installs .cursorrules
+npx webdev-skills init --tool claude       # Installs CLAUDE.md
+npx webdev-skills init --tool antigravity  # Installs GEMINI.md
+npx webdev-skills init --tool copilot      # Installs .github/copilot-instructions.md
+npx webdev-skills init --tool gemini       # Installs GEMINI.md
+npx webdev-skills init --tool chatgpt      # Installs system-prompt.md
+```
+
+Inspect specialists or diagnose your setup at any time:
+```bash
+npx webdev-skills list
+npx webdev-skills doctor
+```
+
+---
+
+### Manual Installation by Agent
+
+#### Option A: Claude Code
 ```bash
 # In your project root:
 cp /path/to/universal-webdev-skills/adapters/claude-code/CLAUDE.md .

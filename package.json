@@ -13,16 +13,32 @@
     "sqat",
     "software-engineering"
   ],
-  "homepage": "https://github.com/universal-webdev-skills/universal-webdev-skills#readme",
+  "homepage": "https://github.com/SifatAli008/Web-Dev-Skill#readme",
   "bugs": {
-    "url": "https://github.com/universal-webdev-skills/universal-webdev-skills/issues"
+    "url": "https://github.com/SifatAli008/Web-Dev-Skill/issues"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/universal-webdev-skills/universal-webdev-skills.git"
+    "url": "git+https://github.com/SifatAli008/Web-Dev-Skill.git"
   },
   "license": "MIT",
-  "author": "Universal WebDev Skills Contributors",
+  "author": "SifatAli008",
+  "bin": {
+    "webdev-skills": "./bin/cli.js",
+    "universal-webdev-skills": "./bin/cli.js"
+  },
+  "files": [
+    "bin",
+    "skills",
+    "skills.index.json",
+    "playbooks",
+    "templates",
+    "checklists",
+    "adapters",
+    "AGENTS.md",
+    "README.md",
+    "LICENSE"
+  ],
   "engines": {
     "node": ">=20.0.0"
   },

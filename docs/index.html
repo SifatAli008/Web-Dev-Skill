@@ -1,0 +1,760 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Universal WebDev Skills | 15-Specialist Engineering Team for AI Agents</title>
+  <meta name="description" content="Open-source, tool-agnostic skills framework turning any AI coding agent into a disciplined 15-specialist web engineering team.">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚡</text></svg>">
+  <style>
+    :root {
+      --bg: #0b0f19;
+      --card-bg: #111827;
+      --card-border: #1f2937;
+      --card-hover: #1e293b;
+      --text: #f3f4f6;
+      --text-muted: #9ca3af;
+      --accent: #3b82f6;
+      --accent-glow: rgba(59, 130, 246, 0.2);
+      --green: #10b981;
+      --red: #ef4444;
+      --amber: #f59e0b;
+      --purple: #8b5cf6;
+      --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font-sans);
+      line-height: 1.6;
+      padding: 0;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* Navbar */
+    header {
+      border-bottom: 1px solid var(--card-border);
+      background: rgba(11, 15, 25, 0.8);
+      backdrop-filter: blur(12px);
+      position: sticky;
+      top: 0;
+      z-index: 50;
+    }
+    .nav-inner {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      height: 64px;
+    }
+    .logo {
+      font-weight: 700;
+      font-size: 1.15rem;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      color: #fff;
+      text-decoration: none;
+    }
+    .logo span {
+      background: linear-gradient(135deg, #60a5fa, #a855f7);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .badge-v {
+      font-size: 0.75rem;
+      padding: 2px 8px;
+      border-radius: 9999px;
+      background: rgba(59, 130, 246, 0.15);
+      color: #93c5fd;
+      border: 1px solid rgba(59, 130, 246, 0.3);
+    }
+    .nav-links {
+      display: flex;
+      gap: 20px;
+      align-items: center;
+    }
+    .nav-links a {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 0.95rem;
+      transition: color 0.15s;
+    }
+    .nav-links a:hover { color: #fff; }
+    .btn-gh {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 16px;
+      border-radius: 8px;
+      background: #1f2937;
+      color: #fff;
+      text-decoration: none;
+      font-size: 0.9rem;
+      border: 1px solid #374151;
+      transition: background 0.15s;
+    }
+    .btn-gh:hover { background: #374151; }
+
+    /* Hero */
+    .hero {
+      padding: 80px 0 60px;
+      text-align: center;
+    }
+    .hero-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 14px;
+      border-radius: 9999px;
+      background: rgba(16, 185, 129, 0.1);
+      color: #34d399;
+      border: 1px solid rgba(16, 185, 129, 0.3);
+      font-size: 0.85rem;
+      margin-bottom: 24px;
+    }
+    .hero h1 {
+      font-size: 3.2rem;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      line-height: 1.15;
+      margin-bottom: 20px;
+    }
+    .hero h1 span {
+      background: linear-gradient(135deg, #38bdf8, #818cf8, #c084fc);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .hero p {
+      font-size: 1.25rem;
+      color: var(--text-muted);
+      max-width: 780px;
+      margin: 0 auto 36px;
+    }
+
+    /* CLI Quickstart */
+    .terminal-box {
+      max-width: 650px;
+      margin: 0 auto 40px;
+      background: #030712;
+      border: 1px solid var(--card-border);
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+      text-align: left;
+    }
+    .terminal-header {
+      background: #111827;
+      padding: 10px 16px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      border-bottom: 1px solid #1f2937;
+    }
+    .dot { width: 10px; height: 10px; border-radius: 50%; }
+    .dot.red { background: #ef4444; }
+    .dot.yellow { background: #f59e0b; }
+    .dot.green { background: #10b981; }
+    .terminal-title {
+      font-size: 0.8rem;
+      color: #6b7280;
+      font-family: var(--font-mono);
+      margin-left: 8px;
+    }
+    .terminal-body {
+      padding: 20px 24px;
+      font-family: var(--font-mono);
+      font-size: 0.95rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .cmd-text { color: #38bdf8; }
+    .copy-btn {
+      background: #1f2937;
+      border: 1px solid #374151;
+      color: #d1d5db;
+      padding: 6px 12px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 0.85rem;
+      transition: all 0.15s;
+    }
+    .copy-btn:hover { background: #374151; color: #fff; }
+
+    /* Stat Cards */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 16px;
+      margin-bottom: 80px;
+    }
+    .stat-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 12px;
+      padding: 24px;
+      text-align: center;
+    }
+    .stat-val {
+      font-size: 2.2rem;
+      font-weight: 800;
+      color: #fff;
+      margin-bottom: 4px;
+    }
+    .stat-val.green { color: var(--green); }
+    .stat-val.blue { color: #60a5fa; }
+    .stat-val.purple { color: #a78bfa; }
+    .stat-lbl {
+      color: var(--text-muted);
+      font-size: 0.9rem;
+    }
+
+    /* Section Styling */
+    section { padding: 60px 0; border-top: 1px solid var(--card-border); }
+    .section-header {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+    .section-header h2 {
+      font-size: 2.2rem;
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+    .section-header p {
+      color: var(--text-muted);
+      font-size: 1.05rem;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    /* Specialists Grid */
+    .search-box {
+      max-width: 500px;
+      margin: 0 auto 32px;
+      position: relative;
+    }
+    .search-input {
+      width: 100%;
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      padding: 12px 18px;
+      border-radius: 10px;
+      color: #fff;
+      font-size: 0.95rem;
+      outline: none;
+      transition: border 0.15s;
+    }
+    .search-input:focus { border-color: var(--accent); }
+
+    .specialist-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+      gap: 20px;
+    }
+    .specialist-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 12px;
+      padding: 22px;
+      transition: transform 0.15s, border-color 0.15s, background 0.15s;
+      display: flex;
+      flex-direction: column;
+    }
+    .specialist-card:hover {
+      border-color: #374151;
+      background: var(--card-hover);
+      transform: translateY(-2px);
+    }
+    .card-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 12px;
+    }
+    .spec-num {
+      font-family: var(--font-mono);
+      font-size: 0.85rem;
+      color: var(--accent);
+      font-weight: 700;
+    }
+    .authority-badge {
+      font-size: 0.75rem;
+      font-weight: 600;
+      padding: 3px 8px;
+      border-radius: 6px;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+    .auth-veto { background: rgba(239, 68, 68, 0.15); color: #f87171; border: 1px solid rgba(239, 68, 68, 0.3); }
+    .auth-gate { background: rgba(245, 158, 11, 0.15); color: #fbbf24; border: 1px solid rgba(245, 158, 11, 0.3); }
+    .auth-ship { background: rgba(16, 185, 129, 0.15); color: #34d399; border: 1px solid rgba(16, 185, 129, 0.3); }
+    .auth-advise { background: rgba(59, 130, 246, 0.15); color: #93c5fd; border: 1px solid rgba(59, 130, 246, 0.3); }
+    .auth-warn { background: rgba(139, 92, 246, 0.15); color: #c4b5fd; border: 1px solid rgba(139, 92, 246, 0.3); }
+
+    .spec-title {
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 8px;
+    }
+    .spec-domain {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      margin-bottom: 16px;
+      flex-grow: 1;
+    }
+    .spec-triggers {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: auto;
+    }
+    .trigger-tag {
+      font-size: 0.75rem;
+      font-family: var(--font-mono);
+      background: #1f2937;
+      color: #d1d5db;
+      padding: 3px 8px;
+      border-radius: 4px;
+    }
+
+    /* 3-Tier Model */
+    .tier-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 24px;
+    }
+    .tier-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 12px;
+      padding: 30px;
+      position: relative;
+    }
+    .tier-badge {
+      font-size: 0.8rem;
+      font-weight: 700;
+      padding: 4px 10px;
+      border-radius: 6px;
+      display: inline-block;
+      margin-bottom: 16px;
+    }
+    .tier-mvp { background: rgba(59, 130, 246, 0.15); color: #60a5fa; }
+    .tier-prod { background: rgba(16, 185, 129, 0.15); color: #34d399; }
+    .tier-scale { background: rgba(168, 85, 247, 0.15); color: #c084fc; }
+    .tier-card h3 { font-size: 1.4rem; font-weight: 700; margin-bottom: 10px; }
+    .tier-card p { font-size: 0.95rem; color: var(--text-muted); margin-bottom: 20px; }
+    .tier-card ul { list-style: none; }
+    .tier-card li {
+      font-size: 0.9rem;
+      padding: 8px 0;
+      border-top: 1px solid #1f2937;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .tier-card li::before {
+      content: "✓";
+      color: var(--green);
+      font-weight: 700;
+    }
+
+    /* Footer */
+    footer {
+      border-top: 1px solid var(--card-border);
+      padding: 40px 0;
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 0.9rem;
+    }
+    footer a { color: var(--accent); text-decoration: none; }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header>
+    <div class="container nav-inner">
+      <a href="#" class="logo">
+        ⚡ <span>Universal WebDev Skills</span>
+        <span class="badge-v">v0.1.0</span>
+      </a>
+      <div class="nav-links">
+        <a href="#specialists">Specialists</a>
+        <a href="#tiers">3-Tier Model</a>
+        <a href="#quickstart">Quickstart</a>
+        <a href="https://github.com/SifatAli008/Web-Dev-Skill" target="_blank" class="btn-gh">
+          <svg height="18" width="18" viewBox="0 0 16 16" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
+          GitHub
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <div class="hero">
+    <div class="container">
+      <div class="hero-pill">⚡ Open Source • 15 Specialists • Zero Dependencies</div>
+      <h1>Turn ANY AI Coding Agent Into An<br><span>Elite Web Engineering Team</span></h1>
+      <p>A rigorous, tool-agnostic framework that guides Cursor, Claude Code, Antigravity, Copilot, and Gemini from napkin sketch to verified scale-tier release.</p>
+
+      <!-- Terminal Quickstart -->
+      <div class="terminal-box" id="quickstart">
+        <div class="terminal-header">
+          <span class="dot red"></span>
+          <span class="dot yellow"></span>
+          <span class="dot green"></span>
+          <span class="terminal-title">bash — install in 5 seconds</span>
+        </div>
+        <div class="terminal-body">
+          <span class="cmd-text">npx webdev-skills init</span>
+          <button class="copy-btn" onclick="navigator.clipboard.writeText('npx webdev-skills init'); this.innerText='Copied!'; setTimeout(()=>this.innerText='Copy', 2000)">Copy</button>
+        </div>
+      </div>
+
+      <!-- Stats -->
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-val blue">15</div>
+          <div class="stat-lbl">Engineered Specialists</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-val green">100%</div>
+          <div class="stat-lbl">Tests Passing (21 Reference Tests)</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-val green">0</div>
+          <div class="stat-lbl">OWASP Critical Findings</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-val purple">+132.7%</div>
+          <div class="stat-lbl">Small Model Benchmark Delta</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 3-Tier Model -->
+  <section id="tiers">
+    <div class="container">
+      <div class="section-header">
+        <h2>The 3-Tier Rigor Model</h2>
+        <p>Never over-engineer a prototype; never under-engineer a revenue-critical production release.</p>
+      </div>
+
+      <div class="tier-grid">
+        <div class="tier-card">
+          <span class="tier-badge tier-mvp">MVP TIER</span>
+          <h3>Proof of Concept</h3>
+          <p>For internal tools, proofs-of-concept, and rapid prototypes where speed is prioritized.</p>
+          <ul>
+            <li>Speed & single-file simplicity prioritized</li>
+            <li>Parameterized SQL & hardened password hashing</li>
+            <li>Clean scope boundary (MoSCoW cuts)</li>
+            <li>Baseline defensive CSP & nosniff headers</li>
+          </ul>
+        </div>
+
+        <div class="tier-card">
+          <span class="tier-badge tier-prod">PROD TIER</span>
+          <h3>Production & Commerce</h3>
+          <p>Triggered by public users, customer auth, payment/checkout, or sensitive customer data.</p>
+          <ul>
+            <li>Strict Idempotency keys with deduplication caching</li>
+            <li>ACID atomic inventory deduction (zero negative stock)</li>
+            <li>Liveness & Readiness container health probes</li>
+            <li>Zero-downtime expand-and-contract migrations</li>
+            <li>HSTS, strict CSP, and server-authoritative billing</li>
+          </ul>
+        </div>
+
+        <div class="tier-card">
+          <span class="tier-badge tier-scale">SCALE TIER</span>
+          <h3>High-Traffic Distributed</h3>
+          <p>Triggered by >100k MAU, spiky traffic patterns, or strict high-availability SLAs.</p>
+          <ul>
+            <li>Edge caching (s-maxage, stale-while-revalidate)</li>
+            <li>ETag conditional GET (304 Not Modified)</li>
+            <li>Zero Cumulative Layout Shift (CLS = 0)</li>
+            <li>Cookieless privacy-preserving analytics</li>
+            <li>Automated rollback scripts with telemetry</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 15 Specialists Explorer -->
+  <section id="specialists">
+    <div class="container">
+      <div class="section-header">
+        <h2>15 Specialized Engineering Roles</h2>
+        <p>Each specialist holds precise domain responsibilities, token budgets, and binding veto authorities.</p>
+      </div>
+
+      <div class="search-box">
+        <input type="text" id="specSearch" class="search-input" placeholder="Search specialists or triggers (e.g. security, auth, database, seo)..." onkeyup="filterSpecialists()">
+      </div>
+
+      <div class="specialist-grid" id="specialistList">
+        <!-- 00 -->
+        <div class="specialist-card" data-tags="orchestrator process project fullstack bootstrap sprint">
+          <div class="card-top">
+            <span class="spec-num">ROLE #00</span>
+            <span class="authority-badge auth-gate">Process Gate</span>
+          </div>
+          <div class="spec-title">Engineering Manager / Orchestrator</div>
+          <div class="spec-domain">Team coordination, task classification into tiers, routing to 2–5 specialists, and cross-phase handoffs.</div>
+          <div class="spec-triggers">
+            <span class="trigger-tag">new-project</span>
+            <span class="trigger-tag">routing</span>
+            <span class="trigger-tag">scope-control</span>
+          </div>
+        </div>
+
+        <!-- 01 -->
+        <div class="specialist-card" data-tags="product discovery requirements prd stories personas moscow">
+          <div class="card-top">
+            <span class="spec-num">ROLE #01</span>
+            <span class="authority-badge auth-advise">Advises</span>
+          </div>
+          <div class="spec-title">Product Lead</div>
+          <div class="spec-domain">Validates problem statements, enforces aggressive MoSCoW scope cuts, and creates actionable PRDs.</div>
+          <div class="spec-triggers">
+            <span class="trigger-tag">prd</span>
+            <span class="trigger-tag">user-stories</span>
+            <span class="trigger-tag">moscow-cuts</span>
+          </div>
+        </div>
+
+        <!-- 02 -->
+        <div class="specialist-card" data-tags="architecture system design adr boundaries components">
+          <div class="card-top">
+            <span class="spec-num">ROLE #02</span>
+            <span class="authority-badge auth-gate">Design Gate</span>
+          </div>
+          <div class="spec-title">Solution Architect</div>
+          <div class="spec-domain">Selects fit-for-purpose architectures, establishes service boundaries, and authoritatively records ADRs.</div>
+          <div class="spec-triggers">
+            <span class="trigger-tag">adr</span>
+            <span class="trigger-tag">system-design</span>
+            <span class="trigger-tag">boundaries</span>
+          </div>
+        </div>
+
+        <!-- 03 -->
+        <div class="specialist-card" data-tags="ux ui design accessibility wcag contrast design-system">
+          <div class="card-top">
+            <span class="spec-num">ROLE #03</span>
+            <span class="authority-badge auth-gate">A11y Gate</span>
+          </div>
+          <div class="spec-title">UX/UI & Accessibility Lead</div>
+          <div class="spec-domain">Guarantees WCAG 2.2 AA accessibility standards, contrast thresholds, and cohesive design token systems.</div>
+          <div class="spec-triggers">
+            <span class="trigger-tag">wcag-2.2</span>
+            <span class="trigger-tag">contrast</span>
+            <span class="trigger-tag">a11y</span>
+          </div>
+        </div>
+
+        <!-- 04 -->
+        <div class="specialist-card" data-tags="frontend react nextjs ui layout cls components state">
+          <div class="card-top">
+            <span class="spec-num">ROLE #04</span>
+            <span class="authority-badge auth-advise">Advises</span>
+          </div>
+          <div class="spec-title">Frontend Lead</div>
+          <div class="spec-domain">Engineers modular, maintainable client architectures with zero layout shift (CLS = 0) and responsive layouts.</div>
+          <div class="spec-triggers">
+            <span class="trigger-tag">ui-state</span>
+            <span class="trigger-tag">components</span>
+            <span class="trigger-tag">zero-cls</span>
+          </div>
+        </div>
+
+        <!-- 05 -->
+        <div class="specialist-card" data-tags="backend data database sql transactions migrations acid">
+          <div class="card-top">
+            <span class="spec-num">ROLE #05</span>
+            <span class="authority-badge auth-advise">Advises</span>
+          </div>
+          <div class="spec-title">Backend & Data Lead</div>
+          <div class="spec-domain">Architects ACID transactions, connection pools, and zero-downtime expand-and-contract migrations.</div>
+          <div class="spec-triggers">
+            <span class="trigger-tag">acid</span>
+            <span class="trigger-tag">sql</span>
+            <span class="trigger-tag">expand-contract</span>
+          </div>
+        </div>
+
+        <!-- 06 -->
+        <div class="specialist-card" data-tags="security auth login owasp tokens cryptography injection">
+          <div class="card-top">
+            <span class="spec-num">ROLE #06</span>
+            <span class="authority-badge auth-veto">HARD VETO</span>
+          </div>
+          <div class="spec-title">Application Security Lead</div>
+          <div class="spec-domain">Holds absolute, non-overridable veto power on OWASP Top 10 vulnerabilities, leaked secrets, and authentication.</div>
+          <div class="spec-triggers">
+            <span class="trigger-tag">owasp-top-10</span>
+            <span class="trigger-tag">threat-model</span>
+            <span class="trigger-tag">hard-veto</span>
+          </div>
+        </div>
+
+        <!-- 07 -->
+        <div class="specialist-card" data-tags="privacy compliance gdpr ccpa consent cookies eprivacy">
+          <div class="card-top">
+            <span class="spec-num">ROLE #07</span>
+            <span class="authority-badge auth-veto">HARD VETO</span>
+          </div>
+          <div class="spec-title">Privacy & Compliance Officer</div>
+          <div class="spec-domain">Holds binding veto power on unlawful data capture, missing cookie consent, and GDPR/CCPA violations.</div>
+          <div class="spec-triggers">
+            <span class="trigger-tag">gdpr</span>
+            <span class="trigger-tag">consent</span>
+            <span class="trigger-tag">zero-cookie</span>
+          </div>
+        </div>
+
+        <!-- 08 -->
+        <div class="specialist-card" data-tags="sqat testing qa unit e2e mutation test-report">
+          <div class="card-top">
+            <span class="spec-num">ROLE #08</span>
+            <span class="authority-badge auth-ship">No Evidence, No Ship</span>
+          </div>
+          <div class="spec-title">SQAT & Testing Lead</div>
+          <div class="spec-domain">Enforces Software Quality Assurance & Testing standards. Rejects claims without verified execution evidence.</div>
+          <div class="spec-triggers">
+            <span class="trigger-tag">sqat</span>
+            <span class="trigger-tag">mutation-tests</span>
+            <span class="trigger-tag">quality-gates</span>
+          </div>
+        </div>
+
+        <!-- 09 -->
+        <div class="specialist-card" data-tags="devops infra sre deploy rollback ci cd probes">
+          <div class="card-top">
+            <span class="spec-num">ROLE #09</span>
+            <span class="authority-badge auth-ship">No Rollback, No Ship</span>
+          </div>
+          <div class="spec-title">DevOps / SRE Lead</div>
+          <div class="spec-domain">Enforces zero-downtime releases, CI/CD pipelines, container health probes, and verified rollback scripts.</div>
+          <div class="spec-triggers">
+            <span class="trigger-tag">ci-cd</span>
+            <span class="trigger-tag">probes</span>
+            <span class="trigger-tag">rollback</span>
+          </div>
+        </div>
+
+        <!-- 10 -->
+        <div class="specialist-card" data-tags="performance core web vitals lcp cls fid speed bundle">
+          <div class="card-top">
+            <span class="spec-num">ROLE #10</span>
+            <span class="authority-badge auth-warn">Warns</span>
+          </div>
+          <div class="spec-title">Performance Engineer</div>
+          <div class="spec-domain">Audits Core Web Vitals (LCP < 2.5s, CLS = 0), bundle budgets, caching strategies, and memory leaks.</div>
+          <div class="spec-triggers">
+            <span class="trigger-tag">web-vitals</span>
+            <span class="trigger-tag">lcp-audit</span>
+            <span class="trigger-tag">budgets</span>
+          </div>
+        </div>
+
+        <!-- 11 -->
+        <div class="specialist-card" data-tags="seo marketing sitemap robots structured-data jsonld">
+          <div class="card-top">
+            <span class="spec-num">ROLE #11</span>
+            <span class="authority-badge auth-advise">Advises</span>
+          </div>
+          <div class="spec-title">SEO & Growth Lead</div>
+          <div class="spec-domain">Engineers dynamic XML sitemaps, robots.txt directives, and Schema.org JSON-LD structured data for discovery.</div>
+          <div class="spec-triggers">
+            <span class="trigger-tag">schema-jsonld</span>
+            <span class="trigger-tag">sitemaps</span>
+            <span class="trigger-tag">robots-txt</span>
+          </div>
+        </div>
+
+        <!-- 12 -->
+        <div class="specialist-card" data-tags="business monetization billing stripe checkout subscriptions pricing">
+          <div class="card-top">
+            <span class="spec-num">ROLE #12</span>
+            <span class="authority-badge auth-advise">Advises</span>
+          </div>
+          <div class="spec-title">Business & Monetization Lead</div>
+          <div class="spec-domain">Protects revenue integrity with server-authoritative pricing, webhook verification, and idempotent checkouts.</div>
+          <div class="spec-triggers">
+            <span class="trigger-tag">stripe</span>
+            <span class="trigger-tag">webhooks</span>
+            <span class="trigger-tag">pricing</span>
+          </div>
+        </div>
+
+        <!-- 13 -->
+        <div class="specialist-card" data-tags="launch operations go-live checklists runbooks monitoring">
+          <div class="card-top">
+            <span class="spec-num">ROLE #13</span>
+            <span class="authority-badge auth-gate">Launch Gate</span>
+          </div>
+          <div class="spec-title">Launch & Operations Manager</div>
+          <div class="spec-domain">Executes pre-flight release checklists, validates runbooks, monitors traffic ramps, and signs launch gates.</div>
+          <div class="spec-triggers">
+            <span class="trigger-tag">go-live</span>
+            <span class="trigger-tag">runbooks</span>
+            <span class="trigger-tag">launch-gate</span>
+          </div>
+        </div>
+
+        <!-- 14 -->
+        <div class="specialist-card" data-tags="maintenance evolution strangler fig dependabot legacy refactor">
+          <div class="card-top">
+            <span class="spec-num">ROLE #14</span>
+            <span class="authority-badge auth-advise">Advises</span>
+          </div>
+          <div class="spec-title">Maintenance & Evolution Lead</div>
+          <div class="spec-domain">Manages legacy codebase rescue via Strangler Fig patterns, dependency risk auditing, and automated upgrades.</div>
+          <div class="spec-triggers">
+            <span class="trigger-tag">strangler-fig</span>
+            <span class="trigger-tag">legacy-rescue</span>
+            <span class="trigger-tag">dependabot</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <p>Universal WebDev Skills • MIT Licensed • Built by <a href="https://github.com/SifatAli008" target="_blank">SifatAli008</a></p>
+      <p style="margin-top: 8px; font-size: 0.8rem; color: #6b7280;">Compatible with Claude Code, Cursor, Antigravity, GitHub Copilot, Gemini CLI, and ChatGPT/Codex.</p>
+    </div>
+  </footer>
+
+  <script>
+    function filterSpecialists() {
+      const query = document.getElementById('specSearch').value.toLowerCase();
+      const cards = document.querySelectorAll('.specialist-card');
+      cards.forEach(card => {
+        const text = card.innerText.toLowerCase() + ' ' + (card.getAttribute('data-tags') || '');
+        if (text.includes(query)) {
+          card.style.display = 'flex';
+        } else {
+          card.style.display = 'none';
+        }
+      });
+    }
+  </script>
+</body>
+</html>
