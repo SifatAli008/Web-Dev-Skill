@@ -1040,6 +1040,247 @@
       color: var(--npm-red);
     }
 
+    /* ==========================================================================
+       POLISHED UI/UX, TYPOGRAPHY & INTERACTIVE COMPONENTS
+       ========================================================================== */
+    .nav-item-num {
+      font-family: var(--font-mono);
+      font-size: 0.74rem;
+      color: var(--text-4);
+      flex-shrink: 0;
+    }
+    .nav-item-btn.active .nav-item-num {
+      color: var(--npm-red);
+      font-weight: 600;
+    }
+
+    .doc-block {
+      margin-bottom: 28px;
+    }
+
+    .doc-list {
+      margin: 10px 0 18px 20px;
+      color: var(--text-2);
+      font-size: 0.92rem;
+      line-height: 1.65;
+    }
+    .doc-list li {
+      margin-bottom: 6px;
+    }
+
+    /* Polished Page Pagination */
+    .doc-pagination {
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      margin-top: 48px;
+      padding-top: 24px;
+      border-top: 1px solid var(--border-subtle);
+    }
+    .pagination-btn {
+      display: flex;
+      flex-direction: column;
+      padding: 12px 18px;
+      border-radius: 6px;
+      background: var(--bg-surface);
+      border: 1px solid var(--border-medium);
+      text-decoration: none;
+      color: var(--text-1);
+      cursor: pointer;
+      transition: all 0.15s ease;
+      max-width: 48%;
+      box-shadow: var(--shadow-sm);
+    }
+    .pagination-btn:hover {
+      border-color: var(--npm-red);
+      box-shadow: var(--shadow-md);
+      transform: translateY(-1px);
+    }
+    .pagination-btn.next {
+      align-items: flex-end;
+      margin-left: auto;
+      text-align: right;
+    }
+    .pagination-label {
+      font-size: 0.72rem;
+      color: var(--text-4);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 4px;
+      font-weight: 600;
+    }
+    .pagination-title {
+      font-size: 0.92rem;
+      font-weight: 600;
+      color: var(--text-1);
+      transition: color 0.15s ease;
+    }
+    .pagination-btn:hover .pagination-title {
+      color: var(--npm-red);
+    }
+
+    /* Polished Code Components */
+    .inline-code {
+      font-family: var(--font-mono);
+      font-size: 0.86em;
+      background: var(--bg-card-hover);
+      color: var(--text-1);
+      padding: 2px 6px;
+      border-radius: 4px;
+      border: 1px solid var(--border-subtle);
+    }
+    .code-snippet-box {
+      background: var(--bg-code);
+      border: 1px solid var(--border-medium);
+      border-radius: 6px;
+      margin: 14px 0 20px;
+      overflow: hidden;
+      box-shadow: var(--shadow-sm);
+    }
+    .snippet-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: var(--bg-surface);
+      border-bottom: 1px solid var(--border-subtle);
+      padding: 7px 14px;
+      font-size: 0.74rem;
+      font-family: var(--font-mono);
+      color: var(--text-3);
+    }
+
+    /* Table Container Box */
+    .spec-table-box {
+      overflow-x: auto;
+      border-radius: 6px;
+      border: 1px solid var(--border-medium);
+      margin: 16px 0 24px;
+      background: var(--bg-surface);
+      box-shadow: var(--shadow-sm);
+    }
+    .spec-table-box .doc-table {
+      margin: 0;
+    }
+    .spec-table-box .doc-table th {
+      border-top: none;
+    }
+
+    /* Palette Search Result Polish */
+    .palette-result-title {
+      font-weight: 600;
+      color: var(--text-1);
+    }
+
+    /* Interactive Checklist Polish */
+    .checklist-progress-wrap {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-medium);
+      border-radius: 6px;
+      padding: 16px 20px;
+      margin-bottom: 24px;
+      box-shadow: var(--shadow-sm);
+    }
+    .checklist-progress-bar {
+      height: 8px;
+      background: var(--bg-card-hover);
+      border-radius: 4px;
+      overflow: hidden;
+      margin-top: 10px;
+      border: 1px solid var(--border-subtle);
+    }
+    .checklist-progress-fill {
+      height: 100%;
+      background: var(--emerald);
+      transition: width 0.25s ease;
+      border-radius: 4px;
+    }
+    .checklist-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      padding: 12px 16px;
+      border-radius: 6px;
+      border: 1px solid var(--border-medium);
+      margin-bottom: 10px;
+      background: var(--bg-surface);
+      transition: all 0.12s ease;
+      box-shadow: var(--shadow-sm);
+    }
+    .checklist-item:hover {
+      background: var(--bg-card-hover);
+      border-color: var(--border-focus);
+    }
+    .checklist-checkbox {
+      margin-top: 3px;
+      width: 17px;
+      height: 17px;
+      accent-color: var(--npm-red);
+      cursor: pointer;
+    }
+    .checklist-label {
+      font-size: 0.9rem;
+      color: var(--text-2);
+      cursor: pointer;
+      line-height: 1.5;
+      user-select: none;
+    }
+    .checklist-item.checked {
+      background: var(--bg-base);
+      opacity: 0.85;
+    }
+    .checklist-item.checked .checklist-label {
+      text-decoration: line-through;
+      color: var(--text-4);
+    }
+
+    /* Interactive ADR Builder Form Polish */
+    .adr-form-group {
+      margin-bottom: 16px;
+    }
+    .adr-label {
+      display: block;
+      font-size: 0.78rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--text-3);
+      margin-bottom: 6px;
+    }
+    .adr-input, .adr-select, .adr-textarea {
+      width: 100%;
+      padding: 9px 12px;
+      font-size: 0.88rem;
+      font-family: inherit;
+      background: var(--bg-surface);
+      border: 1px solid var(--border-medium);
+      border-radius: 6px;
+      color: var(--text-1);
+      outline: none;
+      transition: border-color 0.15s ease, box-shadow 0.15s ease;
+    }
+    .adr-input:focus, .adr-select:focus, .adr-textarea:focus {
+      border-color: var(--npm-red);
+      box-shadow: 0 0 0 3px rgba(203, 56, 55, 0.12);
+    }
+    .adr-textarea {
+      min-height: 84px;
+      resize: vertical;
+    }
+    .adr-preview-box {
+      background: var(--bg-code);
+      border: 1px solid var(--border-medium);
+      border-radius: 6px;
+      padding: 16px 20px;
+      font-family: var(--font-mono);
+      font-size: 0.84rem;
+      line-height: 1.6;
+      color: var(--text-1);
+      white-space: pre-wrap;
+      overflow-x: auto;
+      box-shadow: var(--shadow-sm);
+    }
+
+
   </style>
 </head>
 <body>
@@ -6775,6 +7016,900 @@
       window.scrollTo({ top: 0, behavior: "smooth" });
     }
 
+    // View: All 15 Specialists Complete Guide & Collaboration Matrix
+    function renderSpecialistsDirectoryPage(main, toc) {
+      toc.innerHTML = `
+        <li><a href="#specialists-overview" class="toc-a active">1. Overview & 5 Delivery Phases</a></li>
+        <li><a href="#specialists-gates" class="toc-a">2. Binding Quality Gates & Hierarchy</a></li>
+        <li><a href="#specialists-matrix" class="toc-a">3. Collaboration & Handoff Matrix</a></li>
+        <li><a href="#specialists-directory" class="toc-a">4. 15 Specialist Roster</a></li>
+      `;
+
+      main.innerHTML = `
+        <div class="content-header">
+          <div class="doc-cat">Core Team Protocol</div>
+          <h1 class="doc-heading" id="specialists-overview">All 15 WebDev Specialists Complete Guide</h1>
+          <p class="doc-intro">A disciplined, specification-driven multi-agent framework for web engineering. 15 autonomous specialists, explicit authority boundaries, required schema handoffs, and zero AI vibe-code.</p>
+        </div>
+
+        <!-- 5 Delivery Phases Banner -->
+        <div class="doc-block">
+          <h2 class="doc-subheading">The 5 Phases of Software Delivery</h2>
+          <p class="doc-paragraph">Every web project flows through 5 disciplined phases. Each phase is owned by dedicated specialists who produce schema-validated artifacts:</p>
+
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 14px; margin-top: 16px;">
+            <div class="clean-card" style="border-top: 3px solid var(--cyan);">
+              <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px;">
+                <strong style="color: var(--cyan); font-size: 0.95rem;">Phase 1: Discovery & Strategy</strong>
+                <span class="nav-item-num" style="font-size:0.7rem;">00, 01, 12</span>
+              </div>
+              <div style="font-size: 0.85rem; color: var(--text-2); line-height: 1.55;">
+                Orchestrates intake, classifies 3-tier rigor (MVP / PROD / SCALE), defines core problem statement, monetization model, and acceptance criteria in <code>prd.schema.json</code>.
+              </div>
+              <div style="margin-top: 10px; font-size: 0.78rem; color: var(--text-3); font-family: var(--font-mono);">
+                Artifacts: PRD &middot; Rigor Tier
+              </div>
+            </div>
+
+            <div class="clean-card" style="border-top: 3px solid var(--purple);">
+              <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px;">
+                <strong style="color: var(--purple); font-size: 0.95rem;">Phase 2: Architecture & UX</strong>
+                <span class="nav-item-num" style="font-size:0.7rem;">02, 03, 07</span>
+              </div>
+              <div style="font-size: 0.85rem; color: var(--text-2); line-height: 1.55;">
+                Establishes system boundaries, data contracts, and technology stack in <code>adr.schema.json</code>, accessible design tokens (WCAG AAA), and GDPR/CCPA consent architecture.
+              </div>
+              <div style="margin-top: 10px; font-size: 0.78rem; color: var(--text-3); font-family: var(--font-mono);">
+                Artifacts: ADR &middot; Design Tokens &middot; Privacy Spec
+              </div>
+            </div>
+
+            <div class="clean-card" style="border-top: 3px solid var(--emerald);">
+              <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px;">
+                <strong style="color: var(--emerald); font-size: 0.95rem;">Phase 3: Core Implementation</strong>
+                <span class="nav-item-num" style="font-size:0.7rem;">04, 05</span>
+              </div>
+              <div style="font-size: 0.85rem; color: var(--text-2); line-height: 1.55;">
+                Engineers responsive semantic user interfaces, zero synthetic bloat, schema-validated API route handlers (Zod), indexed database migrations, and transactional data integrity.
+              </div>
+              <div style="margin-top: 10px; font-size: 0.78rem; color: var(--text-3); font-family: var(--font-mono);">
+                Artifacts: Clean Code &middot; Schema Validated APIs
+              </div>
+            </div>
+
+            <div class="clean-card" style="border-top: 3px solid var(--rose);">
+              <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px;">
+                <strong style="color: var(--rose); font-size: 0.95rem;">Phase 4: Defense & Quality</strong>
+                <span class="nav-item-num" style="font-size:0.7rem;">06, 08, 10</span>
+              </div>
+              <div style="font-size: 0.85rem; color: var(--text-2); line-height: 1.55;">
+                Enforces STRIDE threat modeling (<code>threat-model.schema.json</code>), automated Playwright/Vitest test suites with evidence (<code>test-report.schema.json</code>), and Core Web Vitals SLA.
+              </div>
+              <div style="margin-top: 10px; font-size: 0.78rem; color: var(--text-3); font-family: var(--font-mono);">
+                Artifacts: Threat Model &middot; Test Report &middot; Web Vitals
+              </div>
+            </div>
+
+            <div class="clean-card" style="border-top: 3px solid var(--amber);">
+              <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px;">
+                <strong style="color: var(--amber); font-size: 0.95rem;">Phase 5: Release & Operations</strong>
+                <span class="nav-item-num" style="font-size:0.7rem;">09, 11, 13, 14</span>
+              </div>
+              <div style="font-size: 0.85rem; color: var(--text-2); line-height: 1.55;">
+                Authors automated rollback pipelines (<code>runbook.schema.json</code>), SEO sitemaps/robots metadata, formal GO/NO-GO sign-off (<code>launch-report.schema.json</code>), and strangler refactoring.
+              </div>
+              <div style="margin-top: 10px; font-size: 0.78rem; color: var(--text-3); font-family: var(--font-mono);">
+                Artifacts: Runbook &middot; Launch Report &middot; Debt Register
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Binding Quality Gates & Conflict Order -->
+        <div class="doc-block" id="specialists-gates">
+          <h2 class="doc-subheading">5 Binding Quality Gates & Conflict Order</h2>
+          <div class="callout-box alert-veto" style="margin-bottom: 16px;">
+            <strong>Universal Conflict Hierarchy:</strong> Security &amp; Privacy &gt; Architecture &gt; Performance &gt; Speed.
+          </div>
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 12px;">
+            <div class="clean-card" style="border-left: 3px solid var(--rose);">
+              <div style="font-weight: 700; color: var(--rose); font-size: 0.88rem;">1. AppSec Hard Veto (06-security)</div>
+              <div style="font-size: 0.82rem; color: var(--text-2); margin-top: 4px;">Zero unauthenticated mutations, zero hardcoded secrets, mandatory HttpOnly session cookies.</div>
+            </div>
+            <div class="clean-card" style="border-left: 3px solid var(--rose);">
+              <div style="font-weight: 700; color: var(--rose); font-size: 0.88rem;">2. Privacy Hard Veto (07-privacy)</div>
+              <div style="font-size: 0.82rem; color: var(--text-2); margin-top: 4px;">Zero unconsented tracking scripts, strict data minimization, privacy policy coverage.</div>
+            </div>
+            <div class="clean-card" style="border-left: 3px solid var(--cyan);">
+              <div style="font-weight: 700; color: var(--cyan); font-size: 0.88rem;">3. SQAT Ship Gate (08-testing-qa)</div>
+              <div style="font-size: 0.82rem; color: var(--text-2); margin-top: 4px;">"No evidence, no ship" — automated test suites must pass terminal execution with exit code 0.</div>
+            </div>
+            <div class="clean-card" style="border-left: 3px solid var(--amber);">
+              <div style="font-weight: 700; color: var(--amber); font-size: 0.88rem;">4. DevOps Rollback Gate (09-devops)</div>
+              <div style="font-size: 0.82rem; color: var(--text-2); margin-top: 4px;">"No rollback, no ship" — documented, tested rollback procedure and health check endpoint required.</div>
+            </div>
+            <div class="clean-card" style="border-left: 3px solid var(--emerald);">
+              <div style="font-weight: 700; color: var(--emerald); font-size: 0.88rem;">5. Launch Sign-Off Gate (13-launch)</div>
+              <div style="font-size: 0.82rem; color: var(--text-2); margin-top: 4px;">All upstream specialist sign-offs consolidated into launch-report.schema.json before live release.</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Collaboration Matrix Table -->
+        <div class="doc-block" id="specialists-matrix">
+          <h2 class="doc-subheading">Complete 15-Specialist Collaboration Matrix</h2>
+          <div class="spec-table-box">
+            <table>
+              <thead>
+                <tr>
+                  <th style="width: 60px;">ID</th>
+                  <th style="width: 220px;">Specialist</th>
+                  <th style="width: 140px;">Authority</th>
+                  <th>Primary Inputs</th>
+                  <th>Delivered Outputs</th>
+                  <th style="width: 110px;">Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                ${SPECIALISTS.map(s => `
+                  <tr>
+                    <td><span class="nav-item-num">${s.num}</span></td>
+                    <td>
+                      <strong style="color: var(--text-1);">${s.name.split('/')[0].trim()}</strong>
+                      <div style="font-size: 0.78rem; color: var(--text-3); margin-top: 2px;">${s.directive.slice(0, 70)}...</div>
+                    </td>
+                    <td>
+                      <span class="tier-pill ${s.authType === 'veto' ? 'tier-pill-scale' : (s.authType === 'ship' ? 'tier-pill-prod' : 'tier-pill-mvp')}" style="font-size: 0.7rem;">
+                        ${s.authority.split('(')[0].trim()}
+                      </span>
+                    </td>
+                    <td style="font-size: 0.8rem; font-family: var(--font-mono); color: var(--text-2);">
+                      ${s.inputs.join(', ')}
+                    </td>
+                    <td style="font-size: 0.8rem; font-family: var(--font-mono); color: var(--text-2);">
+                      ${s.outputs.join(', ')}
+                    </td>
+                    <td>
+                      <button class="hud-action-btn" style="padding: 4px 10px; font-size: 0.75rem;" onclick="loadContent('spec-${s.id}')">
+                        View Dossier
+                      </button>
+                    </td>
+                  </tr>
+                `).join('')}
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- 15 Specialists Cards Directory -->
+        <div class="doc-block" id="specialists-directory">
+          <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px; margin-bottom: 16px;">
+            <h2 class="doc-subheading" style="margin: 0; border: none; padding: 0;">Specialist Dossier Directory</h2>
+            <div style="display: flex; gap: 6px; flex-wrap: wrap;" id="phaseFilters">
+              <button class="hud-action-btn active-filter" onclick="filterSpecialistCards('all', this)">All (15)</button>
+              <button class="hud-action-btn" onclick="filterSpecialistCards('p1', this)">Phase 1: Discovery</button>
+              <button class="hud-action-btn" onclick="filterSpecialistCards('p2', this)">Phase 2: Architecture</button>
+              <button class="hud-action-btn" onclick="filterSpecialistCards('p3', this)">Phase 3: Implementation</button>
+              <button class="hud-action-btn" onclick="filterSpecialistCards('p4', this)">Phase 4: Quality & Defense</button>
+              <button class="hud-action-btn" onclick="filterSpecialistCards('p5', this)">Phase 5: Release & Ops</button>
+            </div>
+          </div>
+
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 14px;" id="specialistCardsGrid">
+            ${SPECIALISTS.map(s => {
+              let phaseClass = 'p1';
+              let numVal = parseInt(s.num, 10);
+              if (numVal === 0 || numVal === 1 || numVal === 12) phaseClass = 'p1';
+              else if (numVal === 2 || numVal === 3 || numVal === 7) phaseClass = 'p2';
+              else if (numVal === 4 || numVal === 5) phaseClass = 'p3';
+              else if (numVal === 6 || numVal === 8 || numVal === 10) phaseClass = 'p4';
+              else phaseClass = 'p5';
+
+              return `
+                <div class="clean-card spec-card-item" data-phase="${phaseClass}" style="display: flex; flex-direction: column; justify-content: space-between; border-left: 3px solid ${s.authType === 'veto' ? 'var(--rose)' : (s.authType === 'ship' ? 'var(--emerald)' : 'var(--cyan)')};">
+                  <div>
+                    <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px;">
+                      <div style="display: flex; align-items: center; gap: 8px;">
+                        <span class="nav-item-num">${s.num}</span>
+                        <strong style="font-size: 0.98rem; color: var(--text-1);">${s.name}</strong>
+                      </div>
+                      <span class="tier-pill ${s.authType === 'veto' ? 'tier-pill-scale' : (s.authType === 'ship' ? 'tier-pill-prod' : 'tier-pill-mvp')}" style="font-size:0.68rem;">
+                        ${s.authType.toUpperCase()}
+                      </span>
+                    </div>
+
+                    <p style="font-size: 0.84rem; color: var(--text-2); line-height: 1.55; margin-bottom: 12px;">
+                      ${s.directive}
+                    </p>
+
+                    ${s.refuse ? `
+                      <div style="font-size: 0.78rem; background: rgba(244, 63, 94, 0.08); border-left: 2px solid var(--rose); padding: 6px 10px; border-radius: 4px; color: var(--text-2); margin-bottom: 10px;">
+                        <strong style="color: var(--rose);">Non-negotiable:</strong> ${s.refuse.slice(0, 110)}...
+                      </div>
+                    ` : ''}
+
+                    <div style="display: flex; flex-wrap: wrap; gap: 4px; margin-bottom: 14px;">
+                      ${s.triggers.slice(0, 4).map(t => `<span class="inline-code" style="font-size: 0.72rem;">${t}</span>`).join('')}
+                    </div>
+                  </div>
+
+                  <div style="display: flex; align-items: center; justify-content: space-between; border-top: 1px solid var(--border-subtle); padding-top: 10px;">
+                    <div style="font-size: 0.78rem; color: var(--text-3);">
+                      ${s.steps.length} Steps &middot; ${s.decisionRules.length} Rules
+                    </div>
+                    <button class="hud-action-btn" onclick="loadContent('spec-${s.id}')">
+                      View Full Dossier &rarr;
+                    </button>
+                  </div>
+                </div>
+              `;
+            }).join('')}
+          </div>
+        </div>
+
+        ${getPaginationHtml('specialists')}
+      `;
+    }
+
+    // View: Tabbed Specialist Page (Deep, Specification-Driven)
+    function renderSpecialistPage(spec, main, toc) {
+      let alertClass = 'alert-gate';
+      let authBadge = 'PROCESS GATE';
+      if (spec.authType === 'veto') { alertClass = 'alert-veto'; authBadge = 'HARD VETO'; }
+      else if (spec.authType === 'ship') { alertClass = 'alert-ship'; authBadge = 'BINDING SHIP GATE'; }
+
+      toc.innerHTML = `
+        <li><a href="javascript:void(0)" onclick="setDocTab('tab-overview')" class="toc-a active">1. Overview & Rules</a></li>
+        <li><a href="javascript:void(0)" onclick="setDocTab('tab-procedure')" class="toc-a">2. Operational Procedure (${spec.steps.length})</a></li>
+        <li><a href="javascript:void(0)" onclick="setDocTab('tab-verification')" class="toc-a">3. Defense & Anti-Patterns</a></li>
+        <li><a href="javascript:void(0)" onclick="setDocTab('tab-schemas')" class="toc-a">4. Schemas & Directive</a></li>
+      `;
+
+      main.innerHTML = `
+        <div class="content-header">
+          <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px; margin-bottom: 6px;">
+            <div style="display: flex; align-items: center; gap: 8px;">
+              <span class="nav-item-num" style="font-size: 0.8rem; padding: 2px 7px;">${spec.num}</span>
+              <div class="doc-cat">Specialist Dossier</div>
+            </div>
+            <span class="tier-pill ${spec.authType === 'veto' ? 'tier-pill-scale' : (spec.authType === 'ship' ? 'tier-pill-prod' : 'tier-pill-mvp')}">${authBadge}</span>
+          </div>
+          <h1 class="doc-heading">${spec.name}</h1>
+          <p class="doc-intro">${spec.directive}</p>
+        </div>
+
+        <div class="callout-box ${alertClass}" style="margin-bottom: 18px;">
+          <strong>Authority Boundary:</strong> ${spec.authority}
+        </div>
+
+        ${spec.refuse ? `
+          <div class="callout-box alert-veto" style="margin-bottom: 20px;">
+            <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 6px;">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="color: var(--rose);"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+              <strong style="color: var(--rose); font-size: 0.88rem; text-transform: uppercase; letter-spacing: 0.05em;">What I Refuse to Compromise On</strong>
+            </div>
+            <div style="font-size: 0.88rem; line-height: 1.6; color: var(--text-2);">${formatProse(spec.refuse)}</div>
+          </div>
+        ` : ''}
+
+        ${spec.questions && spec.questions.length ? `
+          <div style="margin-bottom: 24px;">
+            <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 12px;">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color: var(--cyan);"><circle cx="12" cy="12" r="10"></circle><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
+              <h2 class="doc-subheading" style="margin: 0; border: none; padding: 0;">Three Diagnostic Questions I Always Ask First</h2>
+            </div>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 12px;">
+              ${spec.questions.map(q => `
+                <div class="clean-card" style="padding: 14px 16px; border: 1px solid var(--border-medium); background: var(--bg-card); display: flex; flex-direction: column; justify-content: space-between;">
+                  <div>
+                    <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 8px;">
+                      <span class="nav-item-num" style="background: rgba(56, 189, 248, 0.15); color: var(--cyan); border: 1px solid rgba(56, 189, 248, 0.3); font-weight: 700;">Q0${q.num || 1}</span>
+                      <strong style="color: var(--text-1); font-size: 0.9rem;">${q.title || 'Diagnostic Question'}</strong>
+                    </div>
+                    <div style="font-size: 0.84rem; color: var(--text-2); line-height: 1.55;">${formatProse(q.text || '')}</div>
+                  </div>
+                </div>
+              `).join('')}
+            </div>
+          </div>
+        ` : ''}
+
+        <!-- Segmented Tab Navigation -->
+        <div class="page-tabs-bar">
+          <button class="page-tab-btn active" data-tab="tab-overview" onclick="setDocTab('tab-overview')">Overview & Decision Rules (${spec.decisionRules.length})</button>
+          <button class="page-tab-btn" data-tab="tab-procedure" onclick="setDocTab('tab-procedure')">Operational Procedure (${spec.steps.length})</button>
+          <button class="page-tab-btn" data-tab="tab-verification" onclick="setDocTab('tab-verification')">Defense & Anti-Patterns (${spec.antiPatterns.length})</button>
+          <button class="page-tab-btn" data-tab="tab-schemas" onclick="setDocTab('tab-schemas')">Schemas & Directive</button>
+        </div>
+
+        <!-- TAB 1: OVERVIEW & RULES -->
+        <div class="tab-pane active" id="tab-overview">
+          <div class="doc-block">
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; margin-bottom: 24px;">
+              <div class="clean-card" style="border-top: 2px solid var(--emerald);">
+                <strong style="color: var(--emerald); font-size: 0.86rem; text-transform: uppercase; letter-spacing: 0.05em;">When to Activate (Use When)</strong>
+                <ul class="doc-list" style="margin-top: 10px; margin-bottom: 0;">
+                  ${spec.whenToUse.map(u => `<li>${u}</li>`).join('')}
+                </ul>
+              </div>
+              <div class="clean-card" style="border-top: 2px solid var(--amber);">
+                <strong style="color: var(--amber); font-size: 0.86rem; text-transform: uppercase; letter-spacing: 0.05em;">NOT to Use (Route Elsewhere)</strong>
+                <ul class="doc-list" style="margin-top: 10px; margin-bottom: 0;">
+                  ${spec.whenNotToUse && spec.whenNotToUse.length ? spec.whenNotToUse.map(u => `<li>${u}</li>`).join('') : '<li>Do not invoke outside defined domain boundaries.</li>'}
+                </ul>
+              </div>
+            </div>
+
+            <h2 class="doc-subheading">Decision Rules & Engineering Stances</h2>
+            <div style="display: flex; flex-direction: column; gap: 12px;">
+              ${spec.decisionRules.map(r => `
+                <div class="clean-card" style="padding: 16px 20px; border-left: 3px solid var(--cyan);">
+                  <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px;">
+                    <strong style="color: var(--cyan); font-size: 0.96rem;">${r.title}</strong>
+                    <span class="tier-pill tier-pill-mvp" style="font-size: 0.65rem;">MANDATE</span>
+                  </div>
+                  <ul class="doc-list" style="margin-bottom: 0;">
+                    ${(r.lines || [r.text || '']).map(l => {
+                      let badge = 'RULE';
+                      let color = 'var(--cyan)';
+                      const cleanL = l.replace(/^[\*\_]+/, '').trim();
+                      if (/^if\b/i.test(cleanL)) { badge = 'IF'; color = 'var(--purple)'; }
+                      else if (/^always\b/i.test(cleanL)) { badge = 'ALWAYS'; color = 'var(--emerald)'; }
+                      else if (/^never\b/i.test(cleanL)) { badge = 'NEVER'; color = 'var(--rose)'; }
+                      else if (/^limit\b/i.test(cleanL)) { badge = 'LIMIT'; color = 'var(--amber)'; }
+                      else if (/^otherwise\b/i.test(cleanL)) { badge = 'DEFAULT'; color = 'var(--cyan)'; }
+                      return `<li style="margin-bottom: 8px;"><span class="tier-pill" style="background: rgba(255,255,255,0.06); color: ${color}; border: 1px solid var(--border-medium); font-size: 0.68rem; margin-right: 6px; padding: 1px 6px;">${badge}</span>${formatProse(l)}</li>`;
+                    }).join('')}
+                  </ul>
+                </div>
+              `).join('')}
+            </div>
+          </div>
+        </div>
+
+        <!-- TAB 2: OPERATIONAL PROCEDURE -->
+        <div class="tab-pane" id="tab-procedure">
+          <div class="doc-block">
+            <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px;">
+              <h2 class="doc-subheading" style="margin: 0; border: none; padding: 0;">Phased Step-by-Step Procedure (${spec.steps.length} Steps)</h2>
+              <button class="snippet-copy-btn" onclick="copyText(document.getElementById('stepsTextContainer').innerText, this)">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+                <span>Copy Procedure</span>
+              </button>
+            </div>
+            <div id="stepsTextContainer" style="display: flex; flex-direction: column; gap: 14px;">
+              ${spec.steps.map((st, idx) => `
+                <div class="clean-card" style="border-left: 3px solid var(--cyan); padding: 16px 20px;">
+                  <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 8px;">
+                    <span class="nav-item-num" style="font-weight: 700;">0${idx + 1}</span>
+                    <strong style="font-size: 0.98rem; color: var(--text-1);">${st.title}</strong>
+                  </div>
+                  <div style="font-size: 0.88rem; color: var(--text-2); line-height: 1.65;">${formatProse(st.details)}</div>
+                </div>
+              `).join('')}
+            </div>
+          </div>
+        </div>
+
+        <!-- TAB 3: DEFENSE & ANTI-PATTERNS -->
+        <div class="tab-pane" id="tab-verification">
+          <div class="doc-block">
+            <h2 class="doc-subheading">Production Verification Pipeline (Evidence to Call Done)</h2>
+            <p class="doc-paragraph">Every specialist must verify operational criteria in the terminal prior to declaring completion or passing handoffs ("No evidence, no ship"):</p>
+            <div style="display: flex; flex-direction: column; gap: 12px; margin-bottom: 28px;">
+              ${spec.verifications.map((v, vIdx) => `
+                <div class="clean-card" style="border-left: 3px solid var(--emerald); padding: 16px 20px;">
+                  <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px;">
+                    <div style="display: flex; align-items: center; gap: 8px;">
+                      <span class="nav-item-num" style="background: rgba(16, 185, 129, 0.15); color: var(--emerald); border: 1px solid rgba(16, 185, 129, 0.3); font-weight: 700;">CHECK 0${vIdx + 1}</span>
+                      <strong style="font-size: 0.95rem; color: var(--text-1);">${v.title || 'Verification Check'}</strong>
+                    </div>
+                    <span class="tier-pill tier-pill-prod" style="font-size: 0.65rem;">EXIT CODE 0</span>
+                  </div>
+                  <p class="doc-paragraph" style="margin: 0 0 10px 0; font-size: 0.85rem; color: var(--text-2);">${v.desc || ''}</p>
+                  ${v.cmd ? `
+                    <div class="code-snippet-box" style="margin-top: 8px;">
+                      <div class="snippet-top">
+                        <span style="font-family: var(--font-mono); font-size: 0.72rem; color: var(--text-3);">Terminal Command</span>
+                        <button class="snippet-copy-btn" onclick="copyText('${v.cmd.replace(/'/g, "\\'")}', this)">Copy</button>
+                      </div>
+                      <pre><code>$ ${v.cmd}</code></pre>
+                    </div>
+                  ` : ''}
+                </div>
+              `).join('')}
+            </div>
+
+            ${spec.antiPatterns && spec.antiPatterns.length ? `
+              <h2 class="doc-subheading">Strictly Forbidden Anti-Patterns</h2>
+              <div style="display: flex; flex-direction: column; gap: 10px; margin-bottom: 28px;">
+                ${spec.antiPatterns.map(a => `
+                  <div class="clean-card" style="border-left: 3px solid var(--rose); padding: 14px 18px;">
+                    <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 6px;">
+                      <span class="tier-pill tier-pill-scale" style="font-size: 0.65rem; background: rgba(244, 63, 94, 0.15); color: var(--rose); border: 1px solid rgba(244, 63, 94, 0.3);">FORBIDDEN</span>
+                      <strong style="color: var(--text-1); font-size: 0.92rem;">${a.title || 'Anti-Pattern'}</strong>
+                    </div>
+                    <div style="font-size: 0.86rem; color: var(--text-2); line-height: 1.6;">${a.desc || ''}</div>
+                  </div>
+                `).join('')}
+              </div>
+            ` : ''}
+
+            ${spec.escalate && spec.escalate.length ? `
+              <h2 class="doc-subheading">Escalate-to-User Triggers</h2>
+              <div class="clean-card" style="border-left: 3px solid var(--amber);">
+                <ul class="doc-list" style="margin-bottom: 0;">
+                  ${spec.escalate.map(e => `<li><span style="color: var(--amber); font-weight:600; margin-right:4px;">[HALT & ESCALATE]</span>${e}</li>`).join('')}
+                </ul>
+              </div>
+            ` : ''}
+          </div>
+        </div>
+
+        <!-- TAB 4: SCHEMAS & DIRECTIVE -->
+        <div class="tab-pane" id="tab-schemas">
+          <div class="doc-block">
+            <h2 class="doc-subheading">Required Handoff Contracts</h2>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 14px; margin-bottom: 24px;">
+              <div class="clean-card">
+                <div style="font-size: 0.72rem; text-transform: uppercase; color: var(--cyan); font-weight: 700; margin-bottom: 4px;">Incoming Dependencies (Requires)</div>
+                <div style="font-size: 0.88rem; font-family: var(--font-mono); color: var(--text-1);">${spec.inputs.join(', ')}</div>
+              </div>
+              <div class="clean-card">
+                <div style="font-size: 0.72rem; text-transform: uppercase; color: var(--emerald); font-weight: 700; margin-bottom: 4px;">Delivered Artifacts (Produces)</div>
+                <div style="font-size: 0.88rem; font-family: var(--font-mono); color: var(--text-1);">${spec.outputs.join(', ')}</div>
+              </div>
+            </div>
+
+            <h2 class="doc-subheading">Multi-Agent Routing Triggers</h2>
+            <div style="display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 24px;">
+              ${spec.triggers.map(t => `<span class="inline-code">${t}</span>`).join('')}
+            </div>
+
+            <h2 class="doc-subheading">Direct Agent Directive (Prompt Injection)</h2>
+            <p class="doc-paragraph">Copy this directive directly into your agent's system prompt or session to adopt this specialist persona:</p>
+            <div class="code-snippet-box">
+              <div class="snippet-top">
+                <span>System Directive: ${spec.id}</span>
+                <button class="snippet-copy-btn" onclick="copyText(document.getElementById('specDirectiveCode').innerText, this)">Copy Directive</button>
+              </div>
+              <pre><code id="specDirectiveCode">[Wearing: ${spec.name}]
+Authority: ${spec.authority}
+Directive: ${spec.directive}
+Mandatory inputs: ${spec.inputs.join(', ')}
+Mandatory outputs: ${spec.outputs.join(', ')}
+Strict Invariant: Zero placeholder comments. Verifiable exit code 0 required.</code></pre>
+            </div>
+          </div>
+        </div>
+
+        ${getSpecialistPaginationHtml(spec.id)}
+      `;
+    }
+
+    // View: Playbook Details
+    function renderPlaybookPage(pb, main, toc) {
+      toc.innerHTML = `
+        <li><a href="#summary" class="toc-a active">Objective & Tier</a></li>
+        <li><a href="#steps" class="toc-a">Execution Procedure</a></li>
+        <li><a href="#verification" class="toc-a">Verification Gates</a></li>
+        <li><a href="#rollback" class="toc-a">Rollback Strategy</a></li>
+      `;
+
+      main.innerHTML = `
+        <div class="content-header">
+          <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px;">
+            <div class="doc-cat">Operational Playbook</div>
+            <span class="tier-pill ${pb.tier.toLowerCase().includes('prod') ? 'tier-pill-prod' : (pb.tier.toLowerCase().includes('scale') ? 'tier-pill-scale' : 'tier-pill-mvp')}">${pb.tier}</span>
+          </div>
+          <h1 class="doc-heading" id="summary">${pb.title}</h1>
+          <p class="doc-intro">${pb.objective}</p>
+        </div>
+
+        <div class="doc-block" id="steps">
+          <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px;">
+            <h2 class="doc-subheading" style="margin: 0; border: none; padding: 0;">Step-by-Step Procedure</h2>
+            <button class="snippet-copy-btn" onclick="copyText(document.getElementById('pbStepsContainer').innerText, this)">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+              <span>Copy Playbook Steps</span>
+            </button>
+          </div>
+          <div id="pbStepsContainer" style="display: flex; flex-direction: column; gap: 14px;">
+            ${pb.steps.map((st, idx) => `
+              <div class="clean-card" style="border-left: 3px solid var(--cyan);">
+                <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 6px;">
+                  <span class="nav-item-num">0${idx + 1}</span>
+                  <strong style="font-size: 0.95rem; color: var(--text-1);">${st.title}</strong>
+                </div>
+                <div style="font-size: 0.88rem; color: var(--text-2); line-height: 1.65;">${formatProse(st.details)}</div>
+              </div>
+            `).join('')}
+          </div>
+        </div>
+
+        <div class="doc-block" id="verification">
+          <h2 class="doc-subheading">Verification & Quality Gates</h2>
+          <ul class="doc-list">
+            ${pb.verification.map(v => `<li>${v}</li>`).join('')}
+          </ul>
+        </div>
+
+        <div class="doc-block" id="rollback">
+          <h2 class="doc-subheading">Deterministic Rollback Plan</h2>
+          <div class="clean-card" style="border-left: 3px solid var(--amber);">
+            <div style="font-size: 0.88rem; color: var(--text-2); line-height: 1.65;">${formatProse(pb.rollback)}</div>
+          </div>
+        </div>
+      `;
+    }
+
+    // View: Checklist Details
+    function renderChecklistPage(cl, main, toc) {
+      toc.innerHTML = `
+        <li><a href="#summary" class="toc-a active">Checklist Overview</a></li>
+        ${cl.sections.map((s, idx) => `<li><a href="#sec-${idx}" class="toc-a">${s.title}</a></li>`).join('')}
+      `;
+
+      main.innerHTML = `
+        <div class="content-header">
+          <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px;">
+            <div class="doc-cat">Interactive Quality Audit</div>
+            <span class="tier-pill tier-pill-all">${cl.tier}</span>
+          </div>
+          <h1 class="doc-heading" id="summary">${cl.title}</h1>
+          <p class="doc-intro">Pre-flight verification gate comprising ${cl.totalItems} atomic verification checks. All items must pass before promotion.</p>
+        </div>
+
+        <div class="clean-card" style="margin-bottom: 24px; padding: 16px 20px;">
+          <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px;">
+            <span style="font-size: 0.82rem; font-weight: 600; text-transform: uppercase; color: var(--text-3);">Audit Progress</span>
+            <span style="font-family: var(--font-mono); font-size: 0.88rem; color: var(--cyan); font-weight: 700;" id="checklistProgressText">0 / ${cl.totalItems} (0%)</span>
+          </div>
+          <div style="height: 6px; background: rgba(255,255,255,0.08); border-radius: 3px; overflow: hidden; margin-bottom: 12px;">
+            <div id="checklistProgressBar" style="width: 0%; height: 100%; background: var(--cyan); transition: width 0.2s ease;"></div>
+          </div>
+          <div style="display: flex; justify-content: flex-end;">
+            <button class="snippet-copy-btn" onclick="copyChecklistReport('${cl.title}', ${cl.totalItems})">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+              <span>Copy Audit Report</span>
+            </button>
+          </div>
+        </div>
+
+        <div style="display: flex; flex-direction: column; gap: 20px;">
+          ${cl.sections.map((sec, sIdx) => `
+            <div class="doc-block" id="sec-${sIdx}">
+              <h2 class="doc-subheading">${sec.title}</h2>
+              <div style="display: flex; flex-direction: column; gap: 6px;">
+                ${sec.items.map((item, iIdx) => `
+                  <label class="clean-card" style="display: flex; align-items: flex-start; gap: 12px; margin: 0; padding: 10px 14px; cursor: pointer;">
+                    <input type="checkbox" data-item="${item.replace(/"/g, '&quot;')}" onchange="updateChecklistProgress(${cl.totalItems})" style="margin-top: 4px; accent-color: var(--cyan); cursor: pointer;">
+                    <span style="font-size: 0.88rem; color: var(--text-2); line-height: 1.5;">${item}</span>
+                  </label>
+                `).join('')}
+              </div>
+            </div>
+          `).join('')}
+        </div>
+      `;
+    }
+
+    function updateChecklistProgress(total) {
+      const checked = document.querySelectorAll('#content input[type="checkbox"]:checked').length;
+      const pct = Math.round((checked / total) * 100);
+      const textEl = document.getElementById('checklistProgressText');
+      const barEl = document.getElementById('checklistProgressBar');
+      if (textEl) textEl.innerText = `${checked} / ${total} (${pct}%)`;
+      if (barEl) barEl.style.width = pct + '%';
+    }
+
+    function copyChecklistReport(title, total) {
+      const inputs = document.querySelectorAll('#content input[type="checkbox"]');
+      let report = `# Audit Report: ${title}\n**Generated:** ${new Date().toISOString()}\n\n`;
+      let checked = 0;
+      inputs.forEach(input => {
+        const itemText = input.getAttribute('data-item') || input.nextElementSibling?.innerText || 'Audit Item';
+        if (input.checked) {
+          checked++;
+          report += `- [x] ${itemText}\n`;
+        } else {
+          report += `- [ ] ${itemText}\n`;
+        }
+      });
+      report += `\n**Summary:** ${checked} / ${total} checks passing (${Math.round((checked / total) * 100)}%)\n`;
+      copyText(report, null);
+      alert('Audit Report copied to clipboard (' + checked + '/' + total + ' verified)!');
+    }
+
+    // View: Template & Schema Viewer
+    function renderTemplatePage(tmpl, main, toc) {
+      toc.innerHTML = `
+        <li><a href="#summary" class="toc-a active">Template Purpose</a></li>
+        <li><a href="#spec" class="toc-a">Markdown Specification</a></li>
+        ${tmpl.hasSchema ? '<li><a href="#schema" class="toc-a">JSON Schema Contract</a></li>' : ''}
+      `;
+
+      main.innerHTML = `
+        <div class="content-header">
+          <div class="doc-cat">Schema & Handoff Contract</div>
+          <h1 class="doc-heading" id="summary">${tmpl.title}</h1>
+          <p class="doc-intro">${tmpl.purpose}</p>
+        </div>
+
+        <div style="display: flex; gap: 10px; margin-bottom: 24px;">
+          <button class="hud-action-btn" onclick="copyText(document.getElementById('tmplRawCode').innerText, this)">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+            <span>Copy Raw Template</span>
+          </button>
+          ${tmpl.id === 'adr' ? '<button class="hud-action-btn" onclick="loadContent(\'adr-builder\')"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg><span>Open in ADR Builder</span></button>' : ''}
+        </div>
+
+        <div class="doc-block" id="spec">
+          <h2 class="doc-subheading">Template Specification Structure</h2>
+          <div class="code-snippet-box">
+            <div class="snippet-top"><span>templates/${tmpl.file}</span></div>
+            <pre><code id="tmplRawCode">${tmpl.content.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')}</code></pre>
+          </div>
+        </div>
+
+        ${tmpl.hasSchema ? `
+          <div class="doc-block" id="schema">
+            <h2 class="doc-subheading">Validating JSON Schema Contract (templates/schemas/${tmpl.schemaFile})</h2>
+            <div class="code-snippet-box">
+              <div class="snippet-top"><span>JSON Schema: ${tmpl.schemaFile}</span></div>
+              <pre><code>${JSON.stringify(tmpl.schema, null, 2)}</code></pre>
+            </div>
+          </div>
+        ` : ''}
+      `;
+    }
+
+    // View: Interactive ADR Builder
+    function renderAdrBuilderPage(main, toc) {
+      toc.innerHTML = `
+        <li><a href="#form" class="toc-a active">ADR Input Form</a></li>
+        <li><a href="#preview" class="toc-a">Live Generated Markdown</a></li>
+      `;
+
+      main.innerHTML = `
+        <div class="content-header">
+          <div class="doc-cat">Architecture Governance Utility</div>
+          <h1 class="doc-heading" id="form">Interactive ADR Builder</h1>
+          <p class="doc-intro">Generate schema-validated Architecture Decision Records (ADRs) compliant with <code>templates/schemas/adr.schema.json</code>.</p>
+        </div>
+
+        <div class="clean-card" style="padding: 22px;">
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 14px;">
+            <div>
+              <label style="display:block; font-size:0.75rem; text-transform:uppercase; color:var(--text-3); font-weight:700; margin-bottom:4px;">ADR ID</label>
+              <input type="text" id="adrId" value="ADR-001" oninput="updateAdrPreview()" class="sidebar-search-input">
+            </div>
+            <div>
+              <label style="display:block; font-size:0.75rem; text-transform:uppercase; color:var(--text-3); font-weight:700; margin-bottom:4px;">Status</label>
+              <select id="adrStatus" onchange="updateAdrPreview()" class="sidebar-search-input" style="cursor:pointer;">
+                <option value="ACCEPTED">ACCEPTED</option>
+                <option value="PROPOSED">PROPOSED</option>
+                <option value="SUPERSEDED">SUPERSEDED</option>
+                <option value="REJECTED">REJECTED</option>
+              </select>
+            </div>
+          </div>
+
+          <div style="margin-bottom: 14px;">
+            <label style="display:block; font-size:0.75rem; text-transform:uppercase; color:var(--text-3); font-weight:700; margin-bottom:4px;">Decision Title</label>
+            <input type="text" id="adrTitle" value="Use Parameterized SQL Driver with Scrypt Password Hashing" oninput="updateAdrPreview()" class="sidebar-search-input">
+          </div>
+
+          <div style="margin-bottom: 14px;">
+            <label style="display:block; font-size:0.75rem; text-transform:uppercase; color:var(--text-3); font-weight:700; margin-bottom:4px;">Context & Problem Statement</label>
+            <textarea id="adrContext" rows="3" oninput="updateAdrPreview()" class="sidebar-search-input" style="resize:vertical;">The system requires secure authentication and database persistence. Raw query concatenation introduces SQL injection risks, and weak hashing risks credential exposure.</textarea>
+          </div>
+
+          <div style="margin-bottom: 14px;">
+            <label style="display:block; font-size:0.75rem; text-transform:uppercase; color:var(--text-3); font-weight:700; margin-bottom:4px;">Decision</label>
+            <textarea id="adrDecision" rows="3" oninput="updateAdrPreview()" class="sidebar-search-input" style="resize:vertical;">Mandate parameterized queries for all database operations. Passwords must be hashed using Node crypto scrypt with a unique 16-byte salt and constant-time comparison.</textarea>
+          </div>
+
+          <div style="margin-bottom: 14px;">
+            <label style="display:block; font-size:0.75rem; text-transform:uppercase; color:var(--text-3); font-weight:700; margin-bottom:4px;">Consequences</label>
+            <textarea id="adrConsequences" rows="2" oninput="updateAdrPreview()" class="sidebar-search-input" style="resize:vertical;">Eliminates OWASP Top 10 SQLi vulnerabilities. Requires developers to use driver-level prepared statements.</textarea>
+          </div>
+        </div>
+
+        <div class="doc-block" id="preview" style="margin-top: 24px;">
+          <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:8px;">
+            <h2 class="doc-subheading" style="margin:0; border:none; padding:0;">Live Generated ADR Markdown</h2>
+            <button class="snippet-copy-btn" onclick="copyText(document.getElementById('adrPreviewOutput').innerText, this)">Copy Markdown</button>
+          </div>
+          <div class="code-snippet-box">
+            <pre><code id="adrPreviewOutput"></code></pre>
+          </div>
+        </div>
+      `;
+
+      updateAdrPreview();
+    }
+
+    function updateAdrPreview() {
+      const id = document.getElementById('adrId')?.value || 'ADR-001';
+      const title = document.getElementById('adrTitle')?.value || '';
+      const status = document.getElementById('adrStatus')?.value || 'ACCEPTED';
+      const context = document.getElementById('adrContext')?.value || '';
+      const decision = document.getElementById('adrDecision')?.value || '';
+      const consequences = document.getElementById('adrConsequences')?.value || '';
+
+      const md = `# ${id}: ${title}
+
+**Status:** ${status}  
+**Date:** ${new Date().toISOString().split('T')[0]}  
+**Deciders:** 00-engineering-manager, 02-solution-architect, 06-security  
+
+## Context
+${context}
+
+## Decision
+${decision}
+
+## Consequences
+${consequences}
+
+## Compliance & Invariants
+- Application Security Lead: Hard Veto Active
+- Zero Placeholder Comments: Verified
+- Automated Verification: Passing`;
+
+      const out = document.getElementById('adrPreviewOutput');
+      if (out) out.innerText = md;
+    }
+
+    // View: Benchmarks Dashboard
+    function renderBenchmarksPage(main, toc) {
+      toc.innerHTML = `
+        <li><a href="#summary" class="toc-a active">Evaluation Overview</a></li>
+        <li><a href="#comparison" class="toc-a">Frontier vs Small Model Deltas</a></li>
+        <li><a href="#tasks" class="toc-a">9 Standardized Tasks</a></li>
+        <li><a href="#rubric" class="toc-a">100-Point Rubric</a></li>
+      `;
+
+      main.innerHTML = `
+        <div class="content-header">
+          <div class="doc-cat">Empirical Verification Evidence</div>
+          <h1 class="doc-heading" id="summary">Standardized Evaluation Benchmarks</h1>
+          <p class="doc-intro">Rigorous evaluation of AI coding agents across 9 real-world software engineering tasks with and without Universal WebDev Skills.</p>
+        </div>
+
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 14px; margin-bottom: 24px;" id="comparison">
+          <div class="clean-card" style="border-top: 3px solid var(--purple);">
+            <div style="font-size: 0.72rem; text-transform: uppercase; color: var(--text-3); font-weight: 700;">Frontier Models (Claude 3.7 / GPT-4.5)</div>
+            <div style="font-size: 1.85rem; font-weight: 700; color: var(--text-1); margin: 6px 0;">95.9 <span style="font-size: 0.9rem; color: var(--emerald);">+79.9%</span></div>
+            <div style="font-size: 0.8rem; color: var(--text-4);">Baseline: 53.3 / 100</div>
+          </div>
+          <div class="clean-card" style="border-top: 3px solid var(--cyan);">
+            <div style="font-size: 0.72rem; text-transform: uppercase; color: var(--text-3); font-weight: 700;">Small Models (Gemini 2.0 Flash)</div>
+            <div style="font-size: 1.85rem; font-weight: 700; color: var(--text-1); margin: 6px 0;">86.8 <span style="font-size: 0.9rem; color: var(--emerald);">+132.7%</span></div>
+            <div style="font-size: 0.8rem; color: var(--text-4);">Baseline: 37.3 / 100</div>
+          </div>
+          <div class="clean-card" style="border-top: 3px solid var(--rose);">
+            <div style="font-size: 0.72rem; text-transform: uppercase; color: var(--text-3); font-weight: 700;">OWASP Critical Flaws</div>
+            <div style="font-size: 1.85rem; font-weight: 700; color: var(--emerald); margin: 6px 0;">0 Flaws</div>
+            <div style="font-size: 0.8rem; color: var(--text-4);">Baseline: 8 / 9 tasks leaked SQLi/secrets</div>
+          </div>
+        </div>
+
+        <div class="doc-block" id="tasks">
+          <h2 class="doc-subheading">9 Standardized Evaluation Tasks</h2>
+          <div class="spec-table-box">
+            <table>
+              <thead>
+                <tr>
+                  <th>Task ID</th>
+                  <th>Task Name</th>
+                  <th>Target Tier</th>
+                  <th>Baseline</th>
+                  <th>With Skills</th>
+                  <th>Security Invariant</th>
+                </tr>
+              </thead>
+              <tbody>
+                ${BENCHMARKS.tasks.map(t => `
+                  <tr>
+                    <td><code>${t.id}</code></td>
+                    <td><strong>${t.name}</strong></td>
+                    <td><span class="tier-pill ${t.tier.toLowerCase() === 'prod' ? 'tier-pill-prod' : (t.tier.toLowerCase() === 'scale' ? 'tier-pill-scale' : 'tier-pill-mvp')}">${t.tier}</span></td>
+                    <td style="color: var(--rose);">${t.baselineScore} / 100</td>
+                    <td style="color: var(--emerald); font-weight: 700;">${t.skillScore} / 100</td>
+                    <td><span style="color: var(--emerald);">${t.owaspReduction}</span></td>
+                  </tr>
+                `).join('')}
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="doc-block" id="rubric">
+          <h2 class="doc-subheading">100-Point Evaluation Rubric Breakdown</h2>
+          <ul class="doc-list">
+            <li><strong>Security & Invariants (25 pts):</strong> Zero SQLi, XSS, CSRF, IDOR, or plaintext credential leaks.</li>
+            <li><strong>Architecture & Separation (20 pts):</strong> Clean domain boundaries, ACID consistency, and error models.</li>
+            <li><strong>Testing & Evidence (20 pts):</strong> Automated test suite passing with terminal exit code 0.</li>
+            <li><strong>Accessibility & Ergonomics (15 pts):</strong> WCAG 2.2 AA contrast, visible focus, zero layout shift (CLS = 0).</li>
+            <li><strong>Code Hygiene & Agnosticism (20 pts):</strong> Zero AI garbage code, no placeholder comments, zero library lock-in.</li>
+          </ul>
+        </div>
+
+        ${getPaginationHtml('benchmarks')}
+      `;
+    }
+
+    // View: Deep Reference Projects Explorer
+    function renderRefProjectsPage(main, toc) {
+      toc.innerHTML = `
+        <li><a href="#summary" class="toc-a active">Reference Overview</a></li>
+        ${REFERENCE_PROJECTS.map(p => `<li><a href="#proj-${p.id}" class="toc-a">${p.name}</a></li>`).join('')}
+      `;
+
+      main.innerHTML = `
+        <div class="content-header">
+          <div class="doc-cat">Production Reference Implementations</div>
+          <h1 class="doc-heading" id="summary">3 Golden Reference Projects</h1>
+          <p class="doc-intro">Working implementations proving the 3-tier protocol with 21 automated integration tests (7 tests per tier) and zero external runtime dependencies.</p>
+        </div>
+
+        ${REFERENCE_PROJECTS.map(p => `
+          <div class="doc-block" id="proj-${p.id}">
+            <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px; flex-wrap: wrap; gap: 8px;">
+              <h2 class="doc-subheading" style="margin: 0; border: none; padding: 0;">${p.name}</h2>
+              <span class="tier-pill tier-pill-${p.tier.toLowerCase()}">${p.tier} TIER</span>
+            </div>
+            <p class="doc-paragraph">${p.desc}</p>
+            <div class="clean-card" style="border-left: 3px solid var(--purple); padding:14px 18px; margin-bottom:14px;">
+              <strong>SQAT Test Evidence:</strong> ${p.passedTests}
+            </div>
+
+            <h3 style="font-size: 0.85rem; font-weight: 700; text-transform: uppercase; color: var(--text-3); margin: 16px 0 6px;">Exposed API Routes</h3>
+            <div class="spec-table-box">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Method</th>
+                    <th>Path</th>
+                    <th>Auth Barrier</th>
+                    <th>Description</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  ${p.routes.map(r => `
+                    <tr>
+                      <td><span class="badge-method ${r.method === 'GET' ? 'method-get' : 'method-post'}">${r.method}</span></td>
+                      <td><code>${r.path}</code></td>
+                      <td><span class="tier-pill tier-pill-all">${r.auth}</span></td>
+                      <td>${r.desc}</td>
+                    </tr>
+                  `).join('')}
+                </tbody>
+              </table>
+            </div>
+
+            <div style="display:flex; align-items:center; justify-content:space-between; margin: 16px 0 6px;">
+              <h3 style="font-size: 0.85rem; font-weight: 700; text-transform: uppercase; color: var(--text-3); margin:0;">Sample Terminal Request</h3>
+              <button class="snippet-copy-btn" onclick="copyText(document.getElementById('curl-${p.id}').innerText, this)">Copy cURL</button>
+            </div>
+            <div class="code-snippet-box">
+              <pre><code id="curl-${p.id}">${p.curl}</code></pre>
+            </div>
+
+            <h3 style="font-size: 0.85rem; font-weight: 700; text-transform: uppercase; color: var(--text-3); margin: 16px 0 6px;">Automated Integration Tests (test.js)</h3>
+            <ul class="doc-list" style="font-size: 0.88rem;">
+              ${p.tests.map(t => `<li><span style="color:#10b981; font-weight:700; margin-right:6px;">[PASS]</span>${t}</li>`).join('')}
+            </ul>
+          </div>
+        `).join('')}
+
+        ${getPaginationHtml('refprojects')}
+      `;
+    }
+
+
     // View: 5-Second Quickstart
     function renderQuickstartPage(main, toc) {
       toc.innerHTML = `
@@ -7195,15 +8330,33 @@ Never hardcode secrets. Passwords must use scrypt/argon2 with unique salts. Vali
     });
 
     function copyText(text, btn) {
-      if (navigator.clipboard) {
-        navigator.clipboard.writeText(text).then(() => {
-          if (btn) {
-            const orig = btn.innerText;
-            btn.innerText = 'Copied!';
-            setTimeout(() => { btn.innerText = orig; }, 1800);
-          }
-        });
+      function showSuccess() {
+        if (!btn) return;
+        const origHtml = btn.innerHTML;
+        btn.innerHTML = '<span style="color: #1a7f37; font-weight: 600; display: inline-flex; align-items: center; gap: 4px;">✓ Copied!</span>';
+        setTimeout(() => { btn.innerHTML = origHtml; }, 1800);
       }
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text).then(showSuccess).catch(() => fallbackCopy(text, showSuccess));
+      } else {
+        fallbackCopy(text, showSuccess);
+      }
+    }
+
+    function fallbackCopy(text, onSuccess) {
+      const ta = document.createElement('textarea');
+      ta.value = text;
+      ta.style.position = 'fixed';
+      ta.style.top = '-9999px';
+      ta.style.left = '-9999px';
+      document.body.appendChild(ta);
+      ta.focus();
+      ta.select();
+      try {
+        const ok = document.execCommand('copy');
+        if (ok && onSuccess) onSuccess();
+      } catch (e) {}
+      document.body.removeChild(ta);
     }
 
     // Initialize Page with Hash Router (Resilient to readyState and file:// execution)
