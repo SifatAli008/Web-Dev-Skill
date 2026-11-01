@@ -34,14 +34,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - `SOURCES.md`: Authoritative source registry citing standards (OWASP, W3C WCAG, NIST, GDPR, web.dev, MDN).
   - `GLOSSARY.md`: Shared engineering terminology definitions.
   - `AI-FAILURE-MODES.md`: Shared catalog of AI code generation failure modes and automated counter-measures.
-- **13 Cross-Sector Playbooks (`playbooks/`):**
-  - Complete operational workflows for auth, billing, API hardening, launch audits, GDPR consent, slow LCP remediation, safe database migrations, secret leak responses, incident response, dependency upgrades, bottleneck triage, legacy rescue, and new project MVPs.
-- **7 Markdown Templates & 8 JSON Schemas (`templates/` and `templates/schemas/`):**
+- **15 Cross-Sector Playbooks (`playbooks/`):**
+  - Complete operational workflows for auth, billing, API hardening, launch audits, GDPR consent, slow LCP remediation, safe database migrations, secret leak responses, incident response, dependency upgrades, bottleneck triage, legacy rescue, new project MVPs, SQAT quality gate audits, and API versioning/contracts.
+- **8 Markdown Templates & 9 JSON Schemas (`templates/` and `templates/schemas/`):**
   - PRD, ADR, threat model, test report, runbook, launch report, postmortem, and performance audit.
 - **5 Verification Checklists (`checklists/`):**
   - MVP, Production, Security, Privacy, and Launch checklists.
-- **5 Automated Repository Tools (`tools/`):**
-  - `lint-skills.js`, `check-links.js`, `check-freshness.js`, `scan-skills.js`, `build-adapters.js`.
+- **8 Automated Repository Tools (`tools/`):**
+  - `lint-skills.js`, `check-links.js`, `check-freshness.js`, `scan-skills.js`, `validate-index.js`, `build-adapters.js`, `run-reference-tests.js`, `verify-all.js`.
 - **6 Tool Adapters (`adapters/`):**
   - Pre-built adapters for Claude Code, Cursor, Antigravity, GitHub Copilot, ChatGPT / Codex, and Gemini CLI.
 - **3 Golden Reference Projects (`reference-projects/`):**

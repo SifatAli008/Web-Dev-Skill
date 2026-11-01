@@ -69,13 +69,14 @@
 
 ## Phase 4 Deliverables Completed
 
-- [x] **13 Cross-Sector Playbooks (`playbooks/`):**
+- [x] **15 Cross-Sector Playbooks (`playbooks/`):**
   - `new-project-mvp.md`, `add-auth.md`, `add-payments.md`, `harden-existing-app.md`, `pre-launch-audit.md`
   - `gdpr-consent-rollout.md`, `fix-slow-lcp.md`, `safe-db-migration.md`, `secret-leak-response.md`
   - `incident-response.md`, `dependency-upgrade.md`, `scale-bottleneck-triage.md`, `rescue-legacy-codebase.md`
-- [x] **7 Markdown Artifact Templates (`templates/`):**
+  - `sqat-quality-gate-audit.md`, `api-versioning-and-contracts.md`
+- [x] **8 Markdown Artifact Templates (`templates/`):**
   - `prd.template.md`, `adr.template.md`, `threat-model.template.md`, `test-report.template.md`
-  - `runbook.template.md`, `launch-report.template.md`, `postmortem.template.md`
+  - `runbook.template.md`, `launch-report.template.md`, `postmortem.template.md`, `perf-audit.template.md`
 - [x] **5 Verification Checklists (`checklists/`):**
   - `mvp.checklist.md`, `production.checklist.md`, `security.checklist.md`, `privacy.checklist.md`, `launch.checklist.md`
 - [x] **5 Automated Quality & Integrity Tools (`tools/`):**

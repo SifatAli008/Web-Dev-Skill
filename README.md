@@ -159,8 +159,8 @@ universal-webdev-skills/
 ├── DECISIONS.md              # Architectural Decision Records (ADRs)
 ├── skills/                   # 15 specialist skill directories
 │   └── <00..14>-<name>/      # SKILL.md (<300 lines), references/, tests/
-├── playbooks/                # 13 cross-sector operational playbooks
-├── templates/                # 7 artifact templates (PRD, ADR, Threat Model, etc.)
+├── playbooks/                # 15 cross-sector operational playbooks
+├── templates/                # 8 artifact templates (PRD, ADR, Threat Model, Perf Audit, etc.)
 │   └── schemas/              # 8 strict JSON schemas
 ├── checklists/               # 5 verification checklists (MVP, PROD, Security, etc.)
 ├── reference-projects/       # 3 golden reference projects (CI-tested)

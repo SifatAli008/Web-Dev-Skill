@@ -77,3 +77,4 @@
 - [ ] Automated integration tests verify that legacy payload formats still succeed.
 - [ ] RFC 8594 `Sunset` and `Deprecation` headers configured on all retired endpoints.
 - [ ] Telemetry dashboard operational to track remaining legacy traffic.
+

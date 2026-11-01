@@ -36,3 +36,4 @@ if (failed) {
 } else {
   console.log('\nAll 3 Reference Projects PASSED with 0 critical findings: SUCCESS\n');
 }
+
