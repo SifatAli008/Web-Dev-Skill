@@ -17,6 +17,7 @@ const IGNORED_DIRS = new Set(['.git', 'node_modules', '.gemini']);
 const ALLOWED_ROOT_MD = new Set([
   'README.md',
   'AGENTS.md',
+  'DESIGN.md',
   'CONTRIBUTING.md',
   'CODE_OF_CONDUCT.md',
   'SECURITY.md',

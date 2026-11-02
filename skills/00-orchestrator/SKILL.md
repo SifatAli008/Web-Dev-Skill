@@ -91,6 +91,7 @@ I refuse to allow unverified assumptions, missing artifact schemas, unmanaged sc
 1. Require each specialist to produce its schema-defined artifact in `templates/schemas/`:
    - Product Discovery → `prd.schema.json`
    - Solution Architecture → `adr.schema.json`
+   - UX/UI Design → `DESIGN.md` & `design-tokens.schema.json`
    - Security → `threat-model.schema.json`
    - QA → `test-report.schema.json`
    - DevOps → `runbook.schema.json`

@@ -1,12 +1,12 @@
 ---
 name: frontend
-description: Use when building client-side or server-rendered UI components, selecting rendering strategies (SSR, SSG, ISR, Client SPA), executing intentional frontend design and taste-skill anti-slop directives, implementing taste profiles (minimalist, industrial-brutalist, editorial, soft-consumer), managing client vs server state, handling forms and client validation, structuring error boundaries, and controlling bundle size. Trigger phrases include "frontend", "frontend design", "taste-skill", "anti-slop", "taste profile", "react", "nextjs", "astro", "svelte", "vue", "client state", "ssr", "bundle size", "form validation", "responsive ui", "micro-interactions".
+description: Use when building client-side or server-rendered UI components, consuming DESIGN.md visual contracts (open-design standard), selecting rendering strategies (SSR, SSG, ISR, Client SPA), executing intentional frontend design and taste-skill anti-slop directives, implementing taste profiles (minimalist, industrial-brutalist, editorial, soft-consumer), managing client vs server state, handling forms and client validation, structuring error boundaries, and controlling bundle size. Trigger phrases include "frontend", "frontend design", "open-design", "design-md", "DESIGN.md", "taste-skill", "anti-slop", "taste profile", "react", "nextjs", "astro", "svelte", "vue", "client state", "ssr", "bundle size", "form validation", "responsive ui", "micro-interactions".
 tiers: ["MVP", "PROD", "SCALE"]
-inputs: ["adr.schema.json", "ui-specs"]
+inputs: ["DESIGN.md", "adr.schema.json", "ui-specs"]
 outputs: ["frontend-code", "bundle-report.schema.json"]
 depends_on: ["02-architecture", "03-ux-ui-design"]
 last_verified: "2026-11-02"
-sources: ["REACT-DOCS", "MDN-WEB-DOCS", "WEB-DEV", "WCAG-2-2", "ANTHROPIC-FRONTEND-DESIGN", "TASTE-SKILL-LEONXLNX"]
+sources: ["REACT-DOCS", "MDN-WEB-DOCS", "WEB-DEV", "WCAG-2-2", "ANTHROPIC-FRONTEND-DESIGN", "TASTE-SKILL-LEONXLNX", "OPEN-DESIGN-NEXU"]
 ---
 
 # Specialist Stance: Frontend Lead

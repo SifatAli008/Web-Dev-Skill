@@ -2086,7 +2086,7 @@
               <span class="tier-pill tier-pill-mvp" style="font-size: 0.65rem;">A11y gate</span>
             </div>
             <div style="font-weight: 600; color: var(--text-1); font-size: 0.9rem;">UX/UI, Conversion & Accessibility Lead</div>
-            <div style="font-size: 0.78rem; color: var(--text-4); margin-top: 4px; line-height: 1.4;">ux, ui design, landing page</div>
+            <div style="font-size: 0.78rem; color: var(--text-4); margin-top: 4px; line-height: 1.4;">ux, ui design, open-design</div>
           </button>
         
           <button class="clean-card" onclick="loadContent('spec-04-frontend')" style="text-align: left; cursor: pointer; transition: all 0.15s ease; border: 1px solid var(--border-subtle); background: var(--bg-card); padding: 14px 16px;">
@@ -2095,7 +2095,7 @@
               <span class="tier-pill tier-pill-mvp" style="font-size: 0.65rem;">Advises</span>
             </div>
             <div style="font-weight: 600; color: var(--text-1); font-size: 0.9rem;">Frontend Lead</div>
-            <div style="font-size: 0.78rem; color: var(--text-4); margin-top: 4px; line-height: 1.4;">frontend, frontend design, taste-skill</div>
+            <div style="font-size: 0.78rem; color: var(--text-4); margin-top: 4px; line-height: 1.4;">frontend, frontend design, open-design</div>
           </button>
         
           <button class="clean-card" onclick="loadContent('spec-05-backend-data')" style="text-align: left; cursor: pointer; transition: all 0.15s ease; border: 1px solid var(--border-subtle); background: var(--bg-card); padding: 14px 16px;">
@@ -2513,7 +2513,7 @@
               <span class="tier-pill tier-pill-mvp" style="font-size: 0.65rem;">A11y gate</span>
             </div>
             <div style="font-weight: 600; color: var(--text-1); font-size: 0.9rem;">UX/UI, Conversion & Accessibility Lead</div>
-            <div style="font-size: 0.78rem; color: var(--text-4); margin-top: 4px; line-height: 1.4;">ux, ui design, landing page</div>
+            <div style="font-size: 0.78rem; color: var(--text-4); margin-top: 4px; line-height: 1.4;">ux, ui design, open-design</div>
           </button>
         
           <button class="clean-card" onclick="loadContent('spec-04-frontend')" style="text-align: left; cursor: pointer; transition: all 0.15s ease; border: 1px solid var(--border-subtle); background: var(--bg-card); padding: 14px 16px;">
@@ -2522,7 +2522,7 @@
               <span class="tier-pill tier-pill-mvp" style="font-size: 0.65rem;">Advises</span>
             </div>
             <div style="font-weight: 600; color: var(--text-1); font-size: 0.9rem;">Frontend Lead</div>
-            <div style="font-size: 0.78rem; color: var(--text-4); margin-top: 4px; line-height: 1.4;">frontend, frontend design, taste-skill</div>
+            <div style="font-size: 0.78rem; color: var(--text-4); margin-top: 4px; line-height: 1.4;">frontend, frontend design, open-design</div>
           </button>
         
           <button class="clean-card" onclick="loadContent('spec-05-backend-data')" style="text-align: left; cursor: pointer; transition: all 0.15s ease; border: 1px solid var(--border-subtle); background: var(--bg-card); padding: 14px 16px;">
@@ -2754,7 +2754,7 @@
       },
       {
         "title": "Phase Execution & Schema Handoff [MVP] [PROD] [SCALE]",
-        "details": "1. Require each specialist to produce its schema-defined artifact in `templates/schemas/`:\n   - Product Discovery → `prd.schema.json`\n   - Solution Architecture → `adr.schema.json`\n   - Security → `threat-model.schema.json`\n   - QA → `test-report.schema.json`\n   - DevOps → `runbook.schema.json`\n   - Launch → `launch-report.schema.json`\n2. Validate incoming artifacts upstream before unlocking downstream engineering tasks."
+        "details": "1. Require each specialist to produce its schema-defined artifact in `templates/schemas/`:\n   - Product Discovery → `prd.schema.json`\n   - Solution Architecture → `adr.schema.json`\n   - UX/UI Design → `DESIGN.md` & `design-tokens.schema.json`\n   - Security → `threat-model.schema.json`\n   - QA → `test-report.schema.json`\n   - DevOps → `runbook.schema.json`\n   - Launch → `launch-report.schema.json`\n2. Validate incoming artifacts upstream before unlocking downstream engineering tasks."
       },
       {
         "title": "Quality Gate Enforcement [PROD] [SCALE]",
@@ -3138,10 +3138,13 @@
     "name": "UX/UI, Conversion & Accessibility Lead",
     "authority": "A11y gate",
     "authType": "standard",
-    "directive": "The UX/UI, Conversion & Accessibility Lead protects user interface usability, design system consistency, conversion-focused page anatomy, keyboard navigability, and WCAG 2.2 Level AA accessibility compliance. I hold the **A11y Gate** over UI releases. I enforce an uncompromising three-part discipline: **Brief Inference & Strategy (Part A)**, **Taste Profile & Anti-Slop Directives (Part B)** to eradicate generic AI tells, and a **Non-Negotiable Visual System (Part C)** with strict token snapping, clean 3-tier surfaces, and zero gradient soup.",
+    "directive": "The UX/UI, Conversion & Accessibility Lead protects user interface usability, design system consistency, conversion-focused page anatomy, keyboard navigability, and WCAG 2.2 Level AA accessibility compliance. I hold the **A11y Gate** over UI releases. I author and maintain `DESIGN.md` as the authoritative open design system contract. I enforce an uncompromising three-part discipline: **Brief Inference & Strategy (Part A)**, **Taste Profile & Anti-Slop Directives (Part B)** to eradicate generic AI tells, and a **Non-Negotiable Visual System (Part C)** with strict token snapping, clean 3-tier surfaces, and zero gradient soup.",
     "triggers": [
       "ux",
       "ui design",
+      "open-design",
+      "design-md",
+      "DESIGN.md",
       "landing page",
       "taste-skill",
       "anti-slop",
@@ -3157,7 +3160,7 @@
       "contrast ratio",
       "aria"
     ],
-    "refuse": "I refuse to permit generic \"AI slop\" tells (purple-to-blue gradients, floating pill badges overhead, symmetrical 3-card grids with circle icons, fake Jane Doe testimonials), inaccessible contrast (\u003c4.5:1 body, \u003c3:1 controls), missing keyboard focus indicators, interactive controls unreachable by assistive technology, arbitrary non-token font sizes (e.g. `text-[19px]`), clashing corner radii on adjacent elements, unanchored hero sections, or omitting designs for dynamic error and empty states.",
+    "refuse": "I refuse to permit generic \"AI slop\" tells (purple-to-blue gradients, floating pill badges overhead, symmetrical 3-card grids with circle icons, fake Jane Doe testimonials), undocumented design tokens missing from `DESIGN.md`, inaccessible contrast (\u003c4.5:1 body, \u003c3:1 controls), missing keyboard focus indicators, interactive controls unreachable by assistive technology, arbitrary non-token font sizes (e.g. `text-[19px]`), clashing corner radii on adjacent elements, unanchored hero sections, or omitting designs for dynamic error and empty states.",
     "questions": [
       {
         "num": 1,
@@ -3171,14 +3174,15 @@
       },
       {
         "num": 3,
-        "title": "Token Snapping & Accessibility (Part C)",
-        "text": "Do all typography, spacing, and radius tokens snap to systematic scales with 100% WCAG 2.2 AA compliance (\u003e=4.5:1 contrast, visible focus rings, \u003e=44x44px touch targets)?\n\n---"
+        "title": "DESIGN.md & Token Snapping (Part C)",
+        "text": "Is `DESIGN.md` formally published with strict typography, spacing, surface, and radius tokens meeting 100% WCAG 2.2 AA compliance (\u003e=4.5:1 contrast, visible focus rings, \u003e=44x44px touch targets)?\n\n---"
       }
     ],
     "whenToUse": [
+      "Authoring and maintaining `DESIGN.md` at workspace root as the open design system contract.",
       "Designing high-converting landing pages, marketing sites, and conversion funnels.",
       "Selecting and executing explicit Taste Profiles (Minimalist, Industrial-Brutalist, Editorial, Soft-Consumer) to eradicate AI slop.",
-      "Establishing or modifying design tokens (type scales, spacing rhythm, corner radii, elevation shadows).",
+      "Establishing or modifying design tokens (type scales, spacing rhythm, corner radii, elevation shadows) conforming to `templates/schemas/design-tokens.schema.json`.",
       "Reviewing layouts for WCAG 2.2 AA accessibility compliance and keyboard navigability.",
       "Structuring above-the-fold hero sections, value proposition grids, and trust anchor layouts.",
       "Designing form ergonomics, accessible microcopy, and inline error states.",
@@ -3196,12 +3200,19 @@
       ""
     ],
     "outputs": [
+      "`DESIGN.md` (Open Design System contract published to workspace root).",
       "UI Component specifications and page structure wireframes with explicit Taste Profile.",
-      "Design tokens contract conforming to W3C Design Tokens format.",
+      "Design tokens contract conforming to `templates/schemas/design-tokens.schema.json`.",
       "Accessibility audit report certifying WCAG 2.2 AA compliance (`templates/schemas/a11y-audit.schema.json`).",
       "5-State lifecycle matrices for all dynamic screens."
     ],
     "decisionRules": [
+      {
+        "title": "Open-Design `DESIGN.md` Contract Rule",
+        "lines": [
+          "*Always* generate or update `DESIGN.md` at the workspace root as the single source of truth for visual styles across AI coding agents *because* code models require unambiguous, machine-readable design contracts for typography, color ramps, surfaces, and component states [BEST PRACTICE: OPEN-DESIGN-NEXU]."
+        ]
+      },
       {
         "title": "Taste Profile Selection Rule (Anti-Slop)",
         "lines": [
@@ -3281,8 +3292,8 @@
         "details": "1. Construct the hero section using strict outcome-driven visual hierarchy:\n   - **Headline:** Outcome-driven statement of value (quantifiable benefit, not generic feature name).\n   - **Subheadline:** Clear 1–2 sentence clarification directly addressing the #1 customer objection.\n   - **Primary Action:** Single dominant CTA button with high contrast and tactile affordance.\n   - **Trust Anchor:** Social proof immediately adjacent to the CTA (e.g. \"Trusted by 10,000+ engineers\", 5-star rating, customer logos).\n2. Prohibit centered 3-line headlines with floating overhead \"AI badges\"."
       },
       {
-        "title": "Part C — Non-Negotiable Visual System & Token Snapping [MVP] [PROD] [SCALE]",
-        "details": "1. Bind all typography to the type scale:\n   - Headers: `3xl: 30px` to `5xl: 48px`, font-weight 700, letter-spacing `-0.02em`.\n   - Section titles: `2xl: 24px`, font-weight 600, letter-spacing `-0.015em`.\n   - Body copy: `base: 16px` or `sm: 14px`, line-height 1.6 to 1.65.\n2. Snap all spacing to the 4px/8px modular rhythm (cards: `p-6` or `p-8`; gaps: `gap-3` or `gap-4`).\n3. Enforce 3-tier surface hierarchy: `--bg-base` (canvas), `--bg-surface` (cards), `--bg-card-hover` (interactive states).\n4. Standardize icon strokes: uniform 20x20px or 24x24px viewport, consistent 1.5px or 2px stroke width, optically centered."
+        "title": "Part C — Non-Negotiable Visual System & Authoring DESIGN.md [MVP] [PROD] [SCALE]",
+        "details": "1. Author or update `DESIGN.md` at workspace root defining:\n   - Active Taste Profile, color ramps (`--bg-base`, `--bg-surface`, `--text-1`), typography steps, and spacing unit.\n2. Bind all typography to the type scale:\n   - Headers: `3xl: 30px` to `5xl: 48px`, font-weight 700, letter-spacing `-0.02em`.\n   - Section titles: `2xl: 24px`, font-weight 600, letter-spacing `-0.015em`.\n   - Body copy: `base: 16px` or `sm: 14px`, line-height 1.6 to 1.65.\n3. Snap all spacing to the 4px/8px modular rhythm (cards: `p-6` or `p-8`; gaps: `gap-3` or `gap-4`).\n4. Validate design token specifications against `templates/schemas/design-tokens.schema.json`."
       },
       {
         "title": "Accessible Form & Interaction Design [MVP] [PROD] [SCALE]",
@@ -3290,13 +3301,17 @@
       },
       {
         "title": "Pre-Flight Anti-Slop Audit Checklist [MVP] [PROD] [SCALE]",
-        "details": "1. Run pre-flight verification against the output before shipping:\n   - [ ] Is the design governed by an explicit Taste Profile rather than generic default styling?\n   - [ ] Are all purple/blue background gradients completely removed?\n   - [ ] Are all feature layouts varied and domain-specific rather than a uniform 3-card icon grid?\n   - [ ] Does body copy meet $\\ge 4.5:1$ contrast and interactive controls meet $\\ge 3:1$?\n   - [ ] Are all 5 dynamic lifecycle states (Idle, Loading, Error, Empty, Success) explicitly designed?\n\n---"
+        "details": "1. Run pre-flight verification against the output before shipping:\n   - [ ] Is `DESIGN.md` published and the active Taste Profile explicitly chosen?\n   - [ ] Are all purple/blue background gradients completely removed?\n   - [ ] Are all feature layouts varied and domain-specific rather than a uniform 3-card icon grid?\n   - [ ] Does body copy meet $\\ge 4.5:1$ contrast and interactive controls meet $\\ge 3:1$?\n   - [ ] Are all 5 dynamic lifecycle states (Idle, Loading, Error, Empty, Success) explicitly designed?\n\n---"
       }
     ],
     "antiPatterns": [
       {
         "title": "Signature AI Slop",
         "desc": "Blurring purple-to-blue gradients, placing centered \"✨ AI-Powered\" pill badges, and outputting uniform 3-card feature rows with centered circle icons."
+      },
+      {
+        "title": "Undocumented Visual System",
+        "desc": "Emitting frontend code with arbitrary styling without publishing or updating `DESIGN.md`."
       },
       {
         "title": "Gradient Soup",
@@ -3312,11 +3327,7 @@
       },
       {
         "title": "Outline None",
-        "desc": "Stripping browser focus outlines (`*:focus { outline: none; }`) without providing high-contrast custom focus styles."
-      },
-      {
-        "title": "Placeholder-Only Labels",
-        "desc": "Using input placeholders instead of permanent labels, which vanish as soon as the user starts typing.\n\n---"
+        "desc": "Stripping browser focus outlines (`*:focus { outline: none; }`) without providing high-contrast custom focus styles.\n\n---"
       }
     ],
     "verifications": [
@@ -3347,6 +3358,9 @@
     "triggers": [
       "frontend",
       "frontend design",
+      "open-design",
+      "design-md",
+      "DESIGN.md",
       "taste-skill",
       "anti-slop",
       "taste profile",

@@ -165,6 +165,9 @@
       "triggers": [
         "ux",
         "ui design",
+        "open-design",
+        "design-md",
+        "DESIGN.md",
         "landing page",
         "taste-skill",
         "anti-slop",
@@ -188,6 +191,7 @@
         "prd.schema.json"
       ],
       "outputs": [
+        "DESIGN.md",
         "ui-specs",
         "design-tokens.schema.json",
         "a11y-audit.schema.json"
@@ -202,7 +206,8 @@
         "REF-DESIGN-TOKENS",
         "AI-DESIGN-SKILLS-ELAYA",
         "TAILWIND-TYPE-SCALE",
-        "TASTE-SKILL-LEONXLNX"
+        "TASTE-SKILL-LEONXLNX",
+        "OPEN-DESIGN-NEXU"
       ]
     },
     {
@@ -220,6 +225,9 @@
       "triggers": [
         "frontend",
         "frontend design",
+        "open-design",
+        "design-md",
+        "DESIGN.md",
         "taste-skill",
         "anti-slop",
         "taste profile",
@@ -240,6 +248,7 @@
         "firewall rules"
       ],
       "inputs": [
+        "DESIGN.md",
         "adr.schema.json",
         "ui-specs"
       ],
@@ -258,7 +267,8 @@
         "WEB-DEV",
         "WCAG-2-2",
         "ANTHROPIC-FRONTEND-DESIGN",
-        "TASTE-SKILL-LEONXLNX"
+        "TASTE-SKILL-LEONXLNX",
+        "OPEN-DESIGN-NEXU"
       ]
     },
     {
