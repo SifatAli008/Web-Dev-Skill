@@ -5,7 +5,7 @@ tiers: ["MVP", "PROD", "SCALE"]
 inputs: ["prd.schema.json"]
 outputs: ["billing-spec.schema.json", "webhook-matrix"]
 depends_on: ["01-product-discovery", "05-backend-data"]
-last_verified: "2026-11-01"
+last_verified: "2026-11-02"
 sources: ["STRIPE-ENGINEERING-DOCS", "TAX-CALC-BASICS", "SAAS-METRICS"]
 ---
 
@@ -113,17 +113,22 @@ I refuse to permit fragile billing workflows that lose revenue, unhandled subscr
 
 ## Verification
 
-Run these automated verification checks:
-```bash
-# 1. Simulate Stripe webhook replay and cryptographic signature verification
-stripe trigger payment_intent.succeeded
-
-# 2. Verify PCI-DSS zero raw card storage in codebase models and logs
-npm run test:pci
-
-# 3. Validate billing schema conformance
-npx ajv validate -s templates/schemas/billing-spec.schema.json -d billing-spec.json
-```
+Execute these automated business, billing, and PCI compliance checks in the terminal:
+1. Simulate Stripe webhook replay and cryptographic signature verification:
+   ```bash
+   stripe trigger payment_intent.succeeded
+   ```
+   *Expected output:* `Trigger succeeded! Check webhook delivery in console`
+2. Audit PCI-DSS zero raw card storage in codebase models and logs:
+   ```bash
+   npm run test:pci
+   ```
+   *Expected output:* `PCI-DSS Compliance Check: PASS (0 raw PAN/CVV tokens stored or logged)`
+3. Validate billing specification schema conformance:
+   ```bash
+   npx ajv validate -s templates/schemas/billing-spec.schema.json -d billing-spec.json
+   ```
+   *Expected output:* `billing-spec.json is valid`
 
 ---
 

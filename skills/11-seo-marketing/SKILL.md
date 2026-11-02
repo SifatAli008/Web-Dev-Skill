@@ -5,7 +5,7 @@ tiers: ["MVP", "PROD", "SCALE"]
 inputs: ["prd.schema.json", "public-routes"]
 outputs: ["seo-audit.schema.json", "json-ld-specs", "analytics-plan"]
 depends_on: ["01-product-discovery", "04-frontend"]
-last_verified: "2026-11-01"
+last_verified: "2026-11-02"
 sources: ["GOOGLE-SEARCH-CENTRAL", "SCHEMA-ORG", "REF-WEB-METRICS"]
 ---
 
@@ -118,17 +118,27 @@ I refuse to permit un-rendered client-only content on public indexable pages, mi
 
 ## Verification
 
-Run these automated verification checks:
-```bash
-# 1. Verify XML sitemap syntax and HTTP status
-curl -sI http://localhost:3000/sitemap.xml | grep -E "HTTP/.* 200|content-type:.*xml"
-
-# 2. Verify robots.txt disallow directives for sensitive endpoints
-curl -s http://localhost:3000/robots.txt | grep -E "Disallow: /(api|admin|dashboard)/"
-
-# 3. Verify Schema.org JSON-LD and OpenGraph metadata in HTML head
-npm test -- --filter=seo-metadata
-```
+Execute these automated SEO, structured data, and indexing checks in the terminal:
+1. Verify XML sitemap syntax and HTTP status:
+   ```bash
+   curl -sI http://localhost:3000/sitemap.xml | grep -E "HTTP/.* 200|content-type:.*xml"
+   ```
+   *Expected output:* `HTTP/1.1 200 OK` (with valid `application/xml` or `text/xml` MIME type)
+2. Verify robots.txt disallow directives for sensitive endpoints:
+   ```bash
+   curl -s http://localhost:3000/robots.txt | grep -E "Disallow: /(api|admin|dashboard)/"
+   ```
+   *Expected output:* `Disallow: /api/`, `Disallow: /admin/`, `Disallow: /dashboard/`
+3. Verify Schema.org JSON-LD and OpenGraph metadata in HTML head:
+   ```bash
+   npm test -- --filter=seo-metadata
+   ```
+   *Expected output:* `SEO Metadata Suite: PASS (Canonical, OpenGraph, Twitter Card, and JSON-LD valid)`
+4. Technical SEO audit schema compliance:
+   ```bash
+   npx ajv validate -s templates/schemas/seo-audit.schema.json -d seo-audit.json
+   ```
+   *Expected output:* `seo-audit.json is valid`
 
 ---
 

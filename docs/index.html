@@ -4824,21 +4824,21 @@
       {
         "title": "Incremental Refactoring Over Rewrites Rule",
         "lines": [
-          "*Never* authorize a complete \"ground-up rewrite\" of an active production system; *mandate* the **Strangler Fig pattern with characterization tests** *because* ground-up rewrites almost universally fail, blow past delivery schedules, and reintroduce subtle bugs that were already solved in the legacy code [BEST PRACTICE: LEGACY-CODE-FEATHERS]."
+          "*If* a legacy system requires architectural upgrades, *choose* the **Strangler Fig pattern with characterization tests** over a ground-up rewrite *because* ground-up rewrites almost universally fail, exceed delivery schedules, and reintroduce subtle bugs that were already solved in legacy code [BEST PRACTICE: LEGACY-CODE-FEATHERS]."
         ]
       },
       {
         "title": "Dependency Upgrade Cadence Rule",
         "lines": [
-          "*Group* dependency updates into two distinct categories:",
-          "Patch/Minor updates: Automated weekly merge after green CI test runs.",
+          "*If* managing package upgrades, *choose* to group updates into two distinct categories:",
+          "Patch/Minor updates: Automated weekly merge after passing green CI test runs.",
           "Major version updates: Handled as isolated technical debt tasks with dedicated regression testing [BEST PRACTICE: DEPENDENCY-HEALTH]."
         ]
       },
       {
         "title": "Objective Scaling Trigger Rule",
         "lines": [
-          "*Never* introduce a distributed cache (e.g. Redis) or worker queue (e.g. BullMQ) until metrics cross an objective scaling trigger:",
+          "*If* evaluating architectural complexity, *choose* to add a distributed cache (e.g. Redis) or worker queue (e.g. BullMQ) *only when* metrics cross an objective scaling trigger:",
           "Database CPU sustained \u003e 70% or query p95 \u003e 250ms -\u003e Add caching or indexes.",
           "Synchronous request handler execution \u003e 300ms -\u003e Offload to worker queue.",
           "Read-to-write query ratio \u003e 5:1 with primary database exhaustion -\u003e Add read replica.",

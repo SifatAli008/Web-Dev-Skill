@@ -15,14 +15,37 @@
       "authority": "Process gate",
       "path": "skills/00-orchestrator/SKILL.md",
       "token_cost_est": 1600,
-      "tiers": ["MVP", "PROD", "SCALE"],
-      "triggers": ["new project", "build website", "bootstrap app", "fullstack", "plan sprint"],
-      "anti_triggers": ["debug css selector", "write sql query"],
-      "inputs": ["user_prompt", "codebase_state"],
-      "outputs": ["routing_plan", "progress_update", "decision_record"],
+      "tiers": [
+        "MVP",
+        "PROD",
+        "SCALE"
+      ],
+      "triggers": [
+        "new project",
+        "build website",
+        "bootstrap app",
+        "fullstack",
+        "plan sprint"
+      ],
+      "anti_triggers": [
+        "debug css selector",
+        "write sql query"
+      ],
+      "inputs": [
+        "user_prompt",
+        "codebase_state"
+      ],
+      "outputs": [
+        "routing_plan",
+        "progress_update",
+        "decision_record"
+      ],
       "depends_on": [],
-      "last_verified": "2026-11-01",
-      "sources": ["AGENTS-PROTOCOL", "DECISIONS-RECORD"]
+      "last_verified": "2026-11-02",
+      "sources": [
+        "AGENTS-PROTOCOL",
+        "DECISIONS-RECORD"
+      ]
     },
     {
       "id": "01-product-discovery",
@@ -31,14 +54,38 @@
       "authority": "Advises",
       "path": "skills/01-product-discovery/SKILL.md",
       "token_cost_est": 1400,
-      "tiers": ["MVP", "PROD", "SCALE"],
-      "triggers": ["product requirements", "prd", "user stories", "personas", "jtbd", "moscow cut"],
-      "anti_triggers": ["webpack config", "postgres deadlock"],
-      "inputs": ["raw_concept", "business_goals"],
-      "outputs": ["prd.schema.json"],
-      "depends_on": ["00-orchestrator"],
-      "last_verified": "2026-11-01",
-      "sources": ["JTBD-INTERCOM", "LEAN-STARTUP"]
+      "tiers": [
+        "MVP",
+        "PROD",
+        "SCALE"
+      ],
+      "triggers": [
+        "product requirements",
+        "prd",
+        "user stories",
+        "personas",
+        "jtbd",
+        "moscow cut"
+      ],
+      "anti_triggers": [
+        "webpack config",
+        "postgres deadlock"
+      ],
+      "inputs": [
+        "raw_concept",
+        "business_goals"
+      ],
+      "outputs": [
+        "prd.schema.json"
+      ],
+      "depends_on": [
+        "00-orchestrator"
+      ],
+      "last_verified": "2026-11-02",
+      "sources": [
+        "JTBD-INTERCOM",
+        "LEAN-STARTUP"
+      ]
     },
     {
       "id": "02-architecture",
@@ -47,14 +94,37 @@
       "authority": "Design gate",
       "path": "skills/02-architecture/SKILL.md",
       "token_cost_est": 1900,
-      "tiers": ["MVP", "PROD", "SCALE"],
-      "triggers": ["architecture", "system design", "adr", "monolith vs microservices", "data modeling"],
-      "anti_triggers": ["button padding", "spelling mistake"],
-      "inputs": ["prd.schema.json"],
-      "outputs": ["adr.schema.json", "system-design.schema.json"],
-      "depends_on": ["01-product-discovery"],
-      "last_verified": "2026-11-01",
-      "sources": ["FOWLER-ARCH", "SYSTEM-DESIGN-PRIMER"]
+      "tiers": [
+        "MVP",
+        "PROD",
+        "SCALE"
+      ],
+      "triggers": [
+        "architecture",
+        "system design",
+        "adr",
+        "monolith vs microservices",
+        "data modeling"
+      ],
+      "anti_triggers": [
+        "button padding",
+        "spelling mistake"
+      ],
+      "inputs": [
+        "prd.schema.json"
+      ],
+      "outputs": [
+        "adr.schema.json",
+        "system-design.schema.json"
+      ],
+      "depends_on": [
+        "01-product-discovery"
+      ],
+      "last_verified": "2026-11-02",
+      "sources": [
+        "FOWLER-ARCH",
+        "SYSTEM-DESIGN-PRIMER"
+      ]
     },
     {
       "id": "03-ux-ui-design",
@@ -63,14 +133,40 @@
       "authority": "A11y gate",
       "path": "skills/03-ux-ui-design/SKILL.md",
       "token_cost_est": 1750,
-      "tiers": ["MVP", "PROD", "SCALE"],
-      "triggers": ["ux", "ui design", "accessibility", "a11y", "wcag", "contrast ratio", "aria"],
-      "anti_triggers": ["database index", "deploy kubernetes"],
-      "inputs": ["prd.schema.json"],
-      "outputs": ["ui-specs", "design-tokens.schema.json", "a11y-audit.schema.json"],
-      "depends_on": ["01-product-discovery"],
-      "last_verified": "2026-11-01",
-      "sources": ["WCAG-2-2", "WAI-ARIA-1-2"]
+      "tiers": [
+        "MVP",
+        "PROD",
+        "SCALE"
+      ],
+      "triggers": [
+        "ux",
+        "ui design",
+        "accessibility",
+        "a11y",
+        "wcag",
+        "contrast ratio",
+        "aria"
+      ],
+      "anti_triggers": [
+        "database index",
+        "deploy kubernetes"
+      ],
+      "inputs": [
+        "prd.schema.json"
+      ],
+      "outputs": [
+        "ui-specs",
+        "design-tokens.schema.json",
+        "a11y-audit.schema.json"
+      ],
+      "depends_on": [
+        "01-product-discovery"
+      ],
+      "last_verified": "2026-11-02",
+      "sources": [
+        "WCAG-2-2",
+        "WAI-ARIA-1-2"
+      ]
     },
     {
       "id": "04-frontend",
@@ -79,14 +175,41 @@
       "authority": "Advises",
       "path": "skills/04-frontend/SKILL.md",
       "token_cost_est": 1950,
-      "tiers": ["MVP", "PROD", "SCALE"],
-      "triggers": ["frontend", "react", "nextjs", "astro", "svelte", "ssr", "bundle size"],
-      "anti_triggers": ["schema migration", "firewall rules"],
-      "inputs": ["adr.schema.json", "ui-specs"],
-      "outputs": ["frontend-code", "bundle-report.schema.json"],
-      "depends_on": ["02-architecture", "03-ux-ui-design"],
-      "last_verified": "2026-11-01",
-      "sources": ["REACT-DOCS", "MDN-WEB-DOCS"]
+      "tiers": [
+        "MVP",
+        "PROD",
+        "SCALE"
+      ],
+      "triggers": [
+        "frontend",
+        "react",
+        "nextjs",
+        "astro",
+        "svelte",
+        "ssr",
+        "bundle size"
+      ],
+      "anti_triggers": [
+        "schema migration",
+        "firewall rules"
+      ],
+      "inputs": [
+        "adr.schema.json",
+        "ui-specs"
+      ],
+      "outputs": [
+        "frontend-code",
+        "bundle-report.schema.json"
+      ],
+      "depends_on": [
+        "02-architecture",
+        "03-ux-ui-design"
+      ],
+      "last_verified": "2026-11-02",
+      "sources": [
+        "REACT-DOCS",
+        "MDN-WEB-DOCS"
+      ]
     },
     {
       "id": "05-backend-data",
@@ -95,14 +218,41 @@
       "authority": "Advises",
       "path": "skills/05-backend-data/SKILL.md",
       "token_cost_est": 1950,
-      "tiers": ["MVP", "PROD", "SCALE"],
-      "triggers": ["backend", "database", "sql", "postgres", "sqlite", "migration", "transaction", "queue"],
-      "anti_triggers": ["css animation", "figma wireframe"],
-      "inputs": ["adr.schema.json"],
-      "outputs": ["backend-code", "db-migrations", "api-specs"],
-      "depends_on": ["02-architecture"],
-      "last_verified": "2026-11-01",
-      "sources": ["POSTGRES-DOCS", "USE-THE-INDEX-LUKE"]
+      "tiers": [
+        "MVP",
+        "PROD",
+        "SCALE"
+      ],
+      "triggers": [
+        "backend",
+        "database",
+        "sql",
+        "postgres",
+        "sqlite",
+        "migration",
+        "transaction",
+        "queue"
+      ],
+      "anti_triggers": [
+        "css animation",
+        "figma wireframe"
+      ],
+      "inputs": [
+        "adr.schema.json"
+      ],
+      "outputs": [
+        "backend-code",
+        "db-migrations",
+        "api-specs"
+      ],
+      "depends_on": [
+        "02-architecture"
+      ],
+      "last_verified": "2026-11-02",
+      "sources": [
+        "POSTGRES-DOCS",
+        "USE-THE-INDEX-LUKE"
+      ]
     },
     {
       "id": "06-security",
@@ -111,14 +261,47 @@
       "authority": "HARD VETO",
       "path": "skills/06-security/SKILL.md",
       "token_cost_est": 1850,
-      "tiers": ["MVP", "PROD", "SCALE"],
-      "triggers": ["security", "auth", "login", "jwt", "session", "oauth", "passkey", "sqli", "xss", "csrf", "ssrf", "idor"],
-      "anti_triggers": ["analytics tracking", "hero banner image"],
-      "inputs": ["adr.schema.json", "prd.schema.json", "code_diff"],
-      "outputs": ["threat-model.schema.json", "security-audit.schema.json"],
-      "depends_on": ["02-architecture", "05-backend-data"],
-      "last_verified": "2026-11-01",
-      "sources": ["OWASP-TOP-10", "OWASP-ASVS"]
+      "tiers": [
+        "MVP",
+        "PROD",
+        "SCALE"
+      ],
+      "triggers": [
+        "security",
+        "auth",
+        "login",
+        "jwt",
+        "session",
+        "oauth",
+        "passkey",
+        "sqli",
+        "xss",
+        "csrf",
+        "ssrf",
+        "idor"
+      ],
+      "anti_triggers": [
+        "analytics tracking",
+        "hero banner image"
+      ],
+      "inputs": [
+        "adr.schema.json",
+        "prd.schema.json",
+        "code_diff"
+      ],
+      "outputs": [
+        "threat-model.schema.json",
+        "security-audit.schema.json"
+      ],
+      "depends_on": [
+        "02-architecture",
+        "05-backend-data"
+      ],
+      "last_verified": "2026-11-02",
+      "sources": [
+        "OWASP-TOP-10",
+        "OWASP-ASVS"
+      ]
     },
     {
       "id": "07-privacy-compliance",
@@ -127,14 +310,42 @@
       "authority": "HARD VETO",
       "path": "skills/07-privacy-compliance/SKILL.md",
       "token_cost_est": 1650,
-      "tiers": ["MVP", "PROD", "SCALE"],
-      "triggers": ["privacy", "gdpr", "ccpa", "cookie consent", "dsar", "data deletion", "dpa", "pii"],
-      "anti_triggers": ["flexbox centering", "tailwind config"],
-      "inputs": ["prd.schema.json", "adr.schema.json"],
-      "outputs": ["privacy-register.schema.json", "consent-flow-spec"],
-      "depends_on": ["01-product-discovery", "05-backend-data"],
-      "last_verified": "2026-11-01",
-      "sources": ["GDPR-LEGAL-TEXT", "EDPB-GUIDELINES"]
+      "tiers": [
+        "MVP",
+        "PROD",
+        "SCALE"
+      ],
+      "triggers": [
+        "privacy",
+        "gdpr",
+        "ccpa",
+        "cookie consent",
+        "dsar",
+        "data deletion",
+        "dpa",
+        "pii"
+      ],
+      "anti_triggers": [
+        "flexbox centering",
+        "tailwind config"
+      ],
+      "inputs": [
+        "prd.schema.json",
+        "adr.schema.json"
+      ],
+      "outputs": [
+        "privacy-register.schema.json",
+        "consent-flow-spec"
+      ],
+      "depends_on": [
+        "01-product-discovery",
+        "05-backend-data"
+      ],
+      "last_verified": "2026-11-02",
+      "sources": [
+        "GDPR-LEGAL-TEXT",
+        "EDPB-GUIDELINES"
+      ]
     },
     {
       "id": "08-testing-qa",
@@ -143,14 +354,53 @@
       "authority": "No evidence, no ship",
       "path": "skills/08-testing-qa/SKILL.md",
       "token_cost_est": 1850,
-      "tiers": ["MVP", "PROD", "SCALE"],
-      "triggers": ["sqat", "software quality assurance", "qa", "sdet", "testing", "test", "unit test", "integration test", "e2e", "playwright", "vitest", "quality gate", "mutation testing", "static quality analysis", "code coverage"],
-      "anti_triggers": ["color palette", "legal disclaimer text"],
-      "inputs": ["prd.schema.json", "code_under_test"],
-      "outputs": ["test-report.schema.json", "test-suites"],
-      "depends_on": ["04-frontend", "05-backend-data"],
-      "last_verified": "2026-11-01",
-      "sources": ["PRACTICAL-TEST-PYRAMID", "PLAYWRIGHT-DOCS", "ISO-29119", "ISTQB-SQAT", "SONARQUBE-QUALITY-GATES", "STRYKER-MUTATOR"]
+      "tiers": [
+        "MVP",
+        "PROD",
+        "SCALE"
+      ],
+      "triggers": [
+        "sqat",
+        "software quality assurance",
+        "qa",
+        "sdet",
+        "testing",
+        "test",
+        "unit test",
+        "integration test",
+        "e2e",
+        "playwright",
+        "vitest",
+        "quality gate",
+        "mutation testing",
+        "static quality analysis",
+        "code coverage"
+      ],
+      "anti_triggers": [
+        "color palette",
+        "legal disclaimer text"
+      ],
+      "inputs": [
+        "prd.schema.json",
+        "code_under_test"
+      ],
+      "outputs": [
+        "test-report.schema.json",
+        "test-suites"
+      ],
+      "depends_on": [
+        "04-frontend",
+        "05-backend-data"
+      ],
+      "last_verified": "2026-11-02",
+      "sources": [
+        "PRACTICAL-TEST-PYRAMID",
+        "PLAYWRIGHT-DOCS",
+        "ISO-29119",
+        "ISTQB-SQAT",
+        "SONARQUBE-QUALITY-GATES",
+        "STRYKER-MUTATOR"
+      ]
     },
     {
       "id": "09-devops-infra",
@@ -159,14 +409,41 @@
       "authority": "No rollback, no ship",
       "path": "skills/09-devops-infra/SKILL.md",
       "token_cost_est": 1850,
-      "tiers": ["MVP", "PROD", "SCALE"],
-      "triggers": ["devops", "deploy", "ci cd", "github actions", "docker", "infra", "monitoring", "rollback"],
-      "anti_triggers": ["css media query", "meta description"],
-      "inputs": ["adr.schema.json"],
-      "outputs": ["runbook.schema.json", "ci-workflows", "infra-configs"],
-      "depends_on": ["02-architecture"],
-      "last_verified": "2026-11-01",
-      "sources": ["GOOGLE-SRE-BOOK", "OPEN-TELEMETRY"]
+      "tiers": [
+        "MVP",
+        "PROD",
+        "SCALE"
+      ],
+      "triggers": [
+        "devops",
+        "deploy",
+        "ci cd",
+        "github actions",
+        "docker",
+        "infra",
+        "monitoring",
+        "rollback"
+      ],
+      "anti_triggers": [
+        "css media query",
+        "meta description"
+      ],
+      "inputs": [
+        "adr.schema.json"
+      ],
+      "outputs": [
+        "runbook.schema.json",
+        "ci-workflows",
+        "infra-configs"
+      ],
+      "depends_on": [
+        "02-architecture"
+      ],
+      "last_verified": "2026-11-02",
+      "sources": [
+        "GOOGLE-SRE-BOOK",
+        "OPEN-TELEMETRY"
+      ]
     },
     {
       "id": "10-performance",
@@ -175,14 +452,43 @@
       "authority": "Warns",
       "path": "skills/10-performance/SKILL.md",
       "token_cost_est": 1650,
-      "tiers": ["MVP", "PROD", "SCALE"],
-      "triggers": ["performance", "core web vitals", "lcp", "inp", "cls", "lighthouse", "cdn cache", "ttfb"],
-      "anti_triggers": ["privacy policy", "stripe webhook secret"],
-      "inputs": ["frontend-code", "backend-code", "performance-trace"],
-      "outputs": ["perf-audit.schema.json", "optimization-diffs"],
-      "depends_on": ["04-frontend", "05-backend-data"],
-      "last_verified": "2026-11-01",
-      "sources": ["WEB-DEV-CWV", "HIGH-PERF-BROWSER-NETWORKING"]
+      "tiers": [
+        "MVP",
+        "PROD",
+        "SCALE"
+      ],
+      "triggers": [
+        "performance",
+        "core web vitals",
+        "lcp",
+        "inp",
+        "cls",
+        "lighthouse",
+        "cdn cache",
+        "ttfb"
+      ],
+      "anti_triggers": [
+        "privacy policy",
+        "stripe webhook secret"
+      ],
+      "inputs": [
+        "frontend-code",
+        "backend-code",
+        "performance-trace"
+      ],
+      "outputs": [
+        "perf-audit.schema.json",
+        "optimization-diffs"
+      ],
+      "depends_on": [
+        "04-frontend",
+        "05-backend-data"
+      ],
+      "last_verified": "2026-11-02",
+      "sources": [
+        "WEB-DEV-CWV",
+        "HIGH-PERF-BROWSER-NETWORKING"
+      ]
     },
     {
       "id": "11-seo-marketing",
@@ -191,14 +497,43 @@
       "authority": "Advises",
       "path": "skills/11-seo-marketing/SKILL.md",
       "token_cost_est": 1500,
-      "tiers": ["MVP", "PROD", "SCALE"],
-      "triggers": ["seo", "growth", "sitemap", "robots txt", "meta tags", "structured data", "json-ld", "cro"],
-      "anti_triggers": ["jwt secret validation", "docker build"],
-      "inputs": ["prd.schema.json", "public-routes"],
-      "outputs": ["seo-audit.schema.json", "json-ld-specs", "analytics-plan"],
-      "depends_on": ["01-product-discovery", "04-frontend"],
-      "last_verified": "2026-11-01",
-      "sources": ["GOOGLE-SEARCH-CENTRAL", "SCHEMA-ORG"]
+      "tiers": [
+        "MVP",
+        "PROD",
+        "SCALE"
+      ],
+      "triggers": [
+        "seo",
+        "growth",
+        "sitemap",
+        "robots txt",
+        "meta tags",
+        "structured data",
+        "json-ld",
+        "cro"
+      ],
+      "anti_triggers": [
+        "jwt secret validation",
+        "docker build"
+      ],
+      "inputs": [
+        "prd.schema.json",
+        "public-routes"
+      ],
+      "outputs": [
+        "seo-audit.schema.json",
+        "json-ld-specs",
+        "analytics-plan"
+      ],
+      "depends_on": [
+        "01-product-discovery",
+        "04-frontend"
+      ],
+      "last_verified": "2026-11-02",
+      "sources": [
+        "GOOGLE-SEARCH-CENTRAL",
+        "SCHEMA-ORG"
+      ]
     },
     {
       "id": "12-business-monetization",
@@ -207,14 +542,41 @@
       "authority": "Advises",
       "path": "skills/12-business-monetization/SKILL.md",
       "token_cost_est": 1550,
-      "tiers": ["MVP", "PROD", "SCALE"],
-      "triggers": ["billing", "stripe", "payments", "subscription", "checkout", "proration", "dunning", "vat"],
-      "anti_triggers": ["flex wrap css", "responsive image tag"],
-      "inputs": ["prd.schema.json"],
-      "outputs": ["billing-spec.schema.json", "webhook-matrix"],
-      "depends_on": ["01-product-discovery", "05-backend-data"],
-      "last_verified": "2026-11-01",
-      "sources": ["STRIPE-ENGINEERING-DOCS", "TAX-CALC-BASICS"]
+      "tiers": [
+        "MVP",
+        "PROD",
+        "SCALE"
+      ],
+      "triggers": [
+        "billing",
+        "stripe",
+        "payments",
+        "subscription",
+        "checkout",
+        "proration",
+        "dunning",
+        "vat"
+      ],
+      "anti_triggers": [
+        "flex wrap css",
+        "responsive image tag"
+      ],
+      "inputs": [
+        "prd.schema.json"
+      ],
+      "outputs": [
+        "billing-spec.schema.json",
+        "webhook-matrix"
+      ],
+      "depends_on": [
+        "01-product-discovery",
+        "05-backend-data"
+      ],
+      "last_verified": "2026-11-02",
+      "sources": [
+        "STRIPE-ENGINEERING-DOCS",
+        "TAX-CALC-BASICS"
+      ]
     },
     {
       "id": "13-launch-operations",
@@ -223,14 +585,42 @@
       "authority": "Launch gate",
       "path": "skills/13-launch-operations/SKILL.md",
       "token_cost_est": 1700,
-      "tiers": ["MVP", "PROD", "SCALE"],
-      "triggers": ["launch", "go live", "production release", "pre launch audit", "staged rollout", "postmortem"],
-      "anti_triggers": ["color contrast math", "orm relation syntax"],
-      "inputs": ["test-report.schema.json", "runbook.schema.json", "security-audit.schema.json"],
-      "outputs": ["launch-report.schema.json", "postmortem.schema.json"],
-      "depends_on": ["06-security", "08-testing-qa", "09-devops-infra"],
-      "last_verified": "2026-11-01",
-      "sources": ["LAUNCH-CHECKLISTS", "INCIDENT-COMMAND-SYSTEM"]
+      "tiers": [
+        "MVP",
+        "PROD",
+        "SCALE"
+      ],
+      "triggers": [
+        "launch",
+        "go live",
+        "production release",
+        "pre launch audit",
+        "staged rollout",
+        "postmortem"
+      ],
+      "anti_triggers": [
+        "color contrast math",
+        "orm relation syntax"
+      ],
+      "inputs": [
+        "test-report.schema.json",
+        "runbook.schema.json",
+        "security-audit.schema.json"
+      ],
+      "outputs": [
+        "launch-report.schema.json",
+        "postmortem.schema.json"
+      ],
+      "depends_on": [
+        "06-security",
+        "08-testing-qa",
+        "09-devops-infra"
+      ],
+      "last_verified": "2026-11-02",
+      "sources": [
+        "LAUNCH-CHECKLISTS",
+        "INCIDENT-COMMAND-SYSTEM"
+      ]
     },
     {
       "id": "14-maintenance",
@@ -239,14 +629,41 @@
       "authority": "Advises",
       "path": "skills/14-maintenance/SKILL.md",
       "token_cost_est": 1550,
-      "tiers": ["MVP", "PROD", "SCALE"],
-      "triggers": ["maintenance", "dependencies", "dependabot", "tech debt", "refactor", "upgrade", "strangler fig"],
-      "anti_triggers": ["persona interview", "og image tags"],
-      "inputs": ["codebase_state", "telemetry_logs"],
-      "outputs": ["tech-debt-register.schema.json", "upgrade-plan"],
-      "depends_on": ["02-architecture", "08-testing-qa"],
-      "last_verified": "2026-11-01",
-      "sources": ["LEGACY-CODE-FEATHERS", "REFACTORING-FOWLER"]
+      "tiers": [
+        "MVP",
+        "PROD",
+        "SCALE"
+      ],
+      "triggers": [
+        "maintenance",
+        "dependencies",
+        "dependabot",
+        "tech debt",
+        "refactor",
+        "upgrade",
+        "strangler fig"
+      ],
+      "anti_triggers": [
+        "persona interview",
+        "og image tags"
+      ],
+      "inputs": [
+        "codebase_state",
+        "telemetry_logs"
+      ],
+      "outputs": [
+        "tech-debt-register.schema.json",
+        "upgrade-plan"
+      ],
+      "depends_on": [
+        "02-architecture",
+        "08-testing-qa"
+      ],
+      "last_verified": "2026-11-02",
+      "sources": [
+        "LEGACY-CODE-FEATHERS",
+        "REFACTORING-FOWLER"
+      ]
     }
   ]
 }

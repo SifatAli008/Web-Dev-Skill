@@ -5,7 +5,7 @@ tiers: ["MVP", "PROD", "SCALE"]
 inputs: ["test-report.schema.json", "runbook.schema.json", "security-audit.schema.json"]
 outputs: ["launch-report.schema.json", "postmortem.schema.json"]
 depends_on: ["06-security", "08-testing-qa", "09-devops-infra"]
-last_verified: "2026-11-01"
+last_verified: "2026-11-02"
 sources: ["LAUNCH-CHECKLISTS", "INCIDENT-COMMAND-SYSTEM", "BLAMELESS-POSTMORTEMS"]
 ---
 
@@ -116,17 +116,22 @@ I refuse to permit uncoordinated "cowboy" deployments without a go-live checklis
 
 ## Verification
 
-Run these automated verification checks:
-```bash
-# 1. Validate Launch Report schema conformance
-npx ajv validate -s templates/schemas/launch-report.schema.json -d launch-report.json
-
-# 2. Run post-deployment smoke test suite
-npm run test:smoke
-
-# 3. Validate postmortem schema structure
-npx ajv validate -s templates/schemas/postmortem.schema.json -d postmortem.json
-```
+Execute these automated launch readiness and release verification checks in the terminal:
+1. Validate Launch Report schema conformance and gate sign-off:
+   ```bash
+   npx ajv validate -s templates/schemas/launch-report.schema.json -d launch-report.json
+   ```
+   *Expected output:* `launch-report.json is valid` (with `launch_decision: "GO"`)
+2. Run post-deployment smoke test suite:
+   ```bash
+   npm run test:smoke
+   ```
+   *Expected output:* `Smoke Test Suite: PASS (Critical user path from login to checkout verified)`
+3. Validate postmortem schema structure and incident readiness:
+   ```bash
+   npx ajv validate -s templates/schemas/postmortem.schema.json -d postmortem.json
+   ```
+   *Expected output:* `postmortem.json is valid`
 
 ---
 

@@ -5,7 +5,7 @@ tiers: ["MVP", "PROD", "SCALE"]
 inputs: ["codebase_state", "telemetry_logs"]
 outputs: ["tech-debt-register.schema.json", "upgrade-plan"]
 depends_on: ["02-architecture", "08-testing-qa"]
-last_verified: "2026-11-01"
+last_verified: "2026-11-02"
 sources: ["LEGACY-CODE-FEATHERS", "REFACTORING-FOWLER", "DEPENDENCY-HEALTH"]
 ---
 
@@ -54,13 +54,13 @@ I refuse to permit unmaintained dependencies with known unpatched security vulne
 ## Decision Rules
 
 1. **Incremental Refactoring Over Rewrites Rule:**
-   - *Never* authorize a complete "ground-up rewrite" of an active production system; *mandate* the **Strangler Fig pattern with characterization tests** *because* ground-up rewrites almost universally fail, blow past delivery schedules, and reintroduce subtle bugs that were already solved in the legacy code [BEST PRACTICE: LEGACY-CODE-FEATHERS].
+   - *If* a legacy system requires architectural upgrades, *choose* the **Strangler Fig pattern with characterization tests** over a ground-up rewrite *because* ground-up rewrites almost universally fail, exceed delivery schedules, and reintroduce subtle bugs that were already solved in legacy code [BEST PRACTICE: LEGACY-CODE-FEATHERS].
 2. **Dependency Upgrade Cadence Rule:**
-   - *Group* dependency updates into two distinct categories:
-     - Patch/Minor updates: Automated weekly merge after green CI test runs.
+   - *If* managing package upgrades, *choose* to group updates into two distinct categories:
+     - Patch/Minor updates: Automated weekly merge after passing green CI test runs.
      - Major version updates: Handled as isolated technical debt tasks with dedicated regression testing [BEST PRACTICE: DEPENDENCY-HEALTH].
 3. **Objective Scaling Trigger Rule:**
-   - *Never* introduce a distributed cache (e.g. Redis) or worker queue (e.g. BullMQ) until metrics cross an objective scaling trigger:
+   - *If* evaluating architectural complexity, *choose* to add a distributed cache (e.g. Redis) or worker queue (e.g. BullMQ) *only when* metrics cross an objective scaling trigger:
      - Database CPU sustained > 70% or query p95 > 250ms -> Add caching or indexes.
      - Synchronous request handler execution > 300ms -> Offload to worker queue.
      - Read-to-write query ratio > 5:1 with primary database exhaustion -> Add read replica.
@@ -114,17 +114,22 @@ I refuse to permit unmaintained dependencies with known unpatched security vulne
 
 ## Verification
 
-Run these automated verification checks:
-```bash
-# 1. Run characterization tests to verify zero behavioral regressions
-npm test -- --filter=characterization
-
-# 2. Audit supply chain vulnerabilities and outdated dependencies
-npm audit && npm outdated
-
-# 3. Validate Technical Debt Register schema conformance
-npx ajv validate -s templates/schemas/tech-debt-register.schema.json -d tech-debt-register.json
-```
+Execute these automated maintenance and supply chain verification checks in the terminal:
+1. Run characterization tests to verify zero behavioral regressions:
+   ```bash
+   npm test -- --filter=characterization
+   ```
+   *Expected output:* `Characterization Test Suite: PASS (Zero regressions across legacy workflows)`
+2. Audit supply chain vulnerabilities and outdated dependencies:
+   ```bash
+   npm audit && npm outdated
+   ```
+   *Expected output:* `found 0 vulnerabilities`
+3. Validate Technical Debt Register schema conformance:
+   ```bash
+   npx ajv validate -s templates/schemas/tech-debt-register.schema.json -d tech-debt-register.json
+   ```
+   *Expected output:* `tech-debt-register.json is valid`
 
 ---
 
