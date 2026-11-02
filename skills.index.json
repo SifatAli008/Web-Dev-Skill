@@ -25,7 +25,12 @@
         "build website",
         "bootstrap app",
         "fullstack",
-        "plan sprint"
+        "plan sprint",
+        "coordinate team",
+        "review release",
+        "skill creator",
+        "agent skills",
+        "agent spec"
       ],
       "anti_triggers": [
         "debug css selector",
@@ -44,7 +49,11 @@
       "last_verified": "2026-11-02",
       "sources": [
         "AGENTS-PROTOCOL",
-        "DECISIONS-RECORD"
+        "DECISIONS-RECORD",
+        "SHAPE-UP",
+        "TEAM-TOPOLOGIES",
+        "ANTHROPIC-SKILL-CREATOR",
+        "AAIF-AGENT-SKILLS-SPEC"
       ]
     },
     {
@@ -65,7 +74,11 @@
         "user stories",
         "personas",
         "jtbd",
-        "moscow cut"
+        "doc coauthoring",
+        "scope cut",
+        "moscow cut",
+        "kill criteria",
+        "mvp scope"
       ],
       "anti_triggers": [
         "webpack config",
@@ -84,7 +97,9 @@
       "last_verified": "2026-11-02",
       "sources": [
         "JTBD-INTERCOM",
-        "LEAN-STARTUP"
+        "LEAN-STARTUP",
+        "SHAPE-UP",
+        "ANTHROPIC-DOC-COAUTHORING"
       ]
     },
     {
@@ -104,7 +119,13 @@
         "system design",
         "adr",
         "monolith vs microservices",
-        "data modeling"
+        "data modeling",
+        "api design",
+        "mcp",
+        "model context protocol",
+        "mcp server",
+        "multi-tenancy",
+        "build vs buy"
       ],
       "anti_triggers": [
         "button padding",
@@ -123,7 +144,10 @@
       "last_verified": "2026-11-02",
       "sources": [
         "FOWLER-ARCH",
-        "SYSTEM-DESIGN-PRIMER"
+        "SYSTEM-DESIGN-PRIMER",
+        "TWELVE-FACTOR",
+        "RFC-9110",
+        "ANTHROPIC-MCP-BUILDER"
       ]
     },
     {
@@ -191,12 +215,18 @@
       ],
       "triggers": [
         "frontend",
+        "frontend design",
         "react",
         "nextjs",
         "astro",
         "svelte",
+        "vue",
+        "client state",
         "ssr",
-        "bundle size"
+        "bundle size",
+        "form validation",
+        "responsive ui",
+        "micro-interactions"
       ],
       "anti_triggers": [
         "schema migration",
@@ -217,7 +247,10 @@
       "last_verified": "2026-11-02",
       "sources": [
         "REACT-DOCS",
-        "MDN-WEB-DOCS"
+        "MDN-WEB-DOCS",
+        "WEB-DEV",
+        "WCAG-2-2",
+        "ANTHROPIC-FRONTEND-DESIGN"
       ]
     },
     {
@@ -378,6 +411,8 @@
         "unit test",
         "integration test",
         "e2e",
+        "webapp testing",
+        "browser testing",
         "playwright",
         "vitest",
         "quality gate",
@@ -405,10 +440,13 @@
       "sources": [
         "PRACTICAL-TEST-PYRAMID",
         "PLAYWRIGHT-DOCS",
+        "TEST-IN-PROD",
+        "WCAG-2-2",
         "ISO-29119",
         "ISTQB-SQAT",
         "SONARQUBE-QUALITY-GATES",
-        "STRYKER-MUTATOR"
+        "STRYKER-MUTATOR",
+        "ANTHROPIC-WEBAPP-TESTING"
       ]
     },
     {
