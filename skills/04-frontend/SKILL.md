@@ -1,12 +1,12 @@
 ---
 name: frontend
-description: Use when building client-side or server-rendered UI components, consuming DESIGN.md visual contracts (open-design standard), selecting rendering strategies (SSR, SSG, ISR, Client SPA), executing intentional frontend design and taste-skill anti-slop directives, implementing taste profiles (minimalist, industrial-brutalist, editorial, soft-consumer), managing client vs server state, handling forms and client validation, structuring error boundaries, and controlling bundle size. Trigger phrases include "frontend", "frontend design", "open-design", "design-md", "DESIGN.md", "taste-skill", "anti-slop", "taste profile", "react", "nextjs", "astro", "svelte", "vue", "client state", "ssr", "bundle size", "form validation", "responsive ui", "micro-interactions".
+description: Use when building client-side or server-rendered UI components, consuming DESIGN.md visual contracts (open-design standard), selecting rendering strategies (SSR, SSG, ISR, Client SPA), executing intentional frontend design and taste-skill anti-slop directives, implementing taste profiles (minimalist, industrial-brutalist, editorial, soft-consumer), managing client vs server state, applying the Ponytail decision ladder (native Web platform APIs over npm bloat), handling forms and client validation, structuring error boundaries, and controlling bundle size. Trigger phrases include "frontend", "frontend design", "open-design", "design-md", "DESIGN.md", "taste-skill", "anti-slop", "taste profile", "ponytail", "yagni", "platform native", "react", "nextjs", "astro", "svelte", "vue", "client state", "ssr", "bundle size", "form validation", "responsive ui", "micro-interactions".
 tiers: ["MVP", "PROD", "SCALE"]
 inputs: ["DESIGN.md", "adr.schema.json", "ui-specs"]
 outputs: ["frontend-code", "bundle-report.schema.json"]
 depends_on: ["02-architecture", "03-ux-ui-design"]
 last_verified: "2026-11-02"
-sources: ["REACT-DOCS", "MDN-WEB-DOCS", "WEB-DEV", "WCAG-2-2", "ANTHROPIC-FRONTEND-DESIGN", "TASTE-SKILL-LEONXLNX", "OPEN-DESIGN-NEXU"]
+sources: ["REACT-DOCS", "MDN-WEB-DOCS", "WEB-DEV", "WCAG-2-2", "ANTHROPIC-FRONTEND-DESIGN", "TASTE-SKILL-LEONXLNX", "OPEN-DESIGN-NEXU", "PONYTAIL-DIETRICHGEBERT"]
 ---
 
 # Specialist Stance: Frontend Lead
@@ -75,6 +75,8 @@ I refuse to permit unhandled asynchronous error states, bloated client-side Java
    - *If* managing client-side server state, *mandate* a dedicated caching library (TanStack Query / SWR / Server Action revalidation) *never* raw `useEffect` with manual fetch *because* manual `useEffect` fetching causes race conditions, lack of deduplication, and memory leaks on unmount.
 6. **Authentic Interactive Craftsmanship & Tactile Feedback:**
    - *Always* engineer tactile micro-interactions: responsive active states (`:active:scale-[0.98]`), clear focus rings, instant keyboard shortcuts (`/` for search, `Esc` to close), and real-time client filtering *never* static, non-interactive mockups that merely look like websites.
+7. **Web Platform Native & Dependency Austerity Rule (Ponytail Rung 3 & 4):**
+   - *Always* prioritize native Web Platform APIs (native `<dialog>` elements for modals, native HTML5 constraint validation `:valid`/`:invalid`, `Intl.NumberFormat`/`Intl.DateTimeFormat`, CSS Grid/Flexbox) and installed dependencies before adding npm micro-packages *because* single-purpose utility packages inflate bundle footprints, complicate hydration, and increase supply-chain exposure [BEST PRACTICE: PONYTAIL-DIETRICHGEBERT].
 
 ---
 

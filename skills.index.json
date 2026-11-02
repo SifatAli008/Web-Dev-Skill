@@ -1,7 +1,7 @@
 {
   "$schema": "templates/schemas/skills-index.schema.json",
   "version": "0.1.0",
-  "last_updated": "2026-11-01",
+  "last_updated": "2026-11-02",
   "tiers": {
     "MVP": "Prototypes and internal tools. Baseline defensive security; speed prioritized.",
     "PROD": "Public users, auth, billing, customer data. Full test suite, OWASP, a11y, zero-downtime.",
@@ -250,7 +250,10 @@
         "bundle size",
         "form validation",
         "responsive ui",
-        "micro-interactions"
+        "micro-interactions",
+        "ponytail",
+        "yagni",
+        "platform native"
       ],
       "anti_triggers": [
         "schema migration",
@@ -277,7 +280,8 @@
         "WCAG-2-2",
         "ANTHROPIC-FRONTEND-DESIGN",
         "TASTE-SKILL-LEONXLNX",
-        "OPEN-DESIGN-NEXU"
+        "OPEN-DESIGN-NEXU",
+        "PONYTAIL-DIETRICHGEBERT"
       ]
     },
     {
@@ -300,7 +304,14 @@
         "sqlite",
         "migration",
         "transaction",
-        "queue"
+        "idempotency",
+        "queue",
+        "worker",
+        "webhook",
+        "redis",
+        "ponytail",
+        "yagni",
+        "native primitives"
       ],
       "anti_triggers": [
         "css animation",
@@ -320,7 +331,10 @@
       "last_verified": "2026-11-02",
       "sources": [
         "POSTGRES-DOCS",
-        "USE-THE-INDEX-LUKE"
+        "USE-THE-INDEX-LUKE",
+        "PRAGMATIC-MIGRATIONS",
+        "TWELVE-FACTOR",
+        "PONYTAIL-DIETRICHGEBERT"
       ]
     },
     {

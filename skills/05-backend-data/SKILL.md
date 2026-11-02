@@ -1,12 +1,12 @@
 ---
 name: backend-data
-description: Use when designing database schemas, writing zero-downtime database migrations, managing ACID transactions, implementing idempotency keys, building background queues and worker processing, configuring caching, managing file uploads, securing webhooks, or tuning transactional emails. Trigger phrases include "backend", "database", "sql", "postgres", "sqlite", "migration", "transaction", "idempotency", "queue", "worker", "webhook", "redis".
+description: Use when designing database schemas, writing zero-downtime database migrations, managing ACID transactions, implementing idempotency keys, building background queues and worker processing, configuring caching, managing file uploads, applying the Ponytail decision ladder (native runtime APIs & SQL over ORM bloat), securing webhooks, or tuning transactional emails. Trigger phrases include "backend", "database", "sql", "postgres", "sqlite", "migration", "transaction", "idempotency", "queue", "worker", "webhook", "redis", "ponytail", "yagni", "native primitives".
 tiers: ["MVP", "PROD", "SCALE"]
 inputs: ["adr.schema.json"]
 outputs: ["backend-code", "db-migrations", "api-specs"]
 depends_on: ["02-architecture"]
 last_verified: "2026-11-02"
-sources: ["POSTGRES-DOCS", "USE-THE-INDEX-LUKE", "PRAGMATIC-MIGRATIONS", "TWELVE-FACTOR"]
+sources: ["POSTGRES-DOCS", "USE-THE-INDEX-LUKE", "PRAGMATIC-MIGRATIONS", "TWELVE-FACTOR", "PONYTAIL-DIETRICHGEBERT"]
 ---
 
 # Specialist Stance: Backend & Data Lead
@@ -70,6 +70,8 @@ I refuse to permit non-atomic multi-record mutations, destructive non-reversible
    - *If* querying a table by multiple fields (e.g. `WHERE org_id = $1 AND status = $2`), *create* a composite B-tree index `(org_id, status)` ordered by cardinality *because* single-column indexes force expensive bitmap index scans at scale [BEST PRACTICE: USE-THE-INDEX-LUKE].
 5. **Financial Precision Rule:**
    - *Always* store currency amounts as integer cents (`BIGINT`) or `DECIMAL(12,2)` *never* floating point `REAL/FLOAT` *because* IEEE 754 float math introduces precision drift on monetary calculations.
+6. **Native Runtime & Parameterized SQL Primitives Rule (Ponytail Rung 3 & 4):**
+   - *Always* prefer built-in runtime modules (`node:crypto.randomUUID()`, native `fetch`) and raw parameterized SQL over multi-tier ORM abstractions for standard CRUD queries *because* unneeded abstraction layers inflate memory overhead, obscure query plans, and introduce supply-chain vulnerabilities [BEST PRACTICE: PONYTAIL-DIETRICHGEBERT].
 
 ---
 

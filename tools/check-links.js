@@ -1,15 +1,18 @@
 #!/usr/bin/env node
 
 /**
- * Universal WebDev Skills Link Checker
- * Validates that all internal markdown file links and backticked file references resolve to real files on disk.
+ * Universal WebDev Skills Link & Tool Reference Checker
+ * Validates that:
+ * 1. All internal markdown file links resolve to real files on disk.
+ * 2. All backticked relative file references exist.
+ * 3. All CLI tool invocations (`node tools/<script>.js`) reference existing tool files.
  */
 
 const fs = require('fs');
 const path = require('path');
 
 const REPO_ROOT = path.join(__dirname, '..');
-const DIRS_TO_SCAN = ['skills', 'playbooks', 'templates', 'checklists'];
+const DIRS_TO_SCAN = ['skills', 'playbooks', 'templates', 'checklists', 'adapters', 'evals'];
 let brokenLinkCount = 0;
 let totalLinksChecked = 0;
 
@@ -56,6 +59,18 @@ function checkLinksInFile(filePath) {
       brokenLinkCount++;
     }
   }
+
+  // 3. Match CLI tool invocations (e.g. `node tools/<script>.js`)
+  const nodeToolRegex = /(?:node|bash|sh)\s+tools\/([a-zA-Z0-9_\-\.]+\.js)/g;
+  while ((match = nodeToolRegex.exec(content)) !== null) {
+    const toolRel = path.join('tools', match[1]);
+    totalLinksChecked++;
+    const resolvedPath = path.join(REPO_ROOT, toolRel);
+    if (!fs.existsSync(resolvedPath)) {
+      console.error(`[BROKEN TOOL COMMAND] In ${path.relative(REPO_ROOT, filePath)}: "node ${toolRel}" does not exist on disk.`);
+      brokenLinkCount++;
+    }
+  }
 }
 
 function scanDir(dir) {
@@ -64,7 +79,7 @@ function scanDir(dir) {
     const fullPath = path.join(dir, entry.name);
     if (entry.isDirectory()) {
       scanDir(fullPath);
-    } else if (entry.isFile() && entry.name.endsWith('.md')) {
+    } else if (entry.isFile() && (entry.name.endsWith('.md') || entry.name.endsWith('.mdc'))) {
       checkLinksInFile(fullPath);
     }
   }
@@ -86,12 +101,18 @@ function runCheckLinks() {
     }
   });
 
-  console.log(`Checked ${totalLinksChecked} internal file references.`);
+  // Also check generator scripts that produce CLI commands for docs
+  const docGenFile = path.join(REPO_ROOT, 'tools', 'generate-docs-skills.js');
+  if (fs.existsSync(docGenFile)) {
+    checkLinksInFile(docGenFile);
+  }
+
+  console.log(`Checked ${totalLinksChecked} internal file references and CLI commands.`);
   if (brokenLinkCount > 0) {
     console.error(`\nLink Check FAILED: ${brokenLinkCount} broken links/references found.`);
     process.exit(1);
   } else {
-    console.log('Link Check Passed: All references resolve cleanly. PASS\n');
+    console.log('Link Check Passed: All references and tool commands resolve cleanly. PASS\n');
   }
 }
 

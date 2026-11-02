@@ -126,11 +126,11 @@ I refuse to permit unauthenticated or un-authorized backend mutations, client-tr
 ## Verification
 
 Execute these automated defensive security checks in the terminal:
-1. Credential leak and secret scanner:
+1. Credential leak, prompt injection, and security invariant scanner:
    ```bash
-   node tools/lint-secrets.js
+   node tools/scan-skills.js
    ```
-   *Expected output:* `Secret Scanner: PASS (0 hardcoded secrets or API tokens detected)`
+   *Expected output:* `Security Invariants Scan: 0 violations found. Repository is clean: PASS`
 2. STRIDE defense and session security test suite:
    ```bash
    npm run test:security

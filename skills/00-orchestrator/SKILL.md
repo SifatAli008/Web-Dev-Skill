@@ -137,15 +137,20 @@ I refuse to allow unverified assumptions, speculative abstractions, unrequested 
 Execute these automated orchestrator verification checks in the terminal:
 1. Verify `skills.index.json` is valid JSON and all 15 skills exist on disk:
    ```bash
-   node tools/verify-router.js
+   node tools/validate-index.js
    ```
-   *Expected output:* `Router Index Check: PASS (15 specialists verified)`
-2. Verify skill line count and Agent Skills specification conformance (<300 lines, 0 TODOs):
+   *Expected output:* `Router Index Integrity: SUCCESS (All skills synced)`
+2. Verify state and architectural decision tracking (`PROGRESS.md` & `DECISIONS.md`):
+   ```bash
+   node tools/verify-state.js
+   ```
+   *Expected output:* `State & ADR Verification: SUCCESS (All records valid)`
+3. Verify skill line count and Agent Skills specification conformance (<300 lines, 0 TODOs):
    ```bash
    node tools/lint-skills.js
    ```
    *Expected output:* `All skills passed lint verification: SUCCESS`
-3. Execute master engineering pipeline across all 10 suites:
+4. Execute master engineering pipeline across all 11 suites:
    ```bash
    npm test
    ```

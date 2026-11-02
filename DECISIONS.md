@@ -6,7 +6,7 @@ This file tracks foundational design and architectural decisions made for `unive
 
 ## ADR-001: Repository Root Directory Structure
 
-- **Status:** Proposed (Phase 1)
+- **Status:** Accepted (Phase 1)
 - **Context:** The project root workspace is `f:\Web Dev Skill`. We must decide whether to nest the project inside an inner `universal-webdev-skills/` directory or place all assets directly at the repository root.
 - **Decision:** Place all repository assets (`skills/`, `playbooks/`, `templates/`, `AGENTS.md`, `skills.index.json`, etc.) directly at the workspace root `f:\Web Dev Skill/`.
 - **Consequences:** 
@@ -17,19 +17,20 @@ This file tracks foundational design and architectural decisions made for `unive
 
 ## ADR-002: Three-Tier Rigor Classification (MVP / PROD / SCALE)
 
-- **Status:** Proposed (Phase 1)
+- **Status:** Accepted (Phase 1)
 - **Context:** Agents often either over-engineer simple prototypes or under-engineer mission-critical platforms.
 - **Decision:** Adopt a strict 3-tier classification evaluated on incoming signals:
   - **MVP:** Internal tools, prototypes, single-user proofs-of-concept. Speed prioritized; baseline defensive security and clean separation maintained.
   - **PROD:** Public users, accounts/email, payment/checkout, customer data, revenue at stake. Full automated test suite, OWASP Top 10 defense, WCAG 2.2 AA, migrations, observability, and backup recovery required.
   - **SCALE:** >100k MAU or spiky traffic, payments/payouts, regulated/health data, multi-tenant boundaries, strict SLAs. Chaos resilience, distributed caching, queue idempotency, rate limiting, and compliance audits required.
 - **Rule:** Always classify at the HIGHEST tier triggered. Never downgrade a PROD signal to MVP without an explicit, recorded `ACCEPTED-RISK` entry approved by the user.
+- **Consequences:** Eliminates mismatched engineering effort; prevents fragile prototypes from being shipped to paying customers while avoiding premature distributed complexity on simple tools.
 
 ---
 
 ## ADR-003: L0 / L1 / L2 Layered Context Loading Model
 
-- **Status:** Proposed (Phase 1)
+- **Status:** Accepted (Phase 1)
 - **Context:** Agent context windows are precious and expensive. Ingesting an entire engineering library wastes tokens, degrades reasoning, and risks context truncation.
 - **Decision:** Implement a three-tier loading model:
   - **L0 (Always loaded, <3k tokens):** `AGENTS.md` (team protocol, behavior rules, conflict resolution) + `skills.index.json` (metadata router).
@@ -41,21 +42,22 @@ This file tracks foundational design and architectural decisions made for `unive
 
 ## ADR-004: Evidence-First Gate & Veto Protocol
 
-- **Status:** Proposed (Phase 1)
+- **Status:** Accepted (Phase 1)
 - **Context:** AI agents frequently hallucinate that code or configs "work", "are secure", or "have been tested" without running verification commands.
 - **Decision:** Specialist gates are binding. Security and Privacy hold HARD VETOs. QA ("No evidence, no ship") and DevOps ("No rollback, no ship") block shipping without demonstrable terminal execution evidence.
 - **Rule:** If a command cannot be executed directly by the agent, it must output the exact command for the user and demand pasted terminal output before marking verification as complete.
+- **Consequences:** Prevents rubber-stamping, unverified code claims, and deployment of broken configurations.
 
 ---
 
 ## ADR-005: Dual Operational Modes (Multi-Agent Subagents vs Single-Agent Hat-Switching)
 
-- **Status:** Proposed (Phase 1)
+- **Status:** Accepted (Phase 1)
 - **Context:** Some agentic environments support autonomous subagents running in parallel (e.g. Antigravity, Claude Code subagents); others run as a single chat agent (Cursor, ChatGPT, Copilot).
 - **Decision:** All skills and protocols natively support:
   1. **MULTI-AGENT Mode:** Parallel subagents invoked per specialist role, communicating via schema-validated artifacts.
   2. **SINGLE-AGENT Mode:** Sequential role-playing where the agent explicitly announces which specialist hat it is wearing, executes that specialist's checklist to completion, produces the artifact, and transitions cleanly to the next hat.
-
+- **Consequences:** Allows identical skill files and governance protocols to execute in both parallel subagent architectures and single-thread conversational chat agents.
 
 ---
 
@@ -76,7 +78,61 @@ This file tracks foundational design and architectural decisions made for `unive
 - **Status:** Accepted (Hygiene & Agnosticism Certification)
 - **Context:** Framework lock-in, heavy external npm dependency graphs, or language biases severely limit adoption and introduce third-party supply-chain risks.
 - **Decision:**
-  1. **Zero External Dependencies:** The repository contains zero third-party dependencies (`dependencies: {}`, `devDependencies: {}`). All 9 verification tools, evaluation runners, and reference test suites run exclusively on standard runtime built-ins (`node:fs`, `node:path`, `node:child_process`, `node:crypto`, `node:http`, `node:sqlite`, `node:assert`). No `npm install` is ever required to run the suite.
+  1. **Zero External Dependencies:** The repository contains zero third-party dependencies (`dependencies: {}`, `devDependencies: {}`). All 10 verification tools, evaluation runners, and reference test suites run exclusively on standard runtime built-ins (`node:fs`, `node:path`, `node:child_process`, `node:crypto`, `node:http`, `node:sqlite`, `node:assert`). No `npm install` is ever required to run the suite.
   2. **Language & Framework Neutrality:** Core engineering skills enforce universal mathematical and architectural invariants (OWASP defenses, ACID isolation, WCAG 2.2 accessibility, RFC 8594 headers, test pyramid ratios) that apply universally to Python, TypeScript, Go, Rust, Ruby, PHP, Java, or C#. Any framework-specific code is strictly an illustrative example.
   3. **Universal Agent Neutrality:** The entire core is plain Markdown and standard JSON, ensuring zero friction across any LLM or agent environment.
 - **Consequences:** Eliminates supply-chain vulnerabilities, eliminates version conflicts, and ensures immediate out-of-the-box execution on any machine or CI pipeline.
+
+---
+
+## ADR-008: Adoption of the Open Agent Skills Specification (`agentskills.io` / AAIF)
+
+- **Status:** Accepted (Phase 7 - Frontier Skills Integration)
+- **Context:** As agent engineering matures, bespoke or unstructured markdown prompt structures risk fragmentation and lack interoperability across emerging industry platforms.
+- **Decision:** Align all 15 skills with the official open Agent Skills specification (promoted by Anthropic, AAIF, and AgentSkills.io):
+  1. Frontmatter specification with strictly typed fields: `name`, `description`, `tiers`, `inputs`, `outputs`, `depends_on`, `last_verified`, `sources`.
+  2. Three-level progressive disclosure architecture: L1 Discovery (<300 lines frontmatter & stances), L2 Operational Procedures, L3 Verification Suites.
+  3. Strict trigger and anti-trigger definitions in `skills.index.json` to prevent unnecessary token consumption.
+- **Consequences:** Enables full interoperability with any Agent Skills compliant runtime or runner, while retaining 100% backward compatibility with markdown-reading agents.
+
+---
+
+## ADR-009: Design Contract (`DESIGN.md`) & Taste-Skill Anti-Slop Visual Systems
+
+- **Status:** Accepted (Phase 7 - Frontier Skills Integration)
+- **Context:** AI coding agents frequently generate "AI vibe slop": generic purple-indigo gradients, hollow floating cards, non-standard component wrappers, and low-contrast typography.
+- **Decision:**
+  1. Integrate `nexu-io/open-design` `DESIGN.md` contract enforcement into `03-ux-ui-design`.
+  2. Embed `Leonxlnx/taste-skill` anti-slop visual directives and 4 distinct design archetypes (Editorial Luxury, Clean Scandinavian, Brutalist Cyberpunk, Playful Organic) into `03-ux-ui-design` and `04-frontend`.
+  3. Enforce the Zero Hollow Code rule: no fake window dots, no decorative non-functional buttons, and strict WCAG 2.2 AA contrast ratios.
+- **Consequences:** Guarantees visually differentiated, production-grade user interfaces that feel designed by human craftspeople rather than generic generative templates.
+
+---
+
+## ADR-010: Alibaba Open Code Review Hybrid Protocol & Defect Severity Gates
+
+- **Status:** Accepted (Phase 7 - Frontier Skills Integration)
+- **Context:** Automated code review by AI often either nitpicks inconsequential style issues or misses critical runtime defects (null pointer hazards, unhandled promise rejections, concurrency deadlocks).
+- **Decision:**
+  1. Adopt the Alibaba Open Code Review (OCR) hybrid review protocol in `08-testing-qa` and `14-maintenance`.
+  2. Classify defects across 3 standardized severity tiers: P0 Blockers (Security/Data loss), P1 Defects (Logic/Resource leaks), and P2 Advisories (Readability/Style).
+  3. Enforce line-level AST and contextual analysis prior to merge approval.
+- **Consequences:** Focuses agent review attention on high-impact defects and architectural soundness rather than superficial comment formatting.
+
+---
+
+## ADR-011: DietrichGebert Ponytail YAGNI 6-Rung Decision Ladder
+
+- **Status:** Accepted (Phase 7 - Frontier Skills Integration)
+- **Context:** Coding agents frequently over-engineer solutions, creating speculative configuration flags, unnecessary microservices, premature abstract factory patterns, and superfluous npm packages for simple problems.
+- **Decision:**
+  1. Embed the Ponytail 6-rung decision ladder directly into `AGENTS.md` (Rule 1) and across Orchestrator (`00-orchestrator`), Architecture (`02-architecture`), Frontend (`04-frontend`), Backend (`05-backend-data`), and Maintenance (`14-maintenance`).
+  2. Decision ladder priority order:
+     - **Rung 1: YAGNI** — Eliminate unrequested features, speculative options, and premature generalizations.
+     - **Rung 2: Codebase Reuse** — Use existing internal helpers, patterns, and modules.
+     - **Rung 3: Platform Native** — Use Web Platform / Runtime standard APIs (native `fetch`, `crypto.randomUUID()`, `<dialog>`, CSS Grid, native parameterized SQL).
+     - **Rung 4: Installed Dependencies** — Utilize packages already in `package.json` before adding new ones.
+     - **Rung 5: One-Liner / Simple Logic** — Write straightforward, readable code over novel abstractions.
+     - **Rung 6: Minimum Viable Implementation** — The simplest implementation that satisfies current observable tests.
+  3. Enforce the Rule of Three: never extract an abstraction until at least 3 distinct call sites require it.
+- **Consequences:** Drastically reduces bundle size, eliminates single-use supply chain dependencies, and keeps repositories maintainable and readable.

@@ -2808,7 +2808,7 @@
       {
         "title": "Specialist Routing & Schema Sync",
         "desc": "Validates that skills.index.json is valid and all 15 specialists exist on disk with verified contracts.",
-        "cmd": "node tools/verify-router.js"
+        "cmd": "node tools/validate-index.js"
       },
       {
         "title": "Project State & Rigor Classification",
@@ -2817,7 +2817,7 @@
       },
       {
         "title": "Master Quality Gate Execution",
-        "desc": "Executes the full master verification pipeline across all 10 engineering suites with 100% pass rate.",
+        "desc": "Executes the full master verification pipeline across all 11 engineering suites with 100% pass rate.",
         "cmd": "node tools/verify-all.js"
       }
     ],
@@ -3400,7 +3400,10 @@
       "bundle size",
       "form validation",
       "responsive ui",
-      "micro-interactions"
+      "micro-interactions",
+      "ponytail",
+      "yagni",
+      "platform native"
     ],
     "refuse": "I refuse to permit unhandled asynchronous error states, bloated client-side JavaScript bundles (\u003e150kB initial JS gzip), leaky component state abstractions, generic AI-slop tells (purple gradients, centered overhead pill badges, uniform 3-card grids with circle icons, fake Jane Doe testimonials), or ignoring keyboard and screen-reader accessibility semantics. Every asynchronous UI boundary must have explicit loading and error fallbacks.",
     "questions": [
@@ -3487,7 +3490,13 @@
       {
         "title": "Authentic Interactive Craftsmanship & Tactile Feedback",
         "lines": [
-          "*Always* engineer tactile micro-interactions: responsive active states (`:active:scale-[0.98]`), clear focus rings, instant keyboard shortcuts (`/` for search, `Esc` to close), and real-time client filtering *never* static, non-interactive mockups that merely look like websites.",
+          "*Always* engineer tactile micro-interactions: responsive active states (`:active:scale-[0.98]`), clear focus rings, instant keyboard shortcuts (`/` for search, `Esc` to close), and real-time client filtering *never* static, non-interactive mockups that merely look like websites."
+        ]
+      },
+      {
+        "title": "Web Platform Native & Dependency Austerity Rule (Ponytail Rung 3 & 4)",
+        "lines": [
+          "*Always* prioritize native Web Platform APIs (native `\u003cdialog\u003e` elements for modals, native HTML5 constraint validation `:valid`/`:invalid`, `Intl.NumberFormat`/`Intl.DateTimeFormat`, CSS Grid/Flexbox) and installed dependencies before adding npm micro-packages *because* single-purpose utility packages inflate bundle footprints, complicate hydration, and increase supply-chain exposure [BEST PRACTICE: PONYTAIL-DIETRICHGEBERT].",
           "--"
         ]
       }
@@ -3573,7 +3582,14 @@
       "sqlite",
       "migration",
       "transaction",
-      "queue"
+      "idempotency",
+      "queue",
+      "worker",
+      "webhook",
+      "redis",
+      "ponytail",
+      "yagni",
+      "native primitives"
     ],
     "refuse": "I refuse to permit non-atomic multi-record mutations, destructive non-reversible database migrations on live tables, non-idempotent payment or webhook handlers, or unhandled asynchronous background job failures. Every state mutation must guarantee ACID consistency or explicit compensation.",
     "questions": [
@@ -3651,7 +3667,13 @@
       {
         "title": "Financial Precision Rule",
         "lines": [
-          "*Always* store currency amounts as integer cents (`BIGINT`) or `DECIMAL(12,2)` *never* floating point `REAL/FLOAT` *because* IEEE 754 float math introduces precision drift on monetary calculations.",
+          "*Always* store currency amounts as integer cents (`BIGINT`) or `DECIMAL(12,2)` *never* floating point `REAL/FLOAT` *because* IEEE 754 float math introduces precision drift on monetary calculations."
+        ]
+      },
+      {
+        "title": "Native Runtime & Parameterized SQL Primitives Rule (Ponytail Rung 3 & 4)",
+        "lines": [
+          "*Always* prefer built-in runtime modules (`node:crypto.randomUUID()`, native `fetch`) and raw parameterized SQL over multi-tier ORM abstractions for standard CRUD queries *because* unneeded abstraction layers inflate memory overhead, obscure query plans, and introduce supply-chain vulnerabilities [BEST PRACTICE: PONYTAIL-DIETRICHGEBERT].",
           "--"
         ]
       }
@@ -3861,9 +3883,9 @@
     ],
     "verifications": [
       {
-        "title": "Credential Leak & Secret Scanner",
-        "desc": "Scans all files and git commits to guarantee zero hardcoded API keys, tokens, private keys, or passwords.",
-        "cmd": "node tools/lint-secrets.js"
+        "title": "Credential Leak & Invariant Scanner",
+        "desc": "Scans all files and git commits to guarantee zero hardcoded API keys, tokens, prompt injections, or unsafe execution patterns.",
+        "cmd": "node tools/scan-skills.js"
       },
       {
         "title": "STRIDE Defense & Session Security",

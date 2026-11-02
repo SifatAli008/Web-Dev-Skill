@@ -27,9 +27,9 @@ const EVALS_TASKS = path.join(REPO_ROOT, 'evals', 'tasks', 'eval-tasks.json');
 // Curated, practical production verification suites per specialist (No internal meta-script clutter)
 const SPECIALIST_VERIFICATIONS = {
   '00-orchestrator': [
-    { title: 'Specialist Routing & Schema Sync', desc: 'Validates that skills.index.json is valid and all 15 specialists exist on disk with verified contracts.', cmd: 'node tools/verify-router.js' },
+    { title: 'Specialist Routing & Schema Sync', desc: 'Validates that skills.index.json is valid and all 15 specialists exist on disk with verified contracts.', cmd: 'node tools/validate-index.js' },
     { title: 'Project State & Rigor Classification', desc: 'Ensures PROGRESS.md and DECISIONS.md accurately track tier classification (MVP / PROD / SCALE) and phase completion.', cmd: 'node tools/verify-state.js' },
-    { title: 'Master Quality Gate Execution', desc: 'Executes the full master verification pipeline across all 10 engineering suites with 100% pass rate.', cmd: 'node tools/verify-all.js' }
+    { title: 'Master Quality Gate Execution', desc: 'Executes the full master verification pipeline across all 11 engineering suites with 100% pass rate.', cmd: 'node tools/verify-all.js' }
   ],
   '01-product-discovery': [
     { title: 'PRD Schema Validation', desc: 'Ensures product requirements, user problem statement, MoSCoW scope, and kill criteria satisfy templates/schemas/prd.schema.json.', cmd: 'npx ajv validate -s templates/schemas/prd.schema.json -d prd.json' },
@@ -52,7 +52,7 @@ const SPECIALIST_VERIFICATIONS = {
     { title: 'Webhook Idempotency & ACID Test', desc: 'Verifies idempotency key storage, transactional rollback safety, and indexed query performance under load.', cmd: 'npm test -- --filter=database' }
   ],
   '06-security': [
-    { title: 'Credential Leak & Secret Scanner', desc: 'Scans all files and git commits to guarantee zero hardcoded API keys, tokens, private keys, or passwords.', cmd: 'node tools/lint-secrets.js' },
+    { title: 'Credential Leak & Invariant Scanner', desc: 'Scans all files and git commits to guarantee zero hardcoded API keys, tokens, prompt injections, or unsafe execution patterns.', cmd: 'node tools/scan-skills.js' },
     { title: 'STRIDE Defense & Session Security', desc: 'Audits HttpOnly Secure SameSite cookies, CSRF tokens, strict CSP headers, and input parameter escaping.', cmd: 'npm run test:security' },
     { title: 'Dependency Vulnerability Audit', desc: 'Audits package lockfiles against CVE advisories to ensure zero unpatched high or critical vulnerabilities.', cmd: 'npm audit --audit-level=high' }
   ],
