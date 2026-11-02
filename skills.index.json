@@ -30,7 +30,11 @@
         "review release",
         "skill creator",
         "agent skills",
-        "agent spec"
+        "agent spec",
+        "ponytail",
+        "decision ladder",
+        "yagni",
+        "anti-overengineering"
       ],
       "anti_triggers": [
         "debug css selector",
@@ -53,7 +57,8 @@
         "SHAPE-UP",
         "TEAM-TOPOLOGIES",
         "ANTHROPIC-SKILL-CREATOR",
-        "AAIF-AGENT-SKILLS-SPEC"
+        "AAIF-AGENT-SKILLS-SPEC",
+        "PONYTAIL-DIETRICHGEBERT"
       ]
     },
     {
@@ -124,6 +129,9 @@
         "mcp",
         "model context protocol",
         "mcp server",
+        "ponytail",
+        "decision ladder",
+        "yagni",
         "multi-tenancy",
         "build vs buy"
       ],
@@ -147,7 +155,8 @@
         "SYSTEM-DESIGN-PRIMER",
         "TWELVE-FACTOR",
         "RFC-9110",
-        "ANTHROPIC-MCP-BUILDER"
+        "ANTHROPIC-MCP-BUILDER",
+        "PONYTAIL-DIETRICHGEBERT"
       ]
     },
     {
@@ -714,7 +723,9 @@
         "refactor",
         "upgrade",
         "strangler fig",
-        "scaling triggers"
+        "scaling triggers",
+        "ponytail",
+        "yagni"
       ],
       "anti_triggers": [
         "persona interview",
@@ -737,7 +748,8 @@
         "LEGACY-CODE-FEATHERS",
         "REFACTORING-FOWLER",
         "DEPENDENCY-HEALTH",
-        "ALIBABA-OPEN-CODE-REVIEW"
+        "ALIBABA-OPEN-CODE-REVIEW",
+        "PONYTAIL-DIETRICHGEBERT"
       ]
     }
   ]

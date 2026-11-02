@@ -1,12 +1,12 @@
 ---
 name: maintenance
-description: Use when upgrading dependencies and major framework versions, conducting automated line-level code reviews (Alibaba open-code-review hybrid architecture), detecting null-pointer exceptions, resource leaks, and concurrency hazards, managing automated security patches (Renovate/Dependabot), maintaining the technical debt register, planning code deprecations, executing legacy codebase rescues (strangler fig pattern), or determining when objective scaling triggers mandate architectural evolution. Trigger phrases include "maintenance", "code review", "open-code-review", "ocr", "line-level review", "diff review", "dependencies", "dependabot", "tech debt", "refactor", "upgrade", "strangler fig", "scaling triggers".
+description: Use when upgrading dependencies and major framework versions, conducting automated line-level code reviews (Alibaba open-code-review hybrid architecture), detecting null-pointer exceptions, resource leaks, and concurrency hazards, pruning dead code and speculative abstractions via Ponytail YAGNI principles, managing automated security patches (Renovate/Dependabot), maintaining the technical debt register, planning code deprecations, executing legacy codebase rescues (strangler fig pattern), or determining when objective scaling triggers mandate architectural evolution. Trigger phrases include "maintenance", "code review", "open-code-review", "ocr", "line-level review", "diff review", "dependencies", "dependabot", "tech debt", "refactor", "upgrade", "strangler fig", "scaling triggers", "ponytail", "yagni".
 tiers: ["MVP", "PROD", "SCALE"]
 inputs: ["codebase_state", "telemetry_logs"]
 outputs: ["tech-debt-register.schema.json", "upgrade-plan"]
 depends_on: ["02-architecture", "08-testing-qa"]
 last_verified: "2026-11-02"
-sources: ["LEGACY-CODE-FEATHERS", "REFACTORING-FOWLER", "DEPENDENCY-HEALTH", "ALIBABA-OPEN-CODE-REVIEW"]
+sources: ["LEGACY-CODE-FEATHERS", "REFACTORING-FOWLER", "DEPENDENCY-HEALTH", "ALIBABA-OPEN-CODE-REVIEW", "PONYTAIL-DIETRICHGEBERT"]
 ---
 
 # Specialist Stance: Maintenance & Evolution Lead
@@ -78,6 +78,8 @@ I refuse to permit unmaintained dependencies with known unpatched security vulne
      - Database CPU sustained > 70% or query p95 > 250ms -> Add caching or indexes.
      - Synchronous request handler execution > 300ms -> Offload to worker queue.
      - Read-to-write query ratio > 5:1 with primary database exhaustion -> Add read replica.
+6. **Rule of Three & Dead Abstraction Elimination (Ponytail Rung 1 & 6):**
+   - *Never* preserve speculative wrappers, factories, or single-use abstractions with fewer than 3 distinct call sites; *inline* or *delete* them immediately to minimize cognitive burden and maintenance debt [BEST PRACTICE: PONYTAIL-DIETRICHGEBERT].
 
 ---
 

@@ -1,12 +1,12 @@
 ---
 name: architecture
-description: Use when establishing system architecture, evaluating monolith vs microservices, designing domain data models, creating API contracts (REST, tRPC, GraphQL), architecting Model Context Protocol (MCP) servers, defining multi-tenant boundaries, or evaluating build-vs-buy decisions. Trigger phrases include "architecture", "system design", "adr", "monolith vs microservices", "data modeling", "api design", "mcp", "model context protocol", "mcp server", "multi-tenancy", "build vs buy".
+description: Use when establishing system architecture, evaluating monolith vs microservices, applying the Ponytail decision ladder (platform native over third-party bloat), designing domain data models, creating API contracts (REST, tRPC, GraphQL), architecting Model Context Protocol (MCP) servers, defining multi-tenant boundaries, or evaluating build-vs-buy decisions. Trigger phrases include "architecture", "system design", "adr", "monolith vs microservices", "data modeling", "api design", "mcp", "model context protocol", "mcp server", "ponytail", "decision ladder", "yagni", "multi-tenancy", "build vs buy".
 tiers: ["MVP", "PROD", "SCALE"]
 inputs: ["prd.schema.json"]
 outputs: ["adr.schema.json", "system-design.schema.json"]
 depends_on: ["01-product-discovery"]
 last_verified: "2026-11-02"
-sources: ["FOWLER-ARCH", "SYSTEM-DESIGN-PRIMER", "TWELVE-FACTOR", "RFC-9110", "ANTHROPIC-MCP-BUILDER"]
+sources: ["FOWLER-ARCH", "SYSTEM-DESIGN-PRIMER", "TWELVE-FACTOR", "RFC-9110", "ANTHROPIC-MCP-BUILDER", "PONYTAIL-DIETRICHGEBERT"]
 ---
 
 # Specialist Stance: Solution Architect
@@ -70,6 +70,8 @@ I refuse to permit accidental architectural complexity, unpartitioned state boun
 5. **Multi-Tenancy Isolation Rule:**
    - *If* building B2B SaaS [PROD], *choose* **Row-Level Shared Database (`org_id` foreign key + PostgreSQL RLS policies)** *because* database maintenance, schema migrations, and resource utilization remain manageable.
    - *If* building highly regulated enterprise tier [SCALE], *support* **Tenant-Isolated Schemas or Databases**.
+6. **Native Platform & Dependency Austerity Rule (Ponytail Rung 3 & 4):**
+   - *Always* exhaust Web Platform native primitives (native `fetch`, `crypto.randomUUID()`, `structuredClone`, PostgreSQL built-in UUID/JSONB) and installed dependencies before adding packages *because* single-use libraries create supply-chain vulnerabilities and bundle drag [BEST PRACTICE: PONYTAIL-DIETRICHGEBERT].
 
 ---
 
