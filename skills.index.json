@@ -129,7 +129,7 @@
     {
       "id": "03-ux-ui-design",
       "name": "ux-ui-design",
-      "title": "UX/UI & Accessibility Lead",
+      "title": "UX/UI, Conversion & Accessibility Lead",
       "authority": "A11y gate",
       "path": "skills/03-ux-ui-design/SKILL.md",
       "token_cost_est": 1750,
@@ -141,6 +141,12 @@
       "triggers": [
         "ux",
         "ui design",
+        "landing page",
+        "design tokens",
+        "type scale",
+        "spacing scale",
+        "corner radius",
+        "hero layout",
         "accessibility",
         "a11y",
         "wcag",
@@ -165,7 +171,10 @@
       "last_verified": "2026-11-02",
       "sources": [
         "WCAG-2-2",
-        "WAI-ARIA-1-2"
+        "WAI-ARIA-1-2",
+        "REF-DESIGN-TOKENS",
+        "AI-DESIGN-SKILLS-ELAYA",
+        "TAILWIND-TYPE-SCALE"
       ]
     },
     {
