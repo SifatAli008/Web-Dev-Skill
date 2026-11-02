@@ -6,3 +6,4 @@
  */
 
 require('./validate-index.js');
+
