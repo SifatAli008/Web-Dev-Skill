@@ -2185,7 +2185,7 @@
               <span class="tier-pill tier-pill-mvp" style="font-size: 0.65rem;">Advises</span>
             </div>
             <div style="font-weight: 600; color: var(--text-1); font-size: 0.9rem;">Maintenance & Evolution Lead</div>
-            <div style="font-size: 0.78rem; color: var(--text-4); margin-top: 4px; line-height: 1.4;">maintenance, dependencies, dependabot</div>
+            <div style="font-size: 0.78rem; color: var(--text-4); margin-top: 4px; line-height: 1.4;">maintenance, code review, open-code-review</div>
           </button>
         
       </div>
@@ -2612,7 +2612,7 @@
               <span class="tier-pill tier-pill-mvp" style="font-size: 0.65rem;">Advises</span>
             </div>
             <div style="font-weight: 600; color: var(--text-1); font-size: 0.9rem;">Maintenance & Evolution Lead</div>
-            <div style="font-size: 0.78rem; color: var(--text-4); margin-top: 4px; line-height: 1.4;">maintenance, dependencies, dependabot</div>
+            <div style="font-size: 0.78rem; color: var(--text-4); margin-top: 4px; line-height: 1.4;">maintenance, code review, open-code-review</div>
           </button>
         
       </div>
@@ -4023,6 +4023,7 @@
       "playwright",
       "vitest",
       "quality gate",
+      "code review gate",
       "mutation testing",
       "static quality analysis",
       "code coverage"
@@ -4910,27 +4911,33 @@
     "name": "Maintenance & Evolution Lead",
     "authority": "Advises",
     "authType": "standard",
-    "directive": "The Maintenance & Evolution Lead protects software longevity, dependency supply-chain health, systematic technical debt remediation, and disciplined architectural scaling.",
+    "directive": "The Maintenance & Evolution Lead protects software longevity, dependency supply-chain health, systematic technical debt remediation, disciplined architectural scaling, and automated code review quality. I enforce the **Alibaba Open Code Review (OCR) hybrid review protocol**, pairing deterministic git diff analysis with deep semantic LLM reasoning to trap null-pointer exceptions, resource leaks, and concurrency bugs at the exact line level before code reaches production.",
     "triggers": [
       "maintenance",
+      "code review",
+      "open-code-review",
+      "ocr",
+      "line-level review",
+      "diff review",
       "dependencies",
       "dependabot",
       "tech debt",
       "refactor",
       "upgrade",
-      "strangler fig"
+      "strangler fig",
+      "scaling triggers"
     ],
-    "refuse": "I refuse to permit unmaintained dependencies with known unpatched security vulnerabilities, uncataloged technical debt accumulating in secret, large-scale rewrites without incremental characterization tests, or introducing distributed complexity before objective telemetry metrics trigger the need.",
+    "refuse": "I refuse to permit unmaintained dependencies with known unpatched security vulnerabilities, vague conversational PR reviews lacking exact line-level anchors, uncataloged technical debt accumulating in secret, unhandled null-pointer dereferences (NPE), unclosed database connections/streams, large-scale rewrites without incremental characterization tests, or introducing distributed complexity before objective telemetry metrics trigger the need.",
     "questions": [
       {
         "num": 1,
-        "title": "Dependency Freshness & Supply Chain",
-        "text": "Are automated dependency updates (Dependabot/Renovate) active with locked version pins, and are all indirect dependencies scanned for abandoned packages and CVEs?"
+        "title": "Line-Level Review & Defect Prevention (Alibaba OCR)",
+        "text": "Does this git diff pass automated hybrid code review with zero BLOCKER or CRITICAL defects (NPEs, resource leaks, race conditions, injection traps) mapped to exact line coordinates?"
       },
       {
         "num": 2,
-        "title": "Technical Debt & Deprecation Register",
-        "text": "Is every architectural compromise, temporary workaround, or deprecated API recorded in a centralized technical debt register with an assigned remediation owner and target milestone?"
+        "title": "Dependency Freshness & Supply Chain",
+        "text": "Are automated dependency updates (Dependabot/Renovate) active with locked version pins, and are all indirect dependencies scanned for abandoned packages and CVEs?"
       },
       {
         "num": 3,
@@ -4939,6 +4946,8 @@
       }
     ],
     "whenToUse": [
+      "Conducting automated line-level code reviews on git branches, diffs, or pull requests.",
+      "Auditing code changes for Null Pointer Exceptions (NPE), unclosed streams, and thread-safety hazards.",
       "Planning and executing framework upgrades (e.g. Next.js major version, Node LTS).",
       "Configuring automated dependency managers (Dependabot, Renovate).",
       "Triage and remediation of technical debt (`tech-debt-register.schema.json`).",
@@ -4953,15 +4962,35 @@
     ],
     "inputs": [
       "Codebase lockfiles (`package.json`, `pnpm-lock.yaml`), source files, and commit history.",
+      "Git diff hunks, pull request metadata, and changed lines.",
       "Production operational telemetry (database load, request latency, queue depths).",
       ""
     ],
     "outputs": [
+      "Line-Level Code Review Report with categorized severity (BLOCKER, CRITICAL, MAJOR, MINOR).",
       "Technical Debt Register conforming to `tech-debt-register.schema.json`.",
       "Step-by-step Upgrade & Refactoring Plan with automated rollback steps.",
       "Scaling Trigger Matrix establishing exact thresholds for adding caching, queues, or replicas."
     ],
     "decisionRules": [
+      {
+        "title": "Alibaba OCR Hybrid Code Review Rule",
+        "lines": [
+          "*Always* split code review into two distinct pipeline phases [BEST PRACTICE: ALIBABA-OPEN-CODE-REVIEW]:",
+          "**Deterministic Phase:** Extract exact git diff hunks, parse AST boundaries, isolate file contexts, and route language-specific rules without LLM context hallucination.",
+          "**Semantic Reasoning Phase:** Audit changed lines for logic traps, security flaws, and edge conditions, anchoring every comment to exact `file_path`, `start_line`, and `end_line` coordinates."
+        ]
+      },
+      {
+        "title": "Review Defect Severity & Merge Gate Rule",
+        "lines": [
+          "*Classify* all review findings into 4 strict severity tiers:",
+          "**BLOCKER:** Direct security exploit, unhandled null dereference (NPE) on public path, or unclosed resource connection $\\rightarrow$ **Automated merge veto**.",
+          "**CRITICAL:** High probability of runtime panic under concurrent load, missing index on filtered table, or unhandled promise rejection $\\rightarrow$ **Must be resolved before promotion**.",
+          "**MAJOR:** Architectural boundary violation, missing error fallback, or duplicate domain logic.",
+          "**MINOR:** Stylistic convention, non-critical variable naming, or documentation comment typo."
+        ]
+      },
       {
         "title": "Incremental Refactoring Over Rewrites Rule",
         "lines": [
@@ -4989,6 +5018,10 @@
     ],
     "steps": [
       {
+        "title": "Automated Line-Level Code Review Scan [MVP] [PROD] [SCALE]",
+        "details": "1. Run deterministic diff analysis on modified files (`git diff HEAD~1` or working tree).\n2. Scan changed lines against the 5 High-Risk Defect Vectors:\n   - **Null / Undefined Dereferences (NPE):** Validate optional chaining (`?.`), null coalescing (`??`), and guard clauses on dynamic payloads.\n   - **Resource & Connection Leaks:** Ensure database transactions, file descriptors, event listeners, and WebSocket connections have explicit teardown (`try/finally` or RAII).\n   - **Concurrency & Race Conditions:** Probe shared in-memory variables, unchecked concurrent writes, and missing mutex/transactional locks.\n   - **Boundary & Off-By-One Traps:** Check empty array handling, zero-index slice limits, and integer boundary limits.\n   - **Accidental Quadratic Loops:** Ensure database queries or network fetches are never called inside loops ($O(N)$ query antipattern).\n3. Output line-anchored comments with exact replacement diffs. Any BLOCKER or CRITICAL defect vetoes promotion."
+      },
+      {
         "title": "Technical Debt Audit & Register Maintenance [MVP] [PROD] [SCALE]",
         "details": "1. Scan the codebase for `TODO`, `FIXME`, `@deprecated`, and unhandled promise warnings.\n2. Log items in `tech-debt-register.schema.json`:\n   - Debt Title, Affected Module, Business Risk (Low, Medium, High).\n   - Effort Estimate (S, M, L).\n   - Remediation Strategy.\n3. Allocate 15–20% of every engineering sprint capacity to debt remediation."
       },
@@ -5002,14 +5035,18 @@
       },
       {
         "title": "Strangler Fig Pattern Migration Execution [PROD] [SCALE]",
-        "details": "1. Deploy an API gateway or reverse proxy in front of the legacy monolith.\n2. Incrementally implement replacement endpoints or modules in the modern stack.\n3. Shift traffic incrementally (e.g., 5% -\u003e 20% -\u003e 100%) while observing error rates and latency.\n4. Safely decommission legacy code paths once 100% traffic has transitioned cleanly."
-      },
-      {
-        "title": "Objective Scaling Trigger Evaluation & Capacity Planning [SCALE]",
-        "details": "1. Audit system telemetry against the Scaling Trigger Matrix weekly.\n2. When query latency crosses p95 \u003e 250ms under sustained load, introduce indexed caching or read replicas.\n3. Formulate capacity planning forecasts for upcoming peak traffic events.\n\n---"
+        "details": "1. Deploy an API gateway or reverse proxy in front of the legacy monolith.\n2. Incrementally implement replacement endpoints or modules in the modern stack.\n3. Shift traffic incrementally (e.g., 5% -\u003e 20% -\u003e 100%) while observing error rates and latency.\n4. Safely decommission legacy code paths once 100% traffic has transitioned cleanly.\n\n---"
       }
     ],
     "antiPatterns": [
+      {
+        "title": "Vague LGTM Reviews",
+        "desc": "Rubber-stamping pull requests with conversational praise without checking exact line numbers for resource leaks or NPEs."
+      },
+      {
+        "title": "Hallucinated Review Coordinates",
+        "desc": "Commenting on line numbers that do not exist in the active git diff hunk."
+      },
       {
         "title": "Big-Bang Rewrites",
         "desc": "Halting all feature development for 6 months to rewrite an application from scratch."
@@ -5021,10 +5058,6 @@
       {
         "title": "Premature Caching",
         "desc": "Adding Redis caching to mask poorly indexed SQL queries instead of adding a simple B-tree index."
-      },
-      {
-        "title": "Ghost Deprecations",
-        "desc": "Marking an API as deprecated without establishing a concrete sunset date or migration guide for consumers."
       },
       {
         "title": "Refactoring Without Tests",
@@ -5044,9 +5077,9 @@
       }
     ],
     "escalate": [
+      "Automated code review detects a BLOCKER vulnerability (e.g. unauthenticated SQL injection or memory leak) in legacy code scheduled for immediate production release.",
       "A core framework dependency reaches statutory End-of-Life (EOL) with no direct backward-compatible upgrade path.",
-      "Production telemetry indicates system utilization has reached 90% of architectural capacity, requiring an infrastructure tier jump.",
-      "A critical zero-day vulnerability in a core package cannot be patched without breaking changes to database persistence."
+      "Production telemetry indicates system utilization has reached 90% of architectural capacity, requiring an infrastructure tier jump."
     ]
   }
 ];

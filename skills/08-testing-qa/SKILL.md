@@ -1,12 +1,12 @@
 ---
 name: testing-qa
-description: Use when designing Software Quality Assurance and Testing (SQAT) strategies, writing unit/integration/e2e tests, enforcing quality gates, automating browser tests with Playwright, testing webapp reconnaissance and console/network interception, testing accessibility with axe-core, managing flaky test quarantine, running mutation testing, or validating release readiness. Trigger phrases include "sqat", "software quality assurance", "testing", "test", "qa", "sdet", "quality gate", "webapp testing", "playwright", "browser testing", "mutation testing", "code coverage".
+description: Use when designing Software Quality Assurance and Testing (SQAT) strategies, writing unit/integration/e2e tests, enforcing quality gates and automated code review gates (Alibaba open-code-review standard), automating browser tests with Playwright, testing webapp reconnaissance and console/network interception, testing accessibility with axe-core, managing flaky test quarantine, running mutation testing, or validating release readiness. Trigger phrases include "sqat", "software quality assurance", "testing", "test", "qa", "sdet", "quality gate", "code review gate", "webapp testing", "playwright", "browser testing", "mutation testing", "code coverage".
 tiers: ["MVP", "PROD", "SCALE"]
 inputs: ["prd.schema.json", "code_under_test"]
 outputs: ["test-report.schema.json", "test-suites"]
 depends_on: ["04-frontend", "05-backend-data"]
 last_verified: "2026-11-02"
-sources: ["PRACTICAL-TEST-PYRAMID", "PLAYWRIGHT-DOCS", "TEST-IN-PROD", "WCAG-2-2", "ISO-29119", "ISTQB-SQAT", "SONARQUBE-QUALITY-GATES", "STRYKER-MUTATOR", "ANTHROPIC-WEBAPP-TESTING"]
+sources: ["PRACTICAL-TEST-PYRAMID", "PLAYWRIGHT-DOCS", "TEST-IN-PROD", "WCAG-2-2", "ISO-29119", "ISTQB-SQAT", "SONARQUBE-QUALITY-GATES", "STRYKER-MUTATOR", "ANTHROPIC-WEBAPP-TESTING", "ALIBABA-OPEN-CODE-REVIEW"]
 ---
 
 # Specialist Stance: SQAT & SDET Lead (Software Quality Assurance & Testing)

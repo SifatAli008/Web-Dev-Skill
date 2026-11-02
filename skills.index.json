@@ -434,6 +434,7 @@
         "playwright",
         "vitest",
         "quality gate",
+        "code review gate",
         "mutation testing",
         "static quality analysis",
         "code coverage"
@@ -464,7 +465,8 @@
         "ISTQB-SQAT",
         "SONARQUBE-QUALITY-GATES",
         "STRYKER-MUTATOR",
-        "ANTHROPIC-WEBAPP-TESTING"
+        "ANTHROPIC-WEBAPP-TESTING",
+        "ALIBABA-OPEN-CODE-REVIEW"
       ]
     },
     {
@@ -701,12 +703,18 @@
       ],
       "triggers": [
         "maintenance",
+        "code review",
+        "open-code-review",
+        "ocr",
+        "line-level review",
+        "diff review",
         "dependencies",
         "dependabot",
         "tech debt",
         "refactor",
         "upgrade",
-        "strangler fig"
+        "strangler fig",
+        "scaling triggers"
       ],
       "anti_triggers": [
         "persona interview",
@@ -727,7 +735,9 @@
       "last_verified": "2026-11-02",
       "sources": [
         "LEGACY-CODE-FEATHERS",
-        "REFACTORING-FOWLER"
+        "REFACTORING-FOWLER",
+        "DEPENDENCY-HEALTH",
+        "ALIBABA-OPEN-CODE-REVIEW"
       ]
     }
   ]
