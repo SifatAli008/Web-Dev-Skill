@@ -72,11 +72,12 @@ AI Hygiene: Zero placeholder comments (// TODO), no folder sprawl, zero AI vibe-
     },
     {
       file: '03-ux-ui-design.mdc',
-      desc: 'WCAG 2.2 AA accessibility, contrast >= 4.5:1, touch targets >= 44px, and anti-vibe design',
+      desc: 'Taste-skill anti-slop directives, Taste Profiles (Minimalist, Brutalist, Editorial, Soft), WCAG 2.2 AA',
       globs: '**/*.{tsx,jsx,vue,svelte,html,css,scss}',
       alwaysApply: false,
-      content: `Enforce WCAG 2.2 Level AA accessibility: contrast >= 4.5:1, visible focus rings (:focus-visible), and 44x44px touch targets.
-Anti-Vibe-Code: Never emit generic AI rainbow gradients, fake macOS window chrome, or hollow cards.`
+      content: `Enforce taste-skill anti-slop directives: commit to one Taste Profile (Minimalist, Industrial-Brutalist, Editorial, Soft-Consumer).
+Never emit AI slop: no purple/blue gradients, no centered 'AI-powered' pill badges, no uniform 3-card icon grids.
+Enforce WCAG 2.2 Level AA accessibility: contrast >= 4.5:1, visible focus rings (:focus-visible), and 44x44px touch targets.`
     },
     {
       file: '04-frontend.mdc',

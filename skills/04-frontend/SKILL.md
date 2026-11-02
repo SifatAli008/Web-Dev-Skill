@@ -1,24 +1,24 @@
 ---
 name: frontend
-description: Use when building client-side or server-rendered UI components, selecting rendering strategies (SSR, SSG, ISR, Client SPA), executing intentional frontend design without AI clichés, managing client vs server state, handling forms and client validation, structuring error boundaries, and controlling bundle size. Trigger phrases include "frontend", "frontend design", "react", "nextjs", "astro", "svelte", "vue", "client state", "ssr", "bundle size", "form validation", "responsive ui", "micro-interactions".
+description: Use when building client-side or server-rendered UI components, selecting rendering strategies (SSR, SSG, ISR, Client SPA), executing intentional frontend design and taste-skill anti-slop directives, implementing taste profiles (minimalist, industrial-brutalist, editorial, soft-consumer), managing client vs server state, handling forms and client validation, structuring error boundaries, and controlling bundle size. Trigger phrases include "frontend", "frontend design", "taste-skill", "anti-slop", "taste profile", "react", "nextjs", "astro", "svelte", "vue", "client state", "ssr", "bundle size", "form validation", "responsive ui", "micro-interactions".
 tiers: ["MVP", "PROD", "SCALE"]
 inputs: ["adr.schema.json", "ui-specs"]
 outputs: ["frontend-code", "bundle-report.schema.json"]
 depends_on: ["02-architecture", "03-ux-ui-design"]
 last_verified: "2026-11-02"
-sources: ["REACT-DOCS", "MDN-WEB-DOCS", "WEB-DEV", "WCAG-2-2", "ANTHROPIC-FRONTEND-DESIGN"]
+sources: ["REACT-DOCS", "MDN-WEB-DOCS", "WEB-DEV", "WCAG-2-2", "ANTHROPIC-FRONTEND-DESIGN", "TASTE-SKILL-LEONXLNX"]
 ---
 
 # Specialist Stance: Frontend Lead
 
-The Frontend Lead protects maintainable, resilient, accessible, and high-performance UI code across modern web frameworks. I ensure every web application leverages optimal rendering strategies (SSG, SSR, RSC, Client SPA), isolates server and client state cleanly, executes intentional frontend design with domain-tailored visual character, provides robust 5-state lifecycle boundaries, enforces strict bundle budgets (<= 150kB gzip entry), and delivers authentic interactive craftsmanship with zero AI-generated boilerplate or gradient soup.
+The Frontend Lead protects maintainable, resilient, accessible, and high-performance UI code across modern web frameworks. I ensure every web application leverages optimal rendering strategies (SSG, SSR, RSC, Client SPA), isolates server and client state cleanly, executes intentional frontend design guided by explicit Taste Profiles (Minimalist, Industrial-Brutalist, Editorial, Soft-Consumer), provides robust 5-state lifecycle boundaries, enforces strict bundle budgets (<= 150kB gzip entry), and delivers authentic interactive craftsmanship with zero AI-generated boilerplate, pill badges, or gradient soup.
 
 ### What I Refuse to Compromise On
-I refuse to permit unhandled asynchronous error states, bloated client-side JavaScript bundles (>150kB initial JS gzip), leaky component state abstractions, generic AI-boilerplate templates (uniform 3-card grids, floating purple blobs, hollow cards), or ignoring keyboard and screen-reader accessibility semantics. Every asynchronous UI boundary must have explicit loading and error fallbacks.
+I refuse to permit unhandled asynchronous error states, bloated client-side JavaScript bundles (>150kB initial JS gzip), leaky component state abstractions, generic AI-slop tells (purple gradients, centered overhead pill badges, uniform 3-card grids with circle icons, fake Jane Doe testimonials), or ignoring keyboard and screen-reader accessibility semantics. Every asynchronous UI boundary must have explicit loading and error fallbacks.
 
 ### Three Questions I Always Ask First
 1. **Rendering Strategy:** What rendering pattern (SSR, Static SSG/ISR, or Client SPA) matches this route's SEO and data freshness needs without sending unnecessary client JS?
-2. **Intentional Aesthetic Direction:** What distinct visual character (high-density technical, editorial serif, or clean utility) best serves the domain, avoiding generic AI vibe-code defaults?
+2. **Taste Profile & Anti-Slop (taste-skill):** Which explicit Taste Profile (Minimalist, Industrial-Brutalist, Editorial, Soft-Consumer) governs this component implementation, and are all signature AI slop tells eliminated?
 3. **5-State Completeness & Partitioning:** Is state cleanly divided between server cache, URL search params, and local component state, with explicit Idle, Loading, Error, Empty, and Success states?
 
 ---
@@ -28,6 +28,7 @@ I refuse to permit unhandled asynchronous error states, bloated client-side Java
 - **Use when:**
   - Architecting frontend component hierarchies (Next.js App Router, Astro, React+Vite, SvelteKit, Vue/Nuxt).
   - Executing intentional frontend design with authentic visual identity, tactile micro-interactions, and domain personality.
+  - Enforcing taste-skill anti-slop rules (banning purple gradients, centered pill badges, uniform icon card rows).
   - Choosing between Server Components (RSC) and Client Components (`'use client'`).
   - Implementing data fetching, optimistic mutations (`useOptimistic`), and cache invalidation.
   - Building accessible form state, client validation (Zod/Valibot), and error reporting.
@@ -45,9 +46,9 @@ I refuse to permit unhandled asynchronous error states, bloated client-side Java
 
 - **Inputs:**
   - `adr.schema.json` (Architecture, API contracts, tech stack selections).
-  - UI design specifications and token contracts from `03-ux-ui-design`.
+  - UI design specifications, Taste Profile, and token contracts from `03-ux-ui-design`.
 - **Outputs:**
-  - Production frontend component code with end-to-end type safety and intentional design.
+  - Production frontend component code with end-to-end type safety and anti-slop craft.
   - Error boundaries and Suspense fallbacks for all asynchronous views.
   - Form validation schemas and optimistic mutation handlers.
   - Bundle size and code-splitting audit reports (`bundle-report.schema.json`).
@@ -60,8 +61,12 @@ I refuse to permit unhandled asynchronous error states, bloated client-side Java
    - *If* a route is public, static, or content-heavy (marketing, blog, documentation), *choose* **Static Site Generation (SSG) with Astro or Next.js** *because* zero-JS static HTML delivers optimal Core Web Vitals and zero server compute overhead [BEST PRACTICE: WEB-DEV].
    - *If* a route requires authenticated dynamic data with SEO needs, *choose* **Server-Side Rendering (SSR) / React Server Components (RSC)** *because* data fetches execute close to the datastore without client waterfall requests.
    - *If* building a complex offline-capable dashboard or canvas editor, *choose* **Client SPA with local caching** *because* interactive client latency takes precedence over first-load SEO.
-2. **Intentional Aesthetic Direction Rule (Anti-AI Clichés):**
-   - *Always* commit to an explicit aesthetic personality (e.g. dense developer workbench, refined editorial magazine, or precision Swiss grid) *never* default to generic AI vibe-code templates (purple gradients, uniform rounded cards, floating blob backgrounds) [BEST PRACTICE: ANTHROPIC-FRONTEND-DESIGN].
+2. **Taste Profile & Anti-Slop Directives Rule:**
+   - *Always* implement one of the 4 explicit Taste Profiles (Minimalist, Industrial-Brutalist, Editorial, Soft-Consumer) and strictly reject signature AI slop tells [BEST PRACTICE: ANTHROPIC-FRONTEND-DESIGN, TASTE-SKILL-LEONXLNX]:
+     - BANNED: Ambient purple-to-blue gradient cards or headers (`from-blue-500 to-purple-600`).
+     - BANNED: Centered "✨ AI-Powered" overhead pill badges.
+     - BANNED: Symmetrical 3-card feature grids with identical circular icon boxes.
+     - BANNED: Monospace captions paired with lifeless dark-mode mesh backgrounds.
 3. **Component Boundary Rule (`'use client'`):**
    - *If* authoring React App Router components, *keep* components as Server Components by default; *only add* `'use client'` at the leaves of the component tree that require browser APIs, React state (`useState`), or event listeners (`onClick`) *because* server components do not contribute to client JS bundle size [FACT: REACT-DOCS].
 4. **Form State Rule:**
@@ -82,10 +87,13 @@ I refuse to permit unhandled asynchronous error states, bloated client-side Java
    - `/blog/:slug`: ISR or Static SSG with on-demand revalidation.
 2. Verify route layout nesting: place global navigation and providers in root layout without blocking page-level streaming.
 
-### Step 2: Intentional Design Planning & Aesthetic Personality [MVP] [PROD] [SCALE]
-1. Define the aesthetic personality upfront based on the domain (e.g. monospace data-dense for engineering tools; serif typographic elegance for publishing).
-2. Assign palette roles: dominant background, high-contrast foreground, single purposeful accent, and clear semantic functional colors (success/error).
-3. Introduce layout tension: use deliberate asymmetrical hero elements, wide margins, and strong typographic contrast rather than generic uniform 3-card grids.
+### Step 2: Brief Inference & Taste Profile Implementation [MVP] [PROD] [SCALE]
+1. Instantiate the active Taste Profile selected in `03-ux-ui-design`:
+   - **Minimalist:** Clean zinc borders (`border-zinc-200 dark:border-zinc-800`), document layout hierarchy, generous padding.
+   - **Industrial-Brutalist:** Dense mono metadata, stark black/white/amber contrast, high-visibility state indicators.
+   - **Editorial:** Display serif headers, elegant hairline rules, asymmetric magazine pull-quotes.
+   - **Soft-Consumer:** Organic corner curves (`rounded-2xl`), subtle layered elevation shadows, spring micro-physics.
+2. Verify zero purple gradient soup and zero centered overhead "AI badges".
 
 ### Step 3: Component Structure & 5-State Lifecycles [MVP] [PROD] [SCALE]
 1. Structure every interactive feature with explicit subcomponents:
@@ -111,7 +119,7 @@ I refuse to permit unhandled asynchronous error states, bloated client-side Java
 
 ## Anti-Patterns
 
-- **AI UI Boilerplate Tells:** Overusing purple gradient headers, floating blob shapes, and uniform 3-card feature sections with icons centered in colored circles.
+- **Signature AI Slop:** Emitting purple-to-blue gradient headers, centered overhead "✨ AI-Powered" pill badges, and uniform 3-card grids with centered circular icons.
 - **Waterfall Fetching:** Nesting child components that each run independent `useEffect` fetches, causing compounding network latency.
 - **`'use client'` at the Root:** Placing `'use client'` on root layouts or page components, defeating Server Component bundle optimizations.
 - **Uncontrolled useEffect Sync:** Synchronizing props to state inside `useEffect`, causing cascading re-renders and subtle synchronization bugs.
