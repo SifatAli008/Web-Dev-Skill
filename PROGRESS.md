@@ -18,7 +18,7 @@
 | **Phase 5** | Reference projects (3 golden projects), baseline vs with-skills evals, fix/cut weak skills. | **COMPLETE (GATE 5)** | >= 25% eval win delta, 0 OWASP findings, tests passing. |
 | **Phase 6** | Generate tool adapters, README demo, CHANGELOG, v0.1.0 release notes. | **COMPLETE (RELEASE v0.1.0)** | Adapters verified against official tool conventions, <= 2 min install. |
 | **Phase 7** | Frontier framework infusion (Agent Skills spec, Taste-Skill v2 full pipeline, OKLCH & Fluid Design tokens, Alibaba OCR, Ponytail ladder, State audit). | **COMPLETE (GATE 7)** | Conformance with Agent Skills spec, anti-slop DESIGN.md, 12 ADRs, all 12 verification suites passing. |
-| **Phase 8** | HCI & Cognitive Ergonomics expansion (16th specialist `15-hci-interaction`, Laws of UX, KLM benchmarks, touch thumb zones, error slips, ADR-013, Standards Synchronization ADR-014). | **COMPLETE (GATE 8)** | Full Agent Skills conformance, schema-validated HCI templates, 14 ADRs, all 12 verification suites passing. |
+| **Phase 8** | HCI, Cognitive Ergonomics & Design Theory expansion (16th specialist `15-hci-interaction`, Gestalt & Swiss grid design theory, Laws of UX, ADR-013, ADR-014, ADR-015). | **COMPLETE (GATE 8)** | Full Agent Skills conformance, schema-validated HCI templates, 15 ADRs, all 12 verification suites passing. |
 
 ---
 
@@ -31,8 +31,15 @@
   - Created operational checklist: `checklists/hci.checklist.md` with 25 empirical interaction checkpoints.
   - Registered in `skills.index.json` with 19 trigger keywords, explicit anti-triggers, and authoritative citations.
   - Recorded **ADR-013** in `DECISIONS.md`.
+- [x] **Classical & Modern Design Theory Integration (ADR-015):**
+  - Published comprehensive L2 theoretical foundation guide: `skills/03-ux-ui-design/references/design-theory-reference.md` covering Gestalt Psychology, 60-30-10 color science, Bringhurst typographic measure (`65ch`), Müller-Brockmann 8pt Swiss grids, eye-tracking scanpaths, and Disney animation principles.
+  - Embedded Decision Rules 20–22 into `03-ux-ui-design/SKILL.md` (Gestalt 2:1 Proximity Ratio, 60-30-10 Color Rule, Micro-Typographic Measure & Optical Rhythm).
+  - Enriched `DESIGN.md` and `templates/design.template.md` with Section 7: Design Theory Foundations.
+  - Expanded `checklists/design-and-a11y.checklist.md` with Section 7 validation criteria.
+  - Integrated design theory invariant assertions into `tools/verify-layout.js`.
+  - Registered authoritative design theory citations in `SOURCES.md`.
 - [x] **Authoritative Standards Registry & Epistemic Verification (ADR-014):**
-  - Registered 100% of cited sources in `SOURCES.md` (73 unique sources across all 16 skills).
+  - Registered 100% of cited sources in `SOURCES.md` (78 unique sources across all 16 skills).
   - Synchronized all 16 skills to `last_verified: 2026-11-03`.
   - Harmonized `GLOSSARY.md` (Doherty Threshold, Fitts's Law, Hick-Hyman Law, KLM/GOMS, OKLCH, 7-State Matrix).
   - Expanded `AI-FAILURE-MODES.md` with FM-12 (AI Aesthetic Vibe Slop) and FM-13 (Touch Geometry & Motor Blindness).

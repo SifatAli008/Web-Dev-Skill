@@ -119,3 +119,13 @@ Every interactive component must explicitly implement:
 4. **Hero Discipline:** Headline $\le 2$ lines, subheadline $< 20$ words, primary CTA above fold.
 5. **Visual Dominance 2:1 Rule:** Primary CTA button must have at least $2\times$ visual weight over secondary links.
 6. **WCAG 2.2 AA Compliance:** Body text $\ge 4.5:1$ contrast, controls $\ge 3:1$, touch targets $\ge 44\times 44\text{px}$, visible focus indicator.
+
+---
+
+## 7. Design Theory Foundations & Spatial Architecture
+
+1. **Gestalt Spatial Hierarchy:** Maintain a 2:1 proximity ratio between outer section spacing and inner card padding. Group heterogeneous data inside explicit common region containers (`rounded-xl border`).
+2. **60-30-10 Color Composition:** 60% dominant base canvas, 30% structural text/borders, 10% high-contrast accent.
+3. **Typographic Measure & Rhythm:** Constrain reading copy to `max-w-[65ch]`. Enforce inverse leading (tight on display titles, relaxed on body). Activate `font-variant-numeric: tabular-nums` for data tables.
+4. **8-Point Modular Grid:** Snap all spacing and component dimensions to multiples of 8px (4px micro).
+5. **APCA Perceptual Contrast Standard:** Target $L^c \ge 75$ for body copy and $L^c \ge 60$ for large titles.

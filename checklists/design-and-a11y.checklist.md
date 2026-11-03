@@ -47,3 +47,11 @@
   - [ ] Does every form input have a visible `<label for="...">` element?
   - [ ] Do form validation errors clearly state *what* is wrong and *how* to fix it?
 
+- [ ] **7. Design Theory & Spatial Science Verification:**
+  - [ ] Does spacing enforce the Gestalt 2:1 proximity ratio (outer group margin $\ge 2\times$ inner element padding)?
+  - [ ] Is color balanced according to the 60-30-10 rule (60% base canvas, 30% structural text/borders, 10% accent)?
+  - [ ] Is reading copy bounded to the optimal 45–75 character measure (`max-w-[65ch]`)?
+  - [ ] Does line-height scale inversely with font size (1.1–1.2 on display headings, 1.5–1.65 on body)?
+  - [ ] Do all spacing and component dimensions snap to the 8-point modular grid (4px micro-adjustments)?
+  - [ ] Does text contrast satisfy APCA perceptual criteria ($L^c \ge 75$ body, $L^c \ge 60$ headings)?
+

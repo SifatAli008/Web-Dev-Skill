@@ -186,3 +186,21 @@ This file tracks foundational design and architectural decisions made for `unive
   4. Synchronize all 16 skill `last_verified` dates to `2026-11-03`.
   5. Harmonize `04-frontend` with the 7-State Component Lifecycle Matrix established in ADR-012.
 - **Consequences:** Guarantees 100% citation coverage, eliminates epistemic drift, and ensures all 16 specialists enforce up-to-date, empirical industry standards.
+
+---
+
+## ADR-015: Classical & Modern Design Theory Integration (Gestalt Spatial Science, Müller-Brockmann Grids, Bringhurst Typography & APCA Contrast)
+
+- **Status:** Accepted (Phase 8 - Design Theory & Visual Science Expansion)
+- **Context:** While anti-slop rules eliminate generic AI clichés and token contracts ensure consistency, AI coding agents frequently generate interfaces lacking foundational visual grammar: arbitrary whitespace relationships, unconstrained line lengths, chromatic chaos with clashing accent hues, and poor figure-ground separation.
+- **Decision:**
+  1. Author and publish `skills/03-ux-ui-design/references/design-theory-reference.md` establishing empirical foundations across 6 core pillars: Gestalt Psychology in digital layout, Perceptual Color Science (60-30-10 rule & Chevreul's contrast), Micro-Typography (Bringhurst's 45-75 character measure & inverse leading), Swiss Modular Grids (Josef Müller-Brockmann 8pt grid), Visual Scanning Ergonomics (Gutenberg, F-pattern, Z-pattern), and Disney's Animation Principles adapted to UI.
+  2. Embed Decision Rules 20-22 in `03-ux-ui-design/SKILL.md`:
+     - Rule 20: Gestalt 2:1 Proximity Ratio & Common Region Enclosure.
+     - Rule 21: The 60-30-10 Perceptual Color Harmony Rule.
+     - Rule 22: Micro-Typographic Measure (`max-w-[65ch]`) & Inverse Leading.
+  3. Formally update `DESIGN.md` and `templates/design.template.md` with Section 7: Design Theory Foundations.
+  4. Expand `checklists/design-and-a11y.checklist.md` with Section 7 for automated and manual design theory auditing.
+  5. Integrate Design Theory contract assertions into `tools/verify-layout.js`.
+  6. Register foundational citations in `SOURCES.md`: `GESTALT-PSYCHOLOGY`, `ITTEN-COLOR-THEORY`, `BRINGHURST-TYPOGRAPHY`, `MULLER-BROCKMANN-GRIDS`, `APCA-CONTRAST`, and `DISNEY-ANIMATION-UI`.
+- **Consequences:** Elevates AI visual craft from superficial aesthetics to deterministic, mathematically grounded design science; guarantees optimal reading comprehension, optical balance, and perceptual harmony.

@@ -133,3 +133,27 @@ Every interactive component contract must explicitly implement and test **7 disc
    $$\text{Hero Value Proposition} \longrightarrow \text{Proof Strip} \longrightarrow \text{Interactive Workbench} \longrightarrow \text{Objection Killer} \longrightarrow \text{Frictionless Action}$$
 3. **Dynamic Media Contrast Anchors:** Whenever text overlays photography or video, apply a directional dark gradient scrim (`linear-gradient(to top, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.4) 60%, transparent 100%)`) or a frosted surface container (`backdrop-filter: blur(12px)`).
 4. **WCAG 2.2 Level AA Gate:** Body contrast $\ge 4.5:1$, controls $\ge 3:1$, touch targets $\ge 44\times 44\text{px}$, visible focus indicator.
+
+---
+
+## 7. Design Theory Foundations & Gestalt Spatial Architecture
+
+Conforming to classical visual science (Müller-Brockmann, Bringhurst, Itten, Wertheimer, Somers APCA):
+
+1. **Gestalt Spatial Hierarchy (The 2:1 Proximity Ratio):**
+   - Margin between unrelated layout blocks must be $\ge 2\times$ the internal padding of elements (`gap-6` outer vs `gap-3` inner).
+   - Use explicit common region containers (`bg-surface`, `border border-subtle`, `rounded-xl`) to bind heterogeneous content chunks.
+2. **The 60-30-10 Perceptual Color Composition Rule:**
+   - **60% Dominant Base:** Background canvas and primary surface fills (`--bg-base`, `--bg-surface`).
+   - **30% Structural Secondary:** Typography, borders, icons, secondary containers (`--text-primary`, `--border-subtle`).
+   - **10% High-Contrast Accent:** Primary conversion CTA, active states, key data visualization markers (`--accent-primary`).
+3. **Typographic Measure & Optical Rhythm:**
+   - Long-form prose must be constrained to the optimal 45–75 character measure (`max-w-[65ch]`).
+   - Inverse leading: display titles enforce tight line-height ($1.1\text{–}1.2$); body copy enforces reading line-height ($1.5\text{–}1.65$).
+   - Activate OpenType features (`font-feature-settings: "cv02", "cv03", "cv04", "cv11", "ss01"`) and hanging punctuation for pull-quotes (`hanging-punctuation: first allow-end`).
+4. **8-Point Modular Spatial Grid:**
+   - All spacing, margins, paddings, and component heights resolve to integer multiples of $8\text{px}$ (with $4\text{px}$ strictly reserved for micro-adjustments).
+5. **APCA Perceptual Contrast Standard:**
+   - Body copy ($16\text{px}$, normal weight): Target $L^c \ge 75$.
+   - Large headings ($32\text{px}+$, bold): Target $L^c \ge 60$.
+   - Interactive controls & secondary text: Target $L^c \ge 45$.

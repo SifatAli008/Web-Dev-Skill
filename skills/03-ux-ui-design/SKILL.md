@@ -1,12 +1,12 @@
 ---
 name: ux-ui-design
-description: Use when designing user interfaces, authoring DESIGN.md visual design system contracts (open-design standard), executing Leonxlnx/taste-skill anti-slop frontend architecture, inferring brief design reads, tuning quantitative design dials (variance, motion, density), selecting taste profiles (minimalist, industrial-brutalist, editorial, soft-consumer), enforcing layout family diversity, executing Section 14 pre-flight checks, verifying WCAG 2.2 AA accessibility, or defining responsive tokens and 5-state matrices. Trigger phrases include "ux", "ui design", "open-design", "design-md", "DESIGN.md", "landing page", "taste-skill", "anti-slop", "design read", "design variance", "motion intensity", "visual density", "taste profile", "design tokens", "layout families", "pre-flight check", "type scale", "spacing scale", "hero layout", "accessibility", "a11y", "wcag", "contrast ratio", "empty state", "loading state", "aria".
+description: Use when designing user interfaces, authoring DESIGN.md visual design system contracts (open-design standard), executing Leonxlnx/taste-skill anti-slop frontend architecture, applying Gestalt psychology and Swiss grid systems, tuning quantitative design dials (variance, motion, density), selecting taste profiles (minimalist, industrial-brutalist, editorial, soft-consumer), enforcing layout family diversity, executing Section 14 pre-flight checks, verifying WCAG 2.2 AA and APCA accessibility, or defining responsive tokens and 7-state matrices. Trigger phrases include "ux", "ui design", "open-design", "design-md", "DESIGN.md", "design theory", "gestalt", "60-30-10", "typography science", "muller-brockmann", "grid systems", "measure 65ch", "optical alignment", "apca", "landing page", "taste-skill", "anti-slop", "design read", "design variance", "motion intensity", "visual density", "taste profile", "design tokens", "layout families", "pre-flight check", "type scale", "spacing scale", "hero layout", "accessibility", "a11y", "wcag", "contrast ratio", "empty state", "loading state", "aria".
 tiers: ["MVP", "PROD", "SCALE"]
 inputs: ["prd.schema.json"]
 outputs: ["DESIGN.md", "ui-specs", "design-tokens.schema.json", "a11y-audit.schema.json"]
 depends_on: ["01-product-discovery"]
 last_verified: "2026-11-03"
-sources: ["WCAG-2-2", "WAI-ARIA-1-2", "REF-DESIGN-TOKENS", "AI-DESIGN-SKILLS-ELAYA", "TAILWIND-TYPE-SCALE", "TASTE-SKILL-LEONXLNX", "OPEN-DESIGN-NEXU"]
+sources: ["WCAG-2-2", "WAI-ARIA-1-2", "REF-DESIGN-TOKENS", "AI-DESIGN-SKILLS-ELAYA", "TAILWIND-TYPE-SCALE", "TASTE-SKILL-LEONXLNX", "OPEN-DESIGN-NEXU", "GESTALT-PSYCHOLOGY", "ITTEN-COLOR-THEORY", "BRINGHURST-TYPOGRAPHY", "MULLER-BROCKMANN-GRIDS", "APCA-CONTRAST"]
 ---
 
 # Specialist Stance: UX/UI, Conversion & Accessibility Lead
@@ -117,6 +117,12 @@ I refuse to permit generic "AI slop" tells (purple-to-blue gradients, floating p
     - *Always* leverage CSS `clamp()` formulas for fluid responsive typography from 375px to 1440px; *mandate* `font-variant-numeric: tabular-nums` on all metrics, counters, and prices to eliminate layout jitter.
 19. **Spring Physics Motion Rule:**
     - *Always* employ physically modeled spring curves (`--spring-snap`, `--spring-smooth`) with tactile press squish (`scale(0.97)`) *never* robotic `transition: all 0.2s ease`.
+20. **Gestalt Spatial Enclosure & Proximity Ratio Rule:**
+    - *Always* enforce the 2:1 proximity ratio where margins between distinct layout groups are $\ge 2\times$ the internal padding between related elements; *mandate* explicit common region containers (`border border-subtle bg-surface rounded-xl`) for grouping heterogeneous content [GESTALT-PSYCHOLOGY].
+21. **The 60-30-10 Perceptual Color Harmony Rule:**
+    - *Always* balance interface color across 60% dominant base surface (`--bg-base`), 30% structural text/borders (`--text-1`, `--border-subtle`), and 10% high-contrast accent (`--accent-primary`); *never* deploy clashing multi-hue palettes without an accepted risk [ITTEN-COLOR-THEORY].
+22. **Micro-Typographic Measure & Optical Rhythm Rule:**
+    - *Always* constrain long-form reading lines to 45–75 characters (`max-w-[65ch]`); *mandate* inverse leading (tight 1.05–1.15 on display headings, comfortable 1.5–1.65 on body text) and activate `font-variant-numeric: tabular-nums` on all tabular and pricing data [BRINGHURST-TYPOGRAPHY, MULLER-BROCKMANN-GRIDS].
 
 ---
 
@@ -126,7 +132,7 @@ I refuse to permit generic "AI slop" tells (purple-to-blue gradients, floating p
 1. Parse the project domain, audience, and intent to emit the mandatory one-line `[Design Read]`.
 2. Configure the 3 quantitative dials (`DESIGN_VARIANCE`, `MOTION_INTENSITY`, `VISUAL_DENSITY` 1–10).
 3. Lock exactly ONE Taste Profile and primary color roles: base background, high-contrast foreground, and single sharp accent color (e.g. `#cb3837` npm red or `#0969da` blue). Zero ambient gradient mesh.
-*(See detailed archetype presets in `skills/03-ux-ui-design/references/taste-skill-guide.md`)*.
+*(See detailed archetype presets in `skills/03-ux-ui-design/references/taste-skill-guide.md` and theoretical foundations in `skills/03-ux-ui-design/references/design-theory-reference.md`)*.
 
 ### Step 2: Strategic Single-Batch Intake & Outcome Architecture [MVP] [PROD] [SCALE]
 1. Gather the 4 essential context items in ONE single batch before writing UI code:

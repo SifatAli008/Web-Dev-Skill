@@ -30,6 +30,7 @@ function verifyDesignContract() {
     { name: 'Fluid Typography or Type Scale', regex: /clamp\(|text-base/i },
     { name: 'Spring Physics Motion Tokens', regex: /--spring-snap|cubic-bezier/i },
     { name: '7-State Component Lifecycle Matrix', regex: /7-State|Component Lifecycle/i },
+    { name: 'Design Theory & Gestalt Spatial Architecture', regex: /Gestalt|60-30-10|8-Point|APCA/i },
     { name: 'WCAG 2.2 AA Compliance Gate', regex: /WCAG 2\.2/i }
   ];
 

@@ -45,6 +45,12 @@ Every technical claim in this repository is tagged with one of three epistemic l
 - **`OPEN-DESIGN-NEXU`**: Nexu IO, "open-design: Open Design System and Token Specification". https://github.com/nexu-io/open-design [FACT]
 - **`AI-DESIGN-SKILLS-ELAYA`**: Elaya et al., Intentional Design Systems and Visual Archetypes for AI Agents. [BEST PRACTICE]
 - **`TAILWIND-TYPE-SCALE`**: Tailwind CSS Fluid Typography and Modern Layout Spacing Scale Specification. https://tailwindcss.com/docs/font-size [BEST PRACTICE]
+- **`GESTALT-PSYCHOLOGY`**: Max Wertheimer, Kurt Koffka, and Wolfgang Köhler, "Principles of Gestalt Psychology" (Harcourt Brace, 1935). [FACT]
+- **`ITTEN-COLOR-THEORY`**: Johannes Itten, "The Art of Color" (1961) & Josef Albers, "Interaction of Color" (Yale University Press, 1963). [BEST PRACTICE]
+- **`BRINGHURST-TYPOGRAPHY`**: Robert Bringhurst, "The Elements of Typographic Style" (Hartley & Marks, 4th ed. 2012). [BEST PRACTICE]
+- **`MULLER-BROCKMANN-GRIDS`**: Josef Müller-Brockmann, "Grid Systems in Graphic Design: A Visual Communication Manual" (Verlag Niggli, 1981). [BEST PRACTICE]
+- **`APCA-CONTRAST`**: Andrew Somers, Accessible Perceptual Contrast Algorithm (APCA), W3C Silver / WCAG 3 Candidate Model. [FACT]
+- **`DISNEY-ANIMATION-UI`**: John Lasseter, "Principles of Traditional Animation Applied to 3D Computer Animation", ACM SIGGRAPH (1987). [BEST PRACTICE]
 
 ### 04 · Frontend Engineering
 - **`REACT-DOCS`**: Official React Documentation and Server Components Specification (React 19). https://react.dev/ [FACT]
