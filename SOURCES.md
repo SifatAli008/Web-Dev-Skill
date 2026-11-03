@@ -51,6 +51,9 @@ Every technical claim in this repository is tagged with one of three epistemic l
 - **`MULLER-BROCKMANN-GRIDS`**: Josef Müller-Brockmann, "Grid Systems in Graphic Design: A Visual Communication Manual" (Verlag Niggli, 1981). [BEST PRACTICE]
 - **`APCA-CONTRAST`**: Andrew Somers, Accessible Perceptual Contrast Algorithm (APCA), W3C Silver / WCAG 3 Candidate Model. [FACT]
 - **`DISNEY-ANIMATION-UI`**: John Lasseter, "Principles of Traditional Animation Applied to 3D Computer Animation", ACM SIGGRAPH (1987). [BEST PRACTICE]
+- **`TUFTE-DATA-INK`**: Edward Tufte, "The Visual Display of Quantitative Information" (Graphics Press, 1983) & "Envisioning Information" (1990). [BEST PRACTICE]
+- **`FROST-ATOMIC-DESIGN`**: Brad Frost, "Atomic Design" (Brad Frost Collection, 2016). https://atomicdesign.bradfrost.com/ [BEST PRACTICE]
+- **`LUPTON-TYPE`**: Ellen Lupton, "Thinking with Type: A Critical Guide for Designers, Writers, Editors, & Students" (Princeton Architectural Press, 2004). [BEST PRACTICE]
 
 ### 04 · Frontend Engineering
 - **`REACT-DOCS`**: Official React Documentation and Server Components Specification (React 19). https://react.dev/ [FACT]

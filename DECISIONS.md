@@ -232,3 +232,30 @@ This file tracks foundational design and architectural decisions made for `unive
   6. Enhance `tools/verify-layout.js` assertions to validate dual-theme tokens, container queries, micro-interactions, optical iconography, charts, and the 12 atomic primitives.
 - **Consequences:** Delivers a comprehensive, production-grade UI design and interaction system guaranteeing visual craft, responsive flexibility, universal accessibility, and zero-dependency portability across any web framework.
 
+---
+
+## ADR-017: Comprehensive Design Concepts & Visual Theory Architecture
+
+- **Status:** Accepted (Phase 8 - Design Theory & Visual Science Master Expansion)
+- **Context:** To ensure that any AI agent operating this repository has instant, encyclopedic mastery over all foundational and advanced design concepts, the codebase required complete coverage across classical visual arts principles, perceptual color science, letterform anatomy, mathematical proportions (Golden Ratio, Rule of Thirds, Fibonacci), 6 grid archetypes, multi-plane depth & lighting, cognitive ergonomics laws (Fitts, Hick, Miller, Cowan, Jakob, Tesler, Doherty, Peak-End, Zeigarnik), human-centered design (Norman's 6 principles & 2 gulfs), information architecture, and quantitative data visualization (Edward Tufte & Stephen Few).
+- **Decision:**
+  1. Expand `skills/03-ux-ui-design/references/design-theory-reference.md` into an authoritative 13-pillar compendium covering:
+     - Pillar 1: Gestalt Psychology in Interface Architecture (Proximity, Similarity, Common Region, Figure-Ground, Closure, Prägnanz, Common Fate, Focal Point/Von Restorff).
+     - Pillar 2: Perceptual Color Theory & Contrast Science (60-30-10 rule, Chevreul simultaneous contrast, APCA contrast, RGB/Display-P3 vs OKLCH, classical harmonies, Bezold effect, hue shifting in lighting, CVD compensation).
+     - Pillar 3: Typographic Science & Micro-Typography (Measure `65ch`, inverse leading, musical scales, baseline grid, OpenType features, letterform anatomy, font pairing archetypes, variable fonts).
+     - Pillar 4: Swiss Grid Systems & Spatial Composition (8pt modular grid, asymmetric balance, active whitespace, Golden Ratio $\Phi \approx 1.618$, Rule of Thirds, Fibonacci sequence, 6 classical grid archetypes, Bento Box architecture).
+     - Pillar 5: Visual Scanning Ergonomics & Eye-Tracking Paths (Gutenberg diagram, F-pattern, Z-pattern).
+     - Pillar 6: Motion Choreography & Spatial Physics (Anticipation, staging, duration budgets, spring physics curves).
+     - Pillar 7: Depth, Elevation & Spatial Lighting Planes (Key vs ambient shadow equations, atmospheric perspective, 5-layer elevation model).
+     - Pillar 8: Classical Visual Arts Elements & Principles (Line, Shape, Form, Space, Texture, Value, Color; Balance, Contrast, Emphasis, Movement, Pattern, Proportion, Unity).
+     - Pillar 9: Cognitive Psychology & Interaction Design Laws (Fitts's Law, Hick-Hyman Law, Steering Law, Miller's Law, Cowan's Model, Jakob's Law, Tesler's Law, Doherty Threshold, Peak-End Rule, Zeigarnik Effect).
+     - Pillar 10: Human-Centered Design Frameworks (Don Norman's 6 principles: Affordances, Signifiers, Constraints, Mappings, Feedback, Conceptual Models; Gulf of Execution & Gulf of Evaluation).
+     - Pillar 11: Information Architecture & Wayfinding Ergonomics (IA structural models, Progressive Disclosure, Progressive Reduction, Information Scent, 3 Wayfinding questions).
+     - Pillar 12: Data Visualization & Quantitative Telemetry (Edward Tufte's Data-to-Ink ratio, chartjunk elimination, Lie Factor, small multiples, sparklines, Stephen Few dashboard glanceability).
+     - Pillar 13: Visual Aesthetics, Design Movements & Taste Profiles (Bauhaus, Swiss Style, Skeuomorphism, Flat, Neumorphism, Glassmorphism, Industrial Brutalism, Modern Editorial).
+  2. Expand `GLOSSARY.md` with an encyclopedic "Visual Design, Interaction & UI Architecture Concepts" dictionary defining 60+ terms with mathematical formulas and architectural criteria.
+  3. Register authoritative source citations in `SOURCES.md`: `TUFTE-DATA-INK`, `FROST-ATOMIC-DESIGN`, and `LUPTON-TYPE`.
+  4. Synchronize `skills.index.json` and `skills/03-ux-ui-design/SKILL.md` frontmatter with the new design concept triggers and authoritative sources.
+- **Consequences:** Establishes a permanent, encyclopedic design reference covering 100% of digital design, visual art, typography, cognitive interaction, and information architecture concepts, eliminating aesthetic hallucination and grounding all frontend interfaces in rigorous science.
+
+

@@ -18,12 +18,31 @@
 | **Phase 5** | Reference projects (3 golden projects), baseline vs with-skills evals, fix/cut weak skills. | **COMPLETE (GATE 5)** | >= 25% eval win delta, 0 OWASP findings, tests passing. |
 | **Phase 6** | Generate tool adapters, README demo, CHANGELOG, v0.1.0 release notes. | **COMPLETE (RELEASE v0.1.0)** | Adapters verified against official tool conventions, <= 2 min install. |
 | **Phase 7** | Frontier framework infusion (Agent Skills spec, Taste-Skill v2 full pipeline, OKLCH & Fluid Design tokens, Alibaba OCR, Ponytail ladder, State audit). | **COMPLETE (GATE 7)** | Conformance with Agent Skills spec, anti-slop DESIGN.md, 12 ADRs, all 12 verification suites passing. |
-| **Phase 8** | HCI, Cognitive Ergonomics & Elite Design System Architecture (16th specialist `15-hci-interaction`, Gestalt & Swiss design theory, 12 Atomic Primitives, Dual-Theme OKLCH, Container Queries, Micro-Interactions, ADR-013 through ADR-016). | **COMPLETE (GATE 8)** | Full Agent Skills conformance, schema-validated HCI & Design templates, 16 ADRs, all 12 verification suites passing. |
+| **Phase 8** | HCI, Cognitive Ergonomics & Master Design Theory Architecture (16th specialist `15-hci-interaction`, 13-pillar design science compendium, 12 Atomic Primitives, Dual-Theme OKLCH, Container Queries, Micro-Interactions, 60+ design concept glossary, ADR-013 through ADR-017). | **COMPLETE (GATE 8)** | Full Agent Skills conformance, schema-validated HCI & Design templates, 17 ADRs, all 12 verification suites passing. |
 
 ---
 
 ## Phase 8 Deliverables Completed
 
+- [x] **Comprehensive Design Concepts & Visual Theory Architecture (ADR-017):**
+  - Expanded `skills/03-ux-ui-design/references/design-theory-reference.md` into an authoritative 13-pillar compendium covering:
+    1. Gestalt Psychology (Proximity, Similarity, Common Region, Figure-Ground, Closure, Prägnanz, Common Fate, Focal Point/Von Restorff).
+    2. Perceptual Color Theory (60-30-10 rule, Chevreul simultaneous contrast, APCA contrast, Display-P3/sRGB vs OKLCH, classical color schemes, Bezold effect, hue shifting, CVD redundancy).
+    3. Typographic Science (Measure `65ch`, inverse leading, musical scales, baseline grid, OpenType features, letterform anatomy, font classifications, variable fonts).
+    4. Swiss Grid Systems (8pt modular grid, asymmetric balance, active whitespace, Golden Ratio $\Phi \approx 1.618$, Rule of Thirds, Fibonacci sequence, 6 grid archetypes, Bento Box layout).
+    5. Visual Scanning Ergonomics (Gutenberg diagram, F-pattern, Z-pattern).
+    6. Motion Choreography (Anticipation, staging, duration budgets, spring physics curves).
+    7. Depth & Lighting (Key vs ambient shadow equations, atmospheric perspective, 5-layer elevation model).
+    8. Classical Visual Arts Elements & Principles (Line, Shape, Form, Space, Texture, Value, Color; Balance, Contrast, Emphasis, Movement, Pattern, Proportion, Unity).
+    9. Cognitive Ergonomics Laws (Fitts's Law, Hick-Hyman Law, Steering Law, Miller's Law, Cowan's Model, Jakob's Law, Tesler's Law, Doherty Threshold, Peak-End Rule, Zeigarnik Effect).
+    10. Human-Centered Design (Don Norman's 6 fundamental principles; Gulf of Execution & Gulf of Evaluation).
+    11. Information Architecture (Hierarchical, Sequential, Faceted IA, Progressive Disclosure, Progressive Reduction, Information Scent, Wayfinding).
+    12. Data Visualization (Edward Tufte's Data-to-Ink ratio, chartjunk elimination, Lie Factor, small multiples, sparklines, Stephen Few dashboard ergonomics).
+    13. Visual Aesthetics & Movements (Bauhaus, Swiss International, Skeuomorphism, Flat, Neumorphism, Glassmorphism, Industrial Brutalism, Modern Editorial).
+  - Enriched `GLOSSARY.md` with a dedicated "Visual Design, Interaction & UI Architecture Concepts" dictionary defining 60+ design terms.
+  - Registered authoritative source citations in `SOURCES.md`: `TUFTE-DATA-INK`, `FROST-ATOMIC-DESIGN`, and `LUPTON-TYPE`.
+  - Synchronized `skills.index.json` and `skills/03-ux-ui-design/SKILL.md` frontmatter with new triggers and sources.
+  - Recorded **ADR-017** in `DECISIONS.md`.
 - [x] **Elite Design Package — 12 Atomic Primitives, Dual-Theme OKLCH, Container Queries, Micro-Interactions & Accessible Data Viz (ADR-016):**
   - Created operational L2 reference guide: `skills/03-ux-ui-design/references/component-primitives-reference.md` establishing DOM, ARIA, keyboard, and CSS contracts for 12 universal primitives (Dialog, Dropdown, Toast, Tabs, Accordion, Input, Button, Table, Skeleton, Avatar, Tooltip, Drawer).
   - Implemented Dual-Theme OKLCH tokens (`[data-theme="dark"]` and `[data-theme="light"]`) with a synchronous Zero-FOUC `<head>` initialization script.

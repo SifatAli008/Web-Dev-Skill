@@ -184,3 +184,4 @@ Skeletons must reserve the exact height and aspect ratio of incoming content:
 * **Docked Position:** Slides in from left or bottom on mobile viewports (`touch-action: pan-y`).
 * **Safe Area Insets:** Automatically offsets content using `padding-bottom: env(safe-area-inset-bottom)`.
 * **Gesture Dismiss:** Supports swipe-down or swipe-left gestures to dismiss.
+

@@ -207,7 +207,16 @@
         "grid systems",
         "measure 65ch",
         "optical alignment",
-        "apca"
+        "apca",
+        "design concept",
+        "design concepts",
+        "visual design",
+        "color theory",
+        "bento box",
+        "golden ratio",
+        "atomic design",
+        "typography anatomy",
+        "data-to-ink"
       ],
       "anti_triggers": [
         "database index",
@@ -238,7 +247,10 @@
         "ITTEN-COLOR-THEORY",
         "BRINGHURST-TYPOGRAPHY",
         "MULLER-BROCKMANN-GRIDS",
-        "APCA-CONTRAST"
+        "APCA-CONTRAST",
+        "TUFTE-DATA-INK",
+        "FROST-ATOMIC-DESIGN",
+        "LUPTON-TYPE"
       ]
     },
     {
