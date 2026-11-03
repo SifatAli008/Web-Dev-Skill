@@ -773,6 +773,70 @@
         "ALIBABA-OPEN-CODE-REVIEW",
         "PONYTAIL-DIETRICHGEBERT"
       ]
+    },
+    {
+      "id": "15-hci-interaction",
+      "name": "hci-interaction",
+      "title": "HCI & Cognitive Ergonomics Lead",
+      "authority": "Advises",
+      "path": "skills/15-hci-interaction/SKILL.md",
+      "token_cost_est": 1500,
+      "tiers": [
+        "MVP",
+        "PROD",
+        "SCALE"
+      ],
+      "triggers": [
+        "hci",
+        "human computer interaction",
+        "interaction design",
+        "cognitive ergonomics",
+        "cognitive load",
+        "fitts law",
+        "hick hyman",
+        "doherty threshold",
+        "miller chunking",
+        "mental model",
+        "goms",
+        "klm",
+        "keystroke level model",
+        "touch target",
+        "thumb zone",
+        "error slip",
+        "reversible undo",
+        "keyboard accelerator",
+        "norman principles"
+      ],
+      "anti_triggers": [
+        "sql schema migration",
+        "docker compose",
+        "tls certificate"
+      ],
+      "inputs": [
+        "wireframes",
+        "ui_components",
+        "user_journey_flows",
+        "design_tokens",
+        "interaction_specs"
+      ],
+      "outputs": [
+        "hci-evaluation.schema.json"
+      ],
+      "depends_on": [
+        "00-orchestrator",
+        "03-ux-ui-design"
+      ],
+      "last_verified": "2026-11-03",
+      "sources": [
+        "NORMAN-DESIGN-EVERYDAY-THINGS",
+        "FITTS-LAW-1954",
+        "HICK-HYMAN-LAW",
+        "DOHERTY-THRESHOLD",
+        "MILLER-CHUNKING-1956",
+        "TESLER-COMPLEXITY-CONSERVATION",
+        "GOMS-KLM-CARD-MORAN-NEWELL",
+        "NIELSEN-10-HEURISTICS"
+      ]
     }
   ]
 }

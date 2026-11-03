@@ -1,6 +1,6 @@
 # Contributing to Universal WebDev Skills
 
-Thank you for contributing to `universal-webdev-skills`! Our mission is to provide an open-source, tool-agnostic skills framework that turns any AI coding agent into a disciplined 15-specialist web engineering team.
+Thank you for contributing to `universal-webdev-skills`! Our mission is to provide an open-source, tool-agnostic skills framework that turns any AI coding agent into a disciplined 16-specialist web engineering team.
 
 ---
 

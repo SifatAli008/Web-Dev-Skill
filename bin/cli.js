@@ -67,7 +67,7 @@ function printBanner() {
   console.log(`
 =================================================================
         Universal WebDev Skills: CLI v${PACKAGE_JSON.version}
-    Turn ANY AI agent into a disciplined 15-specialist team
+    Turn ANY AI agent into a disciplined 16-specialist team
 =================================================================
 `);
 }
@@ -76,7 +76,7 @@ function printHelp() {
   printBanner();
   console.log(`Commands:
   init [options]       Install tool adapter into your project directory
-  list                 Display all 15 specialists and their authorities
+  list                 Display all 16 specialists and their authorities
   doctor [path]        Verify current project setup and adapter presence
   audit [path]         Scan workspace for AI garbage code, leaks & tier signals
   playbook [name]      Display operational procedures for 16 core playbooks

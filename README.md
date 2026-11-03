@@ -1,6 +1,6 @@
 # Universal WebDev Skills
 
-> **Turn ANY AI coding agent into a disciplined 15-specialist web engineering team.**  
+> **Turn ANY AI coding agent into a disciplined 16-specialist web engineering team.**  
 > Takes web projects from napkin idea to production-grade release at the exact right level of rigor.
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
@@ -15,7 +15,7 @@
 
 ## What is Universal WebDev Skills?
 
-Universal WebDev Skills is an open-source, tool-agnostic framework that equips AI coding agents—such as **Claude Code**, **Cursor**, **Antigravity**, **GitHub Copilot**, **Gemini CLI**, and **ChatGPT/Codex**—with the operational rigor, security posture, and architectural discipline of an elite 15-person software engineering team.
+Universal WebDev Skills is an open-source, tool-agnostic framework that equips AI coding agents—such as **Claude Code**, **Cursor**, **Antigravity**, **GitHub Copilot**, **Gemini CLI**, and **ChatGPT/Codex**—with the operational rigor, security posture, and architectural discipline of an elite 16-person software engineering team.
 
 Most AI agents act as eager junior developers: they generate code fast, but skip input validation, concatenate raw SQL, leak secrets in git commits, claim tests pass without running them, or over-engineer 2-user MVPs with distributed microservices.
 
@@ -30,7 +30,7 @@ Most AI agents act as eager junior developers: they generate code fast, but skip
 
 ---
 
-## The 15 Specialist Team
+## The 16 Specialist Team
 
 | # | Specialist | Directory | Domain & Protection | Authority |
 |---|---|---|---|---|
@@ -49,6 +49,7 @@ Most AI agents act as eager junior developers: they generate code fast, but skip
 | **12** | **Business & Monetization Lead** | `skills/12-business-monetization` | Server-authoritative billing, webhook validation | Advises |
 | **13** | **Launch & Operations Manager** | `skills/13-launch-operations` | Go-live readiness, launch reports, runbooks | **Launch gate** |
 | **14** | **Maintenance & Evolution Lead** | `skills/14-maintenance` | Strangler Fig legacy rescue, dependency triage | Advises |
+| **15** | **HCI & Cognitive Ergonomics Lead** | `skills/15-hci-interaction` | Cognitive load, Fitts/Hick-Hyman laws, thumb zones, sub-400ms Doherty loops | Advises |
 
 ---
 
@@ -162,7 +163,7 @@ Tested across 9 standardized benchmarks in [`evals/tasks/eval-tasks.json`](evals
 | **Frontier Models** *(Claude 3.5 Sonnet, GPT-4o, Gemini 1.5 Pro)* | 53.3 / 100 | **95.9 / 100** | **+79.9% (+42.6 pts)** | **10 → 0** |
 | **Small Models** *(Claude 3.5 Haiku, Gemini 1.5 Flash, Llama 3 8B)* | 37.3 / 100 | **86.8 / 100** | **+132.7% (+49.5 pts)** | **18 → 0** |
 
-*All 15 specialist skills were validated via deletion tests; every skill contributes measurable positive value with zero token bloat.* See complete metrics in [`evals/RESULTS.md`](evals/RESULTS.md).
+*All 16 specialist skills were validated via deletion tests; every skill contributes measurable positive value with zero token bloat.* See complete metrics in [`evals/RESULTS.md`](evals/RESULTS.md).
 
 ---
 
@@ -188,8 +189,8 @@ universal-webdev-skills/
 ├── chat-paste-in.md          # Single-prompt paste-in for web LLMs
 ├── PROGRESS.md               # Build state tracker
 ├── DECISIONS.md              # Architectural Decision Records (ADRs)
-├── skills/                   # 15 specialist skill directories
-│   └── <00..14>-<name>/      # SKILL.md (<300 lines), references/, tests/
+├── skills/                   # 16 specialist skill directories
+│   └── <00..15>-<name>/      # SKILL.md (<300 lines), references/, tests/
 ├── playbooks/                # 16 cross-sector operational playbooks
 ├── templates/                # 8 artifact templates (PRD, ADR, Threat Model, Perf Audit, etc.)
 │   └── schemas/              # 9 strict JSON schemas

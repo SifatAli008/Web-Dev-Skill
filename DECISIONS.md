@@ -157,3 +157,18 @@ This file tracks foundational design and architectural decisions made for `unive
   5. Enforce **Visual Dominance Hierarchy** requiring a primary anchor with >= 2:1 scale or visual weight ratio relative to surrounding elements.
   6. Ship zero-dependency automated verification in `tools/verify-layout.js` integrated into the master test pipeline (`tools/verify-all.js`).
 - **Consequences:** Eliminates AI visual blandness, guarantees WCAG 2.2 AA contrast across arbitrary theme switches, prevents breakpoint pop, and ensures comprehensive edge-case resilience for all frontend deliverables.
+
+---
+
+## ADR-013: Addition of Specialist 15 (HCI & Cognitive Ergonomics) for Interaction Science and Usability Modeling
+
+- **Status:** Accepted (Phase 8 - Interaction Science & Cognitive Ergonomics Expansion)
+- **Context:** While `03-ux-ui-design` governs visual aesthetics, color spaces, and token systems, and `04-frontend` handles component rendering and bundle budgets, coding agents consistently miss human cognitive limits, motor constraints, and empirical interaction laws. User interfaces suffer from cramped mobile touch targets (<44px), cognitive overload (>7 unchunked options), unmitigated latency (>400ms without feedback), hover-locked essential features, and habituated modal alerts for routine reversible actions.
+- **Decision:**
+  1. Introduce **Specialist 15: HCI & Cognitive Ergonomics Lead (`15-hci-interaction`)**, expanding the core team from 15 to 16 specialists.
+  2. Ground interaction evaluations in mathematical interaction laws: Fitts's Law ($MT = a + b \log_2(2D/W)$) for touch geometry floor (>= 44x44px), Hick-Hyman Law ($RT = b \log_2(n+1)$) for decision density (<= 5 options), Doherty Threshold (<400ms) for perceptual feedback, and Miller's Chunking (7 +/- 2).
+  3. Enforce Norman's Design Principles (Affordances, Signifiers, Constraints, Natural Mapping, Feedback, Conceptual Models) and bridge the Gulfs of Execution and Evaluation.
+  4. Standardize Keystroke-Level Modeling (KLM/GOMS) to optimize high-frequency expert workflows with conflict-free keyboard accelerators (`Cmd+K`, `/`, `Escape`).
+  5. Mandate mobile touch thumb zone prioritization (bottom 60% viewport) and distinguish slips from mistakes by implementing non-blocking reversible "Undo" toasts (5-10s grace window) over habituated modal confirmation dialogues.
+  6. Publish `templates/schemas/hci-evaluation.schema.json`, `templates/hci-evaluation.template.md`, and `checklists/hci.checklist.md`.
+- **Consequences:** Provides scientific rigor for interaction design, prevents motor frustration on touch devices, reduces task completion time, eliminates habituated modal fatigue, and guarantees seamless handoff between UX aesthetics and frontend implementation.

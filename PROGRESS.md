@@ -1,6 +1,6 @@
 # Universal WebDev Skills: Progress Tracker
 
-> **Current Phase:** Phase 7 Completed (Frontier Frameworks Integration & State Audit)  
+> **Current Phase:** Phase 8 Completed (HCI & Cognitive Ergonomics Specialist Expansion)  
 > **Status:** 100% COMPLETE & VERIFIED  
 > **Last Updated:** 2026-11-03  
 > **State Integrity:** State is maintained in files (`PROGRESS.md`, `DECISIONS.md`).
@@ -18,6 +18,23 @@
 | **Phase 5** | Reference projects (3 golden projects), baseline vs with-skills evals, fix/cut weak skills. | **COMPLETE (GATE 5)** | >= 25% eval win delta, 0 OWASP findings, tests passing. |
 | **Phase 6** | Generate tool adapters, README demo, CHANGELOG, v0.1.0 release notes. | **COMPLETE (RELEASE v0.1.0)** | Adapters verified against official tool conventions, <= 2 min install. |
 | **Phase 7** | Frontier framework infusion (Agent Skills spec, Taste-Skill v2 full pipeline, OKLCH & Fluid Design tokens, Alibaba OCR, Ponytail ladder, State audit). | **COMPLETE (GATE 7)** | Conformance with Agent Skills spec, anti-slop DESIGN.md, 12 ADRs, all 12 verification suites passing. |
+| **Phase 8** | HCI & Cognitive Ergonomics expansion (16th specialist `15-hci-interaction`, Laws of UX, KLM benchmarks, touch thumb zones, error slips, ADR-013). | **COMPLETE (GATE 8)** | Full Agent Skills conformance, schema-validated HCI templates, 13 ADRs, all 12 verification suites passing. |
+
+---
+
+## Phase 8 Deliverables Completed
+
+- [x] **Specialist 15: HCI & Cognitive Ergonomics Lead (`skills/15-hci-interaction/`):**
+  - Created `skills/15-hci-interaction/SKILL.md` (149 lines, strictly conforming to `<300` line cap and open Agent Skills specification).
+  - Authored L2 operational reference guide: `skills/15-hci-interaction/references/hci-interaction-guide.md` (Fitts's Law, Hick-Hyman Law, Doherty Threshold, KLM operator models, thumb zone geometry, Reason's slips vs mistakes).
+  - Published schema and template: `templates/schemas/hci-evaluation.schema.json` and `templates/hci-evaluation.template.md`.
+  - Created operational checklist: `checklists/hci.checklist.md` with 25 empirical interaction checkpoints.
+  - Registered in `skills.index.json` with 19 trigger keywords, explicit anti-triggers, and authoritative citations.
+  - Recorded **ADR-013** in `DECISIONS.md`.
+- [x] **Tool Adapters & Documentation Portal Synchronization:**
+  - Added `15-hci-interaction.mdc` to Cursor adapter rules.
+  - Synchronized Claude Code, Copilot, Antigravity, ChatGPT/Codex, and Gemini CLI adapters for 16-specialist operations.
+  - Recompiled high-contrast documentation portal (`docs/index.html`) reflecting 16 specialists across rosters, matrices, and command palette.
 
 ---
 

@@ -1,0 +1,98 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://raw.githubusercontent.com/universal-webdev-skills/universal-webdev-skills/main/templates/schemas/hci-evaluation.schema.json",
+  "title": "HCIEvaluationSchema",
+  "description": "Schema for specialist handoff from 15-hci-interaction to UX design, frontend, and QA engineering.",
+  "type": "object",
+  "required": [
+    "project_name",
+    "tier",
+    "target_flow",
+    "laws_of_ux_audit",
+    "motor_ergonomics",
+    "cognitive_workload",
+    "feedback_and_latency",
+    "error_prevention",
+    "hci_verdict"
+  ],
+  "properties": {
+    "project_name": { "type": "string" },
+    "tier": { "type": "string", "enum": ["MVP", "PROD", "SCALE"] },
+    "evaluator": { "type": "string" },
+    "target_flow": { "type": "string" },
+    "laws_of_ux_audit": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["law", "status", "observation"],
+        "properties": {
+          "law": {
+            "type": "string",
+            "enum": [
+              "Fitts's Law",
+              "Hick-Hyman Law",
+              "Doherty Threshold",
+              "Miller's Law",
+              "Jakob's Law",
+              "Tesler's Law",
+              "Postel's Law"
+            ]
+          },
+          "status": { "type": "string", "enum": ["PASS", "WARN", "FAIL"] },
+          "observation": { "type": "string" },
+          "remediation": { "type": "string" }
+        }
+      },
+      "minItems": 3
+    },
+    "motor_ergonomics": {
+      "type": "object",
+      "required": ["min_touch_target_met", "thumb_zone_optimized", "target_spacing_px"],
+      "properties": {
+        "min_touch_target_met": { "type": "boolean" },
+        "thumb_zone_optimized": { "type": "boolean" },
+        "target_spacing_px": { "type": "integer", "minimum": 0 },
+        "findings": { "type": "string" }
+      }
+    },
+    "cognitive_workload": {
+      "type": "object",
+      "required": ["chunking_passed", "recognition_over_recall", "gulf_of_execution_notes", "gulf_of_evaluation_notes"],
+      "properties": {
+        "chunking_passed": { "type": "boolean" },
+        "recognition_over_recall": { "type": "boolean" },
+        "klm_time_seconds": { "type": "number", "minimum": 0 },
+        "gulf_of_execution_notes": { "type": "string" },
+        "gulf_of_evaluation_notes": { "type": "string" }
+      }
+    },
+    "feedback_and_latency": {
+      "type": "object",
+      "required": ["sub_100ms_tactile_feedback", "optimistic_ui_enabled", "progress_indicators_defined"],
+      "properties": {
+        "sub_100ms_tactile_feedback": { "type": "boolean" },
+        "optimistic_ui_enabled": { "type": "boolean" },
+        "progress_indicators_defined": { "type": "boolean" },
+        "latency_mitigations": { "type": "string" }
+      }
+    },
+    "error_prevention": {
+      "type": "object",
+      "required": ["slip_prevention_mechanisms", "reversible_actions_supported"],
+      "properties": {
+        "slip_prevention_mechanisms": {
+          "type": "array",
+          "items": { "type": "string" },
+          "minItems": 1
+        },
+        "reversible_actions_supported": { "type": "boolean" },
+        "confirmation_dialog_rules": { "type": "string" }
+      }
+    },
+    "hci_verdict": { "type": "string", "enum": ["GO", "NEEDS_REVISION", "NO_GO"] },
+    "blocking_issues": {
+      "type": "array",
+      "items": { "type": "string" }
+    }
+  }
+}

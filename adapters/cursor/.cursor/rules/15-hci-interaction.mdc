@@ -1,0 +1,10 @@
+---
+description: HCI interaction science, Fitts law touch targets (>= 44x44px), thumb zones, and sub-400ms Doherty loops
+globs: **/*.{tsx,jsx,vue,svelte,html,css,ts,js}
+alwaysApply: false
+---
+Enforce empirical interaction science: Fitts's Law touch targets >= 44x44px with >= 8px spacing.
+Map mobile controls to natural bottom thumb zone (lower 60% viewport).
+Doherty Threshold: Provide immediate tactile visual feedback < 100ms; use optimistic UI updates for routine mutations.
+Miller's chunking: Group form fields into <= 7 item chunks. Hick-Hyman: Cap decision branches to <= 5 choices.
+Error ergonomics: Prevent slips via spatial separation; use reversible non-blocking 'Undo' snackbars over modal alerts.

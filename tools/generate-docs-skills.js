@@ -87,10 +87,14 @@ const SPECIALIST_VERIFICATIONS = {
   '14-maintenance': [
     { title: 'Characterization Test Suite Check', desc: 'Verifies 100% green behavioral preservation when refactoring legacy modules using the Strangler Fig pattern.', cmd: 'npm test -- --filter=characterization' },
     { title: 'Dependency Vulnerability Burndown', desc: 'Audits supply chain dependencies for deprecations, major version drift, and security advisories.', cmd: 'npm audit && npm outdated' }
+  ],
+  '15-hci-interaction': [
+    { title: 'Laws of UX & Target Sizing Audit', desc: 'Validates Fitts law touch targets (>= 44x44px), thumb zone mapping, and Hick-Hyman decision branch limits.', cmd: 'node tools/verify-layout.js' },
+    { title: 'HCI Evaluation Schema Conformance', desc: 'Ensures cognitive walkthrough, KLM task benchmarks, and error slip prevention comply with templates/schemas/hci-evaluation.schema.json.', cmd: 'node -e "const fs=require(\'fs\'); JSON.parse(fs.readFileSync(\'templates/schemas/hci-evaluation.schema.json\')); console.log(\'HCI Schema: VALID\');"' }
   ]
 };
 
-// --- 1. EXTRACT 15 SPECIALISTS ---
+// --- 1. EXTRACT 16 SPECIALISTS ---
 function extractSpecialists() {
   const indexData = JSON.parse(fs.readFileSync(INDEX_FILE, 'utf8'));
 
@@ -504,7 +508,7 @@ function generateStaticSpecialistsNav(specs) {
     <li>
       <button class="nav-item-btn" onclick="loadContent('specialists', this)">
         <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="color:var(--cyan); flex-shrink:0;"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
-        <span>All 15 Specialists Guide</span>
+        <span>All 16 Specialists Guide</span>
       </button>
     </li>
   `;
@@ -567,7 +571,7 @@ function generateStaticOverviewToc() {
     <li><a href="#tier-comparison" class="toc-a">5. 3-Tier Rigor Matrix</a></li>
     <li><a href="#binding-gates" class="toc-a">6. 5 Binding Quality Gates</a></li>
     <li><a href="#execution" class="toc-a">7. Execution Modes</a></li>
-    <li><a href="#roster" class="toc-a">8. 15 Specialists Directory</a></li>
+    <li><a href="#roster" class="toc-a">8. 16 Specialists Directory</a></li>
   `;
 }
 
@@ -2169,14 +2173,14 @@ const fullHtml = `<!DOCTYPE html>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="robots" content="index, follow">
   <title>Universal WebDev Skills | Official Documentation & Engineering Console</title>
-  <meta name="description" content="Production-grade documentation for Universal WebDev Skills — 15-specialist web engineering protocol for AI coding agents.">
+  <meta name="description" content="Production-grade documentation for Universal WebDev Skills — 16-specialist web engineering protocol for AI coding agents.">
   <link rel="canonical" href="https://sifatali008.github.io/Web-Dev-Skill/">
 
   <!-- Open Graph & Twitter -->
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://sifatali008.github.io/Web-Dev-Skill/">
   <meta property="og:title" content="Universal WebDev Skills: Official Documentation">
-  <meta property="og:description" content="15 specialists, 16 playbooks, 3-tier rigor, hard security vetos, and interactive architecture tools.">
+  <meta property="og:description" content="16 specialists, 16 playbooks, 3-tier rigor, hard security vetos, and interactive architecture tools.">
   <meta name="twitter:card" content="summary_large_image">
 
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%230b0f17'/><polyline points='65 75 90 50 65 25' stroke='%2338bdf8' stroke-width='10' stroke-linecap='round' stroke-linejoin='round' fill='none'/><polyline points='35 25 10 50 35 75' stroke='%2338bdf8' stroke-width='10' stroke-linecap='round' stroke-linejoin='round' fill='none'/></svg>">
@@ -2289,9 +2293,9 @@ const fullHtml = `<!DOCTYPE html>
             <svg class="nav-chevron" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
               <polyline points="6 9 12 15 18 9"></polyline>
             </svg>
-            <span>15 Specialist Skills</span>
+            <span>16 Specialist Skills</span>
           </div>
-          <span class="nav-group-count">15</span>
+          <span class="nav-group-count">16</span>
         </button>
         <ul class="nav-list" id="navSpecialistsList">
           ${generateStaticSpecialistsNav(specialists)}
@@ -2425,7 +2429,7 @@ const fullHtml = `<!DOCTYPE html>
     <div class="palette-window">
       <div class="palette-search-row">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color: var(--text-4);"><circle cx="11" cy="11" r="8"></circle><path d="m21 21-4.35-4.35"></path></svg>
-        <input type="text" id="paletteInput" class="palette-search-input" placeholder="Search 15 specialists, playbooks, schemas, commands..." onkeyup="filterPalette()">
+        <input type="text" id="paletteInput" class="palette-search-input" placeholder="Search 16 specialists, playbooks, schemas, commands..." onkeyup="filterPalette()">
         <kbd style="font-family: var(--font-mono); font-size: 0.7rem; color: var(--text-4);">Esc</kbd>
       </div>
       <ul class="palette-results-list" id="paletteResults">
@@ -2444,7 +2448,7 @@ const fullHtml = `<!DOCTYPE html>
 
     const DOC_PAGES = [
       { key: 'overview', title: 'System Overview' },
-      { key: 'specialists', title: 'All 15 Specialists Guide' },
+      { key: 'specialists', title: 'All 16 Specialists Guide' },
       { key: 'quickstart', title: '5-Second Quickstart' },
       { key: 'tiers', title: '3-Tier Rigor Matrix' },
       { key: 'protocol', title: 'Team Stances & Conflicts' },
@@ -2571,7 +2575,7 @@ const fullHtml = `<!DOCTYPE html>
           <li>
             <button class="nav-item-btn" onclick="loadContent('specialists', this)">
               <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="color:var(--cyan); flex-shrink:0;"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
-              <span>All 15 Specialists Guide</span>
+              <span>All 16 Specialists Guide</span>
             </button>
           </li>
         \`;
@@ -2676,7 +2680,7 @@ const fullHtml = `<!DOCTYPE html>
     function getSpecialistPaginationHtml(currentSpecId) {
       const idx = SPECIALISTS.findIndex(s => s.id === currentSpecId);
       if (idx === -1) return '';
-      const prev = idx > 0 ? SPECIALISTS[idx - 1] : { id: 'specialists', name: 'All 15 Specialists Guide', isHub: true };
+      const prev = idx > 0 ? SPECIALISTS[idx - 1] : { id: 'specialists', name: 'All 16 Specialists Guide', isHub: true };
       const next = idx < SPECIALISTS.length - 1 ? SPECIALISTS[idx + 1] : null;
 
       return \`
@@ -2828,14 +2832,14 @@ const fullHtml = `<!DOCTYPE html>
         <li><a href="#specialists-overview" class="toc-a active">1. Overview & 5 Delivery Phases</a></li>
         <li><a href="#specialists-gates" class="toc-a">2. Binding Quality Gates & Hierarchy</a></li>
         <li><a href="#specialists-matrix" class="toc-a">3. Collaboration & Handoff Matrix</a></li>
-        <li><a href="#specialists-directory" class="toc-a">4. 15 Specialist Roster</a></li>
+        <li><a href="#specialists-directory" class="toc-a">4. 16 Specialist Roster</a></li>
       \`;
 
       main.innerHTML = \`
         <div class="content-header">
           <div class="doc-cat">Core Team Protocol</div>
-          <h1 class="doc-heading" id="specialists-overview">All 15 WebDev Specialists Complete Guide</h1>
-          <p class="doc-intro">A disciplined, specification-driven multi-agent framework for web engineering. 15 autonomous specialists, explicit authority boundaries, required schema handoffs, and zero AI vibe-code.</p>
+          <h1 class="doc-heading" id="specialists-overview">All 16 WebDev Specialists Complete Guide</h1>
+          <p class="doc-intro">A disciplined, specification-driven multi-agent framework for web engineering. 16 autonomous specialists, explicit authority boundaries, required schema handoffs, and zero AI vibe-code.</p>
         </div>
 
         <!-- 5 Delivery Phases Banner -->
@@ -2859,14 +2863,14 @@ const fullHtml = `<!DOCTYPE html>
 
             <div class="clean-card" style="border-top: 3px solid var(--purple);">
               <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px;">
-                <strong style="color: var(--purple); font-size: 0.95rem;">Phase 2: Architecture & UX</strong>
-                <span class="nav-item-num" style="font-size:0.7rem;">02, 03, 07</span>
+                <strong style="color: var(--purple); font-size: 0.95rem;">Phase 2: Architecture, UX & HCI</strong>
+                <span class="nav-item-num" style="font-size:0.7rem;">02, 03, 07, 15</span>
               </div>
               <div style="font-size: 0.85rem; color: var(--text-2); line-height: 1.55;">
-                Establishes system boundaries, data contracts, and technology stack in <code>adr.schema.json</code>, accessible design tokens (WCAG AAA), and GDPR/CCPA consent architecture.
+                Establishes system boundaries, data contracts, and technology stack in <code>adr.schema.json</code>, accessible design tokens (WCAG 2.2 AA), interaction ergonomics in <code>hci-evaluation.schema.json</code>, and GDPR/CCPA consent architecture.
               </div>
               <div style="margin-top: 10px; font-size: 0.78rem; color: var(--text-3); font-family: var(--font-mono);">
-                Artifacts: ADR &middot; Design Tokens &middot; Privacy Spec
+                Artifacts: ADR &middot; Design Tokens &middot; HCI Evaluation &middot; Privacy Spec
               </div>
             </div>
 
@@ -2943,7 +2947,7 @@ const fullHtml = `<!DOCTYPE html>
 
         <!-- Collaboration Matrix Table -->
         <div class="doc-block" id="specialists-matrix">
-          <h2 class="doc-subheading">Complete 15-Specialist Collaboration Matrix</h2>
+          <h2 class="doc-subheading">Complete 16-Specialist Collaboration Matrix</h2>
           <div class="spec-table-box">
             <table>
               <thead>
@@ -4052,7 +4056,7 @@ Never hardcode secrets. Passwords must use scrypt/argon2 with unique salts. Vali
 
       let items = [
         { type: 'Protocol', title: 'System Overview & Matrix', badge: 'Protocol', key: 'overview', text: 'overview architecture summary matrix' },
-        { type: 'Protocol', title: 'All 15 Specialists Complete Guide', badge: 'Protocol', key: 'specialists', text: 'specialists guide matrix directory roster all 15 roles' },
+        { type: 'Protocol', title: 'All 16 Specialists Complete Guide', badge: 'Protocol', key: 'specialists', text: 'specialists guide matrix directory roster all 16 roles' },
         { type: 'Protocol', title: '5-Second Quickstart', badge: 'Guide', key: 'quickstart', text: 'quickstart cli installer npm npx' },
         { type: 'Protocol', title: '3-Tier Rigor Matrix', badge: 'Architecture', key: 'tiers', text: 'tiers mvp prod scale matrix rigor' },
         { type: 'Protocol', title: 'Team Stances & Conflicts', badge: 'Governance', key: 'protocol', text: 'protocol stances conflict resolution' },

@@ -33,7 +33,7 @@ This project is governed by the Universal WebDev Skills engineering framework.
 1. Protocol: Read \`AGENTS.md\` for team protocols, tier classification (MVP, PROD, SCALE), and behavior rules.
 2. Routing: Read \`skills.index.json\` at the repository root. When given a task, select the 2–5 relevant specialists and load only their \`skills/<id>/SKILL.md\` file. Never load the entire repository.
 3. Design System & Anti-Slop: Read \`DESIGN.md\` at workspace root for visual tokens, Taste Profiles (minimalist, industrial-brutalist, editorial, soft-consumer), and anti-slop directives.
-4. Anthropic Agent Skills Standard: All 15 skills in \`skills/\` strictly comply with the open Agent Skills specification (agentskills.io / AAIF) with standardized YAML frontmatter, 3-level progressive disclosure, and runnable terminal verification suites.
+4. Anthropic Agent Skills Standard: All 16 skills in \`skills/\` strictly comply with the open Agent Skills specification (agentskills.io / AAIF) with standardized YAML frontmatter, 3-level progressive disclosure, and runnable terminal verification suites.
 5. Handoffs: Use schema-defined artifacts in \`templates/schemas/\`.
 6. AI Hygiene: Zero placeholder comments (// TODO), no folder sprawl, and strict artifact control.
 7. Status Format: End every substantial response with Done, Verified (with evidence), NOT verified, Risks, and Next step.
@@ -46,7 +46,7 @@ This project is governed by the Universal WebDev Skills engineering framework.
   ensureDir(cursorDir);
   const cursorContent = `# Cursor Universal WebDev Team Rules
 
-You are an elite 15-specialist web engineering team.
+You are an elite 16-specialist web engineering team.
 
 - Protocol: Follow AGENTS.md at the workspace root.
 - Design System: Follow DESIGN.md at workspace root for tokens, Taste Profiles, and anti-slop rules.
@@ -123,6 +123,17 @@ Assert both happy paths and edge/error cases (invalid inputs, injection strings,
       alwaysApply: false,
       content: `No rollback, no ship. Expose independent /api/health/liveness and /api/health/readiness probes.
 Provide tested rollback procedures before declaring deployment readiness.`
+    },
+    {
+      file: '15-hci-interaction.mdc',
+      desc: 'HCI interaction science, Fitts law touch targets (>= 44x44px), thumb zones, and sub-400ms Doherty loops',
+      globs: '**/*.{tsx,jsx,vue,svelte,html,css,ts,js}',
+      alwaysApply: false,
+      content: `Enforce empirical interaction science: Fitts's Law touch targets >= 44x44px with >= 8px spacing.
+Map mobile controls to natural bottom thumb zone (lower 60% viewport).
+Doherty Threshold: Provide immediate tactile visual feedback < 100ms; use optimistic UI updates for routine mutations.
+Miller's chunking: Group form fields into <= 7 item chunks. Hick-Hyman: Cap decision branches to <= 5 choices.
+Error ergonomics: Prevent slips via spatial separation; use reversible non-blocking 'Undo' snackbars over modal alerts.`
     }
   ];
 
@@ -176,7 +187,7 @@ Governed by Universal WebDev Skills:
   ensureDir(openaiDir);
   const openaiContent = `# ChatGPT / Codex System Prompt Pointer
 
-Copy and paste the contents of chat-paste-in.md to activate the Universal WebDev 15-specialist engineering team in chat environments.
+Copy and paste the contents of chat-paste-in.md to activate the Universal WebDev 16-specialist engineering team in chat environments.
 `;
   fs.writeFileSync(path.join(openaiDir, 'system-prompt.md'), openaiContent);
   console.log('[BUILT] adapters/codex-chatgpt/system-prompt.md');

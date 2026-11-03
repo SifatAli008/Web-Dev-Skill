@@ -1,6 +1,6 @@
 # Universal WebDev Skills: Authoritative Sources Registry
 
-This registry tracks authoritative standards, official documentation, regulations, and primary research cited across all 15 skills. All factual assertions in skills must cite a valid `Source ID` from this registry.
+This registry tracks authoritative standards, official documentation, regulations, and primary research cited across all 16 skills. All factual assertions in skills must cite a valid `Source ID` from this registry.
 
 ---
 
@@ -97,4 +97,15 @@ Every technical claim in this repository is tagged with one of three epistemic l
 - **`LEGACY-CODE-FEATHERS`**: Michael Feathers, "Working Effectively with Legacy Code" (Prentice Hall, 2004). [BEST PRACTICE]
 - **`REFACTORING-FOWLER`**: Martin Fowler, "Refactoring: Improving the Design of Existing Code" (Addison-Wesley, 2nd ed. 2018). [BEST PRACTICE]
 - **`DEPENDENCY-HEALTH`**: OpenSSF (Open Source Security Foundation) Scorecard and Dependency Hygiene. https://scorecard.dev/ [BEST PRACTICE]
+
+### 15 · Human-Computer Interaction & Cognitive Ergonomics
+- **`NORMAN-DESIGN-EVERYDAY-THINGS`**: Don Norman, "The Design of Everyday Things: Revised and Expanded Edition" (Basic Books, 2013). [BEST PRACTICE]
+- **`FITTS-LAW-1954`**: Paul M. Fitts, "The information capacity of the human motor system in controlling the amplitude of movement", Journal of Experimental Psychology (1954). [FACT]
+- **`HICK-HYMAN-LAW`**: William E. Hick (1952) & Ray Hyman (1953), "On the rate of gain of information", Quarterly Journal of Experimental Psychology. [FACT]
+- **`DOHERTY-THRESHOLD`**: Walter J. Doherty and Ahrvid J. Thadhani, "The Economic Value of Rapid Response Time", IBM Systems Journal, Vol. 21, No. 1 (1982). [FACT]
+- **`MILLER-CHUNKING-1956`**: George A. Miller, "The Magical Number Seven, Plus or Minus Two: Some Limits on Our Capacity for Processing Information", Psychological Review (1956). [FACT]
+- **`TESLER-COMPLEXITY-CONSERVATION`**: Larry Tesler, Law of Conservation of Complexity, ACM Interactions (1984). [BEST PRACTICE]
+- **`GOMS-KLM-CARD-MORAN-NEWELL`**: Stuart K. Card, Thomas P. Moran, and Allen Newell, "The Psychology of Human-Computer Interaction" (CRC Press, 1983). [FACT]
+- **`NIELSEN-10-HEURISTICS`**: Jakob Nielsen, "10 Usability Heuristics for User Interface Design", Nielsen Norman Group (1994). [BEST PRACTICE]
+
 
