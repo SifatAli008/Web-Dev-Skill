@@ -74,12 +74,15 @@ AI Hygiene: Zero placeholder comments (// TODO), no folder sprawl, zero AI vibe-
     },
     {
       file: '03-ux-ui-design.mdc',
-      desc: 'Taste-skill anti-slop directives, Taste Profiles (Minimalist, Brutalist, Editorial, Soft), WCAG 2.2 AA',
+      desc: 'Leonxlnx taste-skill v2 anti-slop framework, Design Read, Dials, WCAG 2.2 AA, and DESIGN.md contract',
       globs: '**/*.{tsx,jsx,vue,svelte,html,css,scss}',
       alwaysApply: false,
-      content: `Enforce taste-skill anti-slop directives: commit to one Taste Profile (Minimalist, Industrial-Brutalist, Editorial, Soft-Consumer).
-Never emit AI slop: no purple/blue gradients, no centered 'AI-powered' pill badges, no uniform 3-card icon grids.
-Enforce WCAG 2.2 Level AA accessibility: contrast >= 4.5:1, visible focus rings (:focus-visible), and 44x44px touch targets.`
+      content: `Follow DESIGN.md contract at workspace root. Declare one-line [Design Read] before writing markup.
+Configure quantitative dials: DESIGN_VARIANCE (1-10), MOTION_INTENSITY (1-10), VISUAL_DENSITY (1-10).
+Enforce taste-skill anti-slop directives: commit to one Taste Profile (Minimalist, Industrial-Brutalist, Editorial, Soft-Consumer).
+Never emit AI slop: zero em-dashes (—) in copy, no purple/blue gradients, no centered 'AI-powered' pill badges, no repetitive 3-card grids.
+Compose >= 4 layout families per landing page. Bound hero headline to <= 2 lines, subtext < 20 words, CTA strictly above fold.
+Enforce WCAG 2.2 Level AA accessibility: contrast >= 4.5:1, visible focus rings (:focus-visible), 44x44px touch targets, and contrast scrims over dynamic media.`
     },
     {
       file: '04-frontend.mdc',

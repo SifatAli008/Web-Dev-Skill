@@ -107,3 +107,35 @@ Before declaring any design deliverable complete, the agent must evaluate and ex
 - [ ] **6. Token Snapping (DESIGN.md):** 100% of typography, spacing, and surfaces snap to the design token scale with zero arbitrary values (`text-[19px]`, `p-[13px]`).
 - [ ] **7. WCAG 2.2 AA Contrast Gate:** Body copy achieves $\ge 4.5:1$ contrast ratio; interactive controls achieve $\ge 3:1$.
 - [ ] **8. 5-State Matrix Defined:** Idle, Loading, Error, Empty, and Success states are explicitly designed for all dynamic components.
+
+---
+
+## 6. Advanced Edge-Case Engineering & Escape Hatches
+
+### A. Dynamic Media & UGC Contrast Solutions
+When text overlays user-generated content, dynamic photographic hero banners, or video:
+1. **Gradient Scrim:** Always apply a directional CSS gradient beneath text:
+   `background: linear-gradient(to top, rgba(0, 0, 0, 0.85) 0%, rgba(0, 0, 0, 0.4) 60%, transparent 100%)`.
+2. **Backdrop Blur Surface:** Wrap copy in a frosted glass container:
+   `background: rgba(15, 23, 42, 0.75); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.1)`.
+3. **Contrast Drop Shadow:** Apply an optical text contrast anchor:
+   `filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.9))`.
+
+### B. 3D WebGL / Canvas Accessibility Architecture
+When utilizing Three.js, Spline, or HTML5 Canvas:
+- Isolate the `<canvas>` element: apply `aria-hidden="true"` and `tabindex="-1"`.
+- Construct an accessible, semantic HTML DOM overlay on top of the canvas containing all text alternatives, headings, and interactive controls (`<button>`, `<a href="...">`).
+- Ensure keyboard `Tab` sequence navigates the DOM overlay without getting trapped in the canvas context.
+
+### C. Visual Browser QA (Overcoming LLM Spatial Blindness)
+Never declare UI complete based purely on CSS token calculations. Inspect rendered viewports:
+- **Mobile (375px):** Verify single-column layout, zero horizontal overflow scroll, 44x44px touch targets.
+- **Tablet (768px):** Verify two-column wrapping, headline line-breaks, and navigation drawer behavior.
+- **Desktop (1440px):** Verify `max-w-7xl` content container bounding, optical alignment, and z-index layers.
+
+### D. Brand Exception & Escape Hatch Protocol
+If an established corporate brand book explicitly mandates colors or layouts that conflict with taste-skill rules (e.g., existing brand colors or pre-existing button shapes):
+- Record an explicit `ACCEPTED-RISK: BRAND-IDENTITY` entry in `DECISIONS.md`.
+- Document the stakeholder approval and preserve brand consistency while maintaining WCAG 2.2 AA contrast standards.
+
+

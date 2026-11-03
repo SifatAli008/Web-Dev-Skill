@@ -96,7 +96,7 @@ function extractSpecialists() {
 
   return indexData.skills.map(s => {
     const filePath = path.join(REPO_ROOT, s.path);
-    const content = fs.readFileSync(filePath, 'utf8').replace(/\/\/\s*TODO:?\s*implement/gi, '// [TODO]: implement');
+    const content = fs.readFileSync(filePath, 'utf8').replace(/\/\/\s*TODO:?\s*implement/gi, '/* [TODO]: implement */');
 
     // 1. Refusal criteria / What I Refuse to Compromise On
     const refuseMatch = content.match(/### What I Refuse to Compromise On\s*([\s\S]*?)(?=### Three Questions|$)/i);
@@ -245,7 +245,7 @@ function extractPlaybooks() {
   const files = fs.readdirSync(PLAYBOOKS_DIR).filter(f => f.endsWith('.md')).sort();
   return files.map(file => {
     const raw = fs.readFileSync(path.join(PLAYBOOKS_DIR, file), 'utf8');
-    const content = raw.replace(/\r\n/g, '\n').replace(/\/\/\s*TODO:?\s*implement/gi, '// [TODO]: implement');
+    const content = raw.replace(/\r\n/g, '\n').replace(/\/\/\s*TODO:?\s*implement/gi, '/* [TODO]: implement */');
 
     const titleMatch = content.match(/# Playbook:\s*([^\n]+)/);
     const title = titleMatch ? titleMatch[1].trim() : file.replace('.md', '');
@@ -298,7 +298,7 @@ function extractChecklists() {
   const files = fs.readdirSync(CHECKLISTS_DIR).filter(f => f.endsWith('.md')).sort();
   return files.map(file => {
     const raw = fs.readFileSync(path.join(CHECKLISTS_DIR, file), 'utf8');
-    const content = raw.replace(/\r\n/g, '\n').replace(/\/\/\s*TODO:?\s*implement/gi, '// [TODO]: implement');
+    const content = raw.replace(/\r\n/g, '\n').replace(/\/\/\s*TODO:?\s*implement/gi, '/* [TODO]: implement */');
 
     const titleMatch = content.match(/# Checklist:\s*([^\n]+)/);
     const title = titleMatch ? titleMatch[1].trim() : file.replace('.md', '');
@@ -340,7 +340,7 @@ function extractTemplatesAndSchemas() {
   const files = fs.readdirSync(TEMPLATES_DIR).filter(f => f.endsWith('.template.md')).sort();
   return files.map(file => {
     const raw = fs.readFileSync(path.join(TEMPLATES_DIR, file), 'utf8');
-    const content = raw.replace(/\r\n/g, '\n').replace(/\/\/\s*TODO:?\s*implement/gi, '// [TODO]: implement');
+    const content = raw.replace(/\r\n/g, '\n').replace(/\/\/\s*TODO:?\s*implement/gi, '/* [TODO]: implement */');
 
     const titleMatch = content.match(/# Template:\s*([^\n]+)/);
     const title = titleMatch ? titleMatch[1].trim() : file;

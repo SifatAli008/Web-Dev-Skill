@@ -103,6 +103,12 @@ I refuse to permit generic "AI slop" tells (purple-to-blue gradients, floating p
 12. **Touch Target Size & Visible Focus Rules (WCAG 2.2 SC 2.5.8, 2.4.7):**
     - *Mandate* minimum target area of **44x44 CSS pixels** for interactive controls.
     - *Never* use `outline: none` without providing an equal or higher-contrast visible custom focus ring (`outline: 2px solid var(--border-focus); outline-offset: 2px;`).
+13. **Dynamic Media & UGC Contrast Anchor Rule:**
+    - *If* rendering text over dynamic photography, video backgrounds, or user-generated content, *mandate* automated contrast anchors (dark gradient scrim `bg-gradient-to-t from-black/80 via-black/40 to-transparent`, `backdrop-blur-md` surface container, or high-contrast drop-shadow) *because* dynamic media without dedicated scrim layers inevitably causes WCAG 1.4.3 contrast failures.
+14. **3D WebGL / Canvas Accessibility Overlay Rule:**
+    - *If* deploying interactive 3D WebGL, Three.js, Spline, or Canvas visualizers, *mark* the canvas canvas element `aria-hidden="true"` and `tabindex="-1"`, and *construct* a semantic HTML DOM overlay for all interactive controls, labels, and keyboard focus states.
+15. **Brand Exception & Escape Hatch Protocol:**
+    - *If* an established corporate brand identity mandates colors or patterns that conflict with anti-slop defaults, *record* an `ACCEPTED-RISK: BRAND-IDENTITY` in `DECISIONS.md` with explicit user sign-off *never* compromise without documentation.
 
 ---
 
@@ -142,7 +148,14 @@ I refuse to permit generic "AI slop" tells (purple-to-blue gradients, floating p
 3. Provide explicit error recovery: describe *what* went wrong and *how* to fix it directly adjacent to the invalid input with `aria-describedby="error-id"` and `aria-invalid="true"`.
 4. Ensure all interactive elements have 44x44px minimum touch targets and visible focus indicators.
 
-### Step 6: Section 14 Final Pre-Flight Quality Gate Audit [MVP] [PROD] [SCALE]
+### Step 6: Visual Browser QA & Viewport Inspection [MVP] [PROD] [SCALE]
+1. Probe rendered layout across 3 canonical viewport widths to catch LLM spatial blindness:
+   - **Mobile (375px):** Verify single-column stacking, zero horizontal overflow (`w-full overflow-x-hidden`), accessible 44x44px touch targets.
+   - **Tablet (768px):** Verify balanced 2-column wrapping and readable typography lines.
+   - **Desktop (1440px):** Verify bounded content container (`max-w-7xl mx-auto`), optical alignment, and zero z-index clipping beneath sticky headers.
+2. Verify contrast anchors over dynamic background photography or video.
+
+### Step 7: Section 14 Final Pre-Flight Quality Gate Audit [MVP] [PROD] [SCALE]
 1. Run pre-flight verification against the output before declaring work complete:
    - [ ] Is the one-line `[Design Read]` explicitly stated with dial parameters?
    - [ ] Are 0 em-dashes (`—`) or en-dashes (`–`) present in any copy?
@@ -151,6 +164,7 @@ I refuse to permit generic "AI slop" tells (purple-to-blue gradients, floating p
    - [ ] Is the hero headline bounded to $\le 2$ lines and subtext $< 20$ words?
    - [ ] Does body copy meet $\ge 4.5:1$ contrast and interactive controls meet $\ge 3:1$?
    - [ ] Are all 5 dynamic lifecycle states (Idle, Loading, Error, Empty, Success) explicitly designed?
+   - [ ] Are all 3 canonical viewports (375px, 768px, 1440px) verified without text clipping or optical misalignment?
 
 ---
 
