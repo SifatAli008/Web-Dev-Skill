@@ -97,15 +97,21 @@ This file tracks foundational design and architectural decisions made for `unive
 
 ---
 
-## ADR-009: Design Contract (`DESIGN.md`) & Taste-Skill Anti-Slop Visual Systems
+## ADR-009: Design Contract (`DESIGN.md`) & Full Taste-Skill v2 Anti-Slop Architecture
 
 - **Status:** Accepted (Phase 7 - Frontier Skills Integration)
-- **Context:** AI coding agents frequently generate "AI vibe slop": generic purple-indigo gradients, hollow floating cards, non-standard component wrappers, and low-contrast typography.
+- **Context:** AI coding agents frequently generate generic "AI vibe slop": predictable purple-to-blue gradients, floating overhead pill badges, identical 3-card grids with centered circle icons, low-contrast typography, and ubiquitous em-dashes in copy.
 - **Decision:**
-  1. Integrate `nexu-io/open-design` `DESIGN.md` contract enforcement into `03-ux-ui-design`.
-  2. Embed `Leonxlnx/taste-skill` anti-slop visual directives and 4 distinct design archetypes (Editorial Luxury, Clean Scandinavian, Brutalist Cyberpunk, Playful Organic) into `03-ux-ui-design` and `04-frontend`.
-  3. Enforce the Zero Hollow Code rule: no fake window dots, no decorative non-functional buttons, and strict WCAG 2.2 AA contrast ratios.
-- **Consequences:** Guarantees visually differentiated, production-grade user interfaces that feel designed by human craftspeople rather than generic generative templates.
+  1. Integrate the complete `Leonxlnx/taste-skill` v2 (`design-taste-frontend`) anti-slop framework into `03-ux-ui-design` and `04-frontend`.
+  2. Enforce **Section 0: Brief Inference & Mandatory Design Read** before generating any markup or code: `[Design Read]: <Page Kind> | ICP: <Audience> | Vibe: <Keywords> | Dials: [V=<1-10>, M=<1-10>, D=<1-10>] | Profile: <Profile>`.
+  3. Enforce **Section 1: Quantitative Design Dials** (1–10 scale) to deterministically govern layout variance, motion dynamics, and visual density.
+  4. Mandate the **4 Curated Anti-Slop Taste Profiles** (Minimalist, Industrial-Brutalist, Editorial, Soft-Consumer).
+  5. Enforce **Layout Family Diversity**: every landing page must implement at least 4 distinct layout families without repeating identical card grids.
+  6. Enforce **Bounded Hero Section Discipline**: headlines bounded to $\le 2$ lines, subtext $< 20$ words, and primary CTA strictly above fold.
+  7. Enforce the **Zero Em-Dash Copy Rule**: zero tolerance for em-dashes (`—`) or en-dashes (`–`) in web copy.
+  8. Enforce **Section 14 Final Pre-Flight Quality Gate**: mandatory 8-point verification checklist before declaring UI deliverables complete.
+  9. Maintain `nexu-io/open-design` `DESIGN.md` contract at workspace root as the single source of truth for design tokens.
+- **Consequences:** Eliminates AI aesthetic tells, guarantees high-converting layout craft, ensures strict WCAG 2.2 AA compliance, and provides predictable art direction across any coding agent.
 
 ---
 

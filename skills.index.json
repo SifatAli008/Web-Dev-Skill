@@ -1,7 +1,7 @@
 {
   "$schema": "templates/schemas/skills-index.schema.json",
   "version": "0.1.0",
-  "last_updated": "2026-11-02",
+  "last_updated": "2026-11-03",
   "tiers": {
     "MVP": "Prototypes and internal tools. Baseline defensive security; speed prioritized.",
     "PROD": "Public users, auth, billing, customer data. Full test suite, OWASP, a11y, zero-downtime.",
@@ -180,8 +180,14 @@
         "landing page",
         "taste-skill",
         "anti-slop",
+        "design read",
+        "design variance",
+        "motion intensity",
+        "visual density",
         "taste profile",
         "design tokens",
+        "layout families",
+        "pre-flight check",
         "type scale",
         "spacing scale",
         "corner radius",
@@ -190,6 +196,8 @@
         "a11y",
         "wcag",
         "contrast ratio",
+        "empty state",
+        "loading state",
         "aria"
       ],
       "anti_triggers": [
@@ -208,7 +216,7 @@
       "depends_on": [
         "01-product-discovery"
       ],
-      "last_verified": "2026-11-02",
+      "last_verified": "2026-11-03",
       "sources": [
         "WCAG-2-2",
         "WAI-ARIA-1-2",
