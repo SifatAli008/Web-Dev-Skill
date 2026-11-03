@@ -18,6 +18,7 @@ const STEPS = [
   { name: 'Skill Freshness Audit (<=180 days)', cmd: 'node tools/check-freshness.js' },
   { name: 'Security Invariant & Injection Scanner', cmd: 'node tools/scan-skills.js' },
   { name: 'AI Garbage Code & Artifact Hygiene', cmd: 'node tools/lint-ai-hygiene.js' },
+  { name: 'Advanced Design & Layout Verification', cmd: 'node tools/verify-layout.js' },
   { name: 'Repository State & ADR Integrity', cmd: 'node tools/verify-state.js' },
   { name: 'Router Index (skills.index.json) Sync', cmd: 'node tools/validate-index.js' },
   { name: 'Tool Adapters Generator', cmd: 'node tools/build-adapters.js' },

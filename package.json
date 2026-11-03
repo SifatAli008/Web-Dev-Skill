@@ -51,6 +51,7 @@
     "check:security": "node tools/scan-skills.js",
     "validate:index": "node tools/validate-index.js",
     "verify:state": "node tools/verify-state.js",
+    "lint:layout": "node tools/verify-layout.js",
     "build:adapters": "node tools/build-adapters.js",
     "eval": "node evals/harness/run-eval.js",
     "test:reference": "node tools/run-reference-tests.js",

@@ -142,3 +142,18 @@ This file tracks foundational design and architectural decisions made for `unive
      - **Rung 6: Minimum Viable Implementation** — The simplest implementation that satisfies current observable tests.
   3. Enforce the Rule of Three: never extract an abstraction until at least 3 distinct call sites require it.
 - **Consequences:** Drastically reduces bundle size, eliminates single-use supply chain dependencies, and keeps repositories maintainable and readable.
+
+---
+
+## ADR-012: Advanced Design Engineering, OKLCH Perceptual Colors, Fluid Math & 7-State Component Lifecycle
+
+- **Status:** Accepted (Phase 7 - Frontier Skills Integration)
+- **Context:** Design generation in AI coding agents often lacks deterministic engineering rigor: RGB/Hex color spaces cause perceptual contrast distortion across dark/light themes, static pixel typography creates brittle breakpoint jumps, linear CSS transitions feel mechanical, and components routinely omit interactive edge states (loading, empty, disabled, error, partial data).
+- **Decision:**
+  1. Mandate the **OKLCH Perceptual Color Space** (`oklch(L C H)`) for surface and contrast definitions across `DESIGN.md` and `templates/schemas/design-tokens.schema.json`. OKLCH guarantees uniform perceptual lightness steps across dark/light mode toggles without manual hex recalculation.
+  2. Implement **Mathematical Fluid Typography & Spacing** using viewport-relative `clamp(min, preferred, max)` formulas, guaranteeing continuous, harmonic scaling from mobile (375px) to ultra-wide displays (1440px+) without layout shifts or brittle media query snapping.
+  3. Establish **Spring Physics Motion Tokens** (`--spring-snap`, `--spring-smooth`) via cubic-bezier acceleration curves (`cubic-bezier(0.16, 1, 0.3, 1)`) and strictly respect `prefers-reduced-motion`.
+  4. Enforce the **7-State Component Lifecycle Matrix** (Default, Hover/Pointer, Active/Pressed, Focus-Visible, Disabled, Loading/Skeleton, Error/Recovery) across every interactive UI primitive.
+  5. Enforce **Visual Dominance Hierarchy** requiring a primary anchor with >= 2:1 scale or visual weight ratio relative to surrounding elements.
+  6. Ship zero-dependency automated verification in `tools/verify-layout.js` integrated into the master test pipeline (`tools/verify-all.js`).
+- **Consequences:** Eliminates AI visual blandness, guarantees WCAG 2.2 AA contrast across arbitrary theme switches, prevents breakpoint pop, and ensures comprehensive edge-case resilience for all frontend deliverables.

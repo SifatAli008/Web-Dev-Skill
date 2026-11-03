@@ -109,6 +109,14 @@ I refuse to permit generic "AI slop" tells (purple-to-blue gradients, floating p
     - *If* deploying interactive 3D WebGL, Three.js, Spline, or Canvas visualizers, *mark* the canvas canvas element `aria-hidden="true"` and `tabindex="-1"`, and *construct* a semantic HTML DOM overlay for all interactive controls, labels, and keyboard focus states.
 15. **Brand Exception & Escape Hatch Protocol:**
     - *If* an established corporate brand identity mandates colors or patterns that conflict with anti-slop defaults, *record* an `ACCEPTED-RISK: BRAND-IDENTITY` in `DECISIONS.md` with explicit user sign-off *never* compromise without documentation.
+16. **The 7-State Component Lifecycle Rule:**
+    - *Always* specify 7 discrete states (Idle, Hover, Active/Pressed `scale(0.97)`, Focus-Visible with `outline-offset`, Loading with dimension reservation, Disabled with `aria-disabled`, Error with recovery text) for all interactive components *because* incomplete component states cause layout shift (CLS) and inaccessible controls.
+17. **Visual Dominance 2:1 & Cognitive Scanpath Rule:**
+    - *Always* ensure the primary CTA has $\ge 2\times$ the visual dominance index (contrast $\times$ area $\times$ saturation) of any secondary link *because* competing visual weights produce decision paralysis.
+18. **Fluid Typography (`clamp()`) & Tabular Numerals:**
+    - *Always* leverage CSS `clamp()` formulas for fluid responsive typography from 375px to 1440px; *mandate* `font-variant-numeric: tabular-nums` on all metrics, counters, and prices to eliminate layout jitter.
+19. **Spring Physics Motion Rule:**
+    - *Always* employ physically modeled spring curves (`--spring-snap`, `--spring-smooth`) with tactile press squish (`scale(0.97)`) *never* robotic `transition: all 0.2s ease`.
 
 ---
 

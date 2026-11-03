@@ -26,9 +26,11 @@
   - [ ] Is the primary CTA button strictly visible above the fold without scrolling?
   - [ ] Does the hero section maintain responsive vertical boundaries (`min-h-[100dvh]` on mobile)?
 
-- [ ] **4. Design Tokens & Visual Hierarchy:**
-  - [ ] Do 100% of font sizes snap to standard scale steps (`xs: 12px` through `5xl: 48px`) with 0 arbitrary values?
-  - [ ] Does all padding and margin snap to the 4px/8px modular rhythm?
+- [ ] **4. Design Tokens, Fluid Math & Visual Hierarchy:**
+  - [ ] Do typography and spacing leverage fluid CSS `clamp()` formulas for seamless responsive transitions?
+  - [ ] Do all statistics, timers, and prices enforce `font-variant-numeric: tabular-nums`?
+  - [ ] Does the primary CTA possess at least $2\times$ the calculated visual dominance index over secondary links?
+  - [ ] Do interactive buttons implement tactile spring squish (`:active { transform: scale(0.97); }`)?
   - [ ] Are surfaces restricted to 3 clean architectural layers (Base, Surface, Overlay) with 1px borders?
   - [ ] Are corner radii strictly coordinated (`rounded-sm` for tags, `rounded-md` for buttons, `rounded-lg` for cards)?
 
@@ -40,7 +42,8 @@
   - [ ] Is the entire interface fully operable via keyboard (`Tab`, `Enter`, `Space`, `Escape`)?
   - [ ] Do dynamic video/image backgrounds use contrast scrims or backdrop blurs to guarantee text legibility?
 
-- [ ] **6. Component Lifecycle & Form Ergonomics:**
-  - [ ] Are all 5 dynamic lifecycle states (Idle, Loading, Error, Empty, Success) explicitly designed?
+- [ ] **6. The 7-State Component Lifecycle & Form Ergonomics:**
+  - [ ] Are all 7 discrete states explicitly designed: Idle, Hover, Active (`scale(0.97)`), Focus-Visible, Loading (Zero CLS), Disabled (`aria-disabled`), and Error?
   - [ ] Does every form input have a visible `<label for="...">` element?
   - [ ] Do form validation errors clearly state *what* is wrong and *how* to fix it?
+

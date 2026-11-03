@@ -85,6 +85,14 @@
         "full": { "type": "string" }
       }
     },
+    "motion": {
+      "type": "object",
+      "properties": {
+        "spring_snap": { "type": "string" },
+        "spring_smooth": { "type": "string" },
+        "spring_bounce": { "type": "string" }
+      }
+    },
     "accessibility": {
       "type": "object",
       "required": ["contrast_body", "contrast_control", "min_touch_target", "focus_ring"],

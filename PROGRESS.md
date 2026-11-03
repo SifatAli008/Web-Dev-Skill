@@ -17,7 +17,7 @@
 | **Phase 4** | Playbooks (cross-sector), templates, checklists, tools. | **COMPLETE (GATE 4)** | Working linters, scanners, and validated playbooks. |
 | **Phase 5** | Reference projects (3 golden projects), baseline vs with-skills evals, fix/cut weak skills. | **COMPLETE (GATE 5)** | >= 25% eval win delta, 0 OWASP findings, tests passing. |
 | **Phase 6** | Generate tool adapters, README demo, CHANGELOG, v0.1.0 release notes. | **COMPLETE (RELEASE v0.1.0)** | Adapters verified against official tool conventions, <= 2 min install. |
-| **Phase 7** | Frontier framework infusion (Agent Skills spec, Taste-Skill v2 full pipeline, Alibaba OCR, Ponytail YAGNI ladder, State audit). | **COMPLETE (GATE 7)** | Conformance with Agent Skills spec, anti-slop DESIGN.md, 11 ADRs, all 11 verification suites passing. |
+| **Phase 7** | Frontier framework infusion (Agent Skills spec, Taste-Skill v2 full pipeline, OKLCH & Fluid Design tokens, Alibaba OCR, Ponytail ladder, State audit). | **COMPLETE (GATE 7)** | Conformance with Agent Skills spec, anti-slop DESIGN.md, 12 ADRs, all 12 verification suites passing. |
 
 ---
 
@@ -36,10 +36,15 @@
   - Standardized defect severity ratings (P0 Blocker, P1 Defect, P2 Advisory) and hybrid AST review across QA (`08-testing-qa`) and Maintenance (`14-maintenance`).
 - [x] **Ponytail YAGNI 6-Rung Decision Ladder:**
   - Anti-overengineering directives and Web Platform native primitives prioritized across Orchestrator (`00`), Architecture (`02`), Frontend (`04`), Backend (`05`), Maintenance (`14`), and `AGENTS.md`.
+- [x] **Advanced Design Engineering & OKLCH Perceptual Token Architecture:**
+  - Implemented OKLCH color space (`oklch(L C H)`), viewport-relative `clamp()` typography & spacing, spring physics motion tokens, and 7-state component matrices across `DESIGN.md`, `templates/design.template.md`, and `templates/schemas/design-tokens.schema.json`.
+  - Added full dynamic media contrast scrims, WebGL canvas overlay guides, and visual dominance hierarchy (>= 2:1 ratio) to `skills/03-ux-ui-design/` and reference guides.
+  - Implemented `tools/verify-layout.js` layout and design token verifier with full CI integration.
+  - Completed schema and template coverage with `templates/schemas/bundle-report.schema.json`, `templates/schemas/system-design.schema.json`, and `templates/a11y-audit.template.md`.
 - [x] **Verification & State Auditing:**
   - Built `tools/verify-state.js` to ensure ADR and roadmap state parity.
   - Upgraded `tools/check-links.js` to scan executable CLI commands and cross-reference all 15 skills and tools.
-  - Recorded ADR-007 through ADR-011 in `DECISIONS.md`.
+  - Recorded ADR-007 through ADR-012 in `DECISIONS.md`.
 
 ---
 
