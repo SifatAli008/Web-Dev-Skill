@@ -18,12 +18,22 @@
 | **Phase 5** | Reference projects (3 golden projects), baseline vs with-skills evals, fix/cut weak skills. | **COMPLETE (GATE 5)** | >= 25% eval win delta, 0 OWASP findings, tests passing. |
 | **Phase 6** | Generate tool adapters, README demo, CHANGELOG, v0.1.0 release notes. | **COMPLETE (RELEASE v0.1.0)** | Adapters verified against official tool conventions, <= 2 min install. |
 | **Phase 7** | Frontier framework infusion (Agent Skills spec, Taste-Skill v2 full pipeline, OKLCH & Fluid Design tokens, Alibaba OCR, Ponytail ladder, State audit). | **COMPLETE (GATE 7)** | Conformance with Agent Skills spec, anti-slop DESIGN.md, 12 ADRs, all 12 verification suites passing. |
-| **Phase 8** | HCI, Cognitive Ergonomics & Design Theory expansion (16th specialist `15-hci-interaction`, Gestalt & Swiss grid design theory, Laws of UX, ADR-013, ADR-014, ADR-015). | **COMPLETE (GATE 8)** | Full Agent Skills conformance, schema-validated HCI templates, 15 ADRs, all 12 verification suites passing. |
+| **Phase 8** | HCI, Cognitive Ergonomics & Elite Design System Architecture (16th specialist `15-hci-interaction`, Gestalt & Swiss design theory, 12 Atomic Primitives, Dual-Theme OKLCH, Container Queries, Micro-Interactions, ADR-013 through ADR-016). | **COMPLETE (GATE 8)** | Full Agent Skills conformance, schema-validated HCI & Design templates, 16 ADRs, all 12 verification suites passing. |
 
 ---
 
 ## Phase 8 Deliverables Completed
 
+- [x] **Elite Design Package — 12 Atomic Primitives, Dual-Theme OKLCH, Container Queries, Micro-Interactions & Accessible Data Viz (ADR-016):**
+  - Created operational L2 reference guide: `skills/03-ux-ui-design/references/component-primitives-reference.md` establishing DOM, ARIA, keyboard, and CSS contracts for 12 universal primitives (Dialog, Dropdown, Toast, Tabs, Accordion, Input, Button, Table, Skeleton, Avatar, Tooltip, Drawer).
+  - Implemented Dual-Theme OKLCH tokens (`[data-theme="dark"]` and `[data-theme="light"]`) with a synchronous Zero-FOUC `<head>` initialization script.
+  - Standardized CSS Container Query architecture (`@container`) for responsive cards and bento widgets decoupled from viewports.
+  - Engineered craft micro-interactions and tactile depth: mouse-tracking spotlight borders, SVG noise `feTurbulence` grain, architectural frosted glassmorphism, and sliding segmented pill motion.
+  - Standardized optical iconography (1.5px/2.0px stroke, 16/20/24px bounding boxes, optical centroid offsets).
+  - Specified multi-sensory accessible data visualization (`--chart-1` through `--chart-5`, geometric series markers, `<table class="sr-only">` fallback).
+  - Updated `DESIGN.md`, `templates/design.template.md`, `templates/schemas/design-tokens.schema.json`, and `checklists/design-and-a11y.checklist.md`.
+  - Updated `skills/03-ux-ui-design/SKILL.md` (maintaining `<300` lines) and added assertions to `tools/verify-layout.js`.
+  - Recorded **ADR-016** in `DECISIONS.md`.
 - [x] **Specialist 15: HCI & Cognitive Ergonomics Lead (`skills/15-hci-interaction/`):**
   - Created `skills/15-hci-interaction/SKILL.md` (149 lines, strictly conforming to `<300` line cap and open Agent Skills specification).
   - Authored L2 operational reference guide: `skills/15-hci-interaction/references/hci-interaction-guide.md` (Fitts's Law, Hick-Hyman Law, Doherty Threshold, KLM operator models, thumb zone geometry, Reason's slips vs mistakes).

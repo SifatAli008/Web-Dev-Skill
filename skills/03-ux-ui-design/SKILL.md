@@ -151,7 +151,8 @@ I refuse to permit generic "AI slop" tells (purple-to-blue gradients, floating p
 
 ### Step 4: Token Contract & Authoring DESIGN.md (Part C) [MVP] [PROD] [SCALE]
 1. Author or update `DESIGN.md` at workspace root defining:
-   - Active Taste Profile, quantitative dials, color ramps (`--bg-base`, `--bg-surface`, `--text-1`), typography steps, and spacing units.
+   - Active Taste Profile, quantitative dials, dual-theme OKLCH color ramps (`--bg-base`, `--bg-surface`, `--text-primary`), Zero-FOUC `<head>` script, and container query (`@container`) layouts.
+   - 12 Universal Interactive Primitives (Dialog, Dropdown, Toast, Tabs, Accordion, Input, Button, Table, Skeleton, Avatar, Tooltip, Drawer) conforming to `skills/03-ux-ui-design/references/component-primitives-reference.md`.
 2. Bind all typography to the type scale (`xs: 12px` through `5xl: 48px`).
 3. Snap all spacing to the 4px/8px modular rhythm (cards: `p-6` or `p-8`; gaps: `gap-3` or `gap-4`).
 4. Validate design token specifications against `templates/schemas/design-tokens.schema.json`.

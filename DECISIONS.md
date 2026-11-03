@@ -204,3 +204,31 @@ This file tracks foundational design and architectural decisions made for `unive
   5. Integrate Design Theory contract assertions into `tools/verify-layout.js`.
   6. Register foundational citations in `SOURCES.md`: `GESTALT-PSYCHOLOGY`, `ITTEN-COLOR-THEORY`, `BRINGHURST-TYPOGRAPHY`, `MULLER-BROCKMANN-GRIDS`, `APCA-CONTRAST`, and `DISNEY-ANIMATION-UI`.
 - **Consequences:** Elevates AI visual craft from superficial aesthetics to deterministic, mathematically grounded design science; guarantees optimal reading comprehension, optical balance, and perceptual harmony.
+
+---
+
+## ADR-016: Elite Design Package — 12 Atomic Primitives, Dual-Theme OKLCH, Container Queries, Micro-Interactions & Accessible Data Viz
+
+- **Status:** Accepted (Phase 8 - Elite Design System Architecture)
+- **Context:** To achieve elite design craft and eliminate common frontend fragmentation across interactive widgets, responsive layouts, and theming, the repository required:
+  1. Systematic architectural contracts for universal interactive components.
+  2. Native dual-theme (dark/light) OKLCH color palettes with zero-flash-of-unstyled-content (Zero-FOUC).
+  3. Responsive component modularity decoupled from global viewport windows via CSS Container Queries (`@container`).
+  4. Physically grounded micro-interactions, depth textures, and sliding segmented pill motion.
+  5. Precision optical iconography balancing geometric centroids.
+  6. Accessible, multi-sensory data visualization with screen-reader tabular fallbacks.
+- **Decision:**
+  1. Author `skills/03-ux-ui-design/references/component-primitives-reference.md` defining DOM, ARIA, and CSS contracts for 12 universal interactive primitives: Dialog, Dropdown, Toast, Tabs, Accordion, Input, Button, Table, Skeleton, Avatar, Tooltip, and Drawer.
+  2. Expand `DESIGN.md` and `templates/design.template.md` with:
+     - Section 2: Dual-Theme OKLCH token maps (`:root, [data-theme="dark"]` and `[data-theme="light"]`) and the synchronous Zero-FOUC `<head>` initialization script.
+     - Section 3: Container Query architecture (`@container`).
+     - Section 8: Craft Micro-Interactions (Cursor-tracking spotlight border, SVG noise `feTurbulence`, architectural frosted glassmorphism, sliding pill motion).
+     - Section 9: Optical Iconography (1.5px/2.0px stroke, 16/20/24px bounding boxes, optical centroid offsets).
+     - Section 10: Accessible Data Visualization (`--chart-1` to `--chart-5`, non-color geometric encoding, `<table class="sr-only">` screen reader fallback).
+     - Section 11: 12 Atomic Component Architecture Specification table.
+  3. Expand `templates/schemas/design-tokens.schema.json` with properties for `theme_light`, `theme_dark`, `container_queries`, `micro_interactions`, and `charts`.
+  4. Expand `checklists/design-and-a11y.checklist.md` with Section 8: Atomic Components, Dual-Theme & Container Query Verification.
+  5. Update `skills/03-ux-ui-design/SKILL.md` referencing `component-primitives-reference.md` while strictly maintaining $<300$ lines.
+  6. Enhance `tools/verify-layout.js` assertions to validate dual-theme tokens, container queries, micro-interactions, optical iconography, charts, and the 12 atomic primitives.
+- **Consequences:** Delivers a comprehensive, production-grade UI design and interaction system guaranteeing visual craft, responsive flexibility, universal accessibility, and zero-dependency portability across any web framework.
+

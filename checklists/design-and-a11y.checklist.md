@@ -55,3 +55,12 @@
   - [ ] Do all spacing and component dimensions snap to the 8-point modular grid (4px micro-adjustments)?
   - [ ] Does text contrast satisfy APCA perceptual criteria ($L^c \ge 75$ body, $L^c \ge 60$ headings)?
 
+- [ ] **8. Atomic Components, Dual-Theme & Container Query Verification:**
+  - [ ] Are UI components built on the 12 universal primitives in `skills/03-ux-ui-design/references/component-primitives-reference.md`?
+  - [ ] Does dark/light theming implement OKLCH perceptual tokens with a Zero-FOUC inline script in HTML `<head>`?
+  - [ ] Are modular card/widget responsive adaptations powered by CSS Container Queries (`@container`)?
+  - [ ] Do interactive elements feature tactile micro-interactions (spring curves, spotlight borders, sliding pill motion)?
+  - [ ] Are icons standardized to 16/20/24px bounding boxes with consistent 1.5px/2.0px stroke and optical centering?
+  - [ ] Do data visualizations utilize sequential OKLCH tokens with geometric shape markers and hidden `<table class="sr-only">` fallbacks?
+
+

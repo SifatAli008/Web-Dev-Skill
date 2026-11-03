@@ -28,9 +28,14 @@ function verifyDesignContract() {
     { name: 'Design Read', regex: /\[Design Read\]:/i },
     { name: 'OKLCH / Surface Color System', regex: /--bg-base|oklch/i },
     { name: 'Fluid Typography or Type Scale', regex: /clamp\(|text-base/i },
+    { name: 'Container Query Architecture', regex: /container-type|@container/i },
     { name: 'Spring Physics Motion Tokens', regex: /--spring-snap|cubic-bezier/i },
     { name: '7-State Component Lifecycle Matrix', regex: /7-State|Component Lifecycle/i },
     { name: 'Design Theory & Gestalt Spatial Architecture', regex: /Gestalt|60-30-10|8-Point|APCA/i },
+    { name: 'Craft Micro-Interactions & Textures', regex: /spotlight|glass|feTurbulence/i },
+    { name: 'Optical Iconography & Asset Precision', regex: /Iconography|Bounding Box|centroid/i },
+    { name: 'Accessible Data Visualization & Charts', regex: /chart-1|sr-only/i },
+    { name: '12 Atomic Component Architecture', regex: /12 Atomic Component|component-primitives-reference/i },
     { name: 'WCAG 2.2 AA Compliance Gate', regex: /WCAG 2\.2/i }
   ];
 

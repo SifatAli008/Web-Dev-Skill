@@ -102,6 +102,64 @@
         "min_touch_target": { "type": "string" },
         "focus_ring": { "type": "string" }
       }
+    },
+    "theme_light": {
+      "type": "object",
+      "description": "Light theme OKLCH and hex color overrides",
+      "properties": {
+        "base_bg": { "type": "string" },
+        "surface_bg": { "type": "string" },
+        "fg_text": { "type": "string" },
+        "border": { "type": "string" },
+        "accent": { "type": "string" }
+      }
+    },
+    "theme_dark": {
+      "type": "object",
+      "description": "Dark theme OKLCH and hex color overrides",
+      "properties": {
+        "base_bg": { "type": "string" },
+        "surface_bg": { "type": "string" },
+        "fg_text": { "type": "string" },
+        "border": { "type": "string" },
+        "accent": { "type": "string" }
+      }
+    },
+    "container_queries": {
+      "type": "object",
+      "description": "Container query breakpoints for modular card and panel components",
+      "properties": {
+        "containers": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "breakpoints": {
+          "type": "object",
+          "additionalProperties": { "type": "string" }
+        }
+      }
+    },
+    "micro_interactions": {
+      "type": "object",
+      "description": "Craft micro-interactions and tactile surface effects",
+      "properties": {
+        "spotlight": { "type": "boolean" },
+        "noise_texture": { "type": "boolean" },
+        "glassmorphism": { "type": "boolean" },
+        "sliding_pill": { "type": "boolean" }
+      }
+    },
+    "charts": {
+      "type": "object",
+      "description": "Accessible data visualization palette tokens and screen reader fallback contract",
+      "properties": {
+        "palette": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "highlight": { "type": "string" },
+        "sr_fallback_table": { "type": "boolean" }
+      }
     }
   }
 }

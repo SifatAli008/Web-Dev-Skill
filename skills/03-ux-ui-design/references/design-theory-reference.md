@@ -222,3 +222,4 @@ Adapted from John Lasseter's 1987 SIGGRAPH treatise *Principles of Traditional A
 * **Physics Tokens:**
   - Fast Snappy (`--spring-snap`): `cubic-bezier(0.16, 1, 0.3, 1)`
   - Smooth Elastic (`--spring-smooth`): `cubic-bezier(0.34, 1.56, 0.64, 1)`
+
