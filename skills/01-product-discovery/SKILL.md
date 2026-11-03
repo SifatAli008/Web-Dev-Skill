@@ -5,7 +5,7 @@ tiers: ["MVP", "PROD", "SCALE"]
 inputs: ["raw_concept", "business_goals"]
 outputs: ["prd.schema.json"]
 depends_on: ["00-orchestrator"]
-last_verified: "2026-11-02"
+last_verified: "2026-11-03"
 sources: ["JTBD-INTERCOM", "LEAN-STARTUP", "SHAPE-UP", "ANTHROPIC-DOC-COAUTHORING"]
 ---
 

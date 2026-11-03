@@ -176,3 +176,4 @@ Modal confirmation dialogs (`window.confirm()` or modal alerts) create cognitive
 * **Best Practice:** For reversible actions (archiving emails, deleting messages, removing items from cart), execute the deletion immediately, show an optimistic UI state, and present a persistent non-blocking snackbar:
   > *"Conversation moved to trash. [Undo] (Dismisses in 8s)"*
 * **Reserve Modal Confirmations Strictly For:** Irreversible, catastrophic actions (e.g. dropping a production database, transferring ownership, closing a billing account).
+

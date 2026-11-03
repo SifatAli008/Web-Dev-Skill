@@ -5,7 +5,7 @@ tiers: ["MVP", "PROD", "SCALE"]
 inputs: ["prd.schema.json", "adr.schema.json"]
 outputs: ["privacy-register.schema.json", "consent-flow-spec"]
 depends_on: ["01-product-discovery", "05-backend-data"]
-last_verified: "2026-11-02"
+last_verified: "2026-11-03"
 sources: ["GDPR-LEGAL-TEXT", "EDPB-GUIDELINES", "CCPA-CPRA", "FTC-FTC-ACT"]
 ---
 

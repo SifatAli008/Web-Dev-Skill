@@ -5,7 +5,7 @@ tiers: ["MVP", "PROD", "SCALE"]
 inputs: ["prd.schema.json"]
 outputs: ["adr.schema.json", "system-design.schema.json"]
 depends_on: ["01-product-discovery"]
-last_verified: "2026-11-02"
+last_verified: "2026-11-03"
 sources: ["FOWLER-ARCH", "SYSTEM-DESIGN-PRIMER", "TWELVE-FACTOR", "RFC-9110", "ANTHROPIC-MCP-BUILDER", "PONYTAIL-DIETRICHGEBERT"]
 ---
 

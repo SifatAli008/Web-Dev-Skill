@@ -57,3 +57,4 @@
 - [ ] **Keyboard Accelerators:** Power-user shortcuts (e.g. `Cmd+K` / `Ctrl+K` for global command palette, `/` for search focus, `Enter` to submit) are documented and conflict-free.
 - [ ] **Homing Time Minimization:** Common repetitive workflows allow completing tasks entirely via keyboard or entirely via pointer without constant switching.
 - [ ] **Visible Focus Rings:** Every keyboard-focused interactive element has a high-contrast visible focus outline with minimum $2\text{px}$ offset (`:focus-visible`).
+

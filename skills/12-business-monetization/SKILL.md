@@ -5,7 +5,7 @@ tiers: ["MVP", "PROD", "SCALE"]
 inputs: ["prd.schema.json"]
 outputs: ["billing-spec.schema.json", "webhook-matrix"]
 depends_on: ["01-product-discovery", "05-backend-data"]
-last_verified: "2026-11-02"
+last_verified: "2026-11-03"
 sources: ["STRIPE-ENGINEERING-DOCS", "TAX-CALC-BASICS", "SAAS-METRICS"]
 ---
 

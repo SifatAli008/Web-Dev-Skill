@@ -5,7 +5,7 @@ tiers: ["MVP", "PROD", "SCALE"]
 inputs: ["adr.schema.json"]
 outputs: ["backend-code", "db-migrations", "api-specs"]
 depends_on: ["02-architecture"]
-last_verified: "2026-11-02"
+last_verified: "2026-11-03"
 sources: ["POSTGRES-DOCS", "USE-THE-INDEX-LUKE", "PRAGMATIC-MIGRATIONS", "TWELVE-FACTOR", "PONYTAIL-DIETRICHGEBERT"]
 ---
 

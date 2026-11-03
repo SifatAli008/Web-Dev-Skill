@@ -20,26 +20,37 @@ Every technical claim in this repository is tagged with one of three epistemic l
 - **`DECISIONS-RECORD`**: Project Architectural Decision Records, `DECISIONS.md`. [FACT]
 - **`TWELVE-FACTOR`**: The Twelve-Factor App methodology. Stig Sandbeck Mathisen et al. https://12factor.net/ [BEST PRACTICE]
 - **`NIST-SSDF`**: NIST Special Publication 800-218: Secure Software Development Framework (SSDF) Version 1.1. https://csrc.nist.gov/pubs/sp/800/218/final [FACT]
+- **`TEAM-TOPOLOGIES`**: Matthew Skelton and Manuel Pais, "Team Topologies: Organizing Business and Technology Teams for Fast Flow", IT Revolution Press (2019). https://teamtopologies.com/ [BEST PRACTICE]
+- **`ANTHROPIC-SKILL-CREATOR`**: Anthropic Agent Skills Specification and Skill Creator Methodology. https://github.com/anthropics/skills [FACT]
+- **`AAIF-AGENT-SKILLS-SPEC`**: Agent Artificial Intelligence Forum (AAIF) / Open Agent Skills Specification Standard. https://agentskills.io/spec [FACT]
+- **`PONYTAIL-DIETRICHGEBERT`**: Dietrich Gebert, "The Ponytail Method: 6-Rung Decision Ladder for Lean Engineering". https://github.com/DietrichGebert/ponytail [BEST PRACTICE]
 
 ### 01 · Product Discovery
 - **`JTBD-INTERCOM`**: "Intercom on Jobs-to-be-Done", Des Traynor et al. Intercom Inc. [BEST PRACTICE]
 - **`LEAN-STARTUP`**: "The Lean Startup: How Today's Entrepreneurs Use Continuous Innovation", Eric Ries (2011). [BEST PRACTICE]
 - **`SHAPE-UP`**: "Shape Up: Stop Running in Circles and Ship Work that Matters", Ryan Singer, 37signals (2019). [BEST PRACTICE]
+- **`ANTHROPIC-DOC-COAUTHORING`**: Anthropic Document Co-Authoring Protocol for Structured Artifact Handoffs. https://docs.anthropic.com/ [BEST PRACTICE]
 
 ### 02 · Solution Architecture
 - **`FOWLER-ARCH`**: Martin Fowler's Architecture & MonolithFirst guides. https://martinfowler.com/bliki/MonolithFirst.html [BEST PRACTICE]
 - **`SYSTEM-DESIGN-PRIMER`**: Donne Martin, The System Design Primer. https://github.com/donnemartin/system-design-primer [BEST PRACTICE]
 - **`RFC-9110`**: HTTP Semantics, IETF RFC 9110 (June 2022). https://www.rfc-editor.org/rfc/rfc9110.html [FACT]
+- **`ANTHROPIC-MCP-BUILDER`**: Model Context Protocol (MCP) Specification, Anthropic. https://modelcontextprotocol.io/ [FACT]
 
 ### 03 · UX/UI & Accessibility
 - **`WCAG-2-2`**: Web Content Accessibility Guidelines (WCAG) 2.2, W3C Recommendation (October 2023). https://www.w3.org/TR/WCAG22/ [FACT]
 - **`WAI-ARIA-1-2`**: Accessible Rich Internet Applications (WAI-ARIA) 1.2, W3C Recommendation (June 2023). https://www.w3.org/TR/wai-aria-1.2/ [FACT]
 - **`REF-DESIGN-TOKENS`**: W3C Design Tokens Community Group Specification. https://design-tokens.github.io/community-group/format/ [BEST PRACTICE]
+- **`TASTE-SKILL-LEONXLNX`**: Leonxlnx, "taste-skill: Design Taste Frontend Architecture & Anti-Slop Directive v2". https://github.com/Leonxlnx/taste-skill [BEST PRACTICE]
+- **`OPEN-DESIGN-NEXU`**: Nexu IO, "open-design: Open Design System and Token Specification". https://github.com/nexu-io/open-design [FACT]
+- **`AI-DESIGN-SKILLS-ELAYA`**: Elaya et al., Intentional Design Systems and Visual Archetypes for AI Agents. [BEST PRACTICE]
+- **`TAILWIND-TYPE-SCALE`**: Tailwind CSS Fluid Typography and Modern Layout Spacing Scale Specification. https://tailwindcss.com/docs/font-size [BEST PRACTICE]
 
 ### 04 · Frontend Engineering
-- **`REACT-DOCS`**: Official React Documentation and Server Components Specification. https://react.dev/ [FACT]
+- **`REACT-DOCS`**: Official React Documentation and Server Components Specification (React 19). https://react.dev/ [FACT]
 - **`MDN-WEB-DOCS`**: MDN Web Docs, Mozilla Developer Network. https://developer.mozilla.org/ [FACT]
 - **`WEB-DEV`**: web.dev guidance by the Google Chrome Developer Relations team. https://web.dev/ [BEST PRACTICE]
+- **`ANTHROPIC-FRONTEND-DESIGN`**: Anthropic Frontend Craft and Responsive State Lifecycle Guidelines. [BEST PRACTICE]
 
 ### 05 · Backend & Data
 - **`POSTGRES-DOCS`**: PostgreSQL 16/17 Official Documentation (Transactions, Isolation Levels, Indexes). https://www.postgresql.org/docs/ [FACT]
@@ -63,10 +74,12 @@ Every technical claim in this repository is tagged with one of three epistemic l
 - **`PLAYWRIGHT-DOCS`**: Playwright Official Documentation, Microsoft. https://playwright.dev/ [FACT]
 - **`TEST-IN-PROD`**: Charity Majors et al., Observability and Testing in Production. [BEST PRACTICE]
 - **`ISO-29119`**: ISO/IEC/IEEE 29119 Software and Systems Engineering — Software Testing standards. https://www.iso.org/standard/64818.html [FACT]
-- **`ISO-25010`**: ISO/IEC 25010 Systems and software Quality Requirements and Evaluation (SQuaRE). https://iso25000.com/index.php/en/iso-25000-standards/iso-25010 [FACT]
+- **`ISO-25010`**: ISO/IEC 25010:2023 Systems and software Quality Requirements and Evaluation (SQuaRE) — Product quality model. https://iso25000.com/index.php/en/iso-25000-standards/iso-25010 [FACT]
 - **`ISTQB-SQAT`**: International Software Testing Qualifications Board (ISTQB) Certified Tester Foundation and Advanced Syllabi. https://www.istqb.org/ [BEST PRACTICE]
 - **`SONARQUBE-QUALITY-GATES`**: SonarQube Clean as You Code Quality Gate methodology and static code metrics. https://docs.sonarsource.com/sonarqube/latest/instance-administration/quality-gates/ [BEST PRACTICE]
 - **`STRYKER-MUTATOR`**: Stryker Mutator: Mutation Testing for JavaScript and TypeScript. https://stryker-mutator.io/ [BEST PRACTICE]
+- **`ANTHROPIC-WEBAPP-TESTING`**: Anthropic Web Application Dynamic Testing and Browser Evaluation Standard. [BEST PRACTICE]
+- **`ALIBABA-OPEN-CODE-REVIEW`**: Alibaba Open Code Review (OCR) Hybrid Protocol and Defect Severity Hierarchy (P0/P1/P2). https://github.com/alibaba/open-code-review [BEST PRACTICE]
 
 ### 09 · DevOps & Infrastructure
 - **`GOOGLE-SRE-BOOK`**: Site Reliability Engineering: How Google Runs Production Systems, Betsy Beyer et al. (O'Reilly, 2016). https://sre.google/sre-book/table-of-contents/ [BEST PRACTICE]

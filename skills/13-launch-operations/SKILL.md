@@ -5,7 +5,7 @@ tiers: ["MVP", "PROD", "SCALE"]
 inputs: ["test-report.schema.json", "runbook.schema.json", "security-audit.schema.json"]
 outputs: ["launch-report.schema.json", "postmortem.schema.json"]
 depends_on: ["06-security", "08-testing-qa", "09-devops-infra"]
-last_verified: "2026-11-02"
+last_verified: "2026-11-03"
 sources: ["LAUNCH-CHECKLISTS", "INCIDENT-COMMAND-SYSTEM", "BLAMELESS-POSTMORTEMS"]
 ---
 

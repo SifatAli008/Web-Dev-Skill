@@ -5,7 +5,7 @@ tiers: ["MVP", "PROD", "SCALE"]
 inputs: ["user_prompt", "codebase_state"]
 outputs: ["routing_plan", "progress_update", "decision_record"]
 depends_on: []
-last_verified: "2026-11-02"
+last_verified: "2026-11-03"
 sources: ["AGENTS-PROTOCOL", "DECISIONS-RECORD", "SHAPE-UP", "TEAM-TOPOLOGIES", "ANTHROPIC-SKILL-CREATOR", "AAIF-AGENT-SKILLS-SPEC", "PONYTAIL-DIETRICHGEBERT"]
 ---
 

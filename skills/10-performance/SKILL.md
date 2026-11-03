@@ -5,7 +5,7 @@ tiers: ["MVP", "PROD", "SCALE"]
 inputs: ["frontend-code", "backend-code", "performance-trace"]
 outputs: ["perf-audit.schema.json", "optimization-diffs"]
 depends_on: ["04-frontend", "05-backend-data"]
-last_verified: "2026-11-02"
+last_verified: "2026-11-03"
 sources: ["WEB-DEV-CWV", "HIGH-PERF-BROWSER-NETWORKING", "V8-DEV"]
 ---
 

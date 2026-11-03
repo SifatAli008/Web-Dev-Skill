@@ -5,7 +5,7 @@ tiers: ["MVP", "PROD", "SCALE"]
 inputs: ["adr.schema.json"]
 outputs: ["runbook.schema.json", "ci-workflows", "infra-configs"]
 depends_on: ["02-architecture"]
-last_verified: "2026-11-02"
+last_verified: "2026-11-03"
 sources: ["GOOGLE-SRE-BOOK", "OPEN-TELEMETRY", "12-FACTOR-CONFIG"]
 ---
 

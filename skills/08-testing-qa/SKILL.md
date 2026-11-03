@@ -5,7 +5,7 @@ tiers: ["MVP", "PROD", "SCALE"]
 inputs: ["prd.schema.json", "code_under_test"]
 outputs: ["test-report.schema.json", "test-suites"]
 depends_on: ["04-frontend", "05-backend-data"]
-last_verified: "2026-11-02"
+last_verified: "2026-11-03"
 sources: ["PRACTICAL-TEST-PYRAMID", "PLAYWRIGHT-DOCS", "TEST-IN-PROD", "WCAG-2-2", "ISO-29119", "ISTQB-SQAT", "SONARQUBE-QUALITY-GATES", "STRYKER-MUTATOR", "ANTHROPIC-WEBAPP-TESTING", "ALIBABA-OPEN-CODE-REVIEW"]
 ---
 

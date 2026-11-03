@@ -5,7 +5,7 @@ tiers: ["MVP", "PROD", "SCALE"]
 inputs: ["prd.schema.json", "public-routes"]
 outputs: ["seo-audit.schema.json", "json-ld-specs", "analytics-plan"]
 depends_on: ["01-product-discovery", "04-frontend"]
-last_verified: "2026-11-02"
+last_verified: "2026-11-03"
 sources: ["GOOGLE-SEARCH-CENTRAL", "SCHEMA-ORG", "REF-WEB-METRICS"]
 ---
 

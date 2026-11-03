@@ -50,7 +50,7 @@
         "decision_record"
       ],
       "depends_on": [],
-      "last_verified": "2026-11-02",
+      "last_verified": "2026-11-03",
       "sources": [
         "AGENTS-PROTOCOL",
         "DECISIONS-RECORD",
@@ -99,7 +99,7 @@
       "depends_on": [
         "00-orchestrator"
       ],
-      "last_verified": "2026-11-02",
+      "last_verified": "2026-11-03",
       "sources": [
         "JTBD-INTERCOM",
         "LEAN-STARTUP",
@@ -149,7 +149,7 @@
       "depends_on": [
         "01-product-discovery"
       ],
-      "last_verified": "2026-11-02",
+      "last_verified": "2026-11-03",
       "sources": [
         "FOWLER-ARCH",
         "SYSTEM-DESIGN-PRIMER",
@@ -280,7 +280,7 @@
         "02-architecture",
         "03-ux-ui-design"
       ],
-      "last_verified": "2026-11-02",
+      "last_verified": "2026-11-03",
       "sources": [
         "REACT-DOCS",
         "MDN-WEB-DOCS",
@@ -336,7 +336,7 @@
       "depends_on": [
         "02-architecture"
       ],
-      "last_verified": "2026-11-02",
+      "last_verified": "2026-11-03",
       "sources": [
         "POSTGRES-DOCS",
         "USE-THE-INDEX-LUKE",
@@ -388,7 +388,7 @@
         "02-architecture",
         "05-backend-data"
       ],
-      "last_verified": "2026-11-02",
+      "last_verified": "2026-11-03",
       "sources": [
         "OWASP-TOP-10",
         "OWASP-ASVS"
@@ -432,7 +432,7 @@
         "01-product-discovery",
         "05-backend-data"
       ],
-      "last_verified": "2026-11-02",
+      "last_verified": "2026-11-03",
       "sources": [
         "GDPR-LEGAL-TEXT",
         "EDPB-GUIDELINES"
@@ -486,7 +486,7 @@
         "04-frontend",
         "05-backend-data"
       ],
-      "last_verified": "2026-11-02",
+      "last_verified": "2026-11-03",
       "sources": [
         "PRACTICAL-TEST-PYRAMID",
         "PLAYWRIGHT-DOCS",
@@ -537,7 +537,7 @@
       "depends_on": [
         "02-architecture"
       ],
-      "last_verified": "2026-11-02",
+      "last_verified": "2026-11-03",
       "sources": [
         "GOOGLE-SRE-BOOK",
         "OPEN-TELEMETRY"
@@ -582,7 +582,7 @@
         "04-frontend",
         "05-backend-data"
       ],
-      "last_verified": "2026-11-02",
+      "last_verified": "2026-11-03",
       "sources": [
         "WEB-DEV-CWV",
         "HIGH-PERF-BROWSER-NETWORKING"
@@ -627,7 +627,7 @@
         "01-product-discovery",
         "04-frontend"
       ],
-      "last_verified": "2026-11-02",
+      "last_verified": "2026-11-03",
       "sources": [
         "GOOGLE-SEARCH-CENTRAL",
         "SCHEMA-ORG"
@@ -670,7 +670,7 @@
         "01-product-discovery",
         "05-backend-data"
       ],
-      "last_verified": "2026-11-02",
+      "last_verified": "2026-11-03",
       "sources": [
         "STRIPE-ENGINEERING-DOCS",
         "TAX-CALC-BASICS"
@@ -714,7 +714,7 @@
         "08-testing-qa",
         "09-devops-infra"
       ],
-      "last_verified": "2026-11-02",
+      "last_verified": "2026-11-03",
       "sources": [
         "LAUNCH-CHECKLISTS",
         "INCIDENT-COMMAND-SYSTEM"
@@ -765,7 +765,7 @@
         "02-architecture",
         "08-testing-qa"
       ],
-      "last_verified": "2026-11-02",
+      "last_verified": "2026-11-03",
       "sources": [
         "LEGACY-CODE-FEATHERS",
         "REFACTORING-FOWLER",

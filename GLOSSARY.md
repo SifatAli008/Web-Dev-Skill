@@ -1,11 +1,12 @@
 # Universal WebDev Skills: Shared Engineering Glossary
 
-This glossary defines standard terminology used across all 15 specialist skills. Skills link to this document to maintain token efficiency and prevent redundant explanations.
+This glossary defines standard terminology used across all 16 specialist skills. Skills link to this document to maintain token efficiency and prevent redundant explanations.
 
 ---
 
 ### Core Concepts & Methodologies
 
+- **7-State Lifecycle Matrix**: The complete interaction state coverage required for interactive UI primitives: Default, Hover/Pointer, Active/Pressed, Focus-Visible, Disabled, Loading/Skeleton, and Error/Recovery.
 - **ACID**: Atomicity, Consistency, Isolation, Durability. The four standard properties guaranteed by relational database management systems for state transactions.
 - **ADR (Architectural Decision Record)**: A structured document that captures an important architectural decision made along with its context and consequences.
 - **ASVS (Application Security Verification Standard)**: A community-driven OWASP standard defining technical security controls for web applications.
@@ -16,15 +17,20 @@ This glossary defines standard terminology used across all 15 specialist skills.
 - **Content Security Policy (CSP)**: An HTTP response header allowing site administrators to restrict the resources (JavaScript, CSS, Images) that the browser is allowed to load.
 - **CSRF (Cross-Site Request Forgery)**: An attack that tricks an authenticated user's browser into executing unauthorized actions on a trusted web application.
 - **Cyclomatic Complexity**: Quantitative measure of the number of linearly independent paths through a program's source code (McCabe). SQAT target: `<= 10` per function.
+- **Doherty Threshold**: In HCI, the empirical requirement that system response time should remain under 400ms to preserve user focus, flow state, and productivity.
 - **DSAR (Data Subject Access Request)**: A formal request under GDPR/CCPA allowing users to access, export, or delete their stored personal data.
 - **Expand and Contract (Parallel Change)**: A zero-downtime database migration pattern where a schema is expanded (new columns/tables added without breaking old code), migrated gradually, and old structures are contracted (dropped) only after all code is updated.
+- **Fitts's Law**: An empirical model of human motor movement ($MT = a + b \log_2(2D/W)$) predicting that time to acquire a target is a function of distance and target size.
+- **Hick-Hyman Law**: The empirical principle that human decision reaction time increases logarithmically with the number of alternative choices ($RT = b \log_2(n+1)$).
 - **IDOR (Insecure Direct Object Reference)**: An authorization vulnerability where an application provides direct access to objects based on user-supplied input without verifying permissions.
 - **Idempotency**: The mathematical property wherein an operation produce the same result whether applied once or multiple times consecutively. Vital for payment processing and queue consumers.
 - **INP (Interaction to Next Paint)**: Core Web Vital measuring responsiveness to user interactions. Target: `<= 200ms`.
 - **JTBD (Jobs to be Done)**: A framework focusing on the specific task or transformation a user is "hiring" a product to achieve.
+- **KLM (Keystroke-Level Model)**: A quantitative GOMS-based technique to predict expert task execution duration by summing component operator times (keystroke, pointing, homing, mental preparation).
 - **LCP (Largest Contentful Paint)**: Core Web Vital measuring loading performance. Target: `<= 2.5s`.
 - **MoSCoW Prioritization**: Scope categorization into **M**ust have, **S**hould have, **C**ould have, and **W**on't have (this cycle).
 - **Mutation Testing**: A fault-based testing technique where automated faults ("mutants") are seeded into code to verify that test suites fail when bugs are introduced. Target mutation score: `>= 70%`.
+- **OKLCH**: A perceptual color space ($L$: lightness, $C$: chroma, $H$: hue) designed to align with human visual perception, guaranteeing uniform contrast steps across dark and light themes without lightness distortion.
 - **OWASP (Open Worldwide Application Security Project)**: Non-profit foundation producing standards and educational resources for web application security.
 - **Quality Gate**: A verifiable set of Boolean conditions (test coverage, zero critical static analysis issues, security clearance, mutation score) that a codebase must satisfy before passing to the next deployment phase.
 - **RBAC / ABAC**: Role-Based Access Control (permissions assigned to roles) vs Attribute-Based Access Control (permissions evaluated dynamically from context, user, and resource attributes).

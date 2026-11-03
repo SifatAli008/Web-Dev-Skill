@@ -5,7 +5,7 @@ tiers: ["MVP", "PROD", "SCALE"]
 inputs: ["adr.schema.json", "prd.schema.json", "code_diff"]
 outputs: ["threat-model.schema.json", "security-audit.schema.json"]
 depends_on: ["02-architecture", "05-backend-data"]
-last_verified: "2026-11-02"
+last_verified: "2026-11-03"
 sources: ["OWASP-TOP-10", "OWASP-ASVS", "NIST-SSDF", "CWE-SANS-25", "RFC-6749"]
 ---
 

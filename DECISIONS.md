@@ -172,3 +172,17 @@ This file tracks foundational design and architectural decisions made for `unive
   5. Mandate mobile touch thumb zone prioritization (bottom 60% viewport) and distinguish slips from mistakes by implementing non-blocking reversible "Undo" toasts (5-10s grace window) over habituated modal confirmation dialogues.
   6. Publish `templates/schemas/hci-evaluation.schema.json`, `templates/hci-evaluation.template.md`, and `checklists/hci.checklist.md`.
 - **Consequences:** Provides scientific rigor for interaction design, prevents motor frustration on touch devices, reduces task completion time, eliminates habituated modal fatigue, and guarantees seamless handoff between UX aesthetics and frontend implementation.
+
+---
+
+## ADR-014: Authoritative Standards Registry Synchronization & Epistemic Resource Verification
+
+- **Status:** Accepted (Phase 8 - Standards & Resource Harmonization)
+- **Context:** Agent engineering requires verifiable epistemic grounding. Several newly integrated frameworks (Agent Skills spec, Taste-Skill v2, Open-Design, Ponytail YAGNI ladder, Alibaba OCR, Anthropic MCP builder) were cited across specialist skills but lacked formal registration in `SOURCES.md`. Furthermore, industry standards evolved (ISO/IEC 25010:2023 revision, PostgreSQL 17 release, Core Web Vitals INP adoption replacing FID, and 7-state component matrices).
+- **Decision:**
+  1. Register all 73 authoritative source citations in `SOURCES.md` across all 16 skills, eliminating all unregistered references.
+  2. Harmonize `GLOSSARY.md` with modern definitions (Doherty Threshold, Fitts's Law, Hick-Hyman Law, KLM/GOMS, OKLCH, 7-State Lifecycle Matrix).
+  3. Expand `AI-FAILURE-MODES.md` with FM-12 (AI aesthetic vibe slop & cliché tells) and FM-13 (Touch geometry & motor ergonomics blindness).
+  4. Synchronize all 16 skill `last_verified` dates to `2026-11-03`.
+  5. Harmonize `04-frontend` with the 7-State Component Lifecycle Matrix established in ADR-012.
+- **Consequences:** Guarantees 100% citation coverage, eliminates epistemic drift, and ensures all 16 specialists enforce up-to-date, empirical industry standards.

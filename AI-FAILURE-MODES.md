@@ -29,7 +29,7 @@ This catalogue details documented traps, cognitive failures, and security anti-p
 ### FM-05: Missing Dynamic UI States & Accessibility Violations
 - **Symptom:** Generating React/Svelte components that assume network requests always succeed immediately. Zero `<Suspense>`, no skeleton loading, no error boundaries, no empty states, div buttons without `role="button"` or `onKeyDown`.
 - **Root Cause:** LLM code snippet training favors the happy path.
-- **Countermeasure:** `03-ux-ui-design` A11y gate: Verify keyboard tab navigation, screen reader labels, and 5-state lifecycle (idle, loading, error, empty, success).
+- **Countermeasure:** `03-ux-ui-design` A11y gate: Verify keyboard tab navigation, screen reader labels, and 7-state component lifecycle matrix (default, hover, active, focus-visible, disabled, loading/skeleton, error/recovery).
 
 ### FM-06: Outdated & Deprecated Syntax
 - **Symptom:** Emitting Next.js Pages router patterns in App router projects, class components instead of functional components, deprecated React lifecycle hooks, or legacy Node callback patterns.
@@ -60,3 +60,13 @@ This catalogue details documented traps, cognitive failures, and security anti-p
 - **Symptom:** Littering the workspace root with unrequested markdown documents, stray scratchpad files (`temp.js`, `notes.md`, `test-plan.md`), unmanaged logs, or duplicate diff dumps.
 - **Root Cause:** AI agents "thinking out loud" on the filesystem without adhering to lifecycle policies.
 - **Countermeasure:** [AGENTS.md Rule 10] Strict Artifact Control: Only write schema-validated handoff artifacts in `templates/schemas/`. Never create unrequested markdown summaries or temporary files in production paths. Clean up or quarantine ephemeral scratch files.
+
+### FM-12: AI Aesthetic Vibe Slop & Cliché Design Patterns
+- **Symptom:** Generating predictable purple-to-blue gradients, floating centered overhead pill badges, uniform 3-card grids with centered circle icons, fake Jane Doe testimonials, and low-contrast grey-on-grey text.
+- **Root Cause:** Homogenized design tutorial snippets in LLM pre-training data.
+- **Countermeasure:** `03-ux-ui-design` & `04-frontend` enforce `Leonxlnx/taste-skill` v2 anti-slop rules, quantitative dials (1–10 scale), and explicit Taste Profiles (Minimalist, Industrial-Brutalist, Editorial, Soft-Consumer).
+
+### FM-13: Touch Geometry & Motor Ergonomics Blindness
+- **Symptom:** Emitting cramped clickable areas (<44px on touch viewports), positioning high-frequency controls in hard-to-reach screen corners, zero spacing between destructive and safe actions, or hiding critical functionality behind desktop mouse `:hover`.
+- **Root Cause:** LLM desktop-centric code generation blind to physical touchscreen finger mechanics.
+- **Countermeasure:** `15-hci-interaction` enforces Fitts's Law touch target floors (>= 44x44px), >= 8px bounding box isolation, and mobile bottom thumb zone prioritization.
