@@ -94,7 +94,22 @@ function validateManifest() {
       const resolvedLogo = path.resolve(REPO_ROOT, manifest.logo);
       if (!resolvedLogo.startsWith(REPO_ROOT) || !fs.existsSync(resolvedLogo)) {
         fail(`plugin.json "logo" file does not exist on disk: ${manifest.logo}`);
+      } else if (ext === '.png') {
+        const buf = fs.readFileSync(resolvedLogo);
+        if (buf.length >= 24 && buf.toString('ascii', 12, 16) === 'IHDR') {
+          const width = buf.readUInt32BE(16);
+          const height = buf.readUInt32BE(20);
+          if (width < 128 || height < 128 || width !== height) {
+            fail(`plugin.json "logo" PNG must be square >= 128x128 (got ${width}x${height}).`);
+          }
+        }
       }
+    }
+  }
+
+  for (const requiredDoc of ['README.md', 'LICENSE']) {
+    if (!fs.existsSync(path.join(REPO_ROOT, requiredDoc))) {
+      fail(`${requiredDoc} missing at repository root (required for plugin distribution).`);
     }
   }
 
@@ -195,6 +210,16 @@ function validateSkillsFrontmatter() {
     }
     if (!descMatch || descMatch[1].trim().length < 10) {
       fail(`skills/${folder}/SKILL.md frontmatter "description" is missing or too short.`);
+    } else {
+      const rawDesc = descMatch[1].trim();
+      const isQuoted = (rawDesc.startsWith('"') && rawDesc.endsWith('"')) || (rawDesc.startsWith("'") && rawDesc.endsWith("'"));
+      const cleanDesc = rawDesc.replace(/^["']|["']$/g, '');
+      if (!isQuoted && /:\s/.test(rawDesc)) {
+        fail(`skills/${folder}/SKILL.md frontmatter "description" contains unquoted ": " (quote the string in YAML).`);
+      }
+      if (cleanDesc.length > 1024) {
+        fail(`skills/${folder}/SKILL.md frontmatter "description" exceeds 1024 chars (${cleanDesc.length}).`);
+      }
     }
     count++;
   }

@@ -1,7 +1,7 @@
 {
   "$schema": "templates/schemas/skills-index.schema.json",
-  "version": "0.1.0",
-  "last_updated": "2026-11-03",
+  "version": "0.2.0",
+  "last_updated": "2026-11-12",
   "tiers": {
     "MVP": "Prototypes and internal tools. Baseline defensive security; speed prioritized.",
     "PROD": "Public users, auth, billing, customer data. Full test suite, OWASP, a11y, zero-downtime.",

@@ -2,7 +2,7 @@
   "name": "universal-webdev-skills",
   "displayName": "Universal WebDev Skills",
   "description": "Equips your agent with a disciplined 16-specialist web engineering team covering architecture, anti-slop UI design, OWASP security, GDPR privacy, QA gates, DevOps, and Core Web Vitals.",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "author": {
     "name": "SifatAli008",
     "url": "https://github.com/SifatAli008"
