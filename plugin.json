@@ -1,0 +1,21 @@
+{
+  "name": "universal-webdev-skills",
+  "displayName": "Universal WebDev Skills",
+  "description": "Equips your agent with a disciplined 16-specialist web engineering team covering architecture, anti-slop UI design, OWASP security, GDPR privacy, QA gates, DevOps, and Core Web Vitals.",
+  "version": "0.1.0",
+  "author": {
+    "name": "SifatAli008",
+    "url": "https://github.com/SifatAli008"
+  },
+  "homepage": "https://github.com/SifatAli008/Web-Dev-Skill#readme",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/SifatAli008/Web-Dev-Skill.git"
+  },
+  "logo": "assets/logo.png",
+  "suggestedPrompts": [
+    "Classify this web project tier (MVP, PROD, or SCALE) and plan the architecture and security gates",
+    "Design an accessible, anti-slop UI with DESIGN.md tokens and WCAG 2.2 AA compliance",
+    "Audit this web app for OWASP Top 10 risks, privacy compliance, and Core Web Vitals"
+  ]
+}
