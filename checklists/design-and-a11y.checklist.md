@@ -1,20 +1,20 @@
 # UX/UI Design & WCAG 2.2 AA Quality Checklist
 
-> **Authority:** UX/UI & Accessibility Lead (`03-ux-ui-design`) — A11y Gate  
+> **Authority:** UX/UI & Accessibility Lead (`03-ux-ui-design`) â€” A11y Gate  
 > **Scope:** Interface Craft, Leonxlnx Taste-Skill Anti-Slop, and WCAG 2.2 AA Accessibility Compliance
 
 ---
 
 - [ ] **1. Brief Inference & Taste Profile (taste-skill Section 0 & 1):**
   - [ ] Was a one-line `[Design Read]` explicitly stated before generating UI code?
-  - [ ] Are quantitative dials configured (`DESIGN_VARIANCE`, `MOTION_INTENSITY`, `VISUAL_DENSITY` 1–10)?
+  - [ ] Are quantitative dials configured (`DESIGN_VARIANCE`, `MOTION_INTENSITY`, `VISUAL_DENSITY` 1â€“10)?
   - [ ] Is exactly one Taste Profile active (Minimalist, Industrial-Brutalist, Editorial, or Soft-Consumer)?
   - [ ] Is `DESIGN.md` published or updated at the repository root?
 
 - [ ] **2. Anti-Slop & Copy Discipline:**
-  - [ ] Are 0 em-dashes (`—`) or en-dashes (`–`) present in any copy, headings, or microcopy?
+  - [ ] Are 0 em-dashes (`â€”`) or en-dashes (`â€“`) present in any copy, headings, or microcopy?
   - [ ] Are all generic purple-to-blue background gradients completely removed?
-  - [ ] Are overhead centered "✨ AI-Powered" pill badges forbidden?
+  - [ ] Are overhead centered "âœ¨ AI-Powered" pill badges forbidden?
   - [ ] Are numbered section eyebrows (`01. / 02.`) replaced with semantic category tags?
   - [ ] Are div-based fake screenshot window dots (`red/yellow/green`) completely eliminated?
   - [ ] Are fake customer testimonials with 5 yellow stars removed?
@@ -50,13 +50,13 @@
 - [ ] **7. Design Theory & Spatial Science Verification:**
   - [ ] Does spacing enforce the Gestalt 2:1 proximity ratio (outer group margin $\ge 2\times$ inner element padding)?
   - [ ] Is color balanced according to the 60-30-10 rule (60% base canvas, 30% structural text/borders, 10% accent)?
-  - [ ] Is reading copy bounded to the optimal 45–75 character measure (`max-w-[65ch]`)?
-  - [ ] Does line-height scale inversely with font size (1.1–1.2 on display headings, 1.5–1.65 on body)?
+  - [ ] Is reading copy bounded to the optimal 45â€“75 character measure (`max-w-[65ch]`)?
+  - [ ] Does line-height scale inversely with font size (1.1â€“1.2 on display headings, 1.5â€“1.65 on body)?
   - [ ] Do all spacing and component dimensions snap to the 8-point modular grid (4px micro-adjustments)?
   - [ ] Does text contrast satisfy APCA perceptual criteria ($L^c \ge 75$ body, $L^c \ge 60$ headings)?
 
 - [ ] **8. Atomic Components, Dual-Theme & Container Query Verification:**
-  - [ ] Are UI components built on the 12 universal primitives in `skills/03-ux-ui-design/references/component-primitives-reference.md`?
+  - [ ] Are UI components built on the 12 universal primitives in `skills/ux-ui-design/references/component-primitives-reference.md`?
   - [ ] Does dark/light theming implement OKLCH perceptual tokens with a Zero-FOUC inline script in HTML `<head>`?
   - [ ] Are modular card/widget responsive adaptations powered by CSS Container Queries (`@container`)?
   - [ ] Do interactive elements feature tactile micro-interactions (spring curves, spotlight borders, sliding pill motion)?

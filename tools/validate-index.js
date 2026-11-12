@@ -59,10 +59,10 @@ function runIndexValidation() {
     return fs.statSync(path.join(SKILLS_DIR, f)).isDirectory();
   });
 
-  const indexedIds = new Set(indexData.skills.map(s => s.id));
+  const indexedFolders = new Set(indexData.skills.map(s => path.basename(path.dirname(s.path))));
 
   physicalFolders.forEach(folder => {
-    if (!indexedIds.has(folder)) {
+    if (!indexedFolders.has(folder)) {
       console.error(`[ORPHAN SKILL] Directory skills/${folder} is not registered in skills.index.json`);
       errors++;
     }

@@ -12,7 +12,7 @@
 ```
 
 * **Active Taste Profile:** `[Minimalist | Industrial-Brutalist | Editorial | Soft-Consumer]`
-* **Quantitative Dials (1–10 Scale):**
+* **Quantitative Dials (1â€“10 Scale):**
   * `DESIGN_VARIANCE: [1-10]` (1-3: Corporate/Symmetric; 4-6: Balanced; 7-10: Asymmetric/Editorial)
   * `MOTION_INTENSITY: [1-10]` (1-3: Static/Hover; 4-6: Tactile Micro-Interactions; 7-10: Physics Springs/Scroll)
   * `VISUAL_DENSITY: [1-10]` (1-3: Airy Luxury; 4-6: Balanced SaaS; 7-10: Dense Cockpit/Data)
@@ -173,7 +173,7 @@ Every interactive component must explicitly implement:
 
 ## 6. Anti-Slop Visual Directives & Non-Negotiables
 
-1. **Zero Em-Dashes:** Never use em-dashes (`—`) or en-dashes (`–`) anywhere in web copy.
+1. **Zero Em-Dashes:** Never use em-dashes (`â€”`) or en-dashes (`â€“`) anywhere in web copy.
 2. **Zero Gradient Soup:** No purple-to-blue background gradients; use solid architectural surfaces with 1px borders.
 3. **Layout Family Diversity:** Compose at least 4 distinct layout families without repeating identical card grids.
 4. **Hero Discipline:** Headline $\le 2$ lines, subheadline $< 20$ words, primary CTA above fold.
@@ -229,7 +229,7 @@ Every interactive component must explicitly implement:
 
 ## 11. 12 Atomic Component Architecture Specification
 
-Refer to `skills/03-ux-ui-design/references/component-primitives-reference.md` for full DOM, ARIA, and CSS contracts for:
+Refer to `skills/ux-ui-design/references/component-primitives-reference.md` for full DOM, ARIA, and CSS contracts for:
 1. **Dialog / Modal:** Focus trap, scroll lock, `aria-modal="true"`, restore focus on close.
 2. **Dropdown / Popover:** Keyboard navigation (`ArrowUp/Down`, `Escape`), collision detection.
 3. **Toast / Notification Stack:** Live region (`aria-live="polite"`), auto-dismiss pause on hover, actionable undo.

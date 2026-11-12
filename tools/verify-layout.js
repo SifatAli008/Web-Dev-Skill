@@ -71,7 +71,7 @@ function verifyDesignTokenSchema() {
 }
 
 function scanAntiSlopViolations() {
-  const SCAN_DIRS = ['skills/03-ux-ui-design', 'templates'];
+  const SCAN_DIRS = ['skills/ux-ui-design', 'templates'];
   let checkedFiles = 0;
 
   function scan(dir) {

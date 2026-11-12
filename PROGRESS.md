@@ -25,8 +25,8 @@
 ## Phase 8 Deliverables Completed
 
 - [x] **Comprehensive Design Concepts & Visual Theory Architecture (ADR-017):**
-  - Expanded `skills/03-ux-ui-design/references/design-theory-reference.md` into an authoritative 13-pillar compendium covering:
-    1. Gestalt Psychology (Proximity, Similarity, Common Region, Figure-Ground, Closure, Prägnanz, Common Fate, Focal Point/Von Restorff).
+  - Expanded `skills/ux-ui-design/references/design-theory-reference.md` into an authoritative 13-pillar compendium covering:
+    1. Gestalt Psychology (Proximity, Similarity, Common Region, Figure-Ground, Closure, PrÃ¤gnanz, Common Fate, Focal Point/Von Restorff).
     2. Perceptual Color Theory (60-30-10 rule, Chevreul simultaneous contrast, APCA contrast, Display-P3/sRGB vs OKLCH, classical color schemes, Bezold effect, hue shifting, CVD redundancy).
     3. Typographic Science (Measure `65ch`, inverse leading, musical scales, baseline grid, OpenType features, letterform anatomy, font classifications, variable fonts).
     4. Swiss Grid Systems (8pt modular grid, asymmetric balance, active whitespace, Golden Ratio $\Phi \approx 1.618$, Rule of Thirds, Fibonacci sequence, 6 grid archetypes, Bento Box layout).
@@ -41,28 +41,28 @@
     13. Visual Aesthetics & Movements (Bauhaus, Swiss International, Skeuomorphism, Flat, Neumorphism, Glassmorphism, Industrial Brutalism, Modern Editorial).
   - Enriched `GLOSSARY.md` with a dedicated "Visual Design, Interaction & UI Architecture Concepts" dictionary defining 60+ design terms.
   - Registered authoritative source citations in `SOURCES.md`: `TUFTE-DATA-INK`, `FROST-ATOMIC-DESIGN`, and `LUPTON-TYPE`.
-  - Synchronized `skills.index.json` and `skills/03-ux-ui-design/SKILL.md` frontmatter with new triggers and sources.
+  - Synchronized `skills.index.json` and `skills/ux-ui-design/SKILL.md` frontmatter with new triggers and sources.
   - Recorded **ADR-017** in `DECISIONS.md`.
-- [x] **Elite Design Package — 12 Atomic Primitives, Dual-Theme OKLCH, Container Queries, Micro-Interactions & Accessible Data Viz (ADR-016):**
-  - Created operational L2 reference guide: `skills/03-ux-ui-design/references/component-primitives-reference.md` establishing DOM, ARIA, keyboard, and CSS contracts for 12 universal primitives (Dialog, Dropdown, Toast, Tabs, Accordion, Input, Button, Table, Skeleton, Avatar, Tooltip, Drawer).
+- [x] **Elite Design Package â€” 12 Atomic Primitives, Dual-Theme OKLCH, Container Queries, Micro-Interactions & Accessible Data Viz (ADR-016):**
+  - Created operational L2 reference guide: `skills/ux-ui-design/references/component-primitives-reference.md` establishing DOM, ARIA, keyboard, and CSS contracts for 12 universal primitives (Dialog, Dropdown, Toast, Tabs, Accordion, Input, Button, Table, Skeleton, Avatar, Tooltip, Drawer).
   - Implemented Dual-Theme OKLCH tokens (`[data-theme="dark"]` and `[data-theme="light"]`) with a synchronous Zero-FOUC `<head>` initialization script.
   - Standardized CSS Container Query architecture (`@container`) for responsive cards and bento widgets decoupled from viewports.
   - Engineered craft micro-interactions and tactile depth: mouse-tracking spotlight borders, SVG noise `feTurbulence` grain, architectural frosted glassmorphism, and sliding segmented pill motion.
   - Standardized optical iconography (1.5px/2.0px stroke, 16/20/24px bounding boxes, optical centroid offsets).
   - Specified multi-sensory accessible data visualization (`--chart-1` through `--chart-5`, geometric series markers, `<table class="sr-only">` fallback).
   - Updated `DESIGN.md`, `templates/design.template.md`, `templates/schemas/design-tokens.schema.json`, and `checklists/design-and-a11y.checklist.md`.
-  - Updated `skills/03-ux-ui-design/SKILL.md` (maintaining `<300` lines) and added assertions to `tools/verify-layout.js`.
+  - Updated `skills/ux-ui-design/SKILL.md` (maintaining `<300` lines) and added assertions to `tools/verify-layout.js`.
   - Recorded **ADR-016** in `DECISIONS.md`.
-- [x] **Specialist 15: HCI & Cognitive Ergonomics Lead (`skills/15-hci-interaction/`):**
-  - Created `skills/15-hci-interaction/SKILL.md` (149 lines, strictly conforming to `<300` line cap and open Agent Skills specification).
-  - Authored L2 operational reference guide: `skills/15-hci-interaction/references/hci-interaction-guide.md` (Fitts's Law, Hick-Hyman Law, Doherty Threshold, KLM operator models, thumb zone geometry, Reason's slips vs mistakes).
+- [x] **Specialist 15: HCI & Cognitive Ergonomics Lead (`skills/hci-interaction/`):**
+  - Created `skills/hci-interaction/SKILL.md` (149 lines, strictly conforming to `<300` line cap and open Agent Skills specification).
+  - Authored L2 operational reference guide: `skills/hci-interaction/references/hci-interaction-guide.md` (Fitts's Law, Hick-Hyman Law, Doherty Threshold, KLM operator models, thumb zone geometry, Reason's slips vs mistakes).
   - Published schema and template: `templates/schemas/hci-evaluation.schema.json` and `templates/hci-evaluation.template.md`.
   - Created operational checklist: `checklists/hci.checklist.md` with 25 empirical interaction checkpoints.
   - Registered in `skills.index.json` with 19 trigger keywords, explicit anti-triggers, and authoritative citations.
   - Recorded **ADR-013** in `DECISIONS.md`.
 - [x] **Classical & Modern Design Theory Integration (ADR-015):**
-  - Published comprehensive L2 theoretical foundation guide: `skills/03-ux-ui-design/references/design-theory-reference.md` covering Gestalt Psychology, 60-30-10 color science, Bringhurst typographic measure (`65ch`), Müller-Brockmann 8pt Swiss grids, eye-tracking scanpaths, and Disney animation principles.
-  - Embedded Decision Rules 20–22 into `03-ux-ui-design/SKILL.md` (Gestalt 2:1 Proximity Ratio, 60-30-10 Color Rule, Micro-Typographic Measure & Optical Rhythm).
+  - Published comprehensive L2 theoretical foundation guide: `skills/ux-ui-design/references/design-theory-reference.md` covering Gestalt Psychology, 60-30-10 color science, Bringhurst typographic measure (`65ch`), MÃ¼ller-Brockmann 8pt Swiss grids, eye-tracking scanpaths, and Disney animation principles.
+  - Embedded Decision Rules 20â€“22 into `03-ux-ui-design/SKILL.md` (Gestalt 2:1 Proximity Ratio, 60-30-10 Color Rule, Micro-Typographic Measure & Optical Rhythm).
   - Enriched `DESIGN.md` and `templates/design.template.md` with Section 7: Design Theory Foundations.
   - Expanded `checklists/design-and-a11y.checklist.md` with Section 7 validation criteria.
   - Integrated design theory invariant assertions into `tools/verify-layout.js`.
@@ -86,10 +86,10 @@
   - Fully compliant frontmatter metadata and 3-level progressive disclosure (Discovery L1, Procedures L2, Verification L3) across all 15 skills.
 - [x] **Full Leonxlnx/taste-skill v2 Anti-Slop Visual Architecture & DESIGN.md Contracts:**
   - Integrated Section 0 Brief Inference & mandatory one-line `[Design Read]` declaration into `03-ux-ui-design`.
-  - Configured Section 1 Quantitative Design Dials (`DESIGN_VARIANCE`, `MOTION_INTENSITY`, `VISUAL_DENSITY` 1–10) with domain archetype presets.
+  - Configured Section 1 Quantitative Design Dials (`DESIGN_VARIANCE`, `MOTION_INTENSITY`, `VISUAL_DENSITY` 1â€“10) with domain archetype presets.
   - Enforced 4 Curated Taste Profiles, Layout Family Diversity ($\ge 4$ families per page), Bounded Hero Section Discipline ($\le 2$ lines, $< 20$ words), and the Zero Em-Dash Copy Rule.
   - Instituted Section 14 Final Pre-Flight Quality Gate audit checklist.
-  - Created in-depth L2 companion reference: `skills/03-ux-ui-design/references/taste-skill-guide.md`.
+  - Created in-depth L2 companion reference: `skills/ux-ui-design/references/taste-skill-guide.md`.
   - Integrated `nexu-io/open-design` `DESIGN.md` contract at workspace root as the single source of truth for design tokens.
 - [x] **Alibaba Open Code Review (OCR) Protocol:**
   - Standardized defect severity ratings (P0 Blocker, P1 Defect, P2 Advisory) and hybrid AST review across QA (`08-testing-qa`) and Maintenance (`14-maintenance`).
@@ -97,7 +97,7 @@
   - Anti-overengineering directives and Web Platform native primitives prioritized across Orchestrator (`00`), Architecture (`02`), Frontend (`04`), Backend (`05`), Maintenance (`14`), and `AGENTS.md`.
 - [x] **Advanced Design Engineering & OKLCH Perceptual Token Architecture:**
   - Implemented OKLCH color space (`oklch(L C H)`), viewport-relative `clamp()` typography & spacing, spring physics motion tokens, and 7-state component matrices across `DESIGN.md`, `templates/design.template.md`, and `templates/schemas/design-tokens.schema.json`.
-  - Added full dynamic media contrast scrims, WebGL canvas overlay guides, and visual dominance hierarchy (>= 2:1 ratio) to `skills/03-ux-ui-design/` and reference guides.
+  - Added full dynamic media contrast scrims, WebGL canvas overlay guides, and visual dominance hierarchy (>= 2:1 ratio) to `skills/ux-ui-design/` and reference guides.
   - Implemented `tools/verify-layout.js` layout and design token verifier with full CI integration.
   - Completed schema and template coverage with `templates/schemas/bundle-report.schema.json`, `templates/schemas/system-design.schema.json`, and `templates/a11y-audit.template.md`.
 - [x] **Verification & State Auditing:**
@@ -157,7 +157,7 @@
   - **Frontier Models:** Baseline 53.3 -> With-Skills 95.9 (**+79.9% delta**, 0 OWASP findings).
   - **Small Models:** Baseline 37.3 -> With-Skills 86.8 (**+132.7% delta**, 0 OWASP findings).
   - Both model groups substantially exceed the >= +25% delta criterion.
-  - Context efficiency: typical task context load is **7,500 – 9,800 tokens** (<12,000 budget).
+  - Context efficiency: typical task context load is **7,500 â€“ 9,800 tokens** (<12,000 budget).
   - **Deletion Test:** 15/15 specialist skills validated for unique positive value; zero skills marked for deletion.
 
 ---

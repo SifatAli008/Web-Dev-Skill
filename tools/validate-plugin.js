@@ -16,6 +16,7 @@ const RULES_AGENTS_PATH = path.join(REPO_ROOT, 'rules', 'AGENTS.md');
 const SKILLS_DIR = path.join(REPO_ROOT, 'skills');
 
 const ALLOWED_MANIFEST_KEYS = new Set([
+  '$schema',
   'name',
   'displayName',
   'description',
@@ -25,6 +26,9 @@ const ALLOWED_MANIFEST_KEYS = new Set([
   'repository',
   'logo',
   'suggestedPrompts',
+  'skills',
+  'license',
+  'keywords',
   'disabled'
 ]);
 
@@ -72,8 +76,8 @@ function validateManifest() {
     fail('plugin.json "name" must be a lowercase kebab-case string.');
   }
 
-  if (typeof manifest.description !== 'string' || manifest.description.trim().length < 10) {
-    fail('plugin.json "description" must be a clear non-empty string.');
+  if (typeof manifest.description !== 'string' || manifest.description.trim().length < 10 || manifest.description.trim().length > 160) {
+    fail(`plugin.json "description" must be 10–160 chars for Marketplace cards (got ${manifest.description ? manifest.description.trim().length : 0}).`);
   }
 
   if (fs.existsSync(PACKAGE_JSON_PATH) && manifest.version !== undefined) {
@@ -204,9 +208,12 @@ function validateSkillsFrontmatter() {
     const fm = match[1];
     const nameMatch = fm.match(/^name:\s*(.+)$/m);
     const descMatch = fm.match(/^description:\s*(.+)$/m);
+    const skillName = nameMatch ? nameMatch[1].trim().replace(/^["']|["']$/g, '') : '';
 
-    if (!nameMatch || !KEBAB_CASE_RE.test(nameMatch[1].trim().replace(/^["']|["']$/g, ''))) {
+    if (!nameMatch || !KEBAB_CASE_RE.test(skillName)) {
       fail(`skills/${folder}/SKILL.md frontmatter "name" must be lowercase kebab-case.`);
+    } else if (skillName !== folder) {
+      fail(`skills/${folder}/SKILL.md frontmatter name ("${skillName}") must match directory name ("${folder}").`);
     }
     if (!descMatch || descMatch[1].trim().length < 10) {
       fail(`skills/${folder}/SKILL.md frontmatter "description" is missing or too short.`);

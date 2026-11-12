@@ -7,22 +7,29 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [0.2.1] - 2026-11-12
+
+### Changed
+- Renamed `skills/<nn>-<name>/` directories to `skills/<name>/` so every `SKILL.md` frontmatter `name` matches its parent folder (`agy plugin validate --strict` requirement).
+- Added Antigravity Marketplace metadata (`$schema`, `license`, `keywords`) to `plugin.json` and trimmed `description` to 134 characters (within the 120–160 character Marketplace card recommendation).
+- Enforced folder-name parity and Marketplace `description` length in `tools/validate-plugin.js`.
+
 ## [0.2.0] - 2026-11-12
 
 ### Added
 - **Native Antigravity Plugin Packaging:**
   - `plugin.json`: Antigravity plugin manifest (`universal-webdev-skills`) with `displayName`, `description`, `version`, `author`, `homepage`, `repository`, `assets/logo.png`, and `suggestedPrompts`.
   - `rules/AGENTS.md`: Scoped always-on team protocol rule for web/software engineering tasks.
-  - `assets/logo.png`: 512×512 transparent-background plugin emblem.
+  - `assets/logo.png`: 512Ã—512 transparent-background plugin emblem.
 - **Automated Plugin CI/CD & Release Pipeline:**
   - `tools/validate-plugin.js`: Validates `plugin.json`, version parity, square PNG logo dimensions, `rules/AGENTS.md` size/frontmatter rules, and all 16 `SKILL.md` frontmatters.
   - `tools/package-plugin.js`: Stages self-contained plugin bundles and outputs `.tar.gz`, `.zip`, and `SHA256SUMS.txt` release archives.
   - `.github/workflows/release-plugin.yml`: Automated tag (`v*.*.*`) and `workflow_dispatch` workflow to validate, package, and publish GitHub Releases.
-- **16th Specialist Skill (`skills/15-hci-interaction/`):**
+- **16th Specialist Skill (`skills/hci-interaction/`):**
   - HCI & Cognitive Ergonomics Lead (Fitts's Law, Hick-Hyman Law, Doherty Threshold, KLM, and thumb-zone ergonomics) plus `DESIGN.md` dual-theme OKLCH and component primitive updates.
 
 ### Fixed
-- Tightened `skills/03-ux-ui-design/SKILL.md` frontmatter `description` below the 1,024-character Agent Skills specification cap.
+- Tightened `skills/ux-ui-design/SKILL.md` frontmatter `description` below the 1,024-character Agent Skills specification cap.
 
 ## [0.1.0] - 2026-11-01
 

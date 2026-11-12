@@ -1,6 +1,6 @@
 {
   "$schema": "templates/schemas/skills-index.schema.json",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "last_updated": "2026-11-12",
   "tiers": {
     "MVP": "Prototypes and internal tools. Baseline defensive security; speed prioritized.",
@@ -13,7 +13,7 @@
       "name": "orchestrator",
       "title": "Engineering Manager / Orchestrator",
       "authority": "Process gate",
-      "path": "skills/00-orchestrator/SKILL.md",
+      "path": "skills/orchestrator/SKILL.md",
       "token_cost_est": 1600,
       "tiers": [
         "MVP",
@@ -66,7 +66,7 @@
       "name": "product-discovery",
       "title": "Product Lead",
       "authority": "Advises",
-      "path": "skills/01-product-discovery/SKILL.md",
+      "path": "skills/product-discovery/SKILL.md",
       "token_cost_est": 1400,
       "tiers": [
         "MVP",
@@ -112,7 +112,7 @@
       "name": "architecture",
       "title": "Solution Architect",
       "authority": "Design gate",
-      "path": "skills/02-architecture/SKILL.md",
+      "path": "skills/architecture/SKILL.md",
       "token_cost_est": 1900,
       "tiers": [
         "MVP",
@@ -164,7 +164,7 @@
       "name": "ux-ui-design",
       "title": "UX/UI, Conversion & Accessibility Lead",
       "authority": "A11y gate",
-      "path": "skills/03-ux-ui-design/SKILL.md",
+      "path": "skills/ux-ui-design/SKILL.md",
       "token_cost_est": 1750,
       "tiers": [
         "MVP",
@@ -258,7 +258,7 @@
       "name": "frontend",
       "title": "Frontend Lead",
       "authority": "Advises",
-      "path": "skills/04-frontend/SKILL.md",
+      "path": "skills/frontend/SKILL.md",
       "token_cost_est": 1950,
       "tiers": [
         "MVP",
@@ -323,7 +323,7 @@
       "name": "backend-data",
       "title": "Backend & Data Lead",
       "authority": "Advises",
-      "path": "skills/05-backend-data/SKILL.md",
+      "path": "skills/backend-data/SKILL.md",
       "token_cost_est": 1950,
       "tiers": [
         "MVP",
@@ -376,7 +376,7 @@
       "name": "security",
       "title": "Application Security Lead",
       "authority": "HARD VETO",
-      "path": "skills/06-security/SKILL.md",
+      "path": "skills/security/SKILL.md",
       "token_cost_est": 1850,
       "tiers": [
         "MVP",
@@ -425,7 +425,7 @@
       "name": "privacy-compliance",
       "title": "Privacy & Compliance Officer",
       "authority": "HARD VETO",
-      "path": "skills/07-privacy-compliance/SKILL.md",
+      "path": "skills/privacy-compliance/SKILL.md",
       "token_cost_est": 1650,
       "tiers": [
         "MVP",
@@ -469,7 +469,7 @@
       "name": "testing-qa",
       "title": "SQAT & SDET Lead (Software Quality Assurance & Testing)",
       "authority": "No evidence, no ship",
-      "path": "skills/08-testing-qa/SKILL.md",
+      "path": "skills/testing-qa/SKILL.md",
       "token_cost_est": 1850,
       "tiers": [
         "MVP",
@@ -531,7 +531,7 @@
       "name": "devops-infra",
       "title": "DevOps / SRE Lead",
       "authority": "No rollback, no ship",
-      "path": "skills/09-devops-infra/SKILL.md",
+      "path": "skills/devops-infra/SKILL.md",
       "token_cost_est": 1850,
       "tiers": [
         "MVP",
@@ -574,7 +574,7 @@
       "name": "performance",
       "title": "Performance Engineer",
       "authority": "Warns",
-      "path": "skills/10-performance/SKILL.md",
+      "path": "skills/performance/SKILL.md",
       "token_cost_est": 1650,
       "tiers": [
         "MVP",
@@ -619,7 +619,7 @@
       "name": "seo-marketing",
       "title": "SEO & Growth Lead",
       "authority": "Advises",
-      "path": "skills/11-seo-marketing/SKILL.md",
+      "path": "skills/seo-marketing/SKILL.md",
       "token_cost_est": 1500,
       "tiers": [
         "MVP",
@@ -664,7 +664,7 @@
       "name": "business-monetization",
       "title": "Business & Monetization Lead",
       "authority": "Advises",
-      "path": "skills/12-business-monetization/SKILL.md",
+      "path": "skills/business-monetization/SKILL.md",
       "token_cost_est": 1550,
       "tiers": [
         "MVP",
@@ -707,7 +707,7 @@
       "name": "launch-operations",
       "title": "Launch & Operations Manager",
       "authority": "Launch gate",
-      "path": "skills/13-launch-operations/SKILL.md",
+      "path": "skills/launch-operations/SKILL.md",
       "token_cost_est": 1700,
       "tiers": [
         "MVP",
@@ -751,7 +751,7 @@
       "name": "maintenance",
       "title": "Maintenance & Evolution Lead",
       "authority": "Advises",
-      "path": "skills/14-maintenance/SKILL.md",
+      "path": "skills/maintenance/SKILL.md",
       "token_cost_est": 1550,
       "tiers": [
         "MVP",
@@ -805,7 +805,7 @@
       "name": "hci-interaction",
       "title": "HCI & Cognitive Ergonomics Lead",
       "authority": "Advises",
-      "path": "skills/15-hci-interaction/SKILL.md",
+      "path": "skills/hci-interaction/SKILL.md",
       "token_cost_est": 1500,
       "tiers": [
         "MVP",

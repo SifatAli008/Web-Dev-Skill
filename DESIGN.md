@@ -12,10 +12,10 @@
 ```
 
 * **Active Taste Profile:** **Minimalist** (Engineered precision, monochromatic discipline, crisp 1px borders, zero gradient soup).
-* **Quantitative Dials (1–10 Scale):**
-  * `DESIGN_VARIANCE: 3` — Structured, predictable document hierarchy, clear table and list alignments.
-  * `MOTION_INTENSITY: 3` — Subtle micro-interactions, spring snap micro-physics, tactile active press scale (`0.97`).
-  * `VISUAL_DENSITY: 8` — High-efficiency information density, compact tables, dense code snippets, tight typographic tracking.
+* **Quantitative Dials (1â€“10 Scale):**
+  * `DESIGN_VARIANCE: 3` â€” Structured, predictable document hierarchy, clear table and list alignments.
+  * `MOTION_INTENSITY: 3` â€” Subtle micro-interactions, spring snap micro-physics, tactile active press scale (`0.97`).
+  * `VISUAL_DENSITY: 8` â€” High-efficiency information density, compact tables, dense code snippets, tight typographic tracking.
 
 ---
 
@@ -147,8 +147,8 @@ We use mathematical CSS `clamp()` formulas to provide smooth scaling from mobile
 | `text-4xl` | `clamp(2rem, 1.4rem + 3.2vw, 2.75rem)` | 44px | 48px | Hero display titles (Max 2 lines) |
 
 ### C. Fluid Spacing Rhythm
-* `space-section-y: clamp(2.5rem, 1.5rem + 4.5vw, 5rem)` — Smooth vertical breathing room between major sections.
-* `space-container-x: clamp(1rem, 0.5rem + 2.5vw, 3rem)` — Adaptive gutter margins.
+* `space-section-y: clamp(2.5rem, 1.5rem + 4.5vw, 5rem)` â€” Smooth vertical breathing room between major sections.
+* `space-container-x: clamp(1rem, 0.5rem + 2.5vw, 3rem)` â€” Adaptive gutter margins.
 * Snapped sub-units: `4px`, `8px`, `12px`, `16px`, `24px` (Card padding), `32px`.
 
 ### D. Container Query Architecture (`@container`)
@@ -237,7 +237,7 @@ Every interactive component contract must explicitly implement and test **7 disc
 
 ## 7. Design Theory Foundations & Gestalt Spatial Architecture
 
-Conforming to classical visual science (Müller-Brockmann, Bringhurst, Itten, Wertheimer, Somers APCA):
+Conforming to classical visual science (MÃ¼ller-Brockmann, Bringhurst, Itten, Wertheimer, Somers APCA):
 
 1. **Gestalt Spatial Hierarchy (The 2:1 Proximity Ratio):**
    - Margin between unrelated layout blocks must be $\ge 2\times$ the internal padding of elements (`gap-6` outer vs `gap-3` inner).
@@ -247,8 +247,8 @@ Conforming to classical visual science (Müller-Brockmann, Bringhurst, Itten, We
    - **30% Structural Secondary:** Typography, borders, icons, secondary containers (`--text-primary`, `--border-subtle`).
    - **10% High-Contrast Accent:** Primary conversion CTA, active states, key data visualization markers (`--accent-primary`).
 3. **Typographic Measure & Optical Rhythm:**
-   - Long-form prose must be constrained to the optimal 45–75 character measure (`max-w-[65ch]`).
-   - Inverse leading: display titles enforce tight line-height ($1.1\text{–}1.2$); body copy enforces reading line-height ($1.5\text{–}1.65$).
+   - Long-form prose must be constrained to the optimal 45â€“75 character measure (`max-w-[65ch]`).
+   - Inverse leading: display titles enforce tight line-height ($1.1\text{â€“}1.2$); body copy enforces reading line-height ($1.5\text{â€“}1.65$).
    - Activate OpenType features (`font-feature-settings: "cv02", "cv03", "cv04", "cv11", "ss01"`) and hanging punctuation for pull-quotes (`hanging-punctuation: first allow-end`).
 4. **8-Point Modular Spatial Grid:**
    - All spacing, margins, paddings, and component heights resolve to integer multiples of $8\text{px}$ (with $4\text{px}$ strictly reserved for micro-adjustments).
@@ -354,7 +354,7 @@ Tabs, toggles, and view filters utilize a continuous spring-physics sliding pill
    - **20x20px (Action):** Form inputs, buttons, dropdown triggers (16px visual graphic).
    - **24x24px (Navigation):** Header navigation, section anchors, modal headers (20px visual graphic).
 3. **Optical Centering & Centroid Offsets:**
-   - Asymmetric icons (e.g. Play triangle `▶`, right chevron `›`) must be shifted $+1\text{px}$ to $+1.5\text{px}$ along the directional axis to align the geometric centroid with the visual weight center.
+   - Asymmetric icons (e.g. Play triangle `â–¶`, right chevron `â€º`) must be shifted $+1\text{px}$ to $+1.5\text{px}$ along the directional axis to align the geometric centroid with the visual weight center.
    - Circular icons must render $\sim 10\%$ larger than square glyphs in the same box to balance perceived area.
 4. **Accessible Inline SVG Contract:**
    ```html
@@ -382,7 +382,7 @@ Tabs, toggles, and view filters utilize a continuous spring-physics sliding pill
    ```
 2. **Multi-Sensory Non-Color Encoding:**
    - Never rely on color alone to communicate data series.
-   - Line charts must use distinct geometric point markers (circle `●`, square `■`, triangle `▲`) and stroke patterns (`solid`, `dashed`, `dotted`).
+   - Line charts must use distinct geometric point markers (circle `â—`, square `â– `, triangle `â–²`) and stroke patterns (`solid`, `dashed`, `dotted`).
    - Line endpoints must feature direct text labels rather than disconnected legend tables.
 3. **Screen Reader Accessible Fallback (`sr-only` Data Table):**
    - Every graphical canvas or SVG chart must feature an adjacent accessible table for assistive technology:
@@ -401,7 +401,7 @@ Tabs, toggles, and view filters utilize a continuous spring-physics sliding pill
 
 ## 11. 12 Atomic Component Architecture Specification
 
-All interactive UI widgets must implement the canonical accessibility, DOM structure, and interaction contracts specified in `skills/03-ux-ui-design/references/component-primitives-reference.md`:
+All interactive UI widgets must implement the canonical accessibility, DOM structure, and interaction contracts specified in `skills/ux-ui-design/references/component-primitives-reference.md`:
 
 | Primitive | Primary ARIA Semantics | Keyboard Triggers | Focus Management Contract |
 | :--- | :--- | :--- | :--- |

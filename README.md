@@ -15,13 +15,13 @@
 
 ## What is Universal WebDev Skills?
 
-Universal WebDev Skills is an open-source, tool-agnostic framework that equips AI coding agents—such as **Claude Code**, **Cursor**, **Antigravity**, **GitHub Copilot**, **Gemini CLI**, and **ChatGPT/Codex**—with the operational rigor, security posture, and architectural discipline of an elite 16-person software engineering team.
+Universal WebDev Skills is an open-source, tool-agnostic framework that equips AI coding agentsâ€”such as **Claude Code**, **Cursor**, **Antigravity**, **GitHub Copilot**, **Gemini CLI**, and **ChatGPT/Codex**â€”with the operational rigor, security posture, and architectural discipline of an elite 16-person software engineering team.
 
 Most AI agents act as eager junior developers: they generate code fast, but skip input validation, concatenate raw SQL, leak secrets in git commits, claim tests pass without running them, or over-engineer 2-user MVPs with distributed microservices.
 
 **Universal WebDev Skills fixes this by enforcing:**
 1. **Tier-First Classification:** Every task is evaluated at the appropriate rigor tier: **MVP**, **PROD**, or **SCALE**. The agent automatically adopts the highest tier triggered.
-2. **Context Budgeting (L0 / L1 / L2):** Typical tasks consume under **10,000 tokens** by routing through an index router (`skills.index.json`) and loading only the 2–5 specialists required.
+2. **Context Budgeting (L0 / L1 / L2):** Typical tasks consume under **10,000 tokens** by routing through an index router (`skills.index.json`) and loading only the 2â€“5 specialists required.
 3. **Binding Gates & Hard Vetos:** Application Security and Privacy officers hold absolute, non-overridable veto power. SQAT Lead enforces *"No evidence, no ship"* and Quality Gates; DevOps enforces *"No rollback, no ship"*.
 4. **Evidence Over Assertion:** Agents must run terminal commands, verify exit codes, and show exact test output before claiming code is verified.
 5. **AI Garbage Code & Artifact Control:** Zero placeholder comments (`// TODO`), strict folder de-bloating (max 3 levels deep), and strict artifact lifecycle control to prevent workspace littering.
@@ -34,22 +34,22 @@ Most AI agents act as eager junior developers: they generate code fast, but skip
 
 | # | Specialist | Directory | Domain & Protection | Authority |
 |---|---|---|---|---|
-| **00** | **Engineering Manager / Orchestrator** | `skills/00-orchestrator` | Process, task routing, scope control, handoffs | **Process gate** |
-| **01** | **Product Lead** | `skills/01-product-discovery` | Right problem, MoSCoW scope cuts, PRD | Advises |
-| **02** | **Solution Architect** | `skills/02-architecture` | Fit-for-purpose design, ADRs, boundaries | **Design gate** |
-| **03** | **UX/UI & Accessibility Lead** | `skills/03-ux-ui-design` | WCAG 2.2 AA accessibility, contrast, design system | **A11y gate** |
-| **04** | **Frontend Lead** | `skills/04-frontend` | Maintainable UI code, zero-CLS layout stability | Advises |
-| **05** | **Backend & Data Lead** | `skills/05-backend-data` | ACID transactions, expand-and-contract migrations | Advises |
-| **06** | **Application Security Lead** | `skills/06-security` | Confidentiality, OWASP Top 10, threat modeling | **HARD VETO** |
-| **07** | **Privacy & Compliance Officer** | `skills/07-privacy-compliance` | GDPR/ePrivacy consent, zero pre-consent tracking | **HARD VETO** |
-| **08** | **SQAT & SDET Lead** | `skills/08-testing-qa` | Software Quality Assurance & Testing, Quality Gates, mutation testing | **No evidence, no ship** |
-| **09** | **DevOps / SRE Lead** | `skills/09-devops-infra` | CI/CD, liveness/readiness probes, rollback scripts | **No rollback, no ship** |
-| **10** | **Performance Engineer** | `skills/10-performance` | Core Web Vitals (LCP < 2.5s, CLS = 0), budgets | Warns |
-| **11** | **SEO & Growth Lead** | `skills/11-seo-marketing` | Schema.org JSON-LD, XML sitemaps, robots.txt | Advises |
-| **12** | **Business & Monetization Lead** | `skills/12-business-monetization` | Server-authoritative billing, webhook validation | Advises |
-| **13** | **Launch & Operations Manager** | `skills/13-launch-operations` | Go-live readiness, launch reports, runbooks | **Launch gate** |
-| **14** | **Maintenance & Evolution Lead** | `skills/14-maintenance` | Strangler Fig legacy rescue, dependency triage | Advises |
-| **15** | **HCI & Cognitive Ergonomics Lead** | `skills/15-hci-interaction` | Cognitive load, Fitts/Hick-Hyman laws, thumb zones, sub-400ms Doherty loops | Advises |
+| **00** | **Engineering Manager / Orchestrator** | `skills/orchestrator` | Process, task routing, scope control, handoffs | **Process gate** |
+| **01** | **Product Lead** | `skills/product-discovery` | Right problem, MoSCoW scope cuts, PRD | Advises |
+| **02** | **Solution Architect** | `skills/architecture` | Fit-for-purpose design, ADRs, boundaries | **Design gate** |
+| **03** | **UX/UI & Accessibility Lead** | `skills/ux-ui-design` | WCAG 2.2 AA accessibility, contrast, design system | **A11y gate** |
+| **04** | **Frontend Lead** | `skills/frontend` | Maintainable UI code, zero-CLS layout stability | Advises |
+| **05** | **Backend & Data Lead** | `skills/backend-data` | ACID transactions, expand-and-contract migrations | Advises |
+| **06** | **Application Security Lead** | `skills/security` | Confidentiality, OWASP Top 10, threat modeling | **HARD VETO** |
+| **07** | **Privacy & Compliance Officer** | `skills/privacy-compliance` | GDPR/ePrivacy consent, zero pre-consent tracking | **HARD VETO** |
+| **08** | **SQAT & SDET Lead** | `skills/testing-qa` | Software Quality Assurance & Testing, Quality Gates, mutation testing | **No evidence, no ship** |
+| **09** | **DevOps / SRE Lead** | `skills/devops-infra` | CI/CD, liveness/readiness probes, rollback scripts | **No rollback, no ship** |
+| **10** | **Performance Engineer** | `skills/performance` | Core Web Vitals (LCP < 2.5s, CLS = 0), budgets | Warns |
+| **11** | **SEO & Growth Lead** | `skills/seo-marketing` | Schema.org JSON-LD, XML sitemaps, robots.txt | Advises |
+| **12** | **Business & Monetization Lead** | `skills/business-monetization` | Server-authoritative billing, webhook validation | Advises |
+| **13** | **Launch & Operations Manager** | `skills/launch-operations` | Go-live readiness, launch reports, runbooks | **Launch gate** |
+| **14** | **Maintenance & Evolution Lead** | `skills/maintenance` | Strangler Fig legacy rescue, dependency triage | Advises |
+| **15** | **HCI & Cognitive Ergonomics Lead** | `skills/hci-interaction` | Cognitive load, Fitts/Hick-Hyman laws, thumb zones, sub-400ms Doherty loops | Advises |
 
 ---
 
@@ -169,8 +169,8 @@ Tested across 9 standardized benchmarks in [`evals/tasks/eval-tasks.json`](evals
 
 | Model Category | Baseline (No Skills) | With Skills | Improvement Delta | OWASP Critical Flaws |
 |---|---|---|---|---|
-| **Frontier Models** *(Claude 3.5 Sonnet, GPT-4o, Gemini 1.5 Pro)* | 53.3 / 100 | **95.9 / 100** | **+79.9% (+42.6 pts)** | **10 → 0** |
-| **Small Models** *(Claude 3.5 Haiku, Gemini 1.5 Flash, Llama 3 8B)* | 37.3 / 100 | **86.8 / 100** | **+132.7% (+49.5 pts)** | **18 → 0** |
+| **Frontier Models** *(Claude 3.5 Sonnet, GPT-4o, Gemini 1.5 Pro)* | 53.3 / 100 | **95.9 / 100** | **+79.9% (+42.6 pts)** | **10 â†’ 0** |
+| **Small Models** *(Claude 3.5 Haiku, Gemini 1.5 Flash, Llama 3 8B)* | 37.3 / 100 | **86.8 / 100** | **+132.7% (+49.5 pts)** | **18 â†’ 0** |
 
 *All 16 specialist skills were validated via deletion tests; every skill contributes measurable positive value with zero token bloat.* See complete metrics in [`evals/RESULTS.md`](evals/RESULTS.md).
 
@@ -190,27 +190,27 @@ Three production-verified reference implementations built strictly from the skil
 
 ```
 universal-webdev-skills/
-├── AGENTS.md                 # Core team protocol, 3-tier rules (<50 lines)
-├── plugin.json               # Antigravity plugin manifest
-├── rules/                    # Antigravity plugin protocol rule (AGENTS.md)
-├── assets/                   # Plugin icon assets (logo.png)
-├── skills.index.json         # Routing table (triggers, tokens, dependencies)
-├── SOURCES.md                # Authoritative standards registry (OWASP, WCAG, etc.)
-├── GLOSSARY.md               # Shared engineering glossary
-├── AI-FAILURE-MODES.md       # AI failure modes & counter-measures
-├── chat-paste-in.md          # Single-prompt paste-in for web LLMs
-├── PROGRESS.md               # Build state tracker
-├── DECISIONS.md              # Architectural Decision Records (ADRs)
-├── skills/                   # 16 specialist skill directories
-│   └── <00..15>-<name>/      # SKILL.md (<300 lines), references/, tests/
-├── playbooks/                # 16 cross-sector operational playbooks
-├── templates/                # 8 artifact templates (PRD, ADR, Threat Model, Perf Audit, etc.)
-│   └── schemas/              # 9 strict JSON schemas
-├── checklists/               # 5 verification checklists (MVP, PROD, Security, etc.)
-├── reference-projects/       # 3 golden reference projects (CI-tested)
-├── evals/                    # Tasks, rubrics, harness, and certified RESULTS.md
-├── adapters/                 # Auto-generated adapters (Claude, Cursor, Copilot, etc.)
-└── tools/                    # Automated linters, freshness checks, link validators
+â”œâ”€â”€ AGENTS.md                 # Core team protocol, 3-tier rules (<50 lines)
+â”œâ”€â”€ plugin.json               # Antigravity plugin manifest
+â”œâ”€â”€ rules/                    # Antigravity plugin protocol rule (AGENTS.md)
+â”œâ”€â”€ assets/                   # Plugin icon assets (logo.png)
+â”œâ”€â”€ skills.index.json         # Routing table (triggers, tokens, dependencies)
+â”œâ”€â”€ SOURCES.md                # Authoritative standards registry (OWASP, WCAG, etc.)
+â”œâ”€â”€ GLOSSARY.md               # Shared engineering glossary
+â”œâ”€â”€ AI-FAILURE-MODES.md       # AI failure modes & counter-measures
+â”œâ”€â”€ chat-paste-in.md          # Single-prompt paste-in for web LLMs
+â”œâ”€â”€ PROGRESS.md               # Build state tracker
+â”œâ”€â”€ DECISIONS.md              # Architectural Decision Records (ADRs)
+â”œâ”€â”€ skills/                   # 16 specialist skill directories
+â”‚   â””â”€â”€ <00..15>-<name>/      # SKILL.md (<300 lines), references/, tests/
+â”œâ”€â”€ playbooks/                # 16 cross-sector operational playbooks
+â”œâ”€â”€ templates/                # 8 artifact templates (PRD, ADR, Threat Model, Perf Audit, etc.)
+â”‚   â””â”€â”€ schemas/              # 9 strict JSON schemas
+â”œâ”€â”€ checklists/               # 5 verification checklists (MVP, PROD, Security, etc.)
+â”œâ”€â”€ reference-projects/       # 3 golden reference projects (CI-tested)
+â”œâ”€â”€ evals/                    # Tasks, rubrics, harness, and certified RESULTS.md
+â”œâ”€â”€ adapters/                 # Auto-generated adapters (Claude, Cursor, Copilot, etc.)
+â””â”€â”€ tools/                    # Automated linters, freshness checks, link validators
 ```
 
 ---

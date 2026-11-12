@@ -114,7 +114,8 @@ export function runHarness() {
 
   let totalUnitTests = 0;
   indexData.skills.forEach(skill => {
-    const testFile = path.join(__dirname, '..', '..', 'skills', skill.id, 'tests', 'trigger-tests.json');
+    const skillDir = path.dirname(path.join(__dirname, '..', '..', skill.path));
+    const testFile = path.join(skillDir, 'tests', 'trigger-tests.json');
     if (fs.existsSync(testFile)) {
       const testData = JSON.parse(fs.readFileSync(testFile, 'utf8'));
       const count = (testData.positive_triggers?.length || 0) +

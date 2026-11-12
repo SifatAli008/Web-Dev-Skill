@@ -34,7 +34,7 @@ This file tracks foundational design and architectural decisions made for `unive
 - **Context:** Agent context windows are precious and expensive. Ingesting an entire engineering library wastes tokens, degrades reasoning, and risks context truncation.
 - **Decision:** Implement a three-tier loading model:
   - **L0 (Always loaded, <3k tokens):** `AGENTS.md` (team protocol, behavior rules, conflict resolution) + `skills.index.json` (metadata router).
-  - **L1 (Loaded on route, <300 lines):** Specialist `SKILL.md` files for the 2–5 routed specialists.
+  - **L1 (Loaded on route, <300 lines):** Specialist `SKILL.md` files for the 2â€“5 routed specialists.
   - **L2 (Loaded on-demand):** Specific deep dives in `skills/<id>/references/` or `playbooks/`, triggered only by explicit conditions in L1.
 - **Consequences:** Keeps typical task overhead under 12,000 tokens while providing access to deep reference material when required.
 
@@ -104,11 +104,11 @@ This file tracks foundational design and architectural decisions made for `unive
 - **Decision:**
   1. Integrate the complete `Leonxlnx/taste-skill` v2 (`design-taste-frontend`) anti-slop framework into `03-ux-ui-design` and `04-frontend`.
   2. Enforce **Section 0: Brief Inference & Mandatory Design Read** before generating any markup or code: `[Design Read]: <Page Kind> | ICP: <Audience> | Vibe: <Keywords> | Dials: [V=<1-10>, M=<1-10>, D=<1-10>] | Profile: <Profile>`.
-  3. Enforce **Section 1: Quantitative Design Dials** (1–10 scale) to deterministically govern layout variance, motion dynamics, and visual density.
+  3. Enforce **Section 1: Quantitative Design Dials** (1â€“10 scale) to deterministically govern layout variance, motion dynamics, and visual density.
   4. Mandate the **4 Curated Anti-Slop Taste Profiles** (Minimalist, Industrial-Brutalist, Editorial, Soft-Consumer).
   5. Enforce **Layout Family Diversity**: every landing page must implement at least 4 distinct layout families without repeating identical card grids.
   6. Enforce **Bounded Hero Section Discipline**: headlines bounded to $\le 2$ lines, subtext $< 20$ words, and primary CTA strictly above fold.
-  7. Enforce the **Zero Em-Dash Copy Rule**: zero tolerance for em-dashes (`—`) or en-dashes (`–`) in web copy.
+  7. Enforce the **Zero Em-Dash Copy Rule**: zero tolerance for em-dashes (`â€”`) or en-dashes (`â€“`) in web copy.
   8. Enforce **Section 14 Final Pre-Flight Quality Gate**: mandatory 8-point verification checklist before declaring UI deliverables complete.
   9. Maintain `nexu-io/open-design` `DESIGN.md` contract at workspace root as the single source of truth for design tokens.
 - **Consequences:** Eliminates AI aesthetic tells, guarantees high-converting layout craft, ensures strict WCAG 2.2 AA compliance, and provides predictable art direction across any coding agent.
@@ -134,12 +134,12 @@ This file tracks foundational design and architectural decisions made for `unive
 - **Decision:**
   1. Embed the Ponytail 6-rung decision ladder directly into `AGENTS.md` (Rule 1) and across Orchestrator (`00-orchestrator`), Architecture (`02-architecture`), Frontend (`04-frontend`), Backend (`05-backend-data`), and Maintenance (`14-maintenance`).
   2. Decision ladder priority order:
-     - **Rung 1: YAGNI** — Eliminate unrequested features, speculative options, and premature generalizations.
-     - **Rung 2: Codebase Reuse** — Use existing internal helpers, patterns, and modules.
-     - **Rung 3: Platform Native** — Use Web Platform / Runtime standard APIs (native `fetch`, `crypto.randomUUID()`, `<dialog>`, CSS Grid, native parameterized SQL).
-     - **Rung 4: Installed Dependencies** — Utilize packages already in `package.json` before adding new ones.
-     - **Rung 5: One-Liner / Simple Logic** — Write straightforward, readable code over novel abstractions.
-     - **Rung 6: Minimum Viable Implementation** — The simplest implementation that satisfies current observable tests.
+     - **Rung 1: YAGNI** â€” Eliminate unrequested features, speculative options, and premature generalizations.
+     - **Rung 2: Codebase Reuse** â€” Use existing internal helpers, patterns, and modules.
+     - **Rung 3: Platform Native** â€” Use Web Platform / Runtime standard APIs (native `fetch`, `crypto.randomUUID()`, `<dialog>`, CSS Grid, native parameterized SQL).
+     - **Rung 4: Installed Dependencies** â€” Utilize packages already in `package.json` before adding new ones.
+     - **Rung 5: One-Liner / Simple Logic** â€” Write straightforward, readable code over novel abstractions.
+     - **Rung 6: Minimum Viable Implementation** â€” The simplest implementation that satisfies current observable tests.
   3. Enforce the Rule of Three: never extract an abstraction until at least 3 distinct call sites require it.
 - **Consequences:** Drastically reduces bundle size, eliminates single-use supply chain dependencies, and keeps repositories maintainable and readable.
 
@@ -182,19 +182,19 @@ This file tracks foundational design and architectural decisions made for `unive
 - **Decision:**
   1. Register all 73 authoritative source citations in `SOURCES.md` across all 16 skills, eliminating all unregistered references.
   2. Harmonize `GLOSSARY.md` with modern definitions (Doherty Threshold, Fitts's Law, Hick-Hyman Law, KLM/GOMS, OKLCH, 7-State Lifecycle Matrix).
-  3. Expand `AI-FAILURE-MODES.md` with FM-12 (AI aesthetic vibe slop & cliché tells) and FM-13 (Touch geometry & motor ergonomics blindness).
+  3. Expand `AI-FAILURE-MODES.md` with FM-12 (AI aesthetic vibe slop & clichÃ© tells) and FM-13 (Touch geometry & motor ergonomics blindness).
   4. Synchronize all 16 skill `last_verified` dates to `2026-11-03`.
   5. Harmonize `04-frontend` with the 7-State Component Lifecycle Matrix established in ADR-012.
 - **Consequences:** Guarantees 100% citation coverage, eliminates epistemic drift, and ensures all 16 specialists enforce up-to-date, empirical industry standards.
 
 ---
 
-## ADR-015: Classical & Modern Design Theory Integration (Gestalt Spatial Science, Müller-Brockmann Grids, Bringhurst Typography & APCA Contrast)
+## ADR-015: Classical & Modern Design Theory Integration (Gestalt Spatial Science, MÃ¼ller-Brockmann Grids, Bringhurst Typography & APCA Contrast)
 
 - **Status:** Accepted (Phase 8 - Design Theory & Visual Science Expansion)
-- **Context:** While anti-slop rules eliminate generic AI clichés and token contracts ensure consistency, AI coding agents frequently generate interfaces lacking foundational visual grammar: arbitrary whitespace relationships, unconstrained line lengths, chromatic chaos with clashing accent hues, and poor figure-ground separation.
+- **Context:** While anti-slop rules eliminate generic AI clichÃ©s and token contracts ensure consistency, AI coding agents frequently generate interfaces lacking foundational visual grammar: arbitrary whitespace relationships, unconstrained line lengths, chromatic chaos with clashing accent hues, and poor figure-ground separation.
 - **Decision:**
-  1. Author and publish `skills/03-ux-ui-design/references/design-theory-reference.md` establishing empirical foundations across 6 core pillars: Gestalt Psychology in digital layout, Perceptual Color Science (60-30-10 rule & Chevreul's contrast), Micro-Typography (Bringhurst's 45-75 character measure & inverse leading), Swiss Modular Grids (Josef Müller-Brockmann 8pt grid), Visual Scanning Ergonomics (Gutenberg, F-pattern, Z-pattern), and Disney's Animation Principles adapted to UI.
+  1. Author and publish `skills/ux-ui-design/references/design-theory-reference.md` establishing empirical foundations across 6 core pillars: Gestalt Psychology in digital layout, Perceptual Color Science (60-30-10 rule & Chevreul's contrast), Micro-Typography (Bringhurst's 45-75 character measure & inverse leading), Swiss Modular Grids (Josef MÃ¼ller-Brockmann 8pt grid), Visual Scanning Ergonomics (Gutenberg, F-pattern, Z-pattern), and Disney's Animation Principles adapted to UI.
   2. Embed Decision Rules 20-22 in `03-ux-ui-design/SKILL.md`:
      - Rule 20: Gestalt 2:1 Proximity Ratio & Common Region Enclosure.
      - Rule 21: The 60-30-10 Perceptual Color Harmony Rule.
@@ -207,7 +207,7 @@ This file tracks foundational design and architectural decisions made for `unive
 
 ---
 
-## ADR-016: Elite Design Package — 12 Atomic Primitives, Dual-Theme OKLCH, Container Queries, Micro-Interactions & Accessible Data Viz
+## ADR-016: Elite Design Package â€” 12 Atomic Primitives, Dual-Theme OKLCH, Container Queries, Micro-Interactions & Accessible Data Viz
 
 - **Status:** Accepted (Phase 8 - Elite Design System Architecture)
 - **Context:** To achieve elite design craft and eliminate common frontend fragmentation across interactive widgets, responsive layouts, and theming, the repository required:
@@ -218,7 +218,7 @@ This file tracks foundational design and architectural decisions made for `unive
   5. Precision optical iconography balancing geometric centroids.
   6. Accessible, multi-sensory data visualization with screen-reader tabular fallbacks.
 - **Decision:**
-  1. Author `skills/03-ux-ui-design/references/component-primitives-reference.md` defining DOM, ARIA, and CSS contracts for 12 universal interactive primitives: Dialog, Dropdown, Toast, Tabs, Accordion, Input, Button, Table, Skeleton, Avatar, Tooltip, and Drawer.
+  1. Author `skills/ux-ui-design/references/component-primitives-reference.md` defining DOM, ARIA, and CSS contracts for 12 universal interactive primitives: Dialog, Dropdown, Toast, Tabs, Accordion, Input, Button, Table, Skeleton, Avatar, Tooltip, and Drawer.
   2. Expand `DESIGN.md` and `templates/design.template.md` with:
      - Section 2: Dual-Theme OKLCH token maps (`:root, [data-theme="dark"]` and `[data-theme="light"]`) and the synchronous Zero-FOUC `<head>` initialization script.
      - Section 3: Container Query architecture (`@container`).
@@ -228,7 +228,7 @@ This file tracks foundational design and architectural decisions made for `unive
      - Section 11: 12 Atomic Component Architecture Specification table.
   3. Expand `templates/schemas/design-tokens.schema.json` with properties for `theme_light`, `theme_dark`, `container_queries`, `micro_interactions`, and `charts`.
   4. Expand `checklists/design-and-a11y.checklist.md` with Section 8: Atomic Components, Dual-Theme & Container Query Verification.
-  5. Update `skills/03-ux-ui-design/SKILL.md` referencing `component-primitives-reference.md` while strictly maintaining $<300$ lines.
+  5. Update `skills/ux-ui-design/SKILL.md` referencing `component-primitives-reference.md` while strictly maintaining $<300$ lines.
   6. Enhance `tools/verify-layout.js` assertions to validate dual-theme tokens, container queries, micro-interactions, optical iconography, charts, and the 12 atomic primitives.
 - **Consequences:** Delivers a comprehensive, production-grade UI design and interaction system guaranteeing visual craft, responsive flexibility, universal accessibility, and zero-dependency portability across any web framework.
 
@@ -239,8 +239,8 @@ This file tracks foundational design and architectural decisions made for `unive
 - **Status:** Accepted (Phase 8 - Design Theory & Visual Science Master Expansion)
 - **Context:** To ensure that any AI agent operating this repository has instant, encyclopedic mastery over all foundational and advanced design concepts, the codebase required complete coverage across classical visual arts principles, perceptual color science, letterform anatomy, mathematical proportions (Golden Ratio, Rule of Thirds, Fibonacci), 6 grid archetypes, multi-plane depth & lighting, cognitive ergonomics laws (Fitts, Hick, Miller, Cowan, Jakob, Tesler, Doherty, Peak-End, Zeigarnik), human-centered design (Norman's 6 principles & 2 gulfs), information architecture, and quantitative data visualization (Edward Tufte & Stephen Few).
 - **Decision:**
-  1. Expand `skills/03-ux-ui-design/references/design-theory-reference.md` into an authoritative 13-pillar compendium covering:
-     - Pillar 1: Gestalt Psychology in Interface Architecture (Proximity, Similarity, Common Region, Figure-Ground, Closure, Prägnanz, Common Fate, Focal Point/Von Restorff).
+  1. Expand `skills/ux-ui-design/references/design-theory-reference.md` into an authoritative 13-pillar compendium covering:
+     - Pillar 1: Gestalt Psychology in Interface Architecture (Proximity, Similarity, Common Region, Figure-Ground, Closure, PrÃ¤gnanz, Common Fate, Focal Point/Von Restorff).
      - Pillar 2: Perceptual Color Theory & Contrast Science (60-30-10 rule, Chevreul simultaneous contrast, APCA contrast, RGB/Display-P3 vs OKLCH, classical harmonies, Bezold effect, hue shifting in lighting, CVD compensation).
      - Pillar 3: Typographic Science & Micro-Typography (Measure `65ch`, inverse leading, musical scales, baseline grid, OpenType features, letterform anatomy, font pairing archetypes, variable fonts).
      - Pillar 4: Swiss Grid Systems & Spatial Composition (8pt modular grid, asymmetric balance, active whitespace, Golden Ratio $\Phi \approx 1.618$, Rule of Thirds, Fibonacci sequence, 6 classical grid archetypes, Bento Box architecture).
@@ -255,7 +255,7 @@ This file tracks foundational design and architectural decisions made for `unive
      - Pillar 13: Visual Aesthetics, Design Movements & Taste Profiles (Bauhaus, Swiss Style, Skeuomorphism, Flat, Neumorphism, Glassmorphism, Industrial Brutalism, Modern Editorial).
   2. Expand `GLOSSARY.md` with an encyclopedic "Visual Design, Interaction & UI Architecture Concepts" dictionary defining 60+ terms with mathematical formulas and architectural criteria.
   3. Register authoritative source citations in `SOURCES.md`: `TUFTE-DATA-INK`, `FROST-ATOMIC-DESIGN`, and `LUPTON-TYPE`.
-  4. Synchronize `skills.index.json` and `skills/03-ux-ui-design/SKILL.md` frontmatter with the new design concept triggers and authoritative sources.
+  4. Synchronize `skills.index.json` and `skills/ux-ui-design/SKILL.md` frontmatter with the new design concept triggers and authoritative sources.
 - **Consequences:** Establishes a permanent, encyclopedic design reference covering 100% of digital design, visual art, typography, cognitive interaction, and information architecture concepts, eliminating aesthetic hallucination and grounding all frontend interfaces in rigorous science.
 
 
