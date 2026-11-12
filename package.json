@@ -35,6 +35,9 @@
     "templates",
     "checklists",
     "adapters",
+    "rules",
+    "assets",
+    "plugin.json",
     "AGENTS.md",
     "README.md",
     "LICENSE"
@@ -50,6 +53,8 @@
     "check:freshness": "node tools/check-freshness.js",
     "check:security": "node tools/scan-skills.js",
     "validate:index": "node tools/validate-index.js",
+    "validate:plugin": "node tools/validate-plugin.js",
+    "package:plugin": "node tools/package-plugin.js",
     "verify:state": "node tools/verify-state.js",
     "lint:layout": "node tools/verify-layout.js",
     "build:adapters": "node tools/build-adapters.js",

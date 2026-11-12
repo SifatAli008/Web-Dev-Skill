@@ -98,10 +98,19 @@ cp /path/to/universal-webdev-skills/adapters/cursor/.cursorrules .
 ```
 
 ### Option C: Antigravity
-The framework is native to Antigravity. Simply open the repository workspace or add the adapter:
+The framework ships as a native Antigravity plugin (`plugin.json`, `rules/AGENTS.md`, `skills/`) with automated GitHub CI/CD validation and release packaging ([`.github/workflows/release-plugin.yml`](.github/workflows/release-plugin.yml)). Install directly from GitHub, clone globally, or copy the workspace adapter:
 ```bash
+# Install via Antigravity CLI directly from GitHub:
+agy plugin install https://github.com/SifatAli008/Web-Dev-Skill
+
+# Or clone directly into Antigravity's global plugin directory:
+git clone https://github.com/SifatAli008/Web-Dev-Skill.git ~/.gemini/config/plugins/universal-webdev-skills
+
+# Or add the workspace adapter to a single project:
 cp /path/to/universal-webdev-skills/adapters/antigravity/GEMINI.md .
 ```
+
+To release a new plugin version from GitHub, bump `version` in `package.json` and `plugin.json`, push a matching `vX.Y.Z` tag (or trigger `Release Antigravity Plugin` via `workflow_dispatch`), and GitHub Actions will validate, package (`.zip` / `.tar.gz` + `SHA256SUMS.txt`), and publish the GitHub Release. Curated Antigravity Agent Marketplace catalog listings are submitted separately via Google Antigravity's official Marketplace submission workflow (`https://antigravity.google/docs`).
 
 ### Option D: GitHub Copilot
 ```bash
@@ -182,6 +191,9 @@ Three production-verified reference implementations built strictly from the skil
 ```
 universal-webdev-skills/
 ├── AGENTS.md                 # Core team protocol, 3-tier rules (<50 lines)
+├── plugin.json               # Antigravity plugin manifest
+├── rules/                    # Antigravity plugin protocol rule (AGENTS.md)
+├── assets/                   # Plugin icon assets (logo.png)
 ├── skills.index.json         # Routing table (triggers, tokens, dependencies)
 ├── SOURCES.md                # Authoritative standards registry (OWASP, WCAG, etc.)
 ├── GLOSSARY.md               # Shared engineering glossary

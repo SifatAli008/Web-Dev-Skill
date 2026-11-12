@@ -1,0 +1,117 @@
+name: Release Antigravity Plugin
+
+on:
+  push:
+    tags:
+      - 'v*.*.*'
+  workflow_dispatch:
+    inputs:
+      publish_release:
+        description: 'Create or update GitHub Release for current plugin.json version'
+        required: true
+        type: boolean
+        default: false
+
+permissions:
+  contents: write
+
+jobs:
+  validate-and-release:
+    name: Validate, Package & Release Plugin
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22.x'
+
+      - name: Verify Tag & Manifest Version Parity
+        id: meta
+        run: |
+          PLUGIN_VERSION=$(node -e "console.log(require('./plugin.json').version)")
+          PKG_VERSION=$(node -e "console.log(require('./package.json').version)")
+          PLUGIN_NAME=$(node -e "console.log(require('./plugin.json').name)")
+
+          if [ "$PLUGIN_VERSION" != "$PKG_VERSION" ]; then
+            echo "Error: plugin.json ($PLUGIN_VERSION) != package.json ($PKG_VERSION)"
+            exit 1
+          fi
+
+          TAG="v${PLUGIN_VERSION}"
+          if [[ "${GITHUB_REF}" == refs/tags/* ]]; then
+            if [ "${GITHUB_REF_NAME}" != "$TAG" ]; then
+              echo "Error: Git tag (${GITHUB_REF_NAME}) != manifest version (${TAG})"
+              exit 1
+            fi
+          fi
+
+          echo "version=${PLUGIN_VERSION}" >> "$GITHUB_OUTPUT"
+          echo "tag=${TAG}" >> "$GITHUB_OUTPUT"
+          echo "name=${PLUGIN_NAME}" >> "$GITHUB_OUTPUT"
+
+      - name: Run Full Verification & Plugin Gate
+        run: |
+          node tools/verify-all.js
+          node tools/validate-plugin.js
+
+      - name: Package Antigravity Plugin Bundle
+        run: node tools/package-plugin.js --out "${{ runner.temp }}/plugin-release"
+
+      - name: Upload Release Artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ steps.meta.outputs.name }}-${{ steps.meta.outputs.tag }}
+          path: |
+            ${{ runner.temp }}/plugin-release/*.tar.gz
+            ${{ runner.temp }}/plugin-release/*.zip
+            ${{ runner.temp }}/plugin-release/SHA256SUMS.txt
+
+      - name: Publish GitHub Release
+        if: startsWith(github.ref, 'refs/tags/v') || inputs.publish_release == true
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TAG: ${{ steps.meta.outputs.tag }}
+          NAME: ${{ steps.meta.outputs.name }}
+          DIST: ${{ runner.temp }}/plugin-release
+          REPO: ${{ github.repository }}
+          SHA: ${{ github.sha }}
+        run: |
+          node -e '
+            const fs = require("node:fs");
+            const { TAG, NAME, DIST, REPO } = process.env;
+            const notes = [
+              `## Antigravity Plugin Release: \`${NAME}\` (${TAG})`,
+              "",
+              "### Install or Update via Antigravity CLI",
+              "```bash",
+              `agy plugin install https://github.com/${REPO}`,
+              "```",
+              "",
+              "### Manual Installation",
+              `Extract \`${NAME}-${TAG}.tar.gz\` or \`${NAME}-${TAG}.zip\` into \`~/.gemini/config/plugins/${NAME}/\`.`,
+              "",
+              "### Antigravity Agent Marketplace Submission",
+              "Once this verified release is live, submit or update your curated listing through the official Google Antigravity Marketplace partner/submission form (`https://antigravity.google/docs`)."
+            ].join("\n");
+            fs.writeFileSync(`${DIST}/RELEASE_NOTES.md`, notes, "utf8");
+          '
+
+          if gh release view "$TAG" >/dev/null 2>&1; then
+            gh release upload "$TAG" \
+              "$DIST/${NAME}-${TAG}.tar.gz" \
+              "$DIST/${NAME}-${TAG}.zip" \
+              "$DIST/SHA256SUMS.txt" \
+              --clobber
+          else
+            gh release create "$TAG" \
+              "$DIST/${NAME}-${TAG}.tar.gz" \
+              "$DIST/${NAME}-${TAG}.zip" \
+              "$DIST/SHA256SUMS.txt" \
+              --target "$SHA" \
+              --title "${NAME} ${TAG}" \
+              --notes-file "$DIST/RELEASE_NOTES.md"
+          fi

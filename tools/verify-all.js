@@ -21,6 +21,8 @@ const STEPS = [
   { name: 'Advanced Design & Layout Verification', cmd: 'node tools/verify-layout.js' },
   { name: 'Repository State & ADR Integrity', cmd: 'node tools/verify-state.js' },
   { name: 'Router Index (skills.index.json) Sync', cmd: 'node tools/validate-index.js' },
+  { name: 'Antigravity Plugin Manifest & Schema', cmd: 'node tools/validate-plugin.js' },
+  { name: 'Antigravity Plugin Bundle Staging', cmd: 'node tools/package-plugin.js --verify-temp' },
   { name: 'Tool Adapters Generator', cmd: 'node tools/build-adapters.js' },
   { name: 'Documentation Portal Generator', cmd: 'node tools/generate-docs-skills.js' },
   { name: 'Benchmark Evaluation Suite', cmd: 'node evals/harness/run-eval.js' },
