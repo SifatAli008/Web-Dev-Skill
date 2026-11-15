@@ -258,4 +258,23 @@ This file tracks foundational design and architectural decisions made for `unive
   4. Synchronize `skills.index.json` and `skills/ux-ui-design/SKILL.md` frontmatter with the new design concept triggers and authoritative sources.
 - **Consequences:** Establishes a permanent, encyclopedic design reference covering 100% of digital design, visual art, typography, cognitive interaction, and information architecture concepts, eliminating aesthetic hallucination and grounding all frontend interfaces in rigorous science.
 
+---
+
+## ADR-018: Modern Web Platform Guidance & Baseline Standard Integration (Google Chrome MWG)
+
+- **Status:** Accepted (Phase 9 - Modern Web Platform Guidance & Baseline Standard Integration)
+- **Context:** AI coding agents frequently fall into Failure Mode 14 (`FM-14: Legacy Web Workarounds & Obsolete Polyfills`), defaulting to outdated JavaScript patterns, redundant wrappers, and heavy third-party npm packages (e.g. `react-modal`, `popper.js` / `@floating-ui`, custom resize watchers, scroll listeners) for capabilities now supported natively across all modern browser engines. To eliminate dependency bloat and guarantee state-of-the-art web performance, the framework required formal integration of Google Chrome's **Modern Web Guidance (MWG)** and the W3C WebDX **Baseline** standard.
+- **Decision:**
+  1. Author operational L2 reference guide: `skills/frontend/references/modern-web-platform-primitives.md` detailing implementation patterns for native `<dialog>` modals with top-layer animations (`@starting-style`, `transition-behavior: allow-discrete`), native Popover API (`popover`, `popovertarget`), CSS Anchor Positioning (`position-anchor`, `anchor()`), CSS Container Queries (`@container`) and Subgrid, View Transitions API (`startViewTransition`), auto-sizing forms (`field-sizing: content`), and user-perceived validation (`:user-valid`, `:user-invalid`).
+  2. Embed **Rule 8: Modern Web Platform Primitives & Baseline Standards** into `skills/frontend/SKILL.md` enforcing Baseline Widely Available targeting and native browser primitives before reaching for npm dependencies.
+  3. Expand `skills/performance/SKILL.md` with Modern Web Guidance Core Web Vitals optimizations: cooperative multitasking via `scheduler.yield()` for sub-200ms INP and DOM containment via `content-visibility: auto` with `contain-intrinsic-size`.
+  4. Integrate Modern Web Guidance Legacy Code Scanner (`npx modern-web-guidance legacy-scan .`) into `skills/maintenance/SKILL.md` for codebase audits and PR reviews to detect obsolete web polyfills.
+  5. Expand `checklists/design-and-a11y.checklist.md` (Section 9: Modern Web Platform Primitives) and `checklists/production.checklist.md` (Performance & Core Web Vitals) with MWG verification criteria.
+  6. Register official source citations in `SOURCES.md`: `CHROME-MODERN-WEB-GUIDANCE` (Google Chrome, Microsoft Edge, Mozilla, W3C WebDX) and `WEB-BASELINE`.
+  7. Document `FM-14: Legacy Web Workarounds & Obsolete Polyfills` in `AI-FAILURE-MODES.md`.
+  8. Enrich `GLOSSARY.md` with definitions for Baseline, CSS Anchor Positioning, Modern Web Guidance, Native `<dialog>`, Popover API, `scheduler.yield()`, Top Layer, and `@starting-style`.
+  9. Update `tools/build-adapters.js` and synchronize all 6 tool adapters (`CLAUDE.md`, `.cursorrules`, `GEMINI.md`, `copilot-instructions.md`, `system-prompt.md`, `04-frontend.mdc`).
+  10. Synchronize `skills.index.json` triggers, sources, and metadata for `04-frontend`, `10-performance`, and `14-maintenance`.
+- **Consequences:** Elevates the entire framework to state-of-the-art modern web standards, enforces Ponytail Rung 3 (Web Platform Native), cuts unnecessary npm dependencies, prevents AI legacy hallucination, and delivers optimal Core Web Vitals out-of-the-box.
+
 

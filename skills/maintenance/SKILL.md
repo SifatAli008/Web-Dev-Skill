@@ -1,12 +1,12 @@
 ---
 name: maintenance
-description: Use when upgrading dependencies and major framework versions, conducting automated line-level code reviews (Alibaba open-code-review hybrid architecture), detecting null-pointer exceptions, resource leaks, and concurrency hazards, pruning dead code and speculative abstractions via Ponytail YAGNI principles, managing automated security patches (Renovate/Dependabot), maintaining the technical debt register, planning code deprecations, executing legacy codebase rescues (strangler fig pattern), or determining when objective scaling triggers mandate architectural evolution. Trigger phrases include "maintenance", "code review", "open-code-review", "ocr", "line-level review", "diff review", "dependencies", "dependabot", "tech debt", "refactor", "upgrade", "strangler fig", "scaling triggers", "ponytail", "yagni".
+description: Use when upgrading dependencies and major framework versions, conducting automated line-level code reviews (Alibaba open-code-review hybrid architecture), detecting null-pointer exceptions, resource leaks, and concurrency hazards, pruning dead code and speculative abstractions via Ponytail YAGNI principles, scanning codebases for legacy web patterns and obsolete polyfills (Google Chrome modern-web-guidance), managing automated security patches (Renovate/Dependabot), maintaining the technical debt register, planning code deprecations, executing legacy codebase rescues (strangler fig pattern), or determining when objective scaling triggers mandate architectural evolution. Trigger phrases include "maintenance", "code review", "open-code-review", "ocr", "line-level review", "diff review", "dependencies", "dependabot", "tech debt", "refactor", "upgrade", "strangler fig", "scaling triggers", "ponytail", "yagni", "modern-web-guidance", "legacy-scan".
 tiers: ["MVP", "PROD", "SCALE"]
 inputs: ["codebase_state", "telemetry_logs"]
 outputs: ["tech-debt-register.schema.json", "upgrade-plan"]
 depends_on: ["02-architecture", "08-testing-qa"]
 last_verified: "2026-11-03"
-sources: ["LEGACY-CODE-FEATHERS", "REFACTORING-FOWLER", "DEPENDENCY-HEALTH", "ALIBABA-OPEN-CODE-REVIEW", "PONYTAIL-DIETRICHGEBERT"]
+sources: ["LEGACY-CODE-FEATHERS", "REFACTORING-FOWLER", "DEPENDENCY-HEALTH", "ALIBABA-OPEN-CODE-REVIEW", "PONYTAIL-DIETRICHGEBERT", "CHROME-MODERN-WEB-GUIDANCE"]
 ---
 
 # Specialist Stance: Maintenance & Evolution Lead
@@ -103,12 +103,17 @@ I refuse to permit unmaintained dependencies with known unpatched security vulne
    - Remediation Strategy.
 3. Allocate 15–20% of every engineering sprint capacity to debt remediation.
 
-### Step 3: Automated Dependency Hygiene & CVE Scanning [MVP] [PROD] [SCALE]
+### Step 3: Automated Dependency Hygiene, CVE & Legacy Web Scanning [MVP] [PROD] [SCALE]
 1. Configure `dependabot.yml` or `renovate.json`:
    - Daily scans for security patches.
    - Weekly scans for minor/patch version updates.
 2. Pin exact package versions or use lockfiles (`--frozen-lockfile`) in CI.
 3. Scan for abandoned packages (no release in 24 months) and unmaintained transitive dependencies.
+4. Run Modern Web Guidance legacy code scan to detect obsolete web polyfills and deprecated patterns:
+   ```bash
+   npx modern-web-guidance legacy-scan .
+   ```
+   Flag custom modal overlays, resize/scroll listeners, and floating positioning packages that can be pruned for Baseline native primitives [BEST PRACTICE: CHROME-MODERN-WEB-GUIDANCE].
 
 ### Step 4: Characterization Testing for Legacy Systems [PROD] [SCALE]
 1. Author comprehensive **Characterization Tests** pinning existing runtime behavior before touching legacy code.

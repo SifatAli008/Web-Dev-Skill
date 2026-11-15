@@ -10,12 +10,14 @@ This glossary defines standard terminology used across all 16 specialist skills.
 - **ACID**: Atomicity, Consistency, Isolation, Durability. The four standard properties guaranteed by relational database management systems for state transactions.
 - **ADR (Architectural Decision Record)**: A structured document that captures an important architectural decision made along with its context and consequences.
 - **ASVS (Application Security Verification Standard)**: A community-driven OWASP standard defining technical security controls for web applications.
+- **Baseline**: The cross-browser compatibility standard established by the W3C WebDX Community Group and supported by Google Chrome, Mozilla, and Apple, classifying web platform features into "Newly Available" (supported across all core engines) and "Widely Available" (interoperable for 30+ months).
 - **Blue-Green Deployment**: A zero-downtime deployment strategy using two identical production environments (Blue active, Green idle) to switch router traffic instantly.
 - **Canary Release**: Staged deployment where a new version is served to a small percentage (e.g., 5%) of production traffic before full cutover.
 - **CLS (Cumulative Layout Shift)**: Core Web Vital metric measuring visual stability. Target: `<= 0.1`.
 - **Cognitive Complexity**: Metric assessing how difficult a unit of code is for a human developer to understand. SQAT target: `<= 15` per function.
 - **Content Security Policy (CSP)**: An HTTP response header allowing site administrators to restrict the resources (JavaScript, CSS, Images) that the browser is allowed to load.
 - **CSRF (Cross-Site Request Forgery)**: An attack that tricks an authenticated user's browser into executing unauthorized actions on a trusted web application.
+- **CSS Anchor Positioning**: Modern web standard (`anchor()`, `position-anchor`) allowing floating elements (tooltips, popovers, menus) to tether natively to an anchor element without JavaScript calculations.
 - **Cyclomatic Complexity**: Quantitative measure of the number of linearly independent paths through a program's source code (McCabe). SQAT target: `<= 10` per function.
 - **Doherty Threshold**: In HCI, the empirical requirement that system response time should remain under 400ms to preserve user focus, flow state, and productivity.
 - **DSAR (Data Subject Access Request)**: A formal request under GDPR/CCPA allowing users to access, export, or delete their stored personal data.
@@ -77,15 +79,19 @@ This glossary defines standard terminology used across all 16 specialist skills.
 - **Jakob's Law**: The empirical principle that users spend most of their time on other websites, expecting your site to follow conventional mental models and navigation norms.
 - **Kerning**: The micro-adjustment of horizontal space between specific pairs of adjacent letterforms (e.g. "AV", "To") to achieve optical balance.
 - **Lie Factor**: Edward Tufte's measure of graphical integrity: the ratio of the size of an effect shown in a graphic to the size of the effect in the underlying data.
+- **Modern Web Guidance (MWG)**: An authoritative web platform standard stewarded by Google Chrome, Microsoft Edge, and Mozilla delivering curated best practices and baseline data to guide developers and AI coding agents toward modern native HTML/CSS/JS primitives.
 - **Modular Scale**: A geometric typographic scale where each step is multiplied by a constant ratio (e.g. Major Third 1.25, Perfect Fourth 1.333).
+- **Native `<dialog>`**: Standard HTML5 element for modal and non-modal dialogs rendered natively in the browser top-layer with automatic focus trapping, `showModal()`, and `::backdrop` styling.
 - **Negative Space (Whitespace)**: The unmarked canvas area between and around active elements, categorized into macro-whitespace (inter-section) and micro-whitespace (intra-component).
 - **Optical Centering**: Nudging asymmetric directional elements (e.g. play triangles, right chevrons) along their directional axis to balance geometric and perceptual centers.
 - **Peak-End Rule**: The cognitive heuristic wherein users evaluate an experience based predominantly on its highest emotional peak and its final conclusion.
+- **Popover API**: Native browser platform attribute (`popover`) enabling light-dismiss, top-layer overlays, tooltips, and flyout menus with zero JavaScript positioning libraries or z-index hacks.
 - **Prägnanz (Simplicity)**: A Gestalt law stating that visual stimulus is always interpreted in the simplest, most stable and symmetric form possible.
 - **Progressive Disclosure**: The interaction design technique of deferring complex or secondary information until the user explicitly requests it, preventing cognitive overload.
 - **Progressive Reduction**: The gradual simplification of an interface's visual signifiers as a user gains expertise and requires fewer instructional prompts.
 - **Proximity**: A Gestalt law stating that elements placed physically closer together are perceived as sharing a functional relationship.
 - **Rule of Thirds**: A compositional guide dividing a canvas into a 3x3 grid where key focal elements are positioned along the lines or at the 4 intersections.
+- **`scheduler.yield()`**: Cooperative multitasking API in modern browsers enabling long JavaScript tasks to yield control back to the browser main thread to satisfy Interaction to Next Paint (INP < 200ms).
 - **Signifier**: A perceptible visual cue (border, arrow, hover highlight) indicating where and how an affordance can be operated.
 - **Simultaneous Contrast (Chevreul)**: The optical shift wherein the perceived brightness and hue of a color is altered by the colors directly adjacent to it.
 - **Small Multiples**: Edward Tufte's high-density graphic technique displaying repeated, compact charts sharing identical scales to enable effortless side-by-side comparison.
@@ -95,6 +101,7 @@ This glossary defines standard terminology used across all 16 specialist skills.
 - **Subgrid**: Modern CSS Grid capability (`grid-template-columns: subgrid`) allowing child items to align directly with their parent grid's tracks across siblings.
 - **Tabular Numerals (`tabular-nums`)**: Monospaced numeric glyphs ensuring numbers occupy equal horizontal width, preventing visual jitter in tables and timers.
 - **Tesler's Law (Conservation of Complexity)**: The principle that every application possesses an irreducible amount of complexity that must either be handled by software or borne by the user.
+- **Top Layer**: A dedicated browser rendering layer sitting above all standard z-index stacking contexts, used natively by `<dialog>`, popovers, and fullscreen elements.
 - **Tracking (Letter-Spacing)**: Uniform horizontal spacing applied across an entire string of characters.
 - **Variable Font**: A modern font standard where a single font file contains multiple axes of variation (weight `wght`, width `wdth`, slant `slnt`, optical size `opsz`).
 - **Vertical Rhythm**: The consistent vertical spacing of text baselines, margins, and component heights matching a modular baseline grid.
@@ -105,4 +112,5 @@ This glossary defines standard terminology used across all 16 specialist skills.
 - **Z-Pattern**: The eye-tracking path common to low-density landing pages, scanning top-left, top-right, diagonally to bottom-left, and concluding at bottom-right (CTA).
 - **Zeigarnik Effect**: The psychological phenomenon where uncompleted tasks occupy working memory, driving users to finish stepped workflows with progress indicators.
 - **Zero-FOUC**: The architecture of applying user theme preferences (dark/light) synchronously in `<head>` before CSS renders, preventing the White Flash of Unstyled Content.
+- **`@starting-style`**: Modern CSS at-rule defining entry styles for elements animating into the top layer or transitioning from `display: none` to visible.
 

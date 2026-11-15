@@ -287,7 +287,17 @@
         "micro-interactions",
         "ponytail",
         "yagni",
-        "platform native"
+        "platform native",
+        "baseline",
+        "modern web",
+        "popover",
+        "popover api",
+        "native dialog",
+        "container queries",
+        "anchor positioning",
+        "view transitions",
+        "starting-style",
+        "field-sizing"
       ],
       "anti_triggers": [
         "schema migration",
@@ -311,6 +321,8 @@
         "REACT-DOCS",
         "MDN-WEB-DOCS",
         "WEB-DEV",
+        "CHROME-MODERN-WEB-GUIDANCE",
+        "WEB-BASELINE",
         "WCAG-2-2",
         "ANTHROPIC-FRONTEND-DESIGN",
         "TASTE-SKILL-LEONXLNX",
@@ -589,7 +601,12 @@
         "cls",
         "lighthouse",
         "cdn cache",
-        "ttfb"
+        "ttfb",
+        "image optimization",
+        "query optimization",
+        "scheduler.yield",
+        "inp optimization",
+        "content-visibility"
       ],
       "anti_triggers": [
         "privacy policy",
@@ -611,7 +628,9 @@
       "last_verified": "2026-11-03",
       "sources": [
         "WEB-DEV-CWV",
-        "HIGH-PERF-BROWSER-NETWORKING"
+        "CHROME-MODERN-WEB-GUIDANCE",
+        "HIGH-PERF-BROWSER-NETWORKING",
+        "V8-DEV"
       ]
     },
     {
@@ -773,7 +792,9 @@
         "strangler fig",
         "scaling triggers",
         "ponytail",
-        "yagni"
+        "yagni",
+        "modern-web-guidance",
+        "legacy-scan"
       ],
       "anti_triggers": [
         "persona interview",
@@ -797,7 +818,8 @@
         "REFACTORING-FOWLER",
         "DEPENDENCY-HEALTH",
         "ALIBABA-OPEN-CODE-REVIEW",
-        "PONYTAIL-DIETRICHGEBERT"
+        "PONYTAIL-DIETRICHGEBERT",
+        "CHROME-MODERN-WEB-GUIDANCE"
       ]
     },
     {

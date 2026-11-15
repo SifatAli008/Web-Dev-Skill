@@ -63,4 +63,12 @@
   - [ ] Are icons standardized to 16/20/24px bounding boxes with consistent 1.5px/2.0px stroke and optical centering?
   - [ ] Do data visualizations utilize sequential OKLCH tokens with geometric shape markers and hidden `<table class="sr-only">` fallbacks?
 
+- [ ] **9. Modern Web Platform Primitives & Baseline Verification (MWG):**
+  - [ ] Are modals implemented using native `<dialog>` with `showModal()`, `::backdrop` styling, and top-layer transition animations (`@starting-style`)?
+  - [ ] Are light-dismiss dropdowns, tooltips, and flyout menus built using the native Popover API and CSS Anchor Positioning?
+  - [ ] Are component-level responsive layouts governed by CSS Container Queries (`@container`) and Subgrid without window resize listeners?
+  - [ ] Do auto-expanding inputs/textareas use CSS `field-sizing: content` instead of JavaScript resize watchers?
+  - [ ] Are form validation feedback states powered by CSS `:user-valid` and `:user-invalid` without premature error flashes?
+  - [ ] Does the implementation target Baseline Widely Available primitives with zero unnecessary polyfills?
+
 

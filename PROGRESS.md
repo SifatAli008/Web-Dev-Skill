@@ -1,8 +1,8 @@
 # Universal WebDev Skills: Progress Tracker
 
-> **Current Phase:** Phase 8 Completed (HCI & Cognitive Ergonomics Specialist Expansion)  
+> **Current Phase:** Phase 9 Completed (Modern Web Platform Guidance & Baseline Standard Integration)  
 > **Status:** 100% COMPLETE & VERIFIED  
-> **Last Updated:** 2026-11-03  
+> **Last Updated:** 2026-11-15  
 > **State Integrity:** State is maintained in files (`PROGRESS.md`, `DECISIONS.md`).
 
 ---
@@ -19,6 +19,24 @@
 | **Phase 6** | Generate tool adapters, README demo, CHANGELOG, v0.1.0 release notes. | **COMPLETE (RELEASE v0.1.0)** | Adapters verified against official tool conventions, <= 2 min install. |
 | **Phase 7** | Frontier framework infusion (Agent Skills spec, Taste-Skill v2 full pipeline, OKLCH & Fluid Design tokens, Alibaba OCR, Ponytail ladder, State audit). | **COMPLETE (GATE 7)** | Conformance with Agent Skills spec, anti-slop DESIGN.md, 12 ADRs, all 12 verification suites passing. |
 | **Phase 8** | HCI, Cognitive Ergonomics & Master Design Theory Architecture (16th specialist `15-hci-interaction`, 13-pillar design science compendium, 12 Atomic Primitives, Dual-Theme OKLCH, Container Queries, Micro-Interactions, 60+ design concept glossary, ADR-013 through ADR-017). | **COMPLETE (GATE 8)** | Full Agent Skills conformance, schema-validated HCI & Design templates, 17 ADRs, all 12 verification suites passing. |
+| **Phase 9** | Modern Web Platform Guidance & Baseline Standard Integration (Google Chrome MWG, native `<dialog>`, Popovers, CSS Anchor Positioning, Container Queries, `scheduler.yield()`, `FM-14`, ADR-018). | **COMPLETE (GATE 9)** | Full Agent Skills conformance, MWG references, 18 ADRs, all 12 master verification suites passing. |
+
+---
+
+## Phase 9 Deliverables Completed
+
+- [x] **Modern Web Platform Guidance & Baseline Reference (ADR-018):**
+  - Authored operational L2 reference guide: `skills/frontend/references/modern-web-platform-primitives.md` detailing implementation patterns for native `<dialog>` modals with top-layer animations (`@starting-style`, `transition-behavior: allow-discrete`), native Popover API (`popover`, `popovertarget`), CSS Anchor Positioning (`position-anchor`, `anchor()`), CSS Container Queries (`@container`) and Subgrid, View Transitions API (`startViewTransition`), auto-sizing forms (`field-sizing: content`), and user-perceived validation (`:user-valid`, `:user-invalid`).
+  - Embedded **Rule 8: Modern Web Platform Primitives & Baseline Standards** into `skills/frontend/SKILL.md` enforcing Baseline Widely Available targeting and native browser primitives before reaching for npm dependencies.
+  - Expanded `skills/performance/SKILL.md` with Modern Web Guidance Core Web Vitals optimizations: cooperative multitasking via `scheduler.yield()` for sub-200ms INP and DOM containment via `content-visibility: auto` with `contain-intrinsic-size`.
+  - Integrated Modern Web Guidance Legacy Code Scanner (`npx modern-web-guidance legacy-scan .`) into `skills/maintenance/SKILL.md` for codebase audits and PR reviews to detect obsolete web polyfills.
+  - Expanded `checklists/design-and-a11y.checklist.md` (Section 9: Modern Web Platform Primitives) and `checklists/production.checklist.md` (Performance & Core Web Vitals) with MWG verification criteria.
+  - Registered official source citations in `SOURCES.md`: `CHROME-MODERN-WEB-GUIDANCE` (Google Chrome, Microsoft Edge, Mozilla, W3C WebDX) and `WEB-BASELINE`.
+  - Documented `FM-14: Legacy Web Workarounds & Obsolete Polyfills` in `AI-FAILURE-MODES.md`.
+  - Enriched `GLOSSARY.md` with definitions for Baseline, CSS Anchor Positioning, Modern Web Guidance, Native `<dialog>`, Popover API, `scheduler.yield()`, Top Layer, and `@starting-style`.
+  - Updated `tools/build-adapters.js` and synchronized all 6 tool adapters (`CLAUDE.md`, `.cursorrules`, `GEMINI.md`, `copilot-instructions.md`, `system-prompt.md`, `04-frontend.mdc`).
+  - Synchronized `skills.index.json` triggers, sources, and metadata for `04-frontend`, `10-performance`, and `14-maintenance`.
+  - Recorded **ADR-018** in `DECISIONS.md`.
 
 ---
 

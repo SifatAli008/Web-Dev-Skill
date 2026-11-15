@@ -230,6 +230,12 @@ function runAudit(targetDir = process.cwd()) {
             findings++;
           }
 
+          // Legacy web library check (Google Chrome Modern Web Guidance)
+          if (isSourceCode && /import\s+.*from\s+['"](react-modal|popper\.js|@floating-ui\/dom|textarea-autosize)['"]/i.test(text)) {
+            console.warn(`[LEGACY WEB PATTERN] ${path.relative(targetDir, fullPath)}: Third-party UI dependency detected where Baseline native primitives (<dialog>, Popover API, CSS Anchor Positioning, field-sizing) can be used (Google Chrome MWG).`);
+            findings++;
+          }
+
           // Tier signals
           if (/stripe|paypal|lemon-squeezy|billing|checkout/i.test(text)) signals.prod++;
           if (/argon2|scrypt|bcrypt|jwt|session/i.test(text)) signals.prod++;

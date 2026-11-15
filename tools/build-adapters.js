@@ -33,10 +33,11 @@ This project is governed by the Universal WebDev Skills engineering framework.
 1. Protocol: Read \`AGENTS.md\` for team protocols, tier classification (MVP, PROD, SCALE), and behavior rules.
 2. Routing: Read \`skills.index.json\` at the repository root. When given a task, select the 2–5 relevant specialists and load only their \`skills/<id>/SKILL.md\` file. Never load the entire repository.
 3. Design System & Anti-Slop: Read \`DESIGN.md\` at workspace root for visual tokens, Taste Profiles (minimalist, industrial-brutalist, editorial, soft-consumer), and anti-slop directives.
-4. Anthropic Agent Skills Standard: All 16 skills in \`skills/\` strictly comply with the open Agent Skills specification (agentskills.io / AAIF) with standardized YAML frontmatter, 3-level progressive disclosure, and runnable terminal verification suites.
-5. Handoffs: Use schema-defined artifacts in \`templates/schemas/\`.
-6. AI Hygiene: Zero placeholder comments (// TODO), no folder sprawl, and strict artifact control.
-7. Status Format: End every substantial response with Done, Verified (with evidence), NOT verified, Risks, and Next step.
+4. Modern Web Guidance & Baseline: Target Baseline Widely Available primitives (native \`<dialog>\`, Popovers, CSS Anchor Positioning, Container Queries, \`scheduler.yield()\`) before reaching for third-party npm packages.
+5. Anthropic Agent Skills Standard: All 16 skills in \`skills/\` strictly comply with the open Agent Skills specification (agentskills.io / AAIF) with standardized YAML frontmatter, 3-level progressive disclosure, and runnable terminal verification suites.
+6. Handoffs: Use schema-defined artifacts in \`templates/schemas/\`.
+7. AI Hygiene: Zero placeholder comments (// TODO), no folder sprawl, and strict artifact control.
+8. Status Format: End every substantial response with Done, Verified (with evidence), NOT verified, Risks, and Next step.
 `;
   fs.writeFileSync(path.join(claudeDir, 'CLAUDE.md'), claudeContent);
   console.log('[BUILT] adapters/claude-code/CLAUDE.md');
@@ -86,10 +87,12 @@ Enforce WCAG 2.2 Level AA accessibility: contrast >= 4.5:1, visible focus rings 
     },
     {
       file: '04-frontend.mdc',
-      desc: 'Frontend architecture, zero-CLS layout stability, and state partitioning',
+      desc: 'Frontend architecture, Modern Web Guidance (MWG), Baseline standards, and zero-CLS layout stability',
       globs: '**/*.{tsx,jsx,vue,svelte,ts,js}',
       alwaysApply: false,
       content: `Keep components Server Components by default; only use 'use client' at interactive leaf nodes.
+Target Baseline Widely Available primitives following Google Chrome Modern Web Guidance (MWG).
+Use native <dialog> with top-layer animation (@starting-style), Popover API, CSS Anchor Positioning, Container Queries, and field-sizing: content before reaching for external UI packages.
 Reserve dimensions on dynamic elements and images to guarantee absolute zero Cumulative Layout Shift (CLS = 0).`
     },
     {

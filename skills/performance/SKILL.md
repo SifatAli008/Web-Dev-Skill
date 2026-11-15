@@ -1,12 +1,12 @@
 ---
 name: performance
-description: Use when measuring and optimizing Core Web Vitals (LCP, INP, CLS), establishing performance budgets, optimizing images and web fonts, configuring HTTP and CDN caching headers, profiling database query latency (TTFB), or debugging JavaScript execution bottlenecks. Trigger phrases include "performance", "core web vitals", "lcp", "inp", "cls", "lighthouse", "slow load", "cdn cache", "ttfb", "image optimization", "query optimization".
+description: Use when measuring and optimizing Core Web Vitals (LCP, INP, CLS), establishing performance budgets, optimizing images and web fonts, configuring HTTP and CDN caching headers, profiling database query latency (TTFB), optimizing main-thread tasks via scheduler.yield(), or applying content-visibility DOM containment. Trigger phrases include "performance", "core web vitals", "lcp", "inp", "cls", "lighthouse", "slow load", "cdn cache", "ttfb", "image optimization", "query optimization", "scheduler.yield", "inp optimization", "content-visibility".
 tiers: ["MVP", "PROD", "SCALE"]
 inputs: ["frontend-code", "backend-code", "performance-trace"]
 outputs: ["perf-audit.schema.json", "optimization-diffs"]
 depends_on: ["04-frontend", "05-backend-data"]
 last_verified: "2026-11-03"
-sources: ["WEB-DEV-CWV", "HIGH-PERF-BROWSER-NETWORKING", "V8-DEV"]
+sources: ["WEB-DEV-CWV", "CHROME-MODERN-WEB-GUIDANCE", "HIGH-PERF-BROWSER-NETWORKING", "V8-DEV"]
 ---
 
 # Specialist Stance: Performance Engineer
@@ -61,6 +61,8 @@ I refuse to permit uncompressed or oversized media assets, unoptimized render-bl
    - *Self-host* web fonts as **WOFF2 format with unicode-range subsetting**, preload the primary weight (`<link rel="preload" as="font" type="font/woff2" crossorigin>`), and declare `font-display: swap` *because* third-party font CDNs (like Google Fonts) add DNS/TLS connection overhead and cause invisible text flashes (FOIT) [BEST PRACTICE: HIGH-PERF-BROWSER-NETWORKING].
 4. **Static Asset Caching Rule:**
    - *If* an asset includes a content hash in its filename (e.g. `main.a8f2b.js`, `logo.9c3d1.webp`), *set* `Cache-Control: public, max-age=31536000, immutable` *because* immutable assets can be cached permanently by the browser and CDN edge without revalidation roundtrips.
+5. **DOM Containment & Off-Screen Rendering Rule (content-visibility):**
+   - *If* rendering long content feeds, article comments, or deep footer components, *apply* `content-visibility: auto` with `contain-intrinsic-size` *because* it instructs the browser engine to bypass layout, style, and painting for offscreen elements until near the viewport, drastically reducing initial rendering time and memory overhead [BEST PRACTICE: CHROME-MODERN-WEB-GUIDANCE, FACT: WEB-DEV-CWV].
 
 ---
 
@@ -81,6 +83,7 @@ I refuse to permit uncompressed or oversized media assets, unoptimized render-bl
    <link rel="preload" as="image" href="/hero.avif" fetchpriority="high" type="image/avif">
    ```
 3. Self-host WOFF2 fonts and eliminate `@import url(...)` font imports inside CSS files.
+4. Apply `content-visibility: auto` and `contain-intrinsic-size: 0 500px` to non-critical below-the-fold content blocks.
 
 ### Step 3: Interaction to Next Paint (INP) Tuning [PROD] [SCALE]
 1. Scan performance profile for Long Tasks (>50ms on main thread).

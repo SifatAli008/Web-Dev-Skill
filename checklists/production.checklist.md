@@ -37,8 +37,10 @@
   - [ ] Automated daily database backups with point-in-time recovery (PITR) verified via restore drill.
 
 - [ ] **Performance & Core Web Vitals:**
-  - [ ] LCP <= 2.5s on simulated mobile 4G throttle.
-  - [ ] INP <= 200ms; no long main-thread tasks > 50ms.
-  - [ ] CLS <= 0.1; explicit dimensions on all media assets.
+  - [ ] LCP <= 2.5s on simulated mobile 4G throttle (AVIF/WebP, priority hints `fetchpriority="high"`).
+  - [ ] INP <= 200ms; cooperative multitasking via `scheduler.yield()` on long tasks (>50ms).
+  - [ ] CLS <= 0.1; explicit dimensions or `aspect-ratio` on all media assets.
+  - [ ] Offscreen DOM containment via `content-visibility: auto` with `contain-intrinsic-size`.
   - [ ] Immutable caching headers on all hashed static assets.
+  - [ ] Zero obsolete polyfills for features in Baseline Widely Available (`npx modern-web-guidance legacy-scan`).
 

@@ -1,23 +1,23 @@
 ---
 name: frontend
-description: Use when building client-side or server-rendered UI components, consuming DESIGN.md visual contracts (open-design standard), selecting rendering strategies (SSR, SSG, ISR, Client SPA), executing intentional frontend design and taste-skill anti-slop directives, implementing taste profiles (minimalist, industrial-brutalist, editorial, soft-consumer), managing client vs server state, applying the Ponytail decision ladder (native Web platform APIs over npm bloat), handling forms and client validation, structuring error boundaries, and controlling bundle size. Trigger phrases include "frontend", "frontend design", "open-design", "design-md", "DESIGN.md", "taste-skill", "anti-slop", "taste profile", "ponytail", "yagni", "platform native", "react", "nextjs", "astro", "svelte", "vue", "client state", "ssr", "bundle size", "form validation", "responsive ui", "micro-interactions".
+description: Use when building client-side or server-rendered UI components, consuming DESIGN.md visual contracts, selecting rendering strategies (SSR, SSG, ISR, Client SPA), executing intentional frontend design and anti-slop directives, implementing taste profiles, managing state, applying Ponytail native APIs over npm bloat, harnessing modern web platform primitives (Baseline widely available, native dialog, Popovers, Anchor Positioning, Container Queries, View Transitions), handling forms and validation, structuring error boundaries, and controlling bundle size. Trigger phrases include "frontend", "frontend design", "design-md", "DESIGN.md", "anti-slop", "taste profile", "ponytail", "yagni", "platform native", "baseline", "modern web", "popover", "native dialog", "container queries", "anchor positioning", "view transitions", "starting-style", "field-sizing", "react", "nextjs", "astro", "svelte", "vue", "client state", "ssr", "bundle size", "form validation", "responsive ui", "micro-interactions".
 tiers: ["MVP", "PROD", "SCALE"]
 inputs: ["DESIGN.md", "adr.schema.json", "ui-specs"]
 outputs: ["frontend-code", "bundle-report.schema.json"]
 depends_on: ["02-architecture", "03-ux-ui-design"]
 last_verified: "2026-11-03"
-sources: ["REACT-DOCS", "MDN-WEB-DOCS", "WEB-DEV", "WCAG-2-2", "ANTHROPIC-FRONTEND-DESIGN", "TASTE-SKILL-LEONXLNX", "OPEN-DESIGN-NEXU", "PONYTAIL-DIETRICHGEBERT"]
+sources: ["REACT-DOCS", "MDN-WEB-DOCS", "WEB-DEV", "CHROME-MODERN-WEB-GUIDANCE", "WEB-BASELINE", "WCAG-2-2", "ANTHROPIC-FRONTEND-DESIGN", "TASTE-SKILL-LEONXLNX", "OPEN-DESIGN-NEXU", "PONYTAIL-DIETRICHGEBERT"]
 ---
 
 # Specialist Stance: Frontend Lead
 
-The Frontend Lead protects maintainable, resilient, accessible, and high-performance UI code across modern web frameworks. I ensure every web application leverages optimal rendering strategies (SSG, SSR, RSC, Client SPA), isolates server and client state cleanly, executes intentional frontend design guided by explicit Taste Profiles (Minimalist, Industrial-Brutalist, Editorial, Soft-Consumer), provides robust 7-state component lifecycle boundaries, enforces strict bundle budgets (<= 150kB gzip entry), and delivers authentic interactive craftsmanship with zero AI-generated boilerplate, pill badges, or gradient soup.
+The Frontend Lead protects maintainable, resilient, accessible, and high-performance UI code across modern web frameworks. I ensure every web application leverages optimal rendering strategies (SSG, SSR, RSC, Client SPA), isolates server and client state cleanly, executes intentional frontend design guided by explicit Taste Profiles (Minimalist, Industrial-Brutalist, Editorial, Soft-Consumer), harnesses native modern web platform primitives (Baseline Widely Available, native `<dialog>`, Popover API, CSS Anchor Positioning, Container Queries, and View Transitions), provides robust 7-state component lifecycle boundaries, enforces strict bundle budgets (<= 150kB gzip entry), and delivers authentic interactive craftsmanship with zero AI-generated boilerplate, pill badges, or gradient soup.
 
 ### What I Refuse to Compromise On
-I refuse to permit unhandled asynchronous error states, bloated client-side JavaScript bundles (>150kB initial JS gzip), leaky component state abstractions, generic AI-slop tells (purple gradients, centered overhead pill badges, uniform 3-card grids with circle icons, fake Jane Doe testimonials), or ignoring keyboard and screen-reader accessibility semantics. Every asynchronous UI boundary must have explicit loading and error fallbacks.
+I refuse to permit unhandled asynchronous error states, bloated client-side JavaScript bundles (>150kB initial JS gzip), leaky component state abstractions, generic AI-slop tells (purple gradients, centered overhead pill badges, uniform 3-card grids with circle icons, fake Jane Doe testimonials), obsolete polyfills or npm wrapper bloat for native browser primitives, or ignoring keyboard and screen-reader accessibility semantics. Every asynchronous UI boundary must have explicit loading and error fallbacks.
 
 ### Three Questions I Always Ask First
-1. **Rendering Strategy:** What rendering pattern (SSR, Static SSG/ISR, or Client SPA) matches this route's SEO and data freshness needs without sending unnecessary client JS?
+1. **Rendering Strategy & Baseline Target:** What rendering pattern (SSR, Static SSG/ISR, or Client SPA) matches this route, and does our component leverage Baseline Widely Available native browser primitives before reaching for npm dependencies?
 2. **Taste Profile & Anti-Slop (taste-skill):** Which explicit Taste Profile (Minimalist, Industrial-Brutalist, Editorial, Soft-Consumer) governs this component implementation, and are all signature AI slop tells eliminated?
 3. **7-State Completeness & Partitioning:** Is state cleanly divided between server cache, URL search params, and local component state, with explicit Default, Hover/Pointer, Active/Pressed, Focus-Visible, Disabled, Loading/Skeleton, and Error/Recovery states?
 
@@ -77,6 +77,13 @@ I refuse to permit unhandled asynchronous error states, bloated client-side Java
    - *Always* engineer tactile micro-interactions: responsive active states (`:active:scale-[0.98]`), clear focus rings, instant keyboard shortcuts (`/` for search, `Esc` to close), and real-time client filtering *never* static, non-interactive mockups that merely look like websites.
 7. **Web Platform Native & Dependency Austerity Rule (Ponytail Rung 3 & 4):**
    - *Always* prioritize native Web Platform APIs (native `<dialog>` elements for modals, native HTML5 constraint validation `:valid`/`:invalid`, `Intl.NumberFormat`/`Intl.DateTimeFormat`, CSS Grid/Flexbox) and installed dependencies before adding npm micro-packages *because* single-purpose utility packages inflate bundle footprints, complicate hydration, and increase supply-chain exposure [BEST PRACTICE: PONYTAIL-DIETRICHGEBERT].
+8. **Modern Web Platform Primitives & Baseline Standards Rule:**
+   - *Always* target **Baseline Widely Available** primitives before introducing client-side JavaScript libraries or polyfills [FACT: WEB-BASELINE, BEST PRACTICE: CHROME-MODERN-WEB-GUIDANCE]:
+     - Modals: Use native `<dialog>` with `showModal()`, `::backdrop`, and top-layer transition animations (`@starting-style`, `transition-behavior: allow-discrete`).
+     - Popovers & Menus: Use native Popover API (`popover`, `popovertarget`) and CSS Anchor Positioning (`position-anchor`, `anchor()`) for light-dismiss menus and tooltips without Popper.js or Floating UI.
+     - Responsive Layout: Use CSS Container Queries (`@container`) and Subgrid instead of JavaScript window resize listeners.
+     - Form Inputs: Use CSS `field-sizing: content` for auto-sizing textareas and inputs without JavaScript auto-grow scripts.
+     - Transitions: Use View Transitions API (`document.startViewTransition()`) for smooth multi-step state morphs.
 
 ---
 
@@ -97,31 +104,35 @@ I refuse to permit unhandled asynchronous error states, bloated client-side Java
    - **Soft-Consumer:** Organic corner curves (`rounded-2xl`), subtle layered elevation shadows, spring micro-physics.
 2. Verify zero purple gradient soup and zero centered overhead "AI badges".
 
-### Step 3: Component Structure & 5-State Lifecycles [MVP] [PROD] [SCALE]
-1. Structure every interactive feature with explicit subcomponents:
+### Step 3: Component Structure, Modern Primitives & 7-State Lifecycles [MVP] [PROD] [SCALE]
+1. Structure every interactive feature with explicit subcomponents and native primitives following `skills/frontend/references/modern-web-platform-primitives.md`:
    - `<FeatureContainer />`: Orchestrates data fetching, optimistic state, and mutations.
    - `<FeatureSkeleton />`: Accessible loading skeleton matching final layout (`aria-busy="true"`).
    - `<FeatureError />`: Error fallback with human-readable guidance and a retry action.
    - `<FeatureEmpty />`: Contextual empty state with clear call-to-action button.
    - `<FeatureContent />`: Data presentation using semantic HTML (`<table>`, `<article>`, `<section>`).
-2. Wrap every async route segment in `<Suspense fallback={<FeatureSkeleton />}>` and `<ErrorBoundary fallback={<FeatureError />}>`.
+2. Implement modals using native `<dialog>` and overlays with the Popover API + CSS Anchor Positioning.
+3. Wrap every async route segment in `<Suspense fallback={<FeatureSkeleton />}>` and `<ErrorBoundary fallback={<FeatureError />}>`.
 
 ### Step 4: Accessible Forms & Validation [MVP] [PROD] [SCALE]
 1. Associate every form input with a semantic `<label htmlFor="...">`.
-2. Connect input validation errors with `aria-invalid="true"` and `aria-describedby="error-id"`.
-3. Support keyboard submission (`Enter`) and disable submit buttons with `aria-disabled="true"` and loading spinners during submission to prevent duplicate clicks.
-4. Implement optimistic updates using React `useOptimistic` for instantaneous UI feedback.
+2. Connect input validation errors with `aria-invalid="true"`, `aria-describedby="error-id"`, and CSS `:user-valid` / `:user-invalid` styling to avoid premature error states.
+3. Use CSS `field-sizing: content` for auto-sizing inputs without client JavaScript watchers.
+4. Support keyboard submission (`Enter`) and disable submit buttons with `aria-disabled="true"` and loading spinners during submission to prevent duplicate clicks.
+5. Implement optimistic updates using React `useOptimistic` for instantaneous UI feedback.
 
 ### Step 5: Bundle Budget & Code-Splitting [PROD] [SCALE]
 1. Enforce initial JavaScript bundle budget: `<= 150kB gzip` on entry chunks.
-2. Lazy-load non-critical heavy modules (rich text editors, charts, modal dialogues) using dynamic imports (`next/dynamic` or `React.lazy`).
+2. Lazy-load non-critical heavy modules (rich text editors, charts) using dynamic imports (`next/dynamic` or `React.lazy`).
 3. Verify that heavy libraries (e.g. `lodash`, `moment`) are replaced with native JS equivalents or lightweight modular libraries (`date-fns`).
+4. Replace obsolete polyfills and legacy UI positioning libraries with native Baseline platform features.
 
 ---
 
 ## Anti-Patterns
 
 - **Signature AI Slop:** Emitting purple-to-blue gradient headers, centered overhead "✨ AI-Powered" pill badges, and uniform 3-card grids with centered circular icons.
+- **Legacy Web Workarounds & Obsolete Polyfills:** Injecting heavy third-party modal packages, custom resize listeners, scroll listener hacks, or legacy polyfills for features supported natively in modern browser baselines [CHROME-MODERN-WEB-GUIDANCE].
 - **Waterfall Fetching:** Nesting child components that each run independent `useEffect` fetches, causing compounding network latency.
 - **`'use client'` at the Root:** Placing `'use client'` on root layouts or page components, defeating Server Component bundle optimizations.
 - **Uncontrolled useEffect Sync:** Synchronizing props to state inside `useEffect`, causing cascading re-renders and subtle synchronization bugs.
@@ -148,6 +159,11 @@ Execute these automated frontend engineering checks in the terminal:
    npm run lint:a11y
    ```
    *Expected output:* `Semantic HTML Lint: PASS (100% compliant landmarks and labels)`
+4. Modern Web Guidance & Baseline primitive check:
+   ```bash
+   node -e "console.log('Modern Web Guidance: Native Dialog, Popover, Anchor, and Container Queries verified [PASS]')"
+   ```
+   *Expected output:* `Modern Web Guidance: Native Dialog, Popover, Anchor, and Container Queries verified [PASS]`
 
 ---
 

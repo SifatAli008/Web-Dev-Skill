@@ -59,6 +59,8 @@ Every technical claim in this repository is tagged with one of three epistemic l
 - **`REACT-DOCS`**: Official React Documentation and Server Components Specification (React 19). https://react.dev/ [FACT]
 - **`MDN-WEB-DOCS`**: MDN Web Docs, Mozilla Developer Network. https://developer.mozilla.org/ [FACT]
 - **`WEB-DEV`**: web.dev guidance by the Google Chrome Developer Relations team. https://web.dev/ [BEST PRACTICE]
+- **`CHROME-MODERN-WEB-GUIDANCE`**: Google Chrome Developer Relations, Microsoft Edge, Mozilla, and W3C WebDX Community Group, "Modern Web Guidance: Best Practices & Native Platform Primitives for Modern Web Development". https://github.com/GoogleChrome/modern-web-guidance [BEST PRACTICE]
+- **`WEB-BASELINE`**: W3C WebDX Community Group, "Baseline: Bringing clarity to web platform feature availability". https://web.dev/baseline [FACT]
 - **`ANTHROPIC-FRONTEND-DESIGN`**: Anthropic Frontend Craft and Responsive State Lifecycle Guidelines. [BEST PRACTICE]
 
 ### 05 · Backend & Data
@@ -97,6 +99,7 @@ Every technical claim in this repository is tagged with one of three epistemic l
 
 ### 10 · Performance Engineering
 - **`WEB-DEV-CWV`**: Google Core Web Vitals Guidance (LCP, INP, CLS). https://web.dev/explore/metrics [FACT]
+- **`CHROME-MODERN-WEB-GUIDANCE`**: Google Chrome Developer Relations, Microsoft Edge, Mozilla, and W3C WebDX Community Group, "Modern Web Guidance: Performance, INP & Resource Loading Optimization". https://github.com/GoogleChrome/modern-web-guidance [BEST PRACTICE]
 - **`HIGH-PERF-BROWSER-NETWORKING`**: Ilya Grigorik, "High Performance Browser Networking" (O'Reilly, 2013). https://hpbn.co/ [BEST PRACTICE]
 - **`V8-DEV`**: V8 JavaScript Engine Performance & Garbage Collection Guidelines. https://v8.dev/blog [BEST PRACTICE]
 
@@ -119,6 +122,7 @@ Every technical claim in this repository is tagged with one of three epistemic l
 - **`LEGACY-CODE-FEATHERS`**: Michael Feathers, "Working Effectively with Legacy Code" (Prentice Hall, 2004). [BEST PRACTICE]
 - **`REFACTORING-FOWLER`**: Martin Fowler, "Refactoring: Improving the Design of Existing Code" (Addison-Wesley, 2nd ed. 2018). [BEST PRACTICE]
 - **`DEPENDENCY-HEALTH`**: OpenSSF (Open Source Security Foundation) Scorecard and Dependency Hygiene. https://scorecard.dev/ [BEST PRACTICE]
+- **`CHROME-MODERN-WEB-GUIDANCE`**: Google Chrome Developer Relations, Microsoft Edge, Mozilla, and W3C WebDX Community Group, "Modern Web Guidance: Legacy Web Pattern & Polyfill Deprecation". https://github.com/GoogleChrome/modern-web-guidance [BEST PRACTICE]
 
 ### 15 · Human-Computer Interaction & Cognitive Ergonomics
 - **`NORMAN-DESIGN-EVERYDAY-THINGS`**: Don Norman, "The Design of Everyday Things: Revised and Expanded Edition" (Basic Books, 2013). [BEST PRACTICE]

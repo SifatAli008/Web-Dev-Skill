@@ -20,6 +20,10 @@
     {
       "prompt": "Should we use TanStack Query or native Server Actions for managing client-side mutation states and optimistic updates?",
       "reason": "Data fetching, caching, and client state architecture."
+    },
+    {
+      "prompt": "How do we implement a lightweight modal and dropdown menu using native HTML dialog, the Popover API, and CSS Anchor Positioning instead of heavy npm libraries?",
+      "reason": "Modern web platform primitives, Baseline standards, and native web guidance."
     }
   ],
   "negative_near_misses": [

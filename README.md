@@ -27,6 +27,7 @@ Most AI agents act as eager junior developers: they generate code fast, but skip
 5. **AI Garbage Code & Artifact Control:** Zero placeholder comments (`// TODO`), strict folder de-bloating (max 3 levels deep), and strict artifact lifecycle control to prevent workspace littering.
 6. **Universal Tool Compatibility:** Adapters ensure instant integration with any leading AI development environment in under 2 minutes.
 7. **Zero-Dependency & Language Agnostic:** Enforces universal engineering principles across ANY language (TypeScript, Python, Go, Rust, Ruby, PHP, Java). The entire repository operates with **0 external dependencies** and runs out-of-the-box.
+8. **Modern Web Guidance & Baseline Standards:** Integrates the official **Google Chrome Modern Web Guidance (MWG)** and W3C WebDX Baseline specifications—mandating native browser primitives (native `<dialog>`, Popover API, CSS Anchor Positioning, Container Queries, View Transitions, `scheduler.yield()`) to eliminate obsolete npm packages and legacy polyfills.
 
 ---
 
@@ -38,7 +39,7 @@ Most AI agents act as eager junior developers: they generate code fast, but skip
 | **01** | **Product Lead** | `skills/product-discovery` | Right problem, MoSCoW scope cuts, PRD | Advises |
 | **02** | **Solution Architect** | `skills/architecture` | Fit-for-purpose design, ADRs, boundaries | **Design gate** |
 | **03** | **UX/UI & Accessibility Lead** | `skills/ux-ui-design` | WCAG 2.2 AA accessibility, contrast, design system | **A11y gate** |
-| **04** | **Frontend Lead** | `skills/frontend` | Maintainable UI code, zero-CLS layout stability | Advises |
+| **04** | **Frontend Lead** | `skills/frontend` | Maintainable UI code, Baseline native primitives, zero-CLS layout stability | Advises |
 | **05** | **Backend & Data Lead** | `skills/backend-data` | ACID transactions, expand-and-contract migrations | Advises |
 | **06** | **Application Security Lead** | `skills/security` | Confidentiality, OWASP Top 10, threat modeling | **HARD VETO** |
 | **07** | **Privacy & Compliance Officer** | `skills/privacy-compliance` | GDPR/ePrivacy consent, zero pre-consent tracking | **HARD VETO** |
