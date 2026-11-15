@@ -1,12 +1,12 @@
 ---
 name: ux-ui-design
-description: Use when designing UIs, authoring DESIGN.md contracts, applying taste-skill anti-slop architecture, Gestalt psychology, Swiss grids, design dials, taste profiles, layout diversity, Section 14 pre-flight checks, WCAG 2.2 AA and APCA accessibility, or 7-state token matrices. Trigger phrases include "ux", "ui design", "open-design", "design-md", "DESIGN.md", "design theory", "gestalt", "60-30-10", "typography science", "muller-brockmann", "grid systems", "measure 65ch", "optical alignment", "apca", "landing page", "taste-skill", "anti-slop", "design read", "design variance", "motion intensity", "visual density", "taste profile", "design tokens", "layout families", "pre-flight check", "type scale", "spacing scale", "hero layout", "accessibility", "a11y", "wcag", "contrast ratio", "empty state", "loading state", "aria".
+description: Use when designing UIs, authoring DESIGN.md contracts, applying taste-skill anti-slop architecture, Gestalt psychology, Swiss grids, OpenHero archetypes, 21st.dev craft primitives, GSAP animations, ThreeUI/SceneAI 3D canvases, Draftly UX flows, Toolfolio SaaS ergonomics, design dials, taste profiles, layout diversity, Section 14 pre-flight checks, WCAG 2.2 AA accessibility, or 7-state token matrices. Trigger phrases include "ux", "ui design", "open-design", "design-md", "DESIGN.md", "taste-skill", "anti-slop", "design read", "design dials", "taste profile", "design tokens", "layout families", "hero layout", "openhero", "21st.dev", "threeui", "gsap", "superdesign", "draftly", "sceneai", "toolfolio", "gestalt", "60-30-10", "typography science", "muller-brockmann", "grid systems", "measure 65ch", "apca", "landing page", "accessibility", "a11y", "wcag", "contrast ratio", "empty state", "loading state", "aria".
 tiers: ["MVP", "PROD", "SCALE"]
 inputs: ["prd.schema.json"]
 outputs: ["DESIGN.md", "ui-specs", "design-tokens.schema.json", "a11y-audit.schema.json"]
 depends_on: ["01-product-discovery"]
 last_verified: "2026-11-03"
-sources: ["WCAG-2-2", "WAI-ARIA-1-2", "REF-DESIGN-TOKENS", "AI-DESIGN-SKILLS-ELAYA", "TAILWIND-TYPE-SCALE", "TASTE-SKILL-LEONXLNX", "OPEN-DESIGN-NEXU", "GESTALT-PSYCHOLOGY", "ITTEN-COLOR-THEORY", "BRINGHURST-TYPOGRAPHY", "MULLER-BROCKMANN-GRIDS", "APCA-CONTRAST", "TUFTE-DATA-INK", "FROST-ATOMIC-DESIGN", "LUPTON-TYPE"]
+sources: ["WCAG-2-2", "WAI-ARIA-1-2", "REF-DESIGN-TOKENS", "AI-DESIGN-SKILLS-ELAYA", "TAILWIND-TYPE-SCALE", "TASTE-SKILL-LEONXLNX", "OPEN-DESIGN-NEXU", "GESTALT-PSYCHOLOGY", "ITTEN-COLOR-THEORY", "BRINGHURST-TYPOGRAPHY", "MULLER-BROCKMANN-GRIDS", "APCA-CONTRAST", "TUFTE-DATA-INK", "FROST-ATOMIC-DESIGN", "LUPTON-TYPE", "OPENHERO-ARCHETYPES", "21ST-DEV-REGISTRY", "GSAP-GREENSOCK", "THREEUI-3D-COMPONENTS", "SCENEAI-SPATIAL", "TOOLFOLIO-ERGONOMICS", "DRAFTLY-UX-FLOWS", "TASTESKILL-DEV", "SUPERDESIGN-SYSTEMS"]
 ---
 
 # Specialist Stance: UX/UI, Conversion & Accessibility Lead
@@ -122,7 +122,15 @@ I refuse to permit generic "AI slop" tells (purple-to-blue gradients, floating p
 21. **The 60-30-10 Perceptual Color Harmony Rule:**
     - *Always* balance interface color across 60% dominant base surface (`--bg-base`), 30% structural text/borders (`--text-1`, `--border-subtle`), and 10% high-contrast accent (`--accent-primary`); *never* deploy clashing multi-hue palettes without an accepted risk [ITTEN-COLOR-THEORY].
 22. **Micro-Typographic Measure & Optical Rhythm Rule:**
-    - *Always* constrain long-form reading lines to 45â€“75 characters (`max-w-[65ch]`); *mandate* inverse leading (tight 1.05â€“1.15 on display headings, comfortable 1.5â€“1.65 on body text) and activate `font-variant-numeric: tabular-nums` on all tabular and pricing data [BRINGHURST-TYPOGRAPHY, MULLER-BROCKMANN-GRIDS].
+    - *Always* constrain long-form reading lines to 45–75 characters (`max-w-[65ch]`); *mandate* inverse leading (tight 1.05–1.15 on display headings, comfortable 1.5–1.65 on body text) and activate `font-variant-numeric: tabular-nums` on all tabular and pricing data [BRINGHURST-TYPOGRAPHY, MULLER-BROCKMANN-GRIDS].
+23. **OpenHero Above-the-Fold & Archetype Discipline:**
+    - *Always* ground hero sections in one of the 6 OpenHero archetypes (Asymmetric Split, Floating UI Showcase, Command Palette, Editorial Typographic, 3D Canvas Spatial, Bento Showcase); *strictly bind* headlines to <= 2 lines, subtext < 20 words, and primary CTA above the fold with tactile active state [OPENHERO-ARCHETYPES].
+24. **21st.dev & Superdesign Craft Primitives:**
+    - *Always* engineer tactile micro-interactions on interactive cards and navigation: cursor-tracking spotlight radial borders, sliding segmented pill indicators, and bento grid asymmetry [21ST-DEV-REGISTRY, SUPERDESIGN-SYSTEMS].
+25. **ThreeUI & SceneAI 3D Spatial Canvas Governance:**
+    - *Always* isolate interactive 3D WebGL canvases with `aria-hidden="true"` and `tabindex="-1"`, provide a semantic DOM overlay, enforce 60fps visibility culling via `IntersectionObserver`, and provide a graceful static gradient fallback on context loss or reduced motion [THREEUI-3D-COMPONENTS, SCENEAI-SPATIAL].
+26. **GSAP High-Performance Motion & Toolfolio SaaS Ergonomics:**
+    - *Always* constrain animated properties to hardware-accelerated transforms (`x`, `y`, `scale`, `opacity`) using GSAP ScrollTrigger for scrubbed visual narratives; for utilitarian SaaS cockpits, enforce keyboard accelerators (`Cmd+K`, `/`, `Esc`) and sub-100ms Doherty feedback loops [GSAP-GREENSOCK, TOOLFOLIO-ERGONOMICS, DRAFTLY-UX-FLOWS].
 
 ---
 
@@ -142,17 +150,17 @@ I refuse to permit generic "AI slop" tells (purple-to-blue gradients, floating p
    - **Page Flow:** Structure narrative order using at least 4 distinct layout families.
 
 ### Step 3: Bounded Hero Section & Multi-Family Layout Composition [MVP] [PROD] [SCALE]
-1. Construct the hero section using strict outcome-driven visual hierarchy:
+1. Construct the hero section using OpenHero archetypes and outcome-driven visual hierarchy (`skills/ux-ui-design/references/modern-design-engineering-reference.md`):
    - **Headline:** Outcome-driven value, bounded to $\le 2$ lines.
    - **Subheadline:** Clear sentence under 20 words directly addressing the primary objection.
    - **Primary Action:** Dominant CTA button with high contrast and tactile affordance (`active:scale-[0.98]`).
    - **Trust Anchor:** Social proof immediately adjacent to the CTA without floating badges.
-2. Compose the remaining sections across $\ge 4$ diverse layout families (Asymmetric Split, Bento Grid, Alternating Flow, Metrics Strip).
+2. Compose the remaining sections across $\ge 4$ diverse layout families (Asymmetric Split, Bento Grid, Alternating Flow, Metrics Strip, Tabbed Workbench).
 
 ### Step 4: Token Contract & Authoring DESIGN.md (Part C) [MVP] [PROD] [SCALE]
 1. Author or update `DESIGN.md` at workspace root defining:
    - Active Taste Profile, quantitative dials, dual-theme OKLCH color ramps (`--bg-base`, `--bg-surface`, `--text-primary`), Zero-FOUC `<head>` script, and container query (`@container`) layouts.
-   - 12 Universal Interactive Primitives (Dialog, Dropdown, Toast, Tabs, Accordion, Input, Button, Table, Skeleton, Avatar, Tooltip, Drawer) conforming to `skills/ux-ui-design/references/component-primitives-reference.md`.
+   - 12 Universal Interactive Primitives (Dialog, Dropdown, Toast, Tabs, Accordion, Input, Button, Table, Skeleton, Avatar, Tooltip, Drawer) conforming to `skills/ux-ui-design/references/component-primitives-reference.md` and craft physics in `skills/ux-ui-design/references/modern-design-engineering-reference.md`.
 2. Bind all typography to the type scale (`xs: 12px` through `5xl: 48px`).
 3. Snap all spacing to the 4px/8px modular rhythm (cards: `p-6` or `p-8`; gaps: `gap-3` or `gap-4`).
 4. Validate design token specifications against `templates/schemas/design-tokens.schema.json`.

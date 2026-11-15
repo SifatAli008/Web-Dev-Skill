@@ -20,6 +20,10 @@
     {
       "prompt": "Redesign our checkout form to improve mobile ergonomics, touch target sizes, and inline accessible error announcements.",
       "reason": "Form usability, touch target sizing (44x44px), and accessible microcopy."
+    },
+    {
+      "prompt": "Architect an above-the-fold hero section using OpenHero layout archetypes, 21st.dev spotlight card micro-interactions, and GSAP scroll motion.",
+      "reason": "OpenHero section design, 21st.dev craft micro-interactions, and high-performance GSAP motion choreography."
     }
   ],
   "negative_near_misses": [

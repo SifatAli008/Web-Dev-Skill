@@ -243,3 +243,15 @@ Refer to `skills/ux-ui-design/references/component-primitives-reference.md` for 
 11. **Tooltip:** Zero-delay grouping on adjacent triggers, screen-edge clamping, `role="tooltip"`.
 12. **Drawer / Sheet:** Responsive slide-in from bottom/left with `env(safe-area-inset-bottom)`.
 
+---
+
+## 12. Modern Design Engineering Standards (OpenHero, 21st.dev, GSAP & 3D Spatial Canvases)
+
+Refer to `skills/ux-ui-design/references/modern-design-engineering-reference.md` for full implementation standards for:
+1. **OpenHero Archetypes (`openhero.art`):** Bounded headline ($\le 2$ lines), subtext $< 20$ words, dominant CTA above fold.
+2. **Craft Primitives (`21st.dev`, `superdesign.dev`):** Cursor-tracking spotlight cards, sliding indicator tabs, asymmetric bento cells.
+3. **3D Spatial Canvas Architecture (`threeui.com`, `sceneai.art`):** Isolated `<canvas aria-hidden="true">` with semantic DOM overlay, context loss fallback, and 60fps visibility culling.
+4. **GSAP Motion Choreography (`gsap.com`):** Hardware-accelerated transforms (`x`, `y`, `scale`, `opacity`), ScrollTrigger scrubbed storytelling, and Flip layout transitions.
+5. **Draftly UX & Toolfolio Ergonomics (`draftly.space`, `toolfolio.com`):** Low-fidelity to high-fidelity journey mapping, keyboard accelerators (`Cmd+K`, `/`), and sub-100ms Doherty threshold feedback.
+
+

@@ -71,4 +71,12 @@
   - [ ] Are form validation feedback states powered by CSS `:user-valid` and `:user-invalid` without premature error flashes?
   - [ ] Does the implementation target Baseline Widely Available primitives with zero unnecessary polyfills?
 
+- [ ] **10. Modern Design Engineering & Craft Verification (OpenHero, 21st.dev, GSAP, ThreeUI):**
+  - [ ] Does the hero section adopt one of the 6 OpenHero archetypes with headline $\le 2$ lines, subheadline $< 20$ words, and dominant CTA above the fold?
+  - [ ] Are interactive cards engineered with 21st.dev craft micro-interactions (cursor-tracking spotlight radial borders, tactile active states)?
+  - [ ] Are segmented navigation tabs powered by smooth sliding indicator pill physics (`cubic-bezier(0.16, 1, 0.3, 1)`)?
+  - [ ] If 3D WebGL canvases are present, are they isolated via `aria-hidden="true"` with a semantic accessible HTML DOM overlay?
+  - [ ] Are GSAP animations restricted to hardware-accelerated transforms (`x`, `y`, `scale`, `opacity`) with ScrollTrigger scrub optimization?
+  - [ ] Do developer and SaaS tool interfaces support keyboard accelerators (`Cmd+K`, `/`, `Esc`) and sub-100ms Doherty threshold feedback?
+
 

@@ -418,3 +418,27 @@ All interactive UI widgets must implement the canonical accessibility, DOM struc
 | **11. Tooltip** | `role="tooltip"` bound by `aria-describedby` | Hover or focus | Grouped 0ms delay on adjacent elements; viewport clamp |
 | **12. Drawer** | `role="dialog" aria-modal="true"` | `Escape`, swipe gesture | Slide-in transform with safe-area inset compensation |
 
+---
+
+## 12. Modern Design Engineering Standards (OpenHero, 21st.dev, GSAP & 3D Spatial Canvases)
+
+All production interfaces must conform to the design engineering standards synthesized in `skills/ux-ui-design/references/modern-design-engineering-reference.md`:
+
+1. **OpenHero Above-the-Fold Architecture (`openhero.art`):**
+   - Every landing page must adopt one of the 6 OpenHero archetypes (Asymmetric Split, Floating UI Showcase, Command Palette, Editorial Typographic, 3D Canvas Spatial, Bento Showcase).
+   - Strict Hero Constraints: Headline bounded to $\le 2$ lines, subheadline under 20 words outcome-driven, primary CTA strictly visible above the fold with tactile active press state (`active:scale-[0.98]`).
+2. **21st.dev & Superdesign Craft Primitives (`21st.dev`, `superdesign.dev`):**
+   - Interactive cards must feature cursor-tracking spotlight radial borders (`--mouse-x`, `--mouse-y`) and depth overlays.
+   - Segmented navigation controls must feature smooth sliding indicator pill physics (`cubic-bezier(0.16, 1, 0.3, 1)`).
+3. **ThreeUI & SceneAI 3D Spatial Canvas Governance (`threeui.com`, `sceneai.art`):**
+   - All interactive 3D WebGL canvases must carry `aria-hidden="true"` and `tabindex="-1"`.
+   - Readable content, headings, and interactive controls must reside in an accessible HTML DOM overlay positioned above the canvas.
+   - WebGL render loops must disconnect via `IntersectionObserver` when scrolled off-screen and provide graceful static gradient fallbacks on context loss or when `prefers-reduced-motion` is active.
+4. **GSAP High-Performance Motion Choreography (`gsap.com`):**
+   - All choreographed animations must animate hardware-accelerated transforms (`x`, `y`, `scale`, `opacity`)—never layout dimensions (`width`, `height`, `top`).
+   - Use GSAP ScrollTrigger with scrubbed physics for narrative storytelling and GSAP Flip for seamless shared element layout morphs.
+5. **Draftly UX Flows & Toolfolio Utilitarian Ergonomics (`draftly.space`, `toolfolio.com`):**
+   - Map user journeys from low-fidelity wireframe journeys to high-density utilitarian dashboards.
+   - For developer and SaaS cockpits, enforce keyboard accelerators (`Cmd+K`, `/`, `Esc`) and sub-100ms Doherty threshold visual feedback loops.
+
+

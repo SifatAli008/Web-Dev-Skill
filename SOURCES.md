@@ -54,6 +54,15 @@ Every technical claim in this repository is tagged with one of three epistemic l
 - **`TUFTE-DATA-INK`**: Edward Tufte, "The Visual Display of Quantitative Information" (Graphics Press, 1983) & "Envisioning Information" (1990). [BEST PRACTICE]
 - **`FROST-ATOMIC-DESIGN`**: Brad Frost, "Atomic Design" (Brad Frost Collection, 2016). https://atomicdesign.bradfrost.com/ [BEST PRACTICE]
 - **`LUPTON-TYPE`**: Ellen Lupton, "Thinking with Type: A Critical Guide for Designers, Writers, Editors, & Students" (Princeton Architectural Press, 2004). [BEST PRACTICE]
+- **`THREEUI-3D-COMPONENTS`**: ThreeUI 3D Web UI Component Architecture & WebGL Canvas Integration. https://threeui.com/ [BEST PRACTICE]
+- **`TASTESKILL-DEV`**: TasteSkill Design Taste & Anti-Slop Directive v2. https://www.tasteskill.dev/ [BEST PRACTICE]
+- **`21ST-DEV-REGISTRY`**: 21st.dev Component Registry for Design Engineers (Shadcn/Tailwind Craft Primitives). https://21st.dev/ [BEST PRACTICE]
+- **`GSAP-GREENSOCK`**: GreenSock Animation Platform (GSAP), ScrollTrigger & Flip Specification. https://gsap.com/ [FACT]
+- **`SUPERDESIGN-SYSTEMS`**: Superdesign Modern UI/UX Architecture & Generative Design Systems. https://superdesign.dev/ [BEST PRACTICE]
+- **`DRAFTLY-UX-FLOWS`**: Draftly Information Architecture, Spatial Prototyping & Wireframe Systems. https://www.draftly.space/ [BEST PRACTICE]
+- **`OPENHERO-ARCHETYPES`**: OpenHero Hero Section Craft, Visual Hierarchy & Above-the-Fold Layout Archetypes. https://openhero.art/ [BEST PRACTICE]
+- **`SCENEAI-SPATIAL`**: SceneAI 3D Scene Composition & Spatial Lighting Architecture. https://sceneai.art/ [BEST PRACTICE]
+- **`TOOLFOLIO-ERGONOMICS`**: Toolfolio Developer Tool & Utilitarian SaaS Dashboard Ergonomics. https://toolfolio.com/ [BEST PRACTICE]
 
 ### 04 · Frontend Engineering
 - **`REACT-DOCS`**: Official React Documentation and Server Components Specification (React 19). https://react.dev/ [FACT]

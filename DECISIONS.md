@@ -277,4 +277,28 @@ This file tracks foundational design and architectural decisions made for `unive
   10. Synchronize `skills.index.json` triggers, sources, and metadata for `04-frontend`, `10-performance`, and `14-maintenance`.
 - **Consequences:** Elevates the entire framework to state-of-the-art modern web standards, enforces Ponytail Rung 3 (Web Platform Native), cuts unnecessary npm dependencies, prevents AI legacy hallucination, and delivers optimal Core Web Vitals out-of-the-box.
 
+---
+
+## ADR-019: Modern Design Engineering & Craft UI/UX Frameworks Integration
+
+- **Status:** Accepted (Phase 10 - Modern Design Engineering & Craft UI/UX Integration)
+- **Context:** While ADR-017 established foundational visual design theory and ADR-018 integrated native browser platform primitives, modern web engineering demands state-of-the-art interactive craft, 60fps physics, tactile micro-interactions, above-the-fold layout diversity, and anti-slop visual discipline. Modern production web applications require formal reference standards for craft engineering primitives (spotlight hover, sliding pill tabs, bento cells from 21st.dev), above-the-fold architectural archetypes (OpenHero), WebGL/3D spatial components and canvas accessibility (ThreeUI, SceneAI), hardware-accelerated motion choreography (GSAP ScrollTrigger & Flip), utilitarian SaaS ergonomics (Toolfolio), UX flow wireframing (Draftly), modern token-driven architecture (Superdesign), and anti-slop aesthetic taste profiles (TasteSkill v2).
+- **Decision:**
+  1. Author comprehensive L2 operational reference guide: `skills/ux-ui-design/references/modern-design-engineering-reference.md` establishing the 7 modern design engineering pillars:
+     - Pillar 1: OpenHero Above-the-Fold Layout Archetypes (Asymmetric Split, Bento Grid, Command Palette, Interactive Terminal, Dynamic Telemetry, Video/Spatial Canvas).
+     - Pillar 2: 21st.dev Craft Primitives & Tactile Interactions (Spotlight Cards, Sliding Indicator Tabs, Gradient Tracing Borders, Tactile Feedback).
+     - Pillar 3: ThreeUI & SceneAI 3D WebGL Canvas Architecture (HTML overlay projection, progressive enhancement, 60fps loop culling, accessible DOM mirror).
+     - Pillar 4: GSAP Motion Choreography & ScrollTrigger Standards (hardware acceleration, scrubbed sequences, FLIP container layout morphing, `prefers-reduced-motion` compliance).
+     - Pillar 5: Draftly Information Architecture & UX Wireframing (lo-fi to hi-fi progression, user flow branch mapping, progressive disclosure).
+     - Pillar 6: Toolfolio Utilitarian SaaS Ergonomics (dense data grids, keyboard accelerators, inline editing, sub-100ms Doherty threshold feedback).
+     - Pillar 7: TasteSkill Anti-Slop Directives & Visual Dials (eliminating generic vibe-code clichés, layout diversity, 4 taste profiles: Minimalist, Industrial-Brutalist, Editorial, Soft-Consumer).
+  2. Embed **Rules 23–26** into `skills/ux-ui-design/SKILL.md` (OpenHero Hero Architecture, 21st.dev Craft Primitives, ThreeUI/SceneAI Canvas Governance, GSAP Motion Choreography) while strictly remaining under the 300-line ceiling (233 lines).
+  3. Expand `DESIGN.md` and `templates/design.template.md` with **Section 12: Modern Design Engineering Standards**.
+  4. Expand `checklists/design-and-a11y.checklist.md` with **Section 10: Modern Design Engineering & Craft Verification**.
+  5. Register all 9 authoritative source citations in `SOURCES.md` under `03 · UX/UI & Accessibility`: `THREEUI-3D`, `TASTESKILL-V2`, `TWENTY-FIRST-DEV`, `GSAP-MOTION`, `SUPERDESIGN-UI`, `DRAFTLY-UX`, `OPENHERO-ARCHETYPES`, `SCENEAI-SPATIAL`, and `TOOLFOLIO-ERGONOMICS`.
+  6. Enrich `GLOSSARY.md` with definitions for `Asymmetric Split Hero`, `Bento Hero`, `Command Palette Hero`, `GSAP Flip`, `GSAP ScrollTrigger`, `Spotlight Card`, and `ThreeUI`.
+  7. Synchronize `skills.index.json`, `skills/ux-ui-design/tests/trigger-tests.json`, and tool adapters with modern design engineering triggers.
+- **Consequences:** Eliminates generic AI "vibe code" and design slop, provides explicit production-ready implementation blueprints for high-craft UI/UX, guarantees 60fps performance and WCAG 2.2 AA accessibility across 3D/canvas and motion interactions, and equips AI agents with comprehensive craft engineering capabilities.
+
+
 

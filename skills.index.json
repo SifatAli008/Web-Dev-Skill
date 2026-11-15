@@ -216,7 +216,17 @@
         "golden ratio",
         "atomic design",
         "typography anatomy",
-        "data-to-ink"
+        "data-to-ink",
+        "openhero",
+        "21st.dev",
+        "threeui",
+        "gsap",
+        "superdesign",
+        "draftly",
+        "sceneai",
+        "toolfolio",
+        "spotlight card",
+        "command palette hero"
       ],
       "anti_triggers": [
         "database index",
@@ -250,7 +260,16 @@
         "APCA-CONTRAST",
         "TUFTE-DATA-INK",
         "FROST-ATOMIC-DESIGN",
-        "LUPTON-TYPE"
+        "LUPTON-TYPE",
+        "OPENHERO-ARCHETYPES",
+        "21ST-DEV-REGISTRY",
+        "GSAP-GREENSOCK",
+        "THREEUI-3D-COMPONENTS",
+        "SCENEAI-SPATIAL",
+        "TOOLFOLIO-ERGONOMICS",
+        "DRAFTLY-UX-FLOWS",
+        "TASTESKILL-DEV",
+        "SUPERDESIGN-SYSTEMS"
       ]
     },
     {

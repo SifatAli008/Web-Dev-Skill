@@ -51,16 +51,19 @@ This glossary defines standard terminology used across all 16 specialist skills.
 - **Affordance**: The actual, physical or digital properties of an interface object that determine how it can be operated (e.g. buttons afford pressing, sliders afford dragging).
 - **APCA (Accessible Perceptual Contrast Algorithm)**: A modern perceptual contrast metric (W3C Silver / WCAG 3 candidate) that calculates lightness contrast ($L^c$) dynamically based on spatial frequency, font weight, and background adaptation.
 - **Aspect Ratio**: The proportional relationship between an element's width and height (e.g. 16:9 widescreen, 4:3 classic, 1:1 square, 1.618:1 golden rectangle).
+- **Asymmetric Split Hero**: An OpenHero layout archetype featuring a 50/50 horizontal split pairing an outcome-driven headline and CTA on the left with a live, interactive tactile component on the right.
 - **Asymmetrical Balance**: Compositional equilibrium achieved by balancing unequal visual elements of differing size, color, or contrast (e.g. a small high-contrast badge balancing a large headline).
 - **Atomic Design**: Brad Frost's design system methodology decomposing interfaces into Atoms, Molecules, Organisms, Templates, and Pages.
 - **Baseline Grid**: A horizontal spatial rhythm (typically 4px or 8px) to which all typographic baselines and vertical component dimensions lock.
 - **Bento Box Grid**: A modern layout pattern organizing disparate telemetry and interactive modules into rounded, high-density compartmentalized cells with one dominant anchor tile.
+- **Bento Hero**: An OpenHero layout archetype featuring a multi-cell asymmetric bento grid beneath a bounded headline to showcase distinct product capabilities.
 - **Bezold Effect**: An optical phenomenon where the perceived hue and saturation of a color field is fundamentally altered by fine adjacent dividing lines or borders.
 - **Bringhurst Measure**: The canonical typographic rule (Robert Bringhurst) stating that the optimal reading measure for sustained comprehension is 45 to 75 characters (ideally 65 characters / `65ch`).
 - **Cap Height**: The height of flat capital letters from the baseline (e.g. H, I, T).
 - **Chartjunk**: Extraneous, non-data decorative visual noise in charts (heavy grid lines, 3D extrusions, fake textures) that degrades cognitive comprehension (Edward Tufte).
 - **Closure**: A Gestalt law stating that the human brain automatically fills in missing parts of incomplete shapes or layouts to perceive a unified whole (e.g. carousel peeking).
 - **Common Region**: A Gestalt law establishing that elements enclosed within a shared visual boundary or background surface are perceived as a coherent group.
+- **Command Palette Hero**: An OpenHero layout archetype featuring a live, accessible search/CLI input (`Cmd+K`) directly in the above-the-fold hero section.
 - **Container Query (`@container`)**: Modern CSS capability allowing component layout and styling to respond to the width of its parent container rather than the global viewport window.
 - **Data-to-Ink Ratio**: Edward Tufte's fundamental metric for data graphics: the proportion of graphic pixels/ink devoted to displaying actual data versus total graphic area.
 - **Display P3**: A wide-gamut RGB color space capable of displaying ~25% more vibrant chromatic shades than standard sRGB, particularly in greens, cyans, and reds.
@@ -70,6 +73,8 @@ This glossary defines standard terminology used across all 16 specialist skills.
 - **Figure-Ground**: The perceptual separation of an interface into a focal interactive foreground element (figure) and an underlying background canvas (ground).
 - **Focal Point**: An intentional visual center of gravity created through contrast, color saturation, or scale that commands initial user attention.
 - **Frosted Glass (Glassmorphism)**: An architectural depth technique pairing background blur (`backdrop-filter: blur()`), translucent fills, and specular rim borders.
+- **GSAP Flip**: GreenSock Animation Platform plugin implementing the First-Last-Invert-Play technique for high-performance layout and container morphs.
+- **GSAP ScrollTrigger**: GreenSock animation plugin enabling scrubbed, pinned, and scroll-linked timeline sequences mapped directly to scroll velocity and viewport position.
 - **Gestalt Principles**: Universal psychological laws governing how the human visual cortex automatically organizes raw visual stimuli into grouped, coherent structures.
 - **Golden Ratio ($\Phi \approx 1.618$)**: A classical divine proportion where the ratio of the whole to the larger segment equals the ratio of the larger to the smaller segment.
 - **Gulf of Evaluation**: Don Norman's concept of the psychological gap between the system's current state and the user's ability to assess whether their goal was met.
@@ -97,10 +102,12 @@ This glossary defines standard terminology used across all 16 specialist skills.
 - **Small Multiples**: Edward Tufte's high-density graphic technique displaying repeated, compact charts sharing identical scales to enable effortless side-by-side comparison.
 - **Sparkline**: A miniature, word-sized data graphic embedded directly into running text or telemetry tables without axes or coordinates.
 - **Spotlight Border**: An interactive micro-interaction where a subtle radial gradient tracks cursor coordinates across card borders, providing dynamic tactile depth.
+- **Spotlight Card**: A modern craft UI card primitive (21st.dev) featuring a subtle cursor-tracking radial gradient border that provides tactile spatial depth on hover.
 - **Steering Law (Accot-Zhai)**: The empirical model predicting the time required to navigate a pointing device through a constrained 2D tunnel (such as cascading flyout menus).
 - **Subgrid**: Modern CSS Grid capability (`grid-template-columns: subgrid`) allowing child items to align directly with their parent grid's tracks across siblings.
 - **Tabular Numerals (`tabular-nums`)**: Monospaced numeric glyphs ensuring numbers occupy equal horizontal width, preventing visual jitter in tables and timers.
 - **Tesler's Law (Conservation of Complexity)**: The principle that every application possesses an irreducible amount of complexity that must either be handled by software or borne by the user.
+- **ThreeUI**: Modern 3D web UI component architecture built on Three.js, WebGL, and React Three Fiber featuring spatial depth, physics, and isolated accessible DOM overlays.
 - **Top Layer**: A dedicated browser rendering layer sitting above all standard z-index stacking contexts, used natively by `<dialog>`, popovers, and fullscreen elements.
 - **Tracking (Letter-Spacing)**: Uniform horizontal spacing applied across an entire string of characters.
 - **Variable Font**: A modern font standard where a single font file contains multiple axes of variation (weight `wght`, width `wdth`, slant `slnt`, optical size `opsz`).
