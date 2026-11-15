@@ -1,6 +1,6 @@
 # Universal WebDev Skills: Progress Tracker
 
-> **Current Phase:** Phase 10 Completed (Modern Design Engineering & Craft UI/UX Architecture)  
+> **Current Phase:** Phase 11 Completed (Deterministic Enforcement, Vendor Resolution & Empirical Transparency)  
 > **Status:** 100% COMPLETE & VERIFIED  
 > **Last Updated:** 2026-11-15  
 > **State Integrity:** State is maintained in files (`PROGRESS.md`, `DECISIONS.md`).
@@ -21,6 +21,22 @@
 | **Phase 8** | HCI, Cognitive Ergonomics & Master Design Theory Architecture (16th specialist `15-hci-interaction`, 13-pillar design science compendium, 12 Atomic Primitives, Dual-Theme OKLCH, Container Queries, Micro-Interactions, 60+ design concept glossary, ADR-013 through ADR-017). | **COMPLETE (GATE 8)** | Full Agent Skills conformance, schema-validated HCI & Design templates, 17 ADRs, all 12 verification suites passing. |
 | **Phase 9** | Modern Web Platform Guidance & Baseline Standard Integration (Google Chrome MWG, native `<dialog>`, Popovers, CSS Anchor Positioning, Container Queries, `scheduler.yield()`, `FM-14`, ADR-018). | **COMPLETE (GATE 9)** | Full Agent Skills conformance, MWG references, 18 ADRs, all 12 master verification suites passing. |
 | **Phase 10** | Modern Design Engineering & Craft UI/UX Architecture (OpenHero, 21st.dev, ThreeUI, GSAP, Superdesign, Draftly, SceneAI, Toolfolio, TasteSkill v2, Section 12 DESIGN.md, Section 10 checklist, ADR-019). | **COMPLETE (GATE 10)** | Full Agent Skills conformance, craft engineering references, 19 ADRs, all 14 master verification suites passing. |
+| **Phase 11** | Deterministic Enforcement, Vendor Resolution & Empirical Transparency (CLI vendor resolution, `update` command, `ci` deterministic gate, doctor link validator, legal disclaimers, CWV calibration, ADR-020). | **COMPLETE (GATE 11)** | Full Agent Skills conformance, verified CLI vendoring, 20 ADRs, all 14 master verification suites passing. |
+
+---
+
+## Phase 11 Deliverables Completed
+
+- [x] **Deterministic Enforcement & Vendor Resolution Architecture (ADR-020):**
+  - Refactored `bin/cli.js` installer:
+    - Implemented `installFrameworkAssets()` with `--mode <vendor|root>` to automatically copy `.webdev-skills/` into downstream workspaces alongside adapters with rewritten, fully resolvable relative paths.
+    - Implemented `npx webdev-skills update` for seamless updates of vendored assets and adapters.
+    - Implemented `npx webdev-skills ci` and `templates/ci-gate.template.yml` for deterministic GitHub Actions CI gating (secret scanning, SQL injection pattern scanning, placeholder stub audits, test execution).
+    - Upgraded `npx webdev-skills doctor` to audit adapter existence, framework asset presence, link path resolvability, version parity, and deterministic CI gate configuration.
+  - Clarified Core Web Vitals targets across `README.md`, `skills/performance/SKILL.md`, and `04-frontend.mdc`: officially targeting $\text{CLS} \le 0.1$ to align with Google Chrome Web Vitals standards while preserving 0-shift target on first-party DOM.
+  - Added formal legal disclaimer in `skills/privacy-compliance/SKILL.md` and `checklists/privacy.checklist.md` confirming technical privacy patterns do not substitute for statutory legal representation.
+  - Expanded `evals/RESULTS.md` with Section 7 ("Methodology, Run Parameters & Empirical Limitations") disclosing $N = 3$ runs, $T = 0.2$, tested model versions, control group parameters, and the advisory nature of prompt steering.
+  - Recorded **ADR-020** in `DECISIONS.md`.
 
 ---
 

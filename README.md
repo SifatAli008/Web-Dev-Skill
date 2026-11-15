@@ -45,7 +45,7 @@ Most AI agents act as eager junior developers: they generate code fast, but skip
 | **07** | **Privacy & Compliance Officer** | `skills/privacy-compliance` | GDPR/ePrivacy consent, zero pre-consent tracking | **HARD VETO** |
 | **08** | **SQAT & SDET Lead** | `skills/testing-qa` | Software Quality Assurance & Testing, Quality Gates, mutation testing | **No evidence, no ship** |
 | **09** | **DevOps / SRE Lead** | `skills/devops-infra` | CI/CD, liveness/readiness probes, rollback scripts | **No rollback, no ship** |
-| **10** | **Performance Engineer** | `skills/performance` | Core Web Vitals (LCP < 2.5s, CLS = 0), budgets | Warns |
+| **10** | **Performance Engineer** | `skills/performance` | Core Web Vitals (LCP < 2.5s, CLS <= 0.1), budgets | Warns |
 | **11** | **SEO & Growth Lead** | `skills/seo-marketing` | Schema.org JSON-LD, XML sitemaps, robots.txt | Advises |
 | **12** | **Business & Monetization Lead** | `skills/business-monetization` | Server-authoritative billing, webhook validation | Advises |
 | **13** | **Launch & Operations Manager** | `skills/launch-operations` | Go-live readiness, launch reports, runbooks | **Launch gate** |
@@ -66,20 +66,25 @@ Run the interactive installer directly in any project root:
 npx webdev-skills init
 ```
 
-Or specify your target tool directly:
+The installer vendors the core framework assets (`skills/`, `skills.index.json`, `AGENTS.md`, `DESIGN.md`) into `.webdev-skills/` and links your agent adapter with fully resolvable paths.
+
+Or configure your target tool and deterministic CI gate directly:
 ```bash
-npx webdev-skills init --tool cursor       # Installs .cursorrules
-npx webdev-skills init --tool claude       # Installs CLAUDE.md
-npx webdev-skills init --tool antigravity  # Installs GEMINI.md
-npx webdev-skills init --tool copilot      # Installs .github/copilot-instructions.md
-npx webdev-skills init --tool gemini       # Installs GEMINI.md
-npx webdev-skills init --tool chatgpt      # Installs system-prompt.md
+npx webdev-skills init --tool cursor --ci       # Installs .cursorrules + .cursor/rules/ + CI gate
+npx webdev-skills init --tool claude --ci       # Installs CLAUDE.md + CI gate
+npx webdev-skills init --tool antigravity       # Installs GEMINI.md
+npx webdev-skills init --tool copilot          # Installs .github/copilot-instructions.md
+npx webdev-skills init --tool gemini           # Installs GEMINI.md
+npx webdev-skills init --tool chatgpt          # Installs system-prompt.md
 ```
 
-Inspect specialists or diagnose your setup at any time:
+CLI Utilities & Diagnostics:
 ```bash
-npx webdev-skills list
-npx webdev-skills doctor
+npx webdev-skills doctor    # Audits adapter presence, file resolvability & CI status
+npx webdev-skills update    # Upgrades vendored skills and adapters to latest package version
+npx webdev-skills ci        # Adds deterministic GitHub Actions CI verification gate
+npx webdev-skills list      # Displays all 16 specialists and their token budgets
+npx webdev-skills audit     # Scans workspace for AI stubs, credential leaks & tier signals
 ```
 
 ---
@@ -170,10 +175,10 @@ Tested across 9 standardized benchmarks in [`evals/tasks/eval-tasks.json`](evals
 
 | Model Category | Baseline (No Skills) | With Skills | Improvement Delta | OWASP Critical Flaws |
 |---|---|---|---|---|
-| **Frontier Models** *(Claude 3.5 Sonnet, GPT-4o, Gemini 1.5 Pro)* | 53.3 / 100 | **95.9 / 100** | **+79.9% (+42.6 pts)** | **10 â†’ 0** |
-| **Small Models** *(Claude 3.5 Haiku, Gemini 1.5 Flash, Llama 3 8B)* | 37.3 / 100 | **86.8 / 100** | **+132.7% (+49.5 pts)** | **18 â†’ 0** |
+| **Frontier Models** *(Claude 3.5 Sonnet, GPT-4o, Gemini 1.5 Pro)* | 53.3 / 100 | **95.9 / 100** | **+79.9% (+42.6 pts)** | **10 → 0** |
+| **Small Models** *(Claude 3.5 Haiku, Gemini 1.5 Flash, Llama 3 8B)* | 37.3 / 100 | **86.8 / 100** | **+132.7% (+49.5 pts)** | **18 → 0** |
 
-*All 16 specialist skills were validated via deletion tests; every skill contributes measurable positive value with zero token bloat.* See complete metrics in [`evals/RESULTS.md`](evals/RESULTS.md).
+*Methodology & Advisory Disclosure:* Benchmark figures reflect composite averages across $N = 3$ independent evaluation runs ($T = 0.2$) on 2024 frontier model checkpoints. Newer models will demonstrate narrower relative deltas. Prompt instructions provide cognitive guidance but are advisory; production safety requires pairing prompt discipline with deterministic CI gating (`npx webdev-skills ci`). See complete parameters, run counts, and limitations in [`evals/RESULTS.md`](evals/RESULTS.md).
 
 ---
 

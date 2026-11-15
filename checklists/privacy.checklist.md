@@ -1,7 +1,8 @@
 # Privacy & Compliance Audit Checklist
 
 > **Authority:** Privacy & Compliance Officer (`07-privacy-compliance`) — HARD VETO  
-> **Scope:** GDPR, CCPA/CPRA, ePrivacy, and Data Subject Rights
+> **Scope:** GDPR, CCPA/CPRA, ePrivacy, and Data Subject Rights  
+> **Disclaimer:** Technical privacy checklist represents software engineering controls, not statutory legal advice.
 
 ---
 

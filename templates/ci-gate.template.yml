@@ -1,0 +1,69 @@
+name: Universal WebDev Quality & Security Gate
+
+on:
+  push:
+    branches: [main, master, develop]
+  pull_request:
+    branches: [main, master, develop]
+
+jobs:
+  gate:
+    name: Deterministic Quality & Security Verification
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Secret Invariant Scan (Hard Veto)
+        run: |
+          echo "Scanning for accidental committed credentials, private keys, and high-entropy secrets..."
+          # Scan for private keys, AWS tokens, GitHub personal access tokens
+          if git grep -E -I -n "(AKIA[0-9A-Z]{16}|BEGIN (RSA|EC|OPENSSH) PRIVATE KEY|ghp_[0-9a-zA-Z]{36})" -- ':!node_modules' ':!.git' ':!dist' ':!build'; then
+            echo "::error::CRITICAL: Hardcoded secret or private key pattern detected!"
+            exit 1
+          fi
+          echo "Secret scan passed: 0 leaks found."
+
+      - name: SQL Injection Vulnerability Scan (Hard Veto)
+        run: |
+          echo "Scanning for unparameterized raw SQL string concatenation..."
+          # Check for raw string concatenation in database query calls
+          RAW_SQL=$(git grep -E -I -n "(query|execute|raw)\s*\(\s*(\`|\"|')[^'\`\"]*\\$\\{" -- ':!node_modules' ':!.git' ':!dist' ':!*.test.*' ':!*.spec.*' || true)
+          if [ -n "$RAW_SQL" ]; then
+            echo "::error::CRITICAL: Potential raw SQL string concatenation detected:"
+            echo "$RAW_SQL"
+            exit 1
+          fi
+          echo "SQL parameterization scan passed."
+
+      - name: AI Hygiene & Placeholder Code Audit
+        run: |
+          echo "Scanning for unresolved AI placeholder comments (// TODO, // FIXME, // STUB)..."
+          STUBS=$(git grep -E -I -n "(//\s*TODO:|//\s*FIXME:|//\s*STUB:)" -- ':!node_modules' ':!.git' ':!dist' ':!*.test.*' ':!*.spec.*' || true)
+          if [ -n "$STUBS" ]; then
+            echo "::warning::Unresolved AI placeholder stubs detected in codebase:"
+            echo "$STUBS"
+          fi
+
+      - name: Setup Node.js (Conditional)
+        if: hashFiles('package.json') != ''
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+
+      - name: Execute Project Tests (No Evidence, No Ship)
+        run: |
+          if [ -f package.json ]; then
+            if [ -f package-lock.json ]; then npm ci; else npm install; fi
+            npm test
+          elif [ -f pyproject.toml ] || [ -f requirements.txt ]; then
+            if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+            pytest
+          elif [ -f go.mod ]; then
+            go test ./...
+          elif [ -f Cargo.toml ]; then
+            cargo test
+          else
+            echo "No standard test manifest detected; passing static analysis."
+          fi

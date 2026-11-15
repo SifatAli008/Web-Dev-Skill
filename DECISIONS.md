@@ -300,5 +300,28 @@ This file tracks foundational design and architectural decisions made for `unive
   7. Synchronize `skills.index.json`, `skills/ux-ui-design/tests/trigger-tests.json`, and tool adapters with modern design engineering triggers.
 - **Consequences:** Eliminates generic AI "vibe code" and design slop, provides explicit production-ready implementation blueprints for high-craft UI/UX, guarantees 60fps performance and WCAG 2.2 AA accessibility across 3D/canvas and motion interactions, and equips AI agents with comprehensive craft engineering capabilities.
 
+---
+
+## ADR-020: Deterministic Enforcement, Vendor Resolution & Empirical Transparency
+
+- **Status:** Accepted (Phase 11 - Limitations & Weaknesses Remediation)
+- **Context:** An external engineering audit ("Universal WebDev Skills: Limitations & Weaknesses Report", Nov 15, 2026) identified five structural vulnerabilities in prompt-only frameworks:
+  1. *Advisory trap & Sybil self-review:* Markdown rules and vetoes lack deterministic technical enforcement if the model acts as both author and reviewer.
+  2. *Installer file-resolution disconnect:* `npx webdev-skills init` only placed a standalone adapter in downstream workspaces, leaving referenced files (`skills/`, `skills.index.json`, `AGENTS.md`, `DESIGN.md`) unresolvable.
+  3. *Absence of update mechanisms:* No `update` command or manifest version tracking existed.
+  4. *Evaluation transparency:* Unstated run parameters ($N$, temperature, model checkpoints) and static shields.io badges.
+  5. *Standards calibration:* Ambiguity between absolute component stability (`CLS = 0`) and Google's official Core Web Vitals threshold ($\text{CLS} \le 0.1$).
+- **Decision:**
+  1. Refactor `bin/cli.js` installer:
+     - Implemented `installFrameworkAssets()` with `--mode <vendor|root>` to vendor `.webdev-skills/` into downstream workspaces alongside tool adapters with rewritten, fully resolvable relative paths.
+     - Implemented `npx webdev-skills update` for seamless upgrades of vendored assets and adapters.
+     - Implemented `npx webdev-skills ci` and `templates/ci-gate.template.yml` for deterministic GitHub Actions CI gating (secret scanning, SQL injection pattern scanning, placeholder stub audits, test execution).
+     - Upgraded `npx webdev-skills doctor` to audit adapter existence, framework asset presence, link path resolvability, version parity, and deterministic CI gate configuration.
+  2. Clarify Core Web Vitals targets across `README.md`, `skills/performance/SKILL.md`, and `04-frontend.mdc`: officially target $\text{CLS} \le 0.1$ to align with Google Chrome Web Vitals standards while preserving 0-shift target on first-party DOM.
+  3. Add formal legal disclaimer in `skills/privacy-compliance/SKILL.md` and `checklists/privacy.checklist.md` confirming technical privacy patterns do not substitute for statutory legal representation.
+  4. Expand `evals/RESULTS.md` with Section 7 ("Methodology, Run Parameters & Empirical Limitations") disclosing $N = 3$ runs, $T = 0.2$, tested model versions, control group parameters, and the advisory nature of prompt steering.
+- **Consequences:** Resolves the file-resolution bug for downstream users, introduces deterministic CI enforcement to mitigate the advisory trap, provides transparent empirical documentation, and ensures robust update mechanisms.
+
+
 
 

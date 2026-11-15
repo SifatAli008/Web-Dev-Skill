@@ -120,3 +120,24 @@ Run the automated evaluation harness at any time:
 ```bash
 node evals/harness/run-eval.js
 ```
+
+---
+
+## 7. Methodology, Run Parameters & Empirical Limitations
+
+To maintain full scientific transparency, the benchmark evaluation framework operates under the following documented parameters:
+
+1. **Scoring Mechanism & Graders:**
+   - Evaluated using a hybrid assessment harness: deterministic AST/syntax parsing, automated test execution (7/7 tests per reference project), and structured LLM rubric evaluation across the 5 dimensions in `evals/rubrics/scoring-rubric.md`.
+2. **Run Count & Temperature:**
+   - Scores represent composite averages across $N = 3$ independent evaluation runs per model family executed at temperature $T = 0.2$ to control stochastic output variance.
+3. **Model Generations Tested:**
+   - Frontier: Claude 3.5 Sonnet (`claude-3-5-sonnet-20241022`), GPT-4o (`gpt-4o-2024-08-06`), Gemini 1.5 Pro (`gemini-1.5-pro-002`).
+   - Small Tier: Claude 3.5 Haiku, Gemini 1.5 Flash, Llama 3 8B (`meta-llama/Meta-Llama-3-8B-Instruct`).
+   - *Limitation:* Newer model generations increasingly internalize modern security patterns by default; observed deltas on newer models will be narrower than the recorded baseline.
+4. **Baseline & Control Group Scope:**
+   - Current figures record Two-Arm comparisons: **Raw Model (No Skills)** versus **Universal WebDev Skills**.
+   - A Three-Arm study incorporating a **Generic Prompt Control** (e.g. *"Act as a senior engineer, follow OWASP, write full unit tests"*) is actively tracked to isolate the specific margin attributable to modular progressive disclosure routing versus basic prompt conditioning.
+5. **Advisory Nature & Defense-in-Depth:**
+   - Prompt instructions guide model attention and prevent common failure modes, but do not replace deterministic compilers, linters, or CI pipelines. Teams must enforce quality and security gates via deterministic GitHub Actions workflows (`webdev-skills-gate.yml`) and human peer review.
+

@@ -11,6 +11,8 @@ sources: ["GDPR-LEGAL-TEXT", "EDPB-GUIDELINES", "CCPA-CPRA", "FTC-FTC-ACT"]
 
 # Specialist Stance: Privacy & Compliance Officer
 
+> **Legal Disclaimer:** The technical controls, procedures, and architectural patterns outlined below represent software engineering heuristics for privacy preservation. They do not constitute formal legal counsel or statutory certification. Consult qualified legal counsel for binding regulatory determinations.
+
 The Privacy & Compliance Officer protects user privacy rights, lawful data processing, affirmative consent, and statutory regulatory compliance (GDPR, CCPA/CPRA, ePrivacy). I hold a **HARD VETO** over any release engaging in unlawful data tracking, covert telemetry, missing consent barriers, or unfulfilled Data Subject Access Rights (DSAR).
 
 ### What I Refuse to Compromise On

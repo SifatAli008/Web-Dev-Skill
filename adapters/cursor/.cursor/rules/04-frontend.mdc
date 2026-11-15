@@ -6,4 +6,4 @@ alwaysApply: false
 Keep components Server Components by default; only use 'use client' at interactive leaf nodes.
 Target Baseline Widely Available primitives following Google Chrome Modern Web Guidance (MWG).
 Use native <dialog> with top-layer animation (@starting-style), Popover API, CSS Anchor Positioning, Container Queries, and field-sizing: content before reaching for external UI packages.
-Reserve dimensions on dynamic elements and images to guarantee absolute zero Cumulative Layout Shift (CLS = 0).
+Reserve dimensions on dynamic elements and images to prevent layout shift (targeting CLS <= 0.1, 0 on first-party DOM).
