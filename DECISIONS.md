@@ -362,6 +362,19 @@ This file tracks foundational design and architectural decisions made for `unive
   5. Synchronize `skills.index.json`, `README.md`, and tool adapters with the Anthropic Agent Skills ecosystem.
 - **Consequences:** Deepens alignment with Anthropic's canonical agent skill specification, standardizes trigger engineering and deletion testing across the 16 specialists, prevents context bloat through strict progressive disclosure, and ensures seamless interoperability with the `skills.sh` ecosystem.
 
+---
+
+## ADR-023: Multi-Language Golden Reference Implementations (Python & Go)
+
+- **Status:** Accepted (Phase 14 - Multi-Language Proof & Language Agnosticism)
+- **Context:** An external audit report noted that while Universal WebDev Skills claims language and framework agnosticism (supporting TypeScript, Python, Go, Rust, Ruby, PHP, and Java), all previous golden reference projects were Node.js implementations, creating an empirical evidence gap.
+- **Decision:**
+  1. Author `reference-projects/04-python-fastapi-prod`: A production-tier Python implementation demonstrating PBKDF2/Argon2 password hashing, SQLite parameterized queries (100% SQL injection immunity), idempotency keys with cache replays, atomic stock deduction, liveness/readiness health probes, and OWASP security headers (7/7 tests passing).
+  2. Author `reference-projects/05-go-microservice-scale`: A scale-tier Go 1.22+ implementation using standard library `net/http`, sync mutex concurrency control, HMAC-SHA256 salted password hashing with constant-time verification, idempotency replay caching, atomic inventory locking, and strict security headers (7/7 tests passing).
+  3. Upgrade `tools/run-reference-tests.js` into a cross-platform multi-runtime runner executing Node.js, Python, and Go test suites sequentially with automated runtime detection.
+  4. Update `evals/RESULTS.md` and `README.md` to document the 5 reference projects (35/35 tests passing, 0 OWASP criticals across 3 distinct runtimes).
+- **Consequences:** Empirically proves that the 16 specialists and their binding engineering gates operate identically across Python and Go runtimes without requiring Node.js lock-in.
+
 
 
 

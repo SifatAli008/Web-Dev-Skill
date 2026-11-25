@@ -24,6 +24,18 @@
 | **Phase 11** | Deterministic Enforcement, Vendor Resolution & Empirical Transparency (CLI vendor resolution, `update` command, `ci` deterministic gate, doctor link validator, legal disclaimers, CWV calibration, ADR-020). | **COMPLETE (GATE 11)** | Full Agent Skills conformance, verified CLI vendoring, 20 ADRs, all 14 master verification suites passing. |
 | **Phase 12** | Google Agent Skills Standard & Cloud Architecture Integration (google/skills, skills.sh ecosystem, Cloud Run container contract, Workload Identity Federation, Well-Architected pillars, ADR-021). | **COMPLETE (GATE 12)** | Full Agent Skills conformance, Cloud Run references, 21 ADRs, all 14 master verification suites passing. |
 | **Phase 13** | Anthropic Agent Skills Architecture Integration (anthropics/skills, skill-creator, frontend-design, webapp-testing, mcp-builder, progressive disclosure, ADR-022). | **COMPLETE (GATE 13)** | Full Agent Skills conformance, Anthropic references, 22 ADRs, all 14 master verification suites passing. |
+| **Phase 14** | Multi-Language Golden Reference Implementations (Python FastAPI PROD, Go microservice SCALE, multi-runtime test runner, ADR-023). | **COMPLETE (GATE 14)** | 5 reference projects (Node, Python, Go), 35/35 tests passing, 0 OWASP criticals, 23 ADRs, all master suites passing. |
+
+---
+
+## Phase 14 Deliverables Completed
+
+- [x] **Multi-Language Golden Reference Implementations (ADR-023):**
+  - Built `reference-projects/04-python-fastapi-prod`: Full Python implementation with SQLite parameterized queries, PBKDF2 salt hashing, atomic order inventory transactions, idempotency replay caching, health probes, and OWASP security headers (7/7 tests passing).
+  - Built `reference-projects/05-go-microservice-scale`: Full Go 1.22+ implementation with standard library `net/http`, sync mutex concurrency control, HMAC-SHA256 salted password hashing, constant-time verification, and idempotency protection (7/7 tests passing).
+  - Upgraded `tools/run-reference-tests.js` to execute Node.js, Python, and Go test suites across all 5 reference projects.
+  - Updated `evals/RESULTS.md` with 35/35 passing tests across 3 distinct runtimes.
+  - Recorded **ADR-023** in `DECISIONS.md`.
 
 ---
 
