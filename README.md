@@ -4,12 +4,17 @@
 > Takes web projects from napkin idea to production-grade release at the exact right level of rigor.
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
-[![CI](https://github.com/SifatAli008/Web-Dev-Skill/actions/workflows/ci.yml/badge.svg)](https://github.com/SifatAli008/Web-Dev-Skill/actions/workflows/ci.yml)
+[![CI](https://github.com/SifatAli008/Web-Dev-Skill/actions/workflows/release-and-verify.yml/badge.svg)](https://github.com/SifatAli008/Web-Dev-Skill/actions/workflows/release-and-verify.yml)
+[![skills.sh: Compatible](https://img.shields.io/badge/skills.sh-Compatible-black?logo=vercel&logoColor=white)](https://skills.sh)
 [![Rigor: 3--Tier](https://img.shields.io/badge/Rigor-MVP%20%7C%20PROD%20%7C%20SCALE-success)](AGENTS.md)
 [![Tests: 195/195 Passing](https://img.shields.io/badge/Tests-195%2F195%20Passing-brightgreen)](skills/)
 [![OWASP Criticals: 0](https://img.shields.io/badge/OWASP%20Criticals-0%20Verified-brightgreen)](reference-projects/)
 [![Frontier Eval Delta](https://img.shields.io/badge/Frontier%20Eval-%2B79.9%25%20Delta-blueviolet)](evals/RESULTS.md)
 [![Small Model Eval Delta](https://img.shields.io/badge/Small%20Model%20Eval-%2B132.7%25%20Delta-blueviolet)](evals/RESULTS.md)
+
+---
+
+> ⭐ **Like this project?** Please consider giving it a star on GitHub — it helps other developers discover disciplined AI engineering!
 
 ---
 
@@ -60,22 +65,37 @@ Most AI agents act as eager junior developers: they generate code fast, but skip
 
 Universal WebDev Skills works with any repository and any markdown-reading agent.
 
-### Instant Install (Recommended)
+### Option 1: Universal Agent Skills CLI (Recommended for Claude, Cursor, Copilot)
 
-Run the interactive installer directly in any project root:
+Install via the universal **Agent Skills** ecosystem standard ([`skills.sh`](https://skills.sh) / [`anthropics/skills`](https://github.com/anthropics/skills) / [`google/skills`](https://github.com/google/skills)):
+
+```bash
+# Preview all 16 available skills in the repository:
+npx skills add SifatAli008/Web-Dev-Skill -l
+
+# Install all 16 skills to all detected agents (Cursor, Claude Code, Copilot):
+npx skills add SifatAli008/Web-Dev-Skill --all
+
+# Or install specific specialist skills:
+npx skills add SifatAli008/Web-Dev-Skill -s security frontend architecture
+
+# Or install globally across all your local workspaces:
+npx skills add SifatAli008/Web-Dev-Skill -g
+```
+
+---
+
+### Option 2: Native Zero-Dependency CLI (`npx webdev-skills`)
+
+Run the interactive zero-dependency installer directly in any project root:
 
 ```bash
 npx webdev-skills init
 ```
 
-Or install via the universal **Agent Skills** CLI ecosystem ([`skills.sh`](https://skills.sh) / [`google/skills`](https://github.com/google/skills) / [`anthropics/skills`](https://github.com/anthropics/skills)):
-```bash
-npx skills add SifatAli008/Web-Dev-Skill
-```
-
 The installer vendors the core framework assets (`skills/`, `skills.index.json`, `AGENTS.md`, `DESIGN.md`) into `.webdev-skills/` and links your agent adapter with fully resolvable paths.
 
-Or configure your target tool and deterministic CI gate directly:
+Or configure your target tool, git hook, and deterministic CI gate directly:
 ```bash
 npx webdev-skills init --tool cursor --ci       # Installs .cursorrules + .cursor/rules/ + CI gate
 npx webdev-skills init --tool claude --ci       # Installs CLAUDE.md + CI gate
@@ -85,13 +105,14 @@ npx webdev-skills init --tool gemini           # Installs GEMINI.md
 npx webdev-skills init --tool chatgpt          # Installs system-prompt.md
 ```
 
-CLI Utilities & Diagnostics:
+CLI Utilities & Deterministic Enforcers:
 ```bash
-npx webdev-skills doctor    # Audits adapter presence, file resolvability & CI status
-npx webdev-skills update    # Upgrades vendored skills and adapters to latest package version
-npx webdev-skills ci        # Adds deterministic GitHub Actions CI verification gate
-npx webdev-skills list      # Displays all 16 specialists and their token budgets
-npx webdev-skills audit     # Scans workspace for AI stubs, credential leaks & tier signals
+npx webdev-skills install-hook  # Installs git pre-commit hook (blocks secrets, raw SQL, AI stubs)
+npx webdev-skills doctor        # Audits adapter presence, file resolvability & CI status
+npx webdev-skills update        # Upgrades vendored skills and adapters to latest package version
+npx webdev-skills ci            # Adds deterministic GitHub Actions CI verification gate
+npx webdev-skills list          # Displays all 16 specialists and their token budgets
+npx webdev-skills audit         # Scans workspace for AI stubs, credential leaks & tier signals
 ```
 
 ---
