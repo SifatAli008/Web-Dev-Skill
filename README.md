@@ -29,6 +29,7 @@ Most AI agents act as eager junior developers: they generate code fast, but skip
 7. **Zero-Dependency & Language Agnostic:** Enforces universal engineering principles across ANY language (TypeScript, Python, Go, Rust, Ruby, PHP, Java). The entire repository operates with **0 external dependencies** and runs out-of-the-box.
 8. **Modern Web Guidance & Baseline Standards:** Integrates the official **Google Chrome Modern Web Guidance (MWG)** and W3C WebDX Baseline specifications—mandating native browser primitives (native `<dialog>`, Popover API, CSS Anchor Positioning, Container Queries, View Transitions, `scheduler.yield()`) to eliminate obsolete npm packages and legacy polyfills.
 9. **Google Agent Skills & Cloud Architecture Standards:** Fully aligned with Google's official Agent Skills specification standard ([`google/skills`](https://github.com/google/skills)) and the **Google Cloud Architecture Framework**—enforcing keyless CI/CD via Workload Identity Federation, Google Cloud Run container contracts (dynamic `$PORT`, non-root execution, 10s graceful SIGTERM draining), and scale-to-zero cost optimization.
+10. **Anthropic Agent Skills & Metasystem Standards:** Modeled after Anthropic's official Agent Skills architecture ([`anthropics/skills`](https://github.com/anthropics/skills))—incorporating the **Skill Creator** progressive disclosure standard ($\le 150$ token discovery, $<300$ line operational bounds, deep L2 references), the **Frontend Design** anti-slop directives, **WebApp Testing** Playwright reconnaissance, and **MCP Builder** workflow consolidation.
 
 ---
 
@@ -67,7 +68,7 @@ Run the interactive installer directly in any project root:
 npx webdev-skills init
 ```
 
-Or install via the universal **Agent Skills** CLI ecosystem ([`skills.sh`](https://skills.sh) / [`google/skills`](https://github.com/google/skills)):
+Or install via the universal **Agent Skills** CLI ecosystem ([`skills.sh`](https://skills.sh) / [`google/skills`](https://github.com/google/skills) / [`anthropics/skills`](https://github.com/anthropics/skills)):
 ```bash
 npx skills add SifatAli008/Web-Dev-Skill
 ```

@@ -22,6 +22,7 @@ Every technical claim in this repository is tagged with one of three epistemic l
 - **`NIST-SSDF`**: NIST Special Publication 800-218: Secure Software Development Framework (SSDF) Version 1.1. https://csrc.nist.gov/pubs/sp/800/218/final [FACT]
 - **`TEAM-TOPOLOGIES`**: Matthew Skelton and Manuel Pais, "Team Topologies: Organizing Business and Technology Teams for Fast Flow", IT Revolution Press (2019). https://teamtopologies.com/ [BEST PRACTICE]
 - **`ANTHROPIC-SKILL-CREATOR`**: Anthropic Agent Skills Specification and Skill Creator Methodology. https://github.com/anthropics/skills [FACT]
+- **`ANTHROPIC-AGENT-SKILLS`**: Anthropic Official Agent Skills Repository & Standard Architecture (`frontend-design`, `webapp-testing`, `mcp-builder`, `skill-creator`). https://github.com/anthropics/skills [FACT]
 - **`AAIF-AGENT-SKILLS-SPEC`**: Agent Artificial Intelligence Forum (AAIF) / Open Agent Skills Specification Standard. https://agentskills.io/spec [FACT]
 - **`GOOGLE-AGENT-SKILLS`**: Google Official Agent Skills Catalog & Architecture Standards. https://github.com/google/skills [FACT]
 - **`SKILLS-SH-ECOSYSTEM`**: Skills.sh Universal Agent Skills CLI & Package Ecosystem (`npx skills add`). https://skills.sh/ [FACT]

@@ -31,6 +31,8 @@
         "skill creator",
         "agent skills",
         "agent spec",
+        "anthropic skills",
+        "skills.sh",
         "ponytail",
         "decision ladder",
         "yagni",
@@ -50,13 +52,14 @@
         "decision_record"
       ],
       "depends_on": [],
-      "last_verified": "2026-11-03",
+      "last_verified": "2026-11-25",
       "sources": [
         "AGENTS-PROTOCOL",
         "DECISIONS-RECORD",
         "SHAPE-UP",
         "TEAM-TOPOLOGIES",
         "ANTHROPIC-SKILL-CREATOR",
+        "ANTHROPIC-AGENT-SKILLS",
         "AAIF-AGENT-SKILLS-SPEC",
         "PONYTAIL-DIETRICHGEBERT"
       ]

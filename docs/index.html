@@ -2722,6 +2722,8 @@
       "skill creator",
       "agent skills",
       "agent spec",
+      "anthropic skills",
+      "skills.sh",
       "ponytail",
       "decision ladder",
       "yagni",
@@ -2810,7 +2812,13 @@
       {
         "title": "Artifact Schema Handoff Rule",
         "lines": [
-          "*Never* pass raw unstructured conversational summaries across phases; *strictly mandate* schema-validated JSON/markdown artifacts in `templates/schemas/` *because* unstructured context drifts and degrades quality across resets.",
+          "*Never* pass raw unstructured conversational summaries across phases; *strictly mandate* schema-validated JSON/markdown artifacts in `templates/schemas/` *because* unstructured context drifts and degrades quality across resets."
+        ]
+      },
+      {
+        "title": "Anthropic Skill Creator Standard & Trigger Engineering Rule",
+        "lines": [
+          "*When* authoring, refactoring, or evaluating agent skills, *mandate* compliance with the Anthropic Skill Creator specification (`anthropics/skills`): enforce single responsibility, strictly bound `SKILL.md` to \u003c300 lines, maintain positive and negative anti-triggers, provide runnable terminal verification checks, and validate non-redundancy via empirical deletion tests [FACT: ANTHROPIC-AGENT-SKILLS].",
           "--"
         ]
       }
@@ -2834,7 +2842,11 @@
       },
       {
         "title": "Update State & Status Formatting [MVP] [PROD] [SCALE]",
-        "details": "1. Update `PROGRESS.md` with task completion and gate status.\n2. Record any architectural or scope trade-offs in `DECISIONS.md`.\n3. Format output following the mandatory 5-part status format (Done / Verified / NOT verified / Risks / Next step).\n\n---"
+        "details": "1. Update `PROGRESS.md` with task completion and gate status.\n2. Record any architectural or scope trade-offs in `DECISIONS.md`.\n3. Format output following the mandatory 5-part status format (Done / Verified / NOT verified / Risks / Next step)."
+      },
+      {
+        "title": "Skill Authoring, Trigger Engineering & Evaluation Lifecycle [MVP] [PROD] [SCALE]",
+        "details": "1. Structure candidate skill directories conforming to the Anthropic standard (`SKILL.md`, `references/`, `tests/trigger-tests.json`).\n2. Enforce 3-level progressive disclosure (L0 discovery, L1 execution rules $\u003c300$ lines, L2 deep reference compendia).\n3. Validate trigger precision via positive and negative test cases in `trigger-tests.json`.\n4. Execute empirical deletion tests before publishing: confirm non-redundant positive quality delta ($\\ge +15\\%$).\n\n---"
       }
     ],
     "antiPatterns": [

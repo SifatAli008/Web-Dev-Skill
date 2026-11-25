@@ -343,6 +343,26 @@ This file tracks foundational design and architectural decisions made for `unive
   7. Synchronize `skills.index.json`, tool adapters (`09-devops-infra.mdc`), and `README.md` with Google Agent Skills standards.
 - **Consequences:** Aligns Universal WebDev Skills directly with Google's official agent catalog standard (`google/skills`), eliminates long-lived static cloud credential vulnerabilities in CI/CD, guarantees 100% compliant serverless container deployments to Cloud Run, and establishes interoperability with `skills.sh`.
 
+---
+
+## ADR-022: Anthropic Agent Skills Architecture & Metasystem Integration
+
+- **Status:** Accepted (Phase 13 - Anthropic Agent Skills Architecture Integration)
+- **Context:** To reinforce the framework's meta-architecture and align with the official Anthropic Agent Skills repository (`github.com/anthropics/skills`), the repository required formal integration of Anthropic's four flagship skill archetypes: `skill-creator` (trigger engineering, token bounding, and non-redundancy deletion testing), `frontend-design` (anti-slop visual directives and purposeful typography), `webapp-testing` (autonomous Playwright browser reconnaissance and console/network error trapping), and `mcp-builder` (Model Context Protocol tool consolidation and actionable recovery hints).
+- **Decision:**
+  1. Author operational L2 reference guide: `skills/orchestrator/references/anthropic-agent-skills-guide.md` detailing:
+     - The 4 Anthropic Core Skill Archetypes (`skill-creator`, `frontend-design`, `webapp-testing`, `mcp-builder`).
+     - 3-Level Progressive Disclosure Standard (L0 Discovery Metadata $\le 150$ tokens $\rightarrow$ L1 Operational Rules $< 300$ lines $\rightarrow$ L2 Architectural Compendia).
+     - Trigger engineering rules (compound nouns, operational verbs, and explicit anti-triggers to suppress false positives).
+     - Non-redundancy deletion testing methodology ($\ge +15\%$ quality delta criterion).
+     - Cross-ecosystem package interoperability (`npx skills add anthropics/skills@<skill>` and `npx skills add SifatAli008/Web-Dev-Skill`).
+  2. Embed **Rule 6: Anthropic Skill Creator Standard & Trigger Engineering Rule** and Step 6 into `skills/orchestrator/SKILL.md` while strictly maintaining $<300$ lines (144 lines).
+  3. Register authoritative source citations in `SOURCES.md`: `ANTHROPIC-AGENT-SKILLS` (Anthropic Official Agent Skills Repository: `skill-creator`, `frontend-design`, `webapp-testing`, `mcp-builder`).
+  4. Enrich `GLOSSARY.md` with definitions for `Anthropic Agent Skills`, `MCP Builder Pattern`, `Progressive Disclosure (Agent Skills)`, and `Webapp Testing Protocol`.
+  5. Synchronize `skills.index.json`, `README.md`, and tool adapters with the Anthropic Agent Skills ecosystem.
+- **Consequences:** Deepens alignment with Anthropic's canonical agent skill specification, standardizes trigger engineering and deletion testing across the 16 specialists, prevents context bloat through strict progressive disclosure, and ensures seamless interoperability with the `skills.sh` ecosystem.
+
+
 
 
 

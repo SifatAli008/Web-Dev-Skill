@@ -1,12 +1,12 @@
 ---
 name: orchestrator
-description: Use when initiating a new project, scoping a feature, determining the rigor tier, planning multi-specialist tasks, enforcing the Ponytail decision ladder (anti-overengineering & YAGNI), managing handoff gates across the engineering team, or authoring/evaluating agent skills adhering to the open Agent Skills specification. Trigger phrases include "new project", "build website", "bootstrap app", "fullstack", "plan sprint", "coordinate team", "review release", "skill creator", "agent skills", "agent spec", "ponytail", "decision ladder", "yagni", "anti-overengineering".
+description: Use when initiating a new project, scoping a feature, determining the rigor tier, planning multi-specialist tasks, enforcing the Ponytail decision ladder (anti-overengineering & YAGNI), managing handoff gates across the engineering team, or authoring/evaluating agent skills adhering to the Anthropic and open Agent Skills specification. Trigger phrases include "new project", "build website", "bootstrap app", "fullstack", "plan sprint", "coordinate team", "review release", "skill creator", "agent skills", "agent spec", "anthropic skills", "skills.sh", "ponytail", "decision ladder", "yagni", "anti-overengineering".
 tiers: ["MVP", "PROD", "SCALE"]
 inputs: ["user_prompt", "codebase_state"]
 outputs: ["routing_plan", "progress_update", "decision_record"]
 depends_on: []
-last_verified: "2026-11-03"
-sources: ["AGENTS-PROTOCOL", "DECISIONS-RECORD", "SHAPE-UP", "TEAM-TOPOLOGIES", "ANTHROPIC-SKILL-CREATOR", "AAIF-AGENT-SKILLS-SPEC", "PONYTAIL-DIETRICHGEBERT"]
+last_verified: "2026-11-25"
+sources: ["AGENTS-PROTOCOL", "DECISIONS-RECORD", "SHAPE-UP", "TEAM-TOPOLOGIES", "ANTHROPIC-SKILL-CREATOR", "ANTHROPIC-AGENT-SKILLS", "AAIF-AGENT-SKILLS-SPEC", "PONYTAIL-DIETRICHGEBERT"]
 ---
 
 # Specialist Stance: Engineering Manager / Orchestrator
@@ -77,6 +77,8 @@ I refuse to allow unverified assumptions, speculative abstractions, unrequested 
    - *If* specialists disagree on implementation, *enforce* order: **Security/Privacy > Architecture > Performance > Speed** *because* vulnerable or unlawful code is an existential failure.
 5. **Artifact Schema Handoff Rule:**
    - *Never* pass raw unstructured conversational summaries across phases; *strictly mandate* schema-validated JSON/markdown artifacts in `templates/schemas/` *because* unstructured context drifts and degrades quality across resets.
+6. **Anthropic Skill Creator Standard & Trigger Engineering Rule:**
+   - *When* authoring, refactoring, or evaluating agent skills, *mandate* compliance with the Anthropic Skill Creator specification (`anthropics/skills`): enforce single responsibility, strictly bound `SKILL.md` to <300 lines, maintain positive and negative anti-triggers, provide runnable terminal verification checks, and validate non-redundancy via empirical deletion tests [FACT: ANTHROPIC-AGENT-SKILLS].
 
 ---
 
@@ -119,6 +121,12 @@ I refuse to allow unverified assumptions, speculative abstractions, unrequested 
 1. Update `PROGRESS.md` with task completion and gate status.
 2. Record any architectural or scope trade-offs in `DECISIONS.md`.
 3. Format output following the mandatory 5-part status format (Done / Verified / NOT verified / Risks / Next step).
+
+### Step 6: Skill Authoring, Trigger Engineering & Evaluation Lifecycle [MVP] [PROD] [SCALE]
+1. Structure candidate skill directories conforming to the Anthropic standard (`SKILL.md`, `references/`, `tests/trigger-tests.json`).
+2. Enforce 3-level progressive disclosure (L0 discovery, L1 execution rules $<300$ lines, L2 deep reference compendia).
+3. Validate trigger precision via positive and negative test cases in `trigger-tests.json`.
+4. Execute empirical deletion tests before publishing: confirm non-redundant positive quality delta ($\ge +15\%$).
 
 ---
 

@@ -10,6 +10,7 @@ This glossary defines standard terminology used across all 16 specialist skills.
 - **ACID**: Atomicity, Consistency, Isolation, Durability. The four standard properties guaranteed by relational database management systems for state transactions.
 - **ADR (Architectural Decision Record)**: A structured document that captures an important architectural decision made along with its context and consequences.
 - **Agent Skills Standard**: The universal open specification (agentskills.io / skills.sh, adopted by Google Cloud and Anthropic) standardizing task-specific AI agent capabilities and procedural instructions into modular, directory-based `SKILL.md` packages.
+- **Anthropic Agent Skills**: The official reference implementation and specification framework (anthropics/skills) defining Agent Skills across four archetypes: `skill-creator`, `frontend-design`, `webapp-testing`, and `mcp-builder`.
 - **ASVS (Application Security Verification Standard)**: A community-driven OWASP standard defining technical security controls for web applications.
 - **Baseline**: The cross-browser compatibility standard established by the W3C WebDX Community Group and supported by Google Chrome, Mozilla, and Apple, classifying web platform features into "Newly Available" (supported across all core engines) and "Widely Available" (interoperable for 30+ months).
 - **Blue-Green Deployment**: A zero-downtime deployment strategy using two identical production environments (Blue active, Green idle) to switch router traffic instantly.
@@ -34,16 +35,19 @@ This glossary defines standard terminology used across all 16 specialist skills.
 - **KLM (Keystroke-Level Model)**: A quantitative GOMS-based technique to predict expert task execution duration by summing component operator times (keystroke, pointing, homing, mental preparation).
 - **LCP (Largest Contentful Paint)**: Core Web Vital measuring loading performance. Target: `<= 2.5s`.
 - **MoSCoW Prioritization**: Scope categorization into **M**ust have, **S**hould have, **C**ould have, and **W**on't have (this cycle).
+- **MCP Builder Pattern**: Model Context Protocol design pattern emphasizing consolidated high-leverage workflows, strict JSON parameter validation schemas, cursor-based pagination, and actionable error recovery hints for AI agents.
 - **Mutation Testing**: A fault-based testing technique where automated faults ("mutants") are seeded into code to verify that test suites fail when bugs are introduced. Target mutation score: `>= 70%`.
 - **OKLCH**: A perceptual color space ($L$: lightness, $C$: chroma, $H$: hue) designed to align with human visual perception, guaranteeing uniform contrast steps across dark and light themes without lightness distortion.
 - **OWASP (Open Worldwide Application Security Project)**: Non-profit foundation producing standards and educational resources for web application security.
 - **Quality Gate**: A verifiable set of Boolean conditions (test coverage, zero critical static analysis issues, security clearance, mutation score) that a codebase must satisfy before passing to the next deployment phase.
+- **Progressive Disclosure (Agent Skills)**: Three-tiered token optimization architecture (L0 Discovery Metadata $\le 150$ tokens $\rightarrow$ L1 Operational Rules $< 300$ lines $\rightarrow$ L2 Architectural Compendia loaded on demand) designed to eliminate agent context bloat.
 - **RBAC / ABAC**: Role-Based Access Control (permissions assigned to roles) vs Attribute-Based Access Control (permissions evaluated dynamically from context, user, and resource attributes).
 - **ROPA (Record of Processing Activities)**: A statutory document required under GDPR Article 30 detailing what personal data is processed, why, and for how long.
 - **SQAT (Software Quality Assurance and Testing)**: The unified discipline combining Software Quality Assurance (SQA: process quality, static code analysis, quality gates, defect prevention) and Software Quality Control / Testing (SQC/ST: dynamic verification, test execution, regression testing).
 - **SSRF (Server-Side Request Forgery)**: An attack where a web server is coerced into making unauthorized network requests to internal resources or third-party services.
 - **STRIDE**: Threat modeling taxonomy: **S**poofing, **T**ampering, **R**epudiation, **I**nformation Disclosure, **D**enial of Service, **E**levation of Privilege.
 - **WCAG 2.2 AA**: Web Content Accessibility Guidelines Level AA compliance, covering minimum contrast ratios (4.5:1 text), keyboard accessibility, focus indicators, and touch targets (44x44 CSS px).
+- **Webapp Testing Protocol**: Autonomous web application verification methodology (anthropics/skills) using Playwright, local test server lifecycle management (`with_server`), accessible role-based locators (`getByRole`), and unhandled console/network error trapping.
 - **Workload Identity Federation**: Keyless authentication standard allowing external CI/CD environments (such as GitHub Actions) to securely authenticate to Google Cloud via OpenID Connect (OIDC) tokens without storing long-lived service account JSON keys.
 - **XSS (Cross-Site Scripting)**: An attack where malicious scripts are injected into otherwise benign and trusted websites.
 
