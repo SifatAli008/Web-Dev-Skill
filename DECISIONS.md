@@ -375,6 +375,25 @@ This file tracks foundational design and architectural decisions made for `unive
   4. Update `evals/RESULTS.md` and `README.md` to document the 5 reference projects (35/35 tests passing, 0 OWASP criticals across 3 distinct runtimes).
 - **Consequences:** Empirically proves that the 16 specialists and their binding engineering gates operate identically across Python and Go runtimes without requiring Node.js lock-in.
 
+---
+
+## ADR-024: Deterministic Git Pre-Commit Enforcer & Conflict Resolution Protocol
+
+- **Status:** Accepted (Phase 15 - Deterministic Enforcement & Deadlock Protocol)
+- **Context:** The repository audit flagged two critical operational gaps: (1) prompt-based gates ("hard veto", "no evidence no ship") are advisory text that can be bypassed by an agent or human committer without a physical technical gate; and (2) competing specialist priorities lacked an explicit deadlock arbitration matrix.
+- **Decision:**
+  1. Author `skills/orchestrator/references/conflict-resolution-matrix.md` establishing a formal arbitration matrix across all specialist conflicts:
+     - Security Hard Veto strictly dominates MVP speed (scope must be cut rather than lowering cryptographic standards).
+     - WCAG 2.2 AA accessibility and Fitts's law touch targets strictly dominate sub-millisecond rendering micro-optimizations.
+     - Ponytail YAGNI stops premature microservice splitting below the SCALE tier.
+     - Privacy officer veto blocks all pre-consent telemetry.
+     - Expand-Contract pattern blocks live destructive database table alterations.
+  2. Implement `npx webdev-skills install-hook` in `bin/cli.js`:
+     - Installs a zero-dependency Git `.git/hooks/pre-commit` script.
+     - Physically scans staged git diffs and blocks commits containing: hardcoded secrets (AWS, Google, GitHub, Stripe), raw unparameterized SQL concatenation, and AI placeholder stub comments (`// TODO: implement later`).
+  3. Update `PROGRESS.md` and documentation accordingly.
+- **Consequences:** Upgrades the framework from purely advisory prompt steering to physical deterministic enforcement on developer and agent workstations prior to commit, while eliminating deadlock ambiguity between specialists.
+
 
 
 

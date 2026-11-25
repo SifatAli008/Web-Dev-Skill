@@ -25,6 +25,16 @@
 | **Phase 12** | Google Agent Skills Standard & Cloud Architecture Integration (google/skills, skills.sh ecosystem, Cloud Run container contract, Workload Identity Federation, Well-Architected pillars, ADR-021). | **COMPLETE (GATE 12)** | Full Agent Skills conformance, Cloud Run references, 21 ADRs, all 14 master verification suites passing. |
 | **Phase 13** | Anthropic Agent Skills Architecture Integration (anthropics/skills, skill-creator, frontend-design, webapp-testing, mcp-builder, progressive disclosure, ADR-022). | **COMPLETE (GATE 13)** | Full Agent Skills conformance, Anthropic references, 22 ADRs, all 14 master verification suites passing. |
 | **Phase 14** | Multi-Language Golden Reference Implementations (Python FastAPI PROD, Go microservice SCALE, multi-runtime test runner, ADR-023). | **COMPLETE (GATE 14)** | 5 reference projects (Node, Python, Go), 35/35 tests passing, 0 OWASP criticals, 23 ADRs, all master suites passing. |
+| **Phase 15** | Deterministic Git Pre-Commit Enforcer & Conflict Resolution Protocol (cli install-hook, conflict-resolution-matrix, ADR-024). | **COMPLETE (GATE 15)** | Zero-dep git pre-commit hook enforcer, arbitration matrix, 24 ADRs, all master suites passing. |
+
+---
+
+## Phase 15 Deliverables Completed
+
+- [x] **Deterministic Git Pre-Commit Enforcer & Conflict Resolution Protocol (ADR-024):**
+  - Authored operational L2 reference compendium: `skills/orchestrator/references/conflict-resolution-matrix.md` establishing formal deadlock arbitration rules (Security > Architecture > Performance > Speed).
+  - Implemented `npx webdev-skills install-hook` in `bin/cli.js` installing an automated pre-commit hook that physically scans staged diffs for hard secrets, raw SQL concatenation, and AI placeholder stubs.
+  - Recorded **ADR-024** in `DECISIONS.md`.
 
 ---
 

@@ -79,6 +79,7 @@ function printHelp() {
   update [path]        Update installed skills and adapters to latest package version
   doctor [path]        Verify project setup, adapter presence & file resolvability
   ci [path]            Install deterministic GitHub Actions CI verification gate
+  install-hook [path]  Install deterministic Git pre-commit enforcement hook
   audit [path]         Scan workspace for AI garbage code, leaks & tier signals
   list                 Display all 16 specialists and their authorities
   playbook [name]      Display operational procedures for 16 core playbooks
@@ -531,6 +532,55 @@ function runCi(destDir = process.cwd()) {
   console.log('\n[SUCCESS] CI verification gate configured. Push to GitHub to enable deterministic verification.');
 }
 
+// Install Git Pre-Commit Hook Command
+function runInstallHook(targetDir) {
+  printBanner();
+  const gitDir = path.resolve(targetDir, '.git');
+  if (!fs.existsSync(gitDir)) {
+    console.error(`[ERROR] Target directory is not a Git repository: ${targetDir}`);
+    process.exit(1);
+  }
+
+  const hooksDir = path.join(gitDir, 'hooks');
+  if (!fs.existsSync(hooksDir)) {
+    fs.mkdirSync(hooksDir, { recursive: true });
+  }
+
+  const hookFile = path.join(hooksDir, 'pre-commit');
+  const hookContent = `#!/bin/sh
+# Universal WebDev Skills: Deterministic Pre-Commit Enforcement Gate
+# Physically blocks commits containing secrets, SQL injection concatenations, or AI placeholder stubs.
+
+echo ">>> [WebDev Skills Gate] Verifying staged changes against engineering invariants..."
+
+# 1. Hard Secret Pattern Scanning
+if git diff --cached --name-only -z | xargs -0 grep -E -I -n "(AKIA[0-9A-Z]{16}|AIza[0-9A-Za-z-_]{35}|ghp_[0-9a-zA-Z]{36}|sk_live_[0-9a-zA-Z]{24})" 2>/dev/null; then
+  echo "\\n[VETO] Git commit BLOCKED: Potential secret key detected in staged diff!"
+  exit 1
+fi
+
+# 2. Raw SQL Concatenation Scanning
+if git diff --cached --name-only -z | xargs -0 grep -E -I -n "(SELECT.*FROM.*WHERE.*\\+\\s*[a-zA-Z0-9_]+|cursor\\.execute\\(.*%s.*%|db\\.query\\(\`SELECT.*\\\${)" 2>/dev/null; then
+  echo "\\n[VETO] Git commit BLOCKED: Raw SQL concatenation detected! Use parameterized queries."
+  exit 1
+fi
+
+# 3. AI Garbage & Placeholder Stub Scanning
+if git diff --cached --name-only -z | xargs -0 grep -E -I -n "(// TODO:? implement|# TODO:? implement|/\\* TODO:? implement|// FIXME:? handle later)" 2>/dev/null; then
+  echo "\\n[VETO] Git commit BLOCKED: AI placeholder stub detected! Deliver production code or prune dead stubs."
+  exit 1
+fi
+
+echo "[PASS] All deterministic pre-commit checks passed cleanly."
+exit 0
+`;
+
+  fs.writeFileSync(hookFile, hookContent, { encoding: 'utf8', mode: 0o755 });
+  console.log(`[SUCCESS] Deterministic Git pre-commit hook installed successfully!`);
+  console.log(`  Location: ${hookFile}`);
+  console.log('  Active gates: Secret leak detection, raw SQL injection blocker, AI placeholder stub blocker.');
+}
+
 function runDoctor(destDir = process.cwd()) {
   printBanner();
   console.log(`Running diagnostics for directory: ${destDir}\n`);
@@ -672,6 +722,9 @@ async function main() {
       break;
     case 'ci':
       runCi(args[1] ? path.resolve(args[1]) : process.cwd());
+      break;
+    case 'install-hook':
+      runInstallHook(args[1] ? path.resolve(args[1]) : process.cwd());
       break;
     case 'list':
       listSpecialists();
