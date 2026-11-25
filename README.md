@@ -28,6 +28,7 @@ Most AI agents act as eager junior developers: they generate code fast, but skip
 6. **Universal Tool Compatibility:** Adapters ensure instant integration with any leading AI development environment in under 2 minutes.
 7. **Zero-Dependency & Language Agnostic:** Enforces universal engineering principles across ANY language (TypeScript, Python, Go, Rust, Ruby, PHP, Java). The entire repository operates with **0 external dependencies** and runs out-of-the-box.
 8. **Modern Web Guidance & Baseline Standards:** Integrates the official **Google Chrome Modern Web Guidance (MWG)** and W3C WebDX Baseline specifications—mandating native browser primitives (native `<dialog>`, Popover API, CSS Anchor Positioning, Container Queries, View Transitions, `scheduler.yield()`) to eliminate obsolete npm packages and legacy polyfills.
+9. **Google Agent Skills & Cloud Architecture Standards:** Fully aligned with Google's official Agent Skills specification standard ([`google/skills`](https://github.com/google/skills)) and the **Google Cloud Architecture Framework**—enforcing keyless CI/CD via Workload Identity Federation, Google Cloud Run container contracts (dynamic `$PORT`, non-root execution, 10s graceful SIGTERM draining), and scale-to-zero cost optimization.
 
 ---
 
@@ -64,6 +65,11 @@ Run the interactive installer directly in any project root:
 
 ```bash
 npx webdev-skills init
+```
+
+Or install via the universal **Agent Skills** CLI ecosystem ([`skills.sh`](https://skills.sh) / [`google/skills`](https://github.com/google/skills)):
+```bash
+npx skills add SifatAli008/Web-Dev-Skill
 ```
 
 The installer vendors the core framework assets (`skills/`, `skills.index.json`, `AGENTS.md`, `DESIGN.md`) into `.webdev-skills/` and links your agent adapter with fully resolvable paths.

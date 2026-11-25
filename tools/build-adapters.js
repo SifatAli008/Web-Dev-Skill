@@ -124,11 +124,12 @@ Assert both happy paths and edge/error cases (invalid inputs, injection strings,
     },
     {
       file: '09-devops-infra.mdc',
-      desc: 'No rollback, no ship. Container liveness/readiness probes and automated rollback scripts',
+      desc: 'No rollback, no ship. Container liveness/readiness, Cloud Run contract, and Workload Identity',
       globs: '**/{Dockerfile,docker-compose*,*.yml,*.yaml,nginx*,k8s*}',
       alwaysApply: false,
       content: `No rollback, no ship. Expose independent /api/health/liveness and /api/health/readiness probes.
-Provide tested rollback procedures before declaring deployment readiness.`
+Provide tested rollback procedures before declaring deployment readiness.
+Enforce Google Well-Architected & Cloud Run standards: run containers as non-root (USER node), bind dynamically to $PORT (0.0.0.0), handle SIGTERM with 10s connection draining, and use keyless Workload Identity Federation for CI/CD.`
     },
     {
       file: '15-hci-interaction.mdc',

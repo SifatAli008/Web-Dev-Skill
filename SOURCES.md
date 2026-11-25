@@ -23,6 +23,8 @@ Every technical claim in this repository is tagged with one of three epistemic l
 - **`TEAM-TOPOLOGIES`**: Matthew Skelton and Manuel Pais, "Team Topologies: Organizing Business and Technology Teams for Fast Flow", IT Revolution Press (2019). https://teamtopologies.com/ [BEST PRACTICE]
 - **`ANTHROPIC-SKILL-CREATOR`**: Anthropic Agent Skills Specification and Skill Creator Methodology. https://github.com/anthropics/skills [FACT]
 - **`AAIF-AGENT-SKILLS-SPEC`**: Agent Artificial Intelligence Forum (AAIF) / Open Agent Skills Specification Standard. https://agentskills.io/spec [FACT]
+- **`GOOGLE-AGENT-SKILLS`**: Google Official Agent Skills Catalog & Architecture Standards. https://github.com/google/skills [FACT]
+- **`SKILLS-SH-ECOSYSTEM`**: Skills.sh Universal Agent Skills CLI & Package Ecosystem (`npx skills add`). https://skills.sh/ [FACT]
 - **`PONYTAIL-DIETRICHGEBERT`**: Dietrich Gebert, "The Ponytail Method: 6-Rung Decision Ladder for Lean Engineering". https://github.com/DietrichGebert/ponytail [BEST PRACTICE]
 
 ### 01 · Product Discovery
@@ -36,6 +38,7 @@ Every technical claim in this repository is tagged with one of three epistemic l
 - **`SYSTEM-DESIGN-PRIMER`**: Donne Martin, The System Design Primer. https://github.com/donnemartin/system-design-primer [BEST PRACTICE]
 - **`RFC-9110`**: HTTP Semantics, IETF RFC 9110 (June 2022). https://www.rfc-editor.org/rfc/rfc9110.html [FACT]
 - **`ANTHROPIC-MCP-BUILDER`**: Model Context Protocol (MCP) Specification, Anthropic. https://modelcontextprotocol.io/ [FACT]
+- **`GOOGLE-CLOUD-ARCH-FRAMEWORK`**: Google Cloud Architecture Framework: Well-Architected Framework Pillars (Security, Reliability, Cost Optimization, Operational Excellence, Performance Efficiency). https://cloud.google.com/architecture/framework [BEST PRACTICE]
 
 ### 03 · UX/UI & Accessibility
 - **`WCAG-2-2`**: Web Content Accessibility Guidelines (WCAG) 2.2, W3C Recommendation (October 2023). https://www.w3.org/TR/WCAG22/ [FACT]
@@ -105,6 +108,8 @@ Every technical claim in this repository is tagged with one of three epistemic l
 - **`GOOGLE-SRE-BOOK`**: Site Reliability Engineering: How Google Runs Production Systems, Betsy Beyer et al. (O'Reilly, 2016). https://sre.google/sre-book/table-of-contents/ [BEST PRACTICE]
 - **`OPEN-TELEMETRY`**: OpenTelemetry Specification, Cloud Native Computing Foundation (CNCF). https://opentelemetry.io/docs/specs/ [FACT]
 - **`12-FACTOR-CONFIG`**: Declarative Environment Configuration and Parity. https://12factor.net/config [BEST PRACTICE]
+- **`GOOGLE-CLOUD-RUN-ARCH`**: Google Cloud Run Serverless Container Architecture, Concurrency & Health Check Specification. https://cloud.google.com/run/docs [FACT]
+- **`GOOGLE-WORKLOAD-IDENTITY`**: Google Cloud Workload Identity Federation: Keyless OpenID Connect (OIDC) Authentication for CI/CD Pipelines. https://cloud.google.com/iam/docs/workload-identity-federation [FACT]
 
 ### 10 · Performance Engineering
 - **`WEB-DEV-CWV`**: Google Core Web Vitals Guidance (LCP, INP, CLS). https://web.dev/explore/metrics [FACT]

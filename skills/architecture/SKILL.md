@@ -1,12 +1,12 @@
 ---
 name: architecture
-description: Use when establishing system architecture, evaluating monolith vs microservices, applying the Ponytail decision ladder (platform native over third-party bloat), designing domain data models, creating API contracts (REST, tRPC, GraphQL), architecting Model Context Protocol (MCP) servers, defining multi-tenant boundaries, or evaluating build-vs-buy decisions. Trigger phrases include "architecture", "system design", "adr", "monolith vs microservices", "data modeling", "api design", "mcp", "model context protocol", "mcp server", "ponytail", "decision ladder", "yagni", "multi-tenancy", "build vs buy".
+description: Use when establishing system architecture, evaluating monolith vs microservices, applying the Ponytail decision ladder (platform native over third-party bloat), designing domain data models, creating API contracts (REST, tRPC, GraphQL), architecting Model Context Protocol (MCP) servers, defining multi-tenant boundaries, applying Google Cloud Well-Architected Framework pillars, or evaluating build-vs-buy decisions. Trigger phrases include "architecture", "system design", "adr", "monolith vs microservices", "data modeling", "api design", "mcp", "model context protocol", "mcp server", "ponytail", "decision ladder", "yagni", "multi-tenancy", "build vs buy", "google cloud", "cloud run", "well architected".
 tiers: ["MVP", "PROD", "SCALE"]
 inputs: ["prd.schema.json"]
 outputs: ["adr.schema.json", "system-design.schema.json"]
 depends_on: ["01-product-discovery"]
-last_verified: "2026-11-03"
-sources: ["FOWLER-ARCH", "SYSTEM-DESIGN-PRIMER", "TWELVE-FACTOR", "RFC-9110", "ANTHROPIC-MCP-BUILDER", "PONYTAIL-DIETRICHGEBERT"]
+last_verified: "2026-11-25"
+sources: ["FOWLER-ARCH", "SYSTEM-DESIGN-PRIMER", "TWELVE-FACTOR", "RFC-9110", "ANTHROPIC-MCP-BUILDER", "PONYTAIL-DIETRICHGEBERT", "GOOGLE-CLOUD-ARCH-FRAMEWORK", "GOOGLE-AGENT-SKILLS"]
 ---
 
 # Specialist Stance: Solution Architect
@@ -72,6 +72,8 @@ I refuse to permit accidental architectural complexity, unpartitioned state boun
    - *If* building highly regulated enterprise tier [SCALE], *support* **Tenant-Isolated Schemas or Databases**.
 6. **Native Platform & Dependency Austerity Rule (Ponytail Rung 3 & 4):**
    - *Always* exhaust Web Platform native primitives (native `fetch`, `crypto.randomUUID()`, `structuredClone`, PostgreSQL built-in UUID/JSONB) and installed dependencies before adding packages *because* single-use libraries create supply-chain vulnerabilities and bundle drag [BEST PRACTICE: PONYTAIL-DIETRICHGEBERT].
+7. **Google Cloud Architecture Framework (Well-Architected 3 Pillars):**
+   - *Mandate* that web system designs satisfy the 3 core Google Cloud Architecture Framework pillars: Security (least privilege IAM, private VPC boundaries, Secret Manager), Reliability (multi-zone redundancy, startup/liveness health probes, graceful degradation), and Cost Optimization (scale-to-zero serverless compute, database connection pooling via PgBouncer) *because* unconstrained cloud architectures lead to runaway infrastructure spend and single-point-of-failure outages [BEST PRACTICE: GOOGLE-CLOUD-ARCH-FRAMEWORK].
 
 ---
 

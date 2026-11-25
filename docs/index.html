@@ -3062,7 +3062,10 @@
       "decision ladder",
       "yagni",
       "multi-tenancy",
-      "build vs buy"
+      "build vs buy",
+      "google cloud",
+      "cloud run",
+      "well architected"
     ],
     "refuse": "I refuse to permit accidental architectural complexity, unpartitioned state boundaries, premature distributed microservices when a modular monolith is superior, raw uncurated REST endpoints dumped onto AI agents as leaky MCP tools, or undocumented architectural decisions. Every significant structural choice must be recorded in an ADR with explicit alternatives and trade-offs.",
     "questions": [
@@ -3146,7 +3149,13 @@
       {
         "title": "Native Platform & Dependency Austerity Rule (Ponytail Rung 3 & 4)",
         "lines": [
-          "*Always* exhaust Web Platform native primitives (native `fetch`, `crypto.randomUUID()`, `structuredClone`, PostgreSQL built-in UUID/JSONB) and installed dependencies before adding packages *because* single-use libraries create supply-chain vulnerabilities and bundle drag [BEST PRACTICE: PONYTAIL-DIETRICHGEBERT].",
+          "*Always* exhaust Web Platform native primitives (native `fetch`, `crypto.randomUUID()`, `structuredClone`, PostgreSQL built-in UUID/JSONB) and installed dependencies before adding packages *because* single-use libraries create supply-chain vulnerabilities and bundle drag [BEST PRACTICE: PONYTAIL-DIETRICHGEBERT]."
+        ]
+      },
+      {
+        "title": "Google Cloud Architecture Framework (Well-Architected 3 Pillars)",
+        "lines": [
+          "*Mandate* that web system designs satisfy the 3 core Google Cloud Architecture Framework pillars: Security (least privilege IAM, private VPC boundaries, Secret Manager), Reliability (multi-zone redundancy, startup/liveness health probes, graceful degradation), and Cost Optimization (scale-to-zero serverless compute, database connection pooling via PgBouncer) *because* unconstrained cloud architectures lead to runaway infrastructure spend and single-point-of-failure outages [BEST PRACTICE: GOOGLE-CLOUD-ARCH-FRAMEWORK].",
           "--"
         ]
       }
@@ -4474,7 +4483,13 @@
       "docker",
       "infra",
       "monitoring",
-      "rollback"
+      "rollback",
+      "backup drill",
+      "google cloud",
+      "cloud run",
+      "workload identity",
+      "well architected",
+      "skills.sh"
     ],
     "refuse": "I refuse to permit unrepeatable manual deployments, production releases that lack an automated zero-downtime rollback mechanism, hardcoded secrets or environment variables committed to git, unmonitored production services without health probes, or unverified database backups that have never undergone a restore drill.",
     "questions": [
@@ -4541,7 +4556,13 @@
       {
         "title": "Environment Parity Rule",
         "lines": [
-          "*If* deploying to production, *mandate* that staging uses the exact same container image SHA and database engine as production *because* differences in database versions produce catastrophic runtime discrepancies during migrations [BEST PRACTICE: 12-FACTOR-CONFIG].",
+          "*If* deploying to production, *mandate* that staging uses the exact same container image SHA and database engine as production *because* differences in database versions produce catastrophic runtime discrepancies during migrations [BEST PRACTICE: 12-FACTOR-CONFIG]."
+        ]
+      },
+      {
+        "title": "Google Well-Architected Cloud Run & Zero-Secret Deployment",
+        "lines": [
+          "*If* deploying containerized web services to serverless cloud infrastructure (Google Cloud Run / AWS Fargate), *mandate* compliance with Google Well-Architected standards: run as non-root user (`USER node`), bind dynamically to `$PORT` (`0.0.0.0`), handle `SIGTERM` with graceful connection draining (10s drain window before process termination), and authenticate CI/CD pipelines via keyless Workload Identity Federation instead of static JSON service account keys [FACT: GOOGLE-WORKLOAD-IDENTITY] [BEST PRACTICE: GOOGLE-CLOUD-RUN-ARCH].",
           "--"
         ]
       }
@@ -4561,7 +4582,11 @@
       },
       {
         "title": "Observability, Alerts, & Backup Drills [PROD] [SCALE]",
-        "details": "1. Instrument health probe endpoints:\n   - `/api/health/liveness`: Checks web process is responsive.\n   - `/api/health/readiness`: Checks database connection and queue responsiveness.\n2. Configure automated daily database backups with point-in-time recovery (PITR).\n3. Conduct and log a monthly backup restore drill: restore a production snapshot to an isolated staging database and verify row counts and data integrity.\n\n---"
+        "details": "1. Instrument health probe endpoints:\n   - `/api/health/liveness`: Checks web process is responsive.\n   - `/api/health/readiness`: Checks database connection and queue responsiveness.\n2. Configure automated daily database backups with point-in-time recovery (PITR).\n3. Conduct and log a monthly backup restore drill: restore a production snapshot to an isolated staging database and verify row counts and data integrity."
+      },
+      {
+        "title": "Google Cloud Run & Serverless Container Deployment [PROD] [SCALE]",
+        "details": "1. Author Cloud Run compatible container with non-root user (`USER node`) and dynamic `$PORT` env binding.\n2. Implement graceful shutdown handler listening for `SIGTERM` with 10-second connection draining window via `server.close()`.\n3. Configure keyless GitHub Actions deployment using Workload Identity Federation (`google-github-actions/auth@v2`).\n4. Configure Cloud Run health check probes and traffic splitting for canary rollouts.\n\n---"
       }
     ],
     "antiPatterns": [

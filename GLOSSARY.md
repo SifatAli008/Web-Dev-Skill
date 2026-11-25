@@ -9,11 +9,13 @@ This glossary defines standard terminology used across all 16 specialist skills.
 - **7-State Lifecycle Matrix**: The complete interaction state coverage required for interactive UI primitives: Default, Hover/Pointer, Active/Pressed, Focus-Visible, Disabled, Loading/Skeleton, and Error/Recovery.
 - **ACID**: Atomicity, Consistency, Isolation, Durability. The four standard properties guaranteed by relational database management systems for state transactions.
 - **ADR (Architectural Decision Record)**: A structured document that captures an important architectural decision made along with its context and consequences.
+- **Agent Skills Standard**: The universal open specification (agentskills.io / skills.sh, adopted by Google Cloud and Anthropic) standardizing task-specific AI agent capabilities and procedural instructions into modular, directory-based `SKILL.md` packages.
 - **ASVS (Application Security Verification Standard)**: A community-driven OWASP standard defining technical security controls for web applications.
 - **Baseline**: The cross-browser compatibility standard established by the W3C WebDX Community Group and supported by Google Chrome, Mozilla, and Apple, classifying web platform features into "Newly Available" (supported across all core engines) and "Widely Available" (interoperable for 30+ months).
 - **Blue-Green Deployment**: A zero-downtime deployment strategy using two identical production environments (Blue active, Green idle) to switch router traffic instantly.
 - **Canary Release**: Staged deployment where a new version is served to a small percentage (e.g., 5%) of production traffic before full cutover.
 - **CLS (Cumulative Layout Shift)**: Core Web Vital metric measuring visual stability. Target: `<= 0.1`.
+- **Cloud Run**: Fully managed Google Cloud serverless container platform running HTTP workloads with automatic horizontal scaling down to zero, built-in HTTPS, dynamic `$PORT` binding, and health probe routing.
 - **Cognitive Complexity**: Metric assessing how difficult a unit of code is for a human developer to understand. SQAT target: `<= 15` per function.
 - **Content Security Policy (CSP)**: An HTTP response header allowing site administrators to restrict the resources (JavaScript, CSS, Images) that the browser is allowed to load.
 - **CSRF (Cross-Site Request Forgery)**: An attack that tricks an authenticated user's browser into executing unauthorized actions on a trusted web application.
@@ -23,6 +25,7 @@ This glossary defines standard terminology used across all 16 specialist skills.
 - **DSAR (Data Subject Access Request)**: A formal request under GDPR/CCPA allowing users to access, export, or delete their stored personal data.
 - **Expand and Contract (Parallel Change)**: A zero-downtime database migration pattern where a schema is expanded (new columns/tables added without breaking old code), migrated gradually, and old structures are contracted (dropped) only after all code is updated.
 - **Fitts's Law**: An empirical model of human motor movement ($MT = a + b \log_2(2D/W)$) predicting that time to acquire a target is a function of distance and target size.
+- **Google Cloud Architecture Framework (Well-Architected)**: Official Google architectural blueprint structured around core pillars (Security, Reliability, Cost Optimization, Operational Excellence, Performance Efficiency) providing authoritative design rules for resilient cloud systems.
 - **Hick-Hyman Law**: The empirical principle that human decision reaction time increases logarithmically with the number of alternative choices ($RT = b \log_2(n+1)$).
 - **IDOR (Insecure Direct Object Reference)**: An authorization vulnerability where an application provides direct access to objects based on user-supplied input without verifying permissions.
 - **Idempotency**: The mathematical property wherein an operation produce the same result whether applied once or multiple times consecutively. Vital for payment processing and queue consumers.
@@ -41,6 +44,7 @@ This glossary defines standard terminology used across all 16 specialist skills.
 - **SSRF (Server-Side Request Forgery)**: An attack where a web server is coerced into making unauthorized network requests to internal resources or third-party services.
 - **STRIDE**: Threat modeling taxonomy: **S**poofing, **T**ampering, **R**epudiation, **I**nformation Disclosure, **D**enial of Service, **E**levation of Privilege.
 - **WCAG 2.2 AA**: Web Content Accessibility Guidelines Level AA compliance, covering minimum contrast ratios (4.5:1 text), keyboard accessibility, focus indicators, and touch targets (44x44 CSS px).
+- **Workload Identity Federation**: Keyless authentication standard allowing external CI/CD environments (such as GitHub Actions) to securely authenticate to Google Cloud via OpenID Connect (OIDC) tokens without storing long-lived service account JSON keys.
 - **XSS (Cross-Site Scripting)**: An attack where malicious scripts are injected into otherwise benign and trusted websites.
 
 ---

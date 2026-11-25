@@ -1,12 +1,12 @@
 ---
 name: devops-infra
-description: Use when building CI/CD deployment pipelines, managing Infrastructure as Code (IaC), provisioning cloud environments, instrumenting observability (logs, metrics, traces, SLOs), automating database backups and restore drills, establishing rollback mechanisms, or managing cloud infrastructure spend. Trigger phrases include "devops", "deploy", "ci cd", "github actions", "docker", "infra", "monitoring", "logging", "rollback", "backup drill".
+description: Use when building CI/CD deployment pipelines, managing Infrastructure as Code (IaC), provisioning cloud environments, deploying to Google Cloud Run or serverless containers, configuring Workload Identity Federation, instrumenting observability (logs, metrics, traces, SLOs), automating database backups, establishing rollback mechanisms, or managing cloud spend. Trigger phrases include "devops", "deploy", "ci cd", "github actions", "docker", "infra", "monitoring", "logging", "rollback", "backup drill", "google cloud", "cloud run", "workload identity", "well architected", "skills.sh".
 tiers: ["MVP", "PROD", "SCALE"]
 inputs: ["adr.schema.json"]
 outputs: ["runbook.schema.json", "ci-workflows", "infra-configs"]
 depends_on: ["02-architecture"]
-last_verified: "2026-11-03"
-sources: ["GOOGLE-SRE-BOOK", "OPEN-TELEMETRY", "12-FACTOR-CONFIG"]
+last_verified: "2026-11-25"
+sources: ["GOOGLE-SRE-BOOK", "OPEN-TELEMETRY", "12-FACTOR-CONFIG", "GOOGLE-AGENT-SKILLS", "GOOGLE-WELL-ARCHITECTED", "GOOGLE-CLOUD-RUN-ARCH", "GOOGLE-WORKLOAD-IDENTITY"]
 ---
 
 # Specialist Stance: DevOps / SRE Lead
@@ -63,6 +63,8 @@ I refuse to permit unrepeatable manual deployments, production releases that lac
    - *Mandate* that all application stdout/stderr logs are emitted as single-line structured JSON containing `timestamp`, `level`, `trace_id`, and `message` *because* unstructured text logs cannot be efficiently indexed, parsed, or alerted on by log aggregation tools at scale [FACT: OPEN-TELEMETRY].
 4. **Environment Parity Rule:**
    - *If* deploying to production, *mandate* that staging uses the exact same container image SHA and database engine as production *because* differences in database versions produce catastrophic runtime discrepancies during migrations [BEST PRACTICE: 12-FACTOR-CONFIG].
+5. **Google Well-Architected Cloud Run & Zero-Secret Deployment:**
+   - *If* deploying containerized web services to serverless cloud infrastructure (Google Cloud Run / AWS Fargate), *mandate* compliance with Google Well-Architected standards: run as non-root user (`USER node`), bind dynamically to `$PORT` (`0.0.0.0`), handle `SIGTERM` with graceful connection draining (10s drain window before process termination), and authenticate CI/CD pipelines via keyless Workload Identity Federation instead of static JSON service account keys [FACT: GOOGLE-WORKLOAD-IDENTITY] [BEST PRACTICE: GOOGLE-CLOUD-RUN-ARCH].
 
 ---
 
@@ -96,6 +98,12 @@ I refuse to permit unrepeatable manual deployments, production releases that lac
 2. Configure automated daily database backups with point-in-time recovery (PITR).
 3. Conduct and log a monthly backup restore drill: restore a production snapshot to an isolated staging database and verify row counts and data integrity.
 
+### Step 5: Google Cloud Run & Serverless Container Deployment [PROD] [SCALE]
+1. Author Cloud Run compatible container with non-root user (`USER node`) and dynamic `$PORT` env binding.
+2. Implement graceful shutdown handler listening for `SIGTERM` with 10-second connection draining window via `server.close()`.
+3. Configure keyless GitHub Actions deployment using Workload Identity Federation (`google-github-actions/auth@v2`).
+4. Configure Cloud Run health check probes and traffic splitting for canary rollouts.
+
 ---
 
 ## Anti-Patterns
@@ -121,6 +129,11 @@ Execute these automated DevOps and infrastructure verification checks in the ter
    npx ajv validate -s templates/schemas/runbook.schema.json -d runbook.json
    ```
    *Expected output:* `runbook.json is valid`
+3. Cloud Run container contract audit (non-root user & PORT binding check):
+   ```bash
+   docker inspect --format='{{.Config.User}}' my-web-app | grep -v '^root$' || exit 1
+   ```
+   *Expected output:* Non-root user identifier (e.g. `node` or `1000`)
 
 ---
 

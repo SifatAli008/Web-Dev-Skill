@@ -133,7 +133,10 @@
         "decision ladder",
         "yagni",
         "multi-tenancy",
-        "build vs buy"
+        "build vs buy",
+        "google cloud",
+        "cloud run",
+        "well architected"
       ],
       "anti_triggers": [
         "button padding",
@@ -149,14 +152,16 @@
       "depends_on": [
         "01-product-discovery"
       ],
-      "last_verified": "2026-11-03",
+      "last_verified": "2026-11-25",
       "sources": [
         "FOWLER-ARCH",
         "SYSTEM-DESIGN-PRIMER",
         "TWELVE-FACTOR",
         "RFC-9110",
         "ANTHROPIC-MCP-BUILDER",
-        "PONYTAIL-DIETRICHGEBERT"
+        "PONYTAIL-DIETRICHGEBERT",
+        "GOOGLE-CLOUD-ARCH-FRAMEWORK",
+        "GOOGLE-AGENT-SKILLS"
       ]
     },
     {
@@ -577,7 +582,13 @@
         "docker",
         "infra",
         "monitoring",
-        "rollback"
+        "rollback",
+        "backup drill",
+        "google cloud",
+        "cloud run",
+        "workload identity",
+        "well architected",
+        "skills.sh"
       ],
       "anti_triggers": [
         "css media query",
@@ -594,10 +605,15 @@
       "depends_on": [
         "02-architecture"
       ],
-      "last_verified": "2026-11-03",
+      "last_verified": "2026-11-25",
       "sources": [
         "GOOGLE-SRE-BOOK",
-        "OPEN-TELEMETRY"
+        "OPEN-TELEMETRY",
+        "12-FACTOR-CONFIG",
+        "GOOGLE-AGENT-SKILLS",
+        "GOOGLE-WELL-ARCHITECTED",
+        "GOOGLE-CLOUD-RUN-ARCH",
+        "GOOGLE-WORKLOAD-IDENTITY"
       ]
     },
     {

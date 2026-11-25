@@ -322,6 +322,28 @@ This file tracks foundational design and architectural decisions made for `unive
   4. Expand `evals/RESULTS.md` with Section 7 ("Methodology, Run Parameters & Empirical Limitations") disclosing $N = 3$ runs, $T = 0.2$, tested model versions, control group parameters, and the advisory nature of prompt steering.
 - **Consequences:** Resolves the file-resolution bug for downstream users, introduces deterministic CI enforcement to mitigate the advisory trap, provides transparent empirical documentation, and ensures robust update mechanisms.
 
+---
+
+## ADR-021: Google Agent Skills Standards & Cloud Well-Architected Framework Integration
+
+- **Status:** Accepted (Phase 12 - Google Agent Skills & Cloud Architecture Standards Integration)
+- **Context:** To ensure full compatibility with the official Google Agent Skills ecosystem (`github.com/google/skills`) and enforce enterprise cloud reliability in production web applications, the framework required alignment with Google's Agent Skills standards, Google Cloud Run serverless container contracts, and the Google Cloud Architecture Framework (Well-Architected pillars: Security, Reliability, Cost Optimization).
+- **Decision:**
+  1. Author operational L2 reference compendium: `skills/devops-infra/references/google-cloud-and-serverless-architecture.md` detailing:
+     - Google Cloud Architecture Framework 3 core pillars (Security, Reliability, Cost Optimization).
+     - Google Cloud Run web application container contract (dynamic `$PORT` binding on `0.0.0.0`, non-root container user `USER node`, multi-stage Docker build, and graceful `SIGTERM` connection draining within the 10-second window via `server.close()`).
+     - Keyless CI/CD authentication via Workload Identity Federation (`google-github-actions/auth@v2`), eliminating static JSON service account keys.
+     - Event-driven decoupling with Google Cloud Pub/Sub and Cloud Tasks with dead-letter topics.
+     - Open Agent Skills ecosystem interoperability (`npx skills add SifatAli008/Web-Dev-Skill`).
+  2. Embed **Rule 5: Google Well-Architected Cloud Run & Zero-Secret Deployment** and Step 5 into `skills/devops-infra/SKILL.md` while strictly maintaining $<300$ lines (116 lines).
+  3. Embed **Rule 7: Google Cloud Architecture Framework (Well-Architected 3 Pillars)** into `skills/architecture/SKILL.md` while strictly maintaining $<300$ lines (126 lines).
+  4. Expand `checklists/production.checklist.md` with Cloud & Serverless Infrastructure Verification (Cloud Run container contract and Workload Identity Federation).
+  5. Register authoritative source citations in `SOURCES.md`: `GOOGLE-AGENT-SKILLS`, `GOOGLE-WELL-ARCHITECTED`, `GOOGLE-CLOUD-RUN-ARCH`, `GOOGLE-WORKLOAD-IDENTITY`, and `SKILLS-SH-ECOSYSTEM`.
+  6. Enrich `GLOSSARY.md` with definitions for `Agent Skills Standard`, `Cloud Run`, `Google Cloud Architecture Framework (Well-Architected)`, and `Workload Identity Federation`.
+  7. Synchronize `skills.index.json`, tool adapters (`09-devops-infra.mdc`), and `README.md` with Google Agent Skills standards.
+- **Consequences:** Aligns Universal WebDev Skills directly with Google's official agent catalog standard (`google/skills`), eliminates long-lived static cloud credential vulnerabilities in CI/CD, guarantees 100% compliant serverless container deployments to Cloud Run, and establishes interoperability with `skills.sh`.
+
+
 
 
 

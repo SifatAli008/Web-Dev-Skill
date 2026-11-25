@@ -1,8 +1,8 @@
 # Universal WebDev Skills: Progress Tracker
 
-> **Current Phase:** Phase 11 Completed (Deterministic Enforcement, Vendor Resolution & Empirical Transparency)  
+> **Current Phase:** Phase 12 Completed (Google Agent Skills Standard & Cloud Well-Architected Integration)  
 > **Status:** 100% COMPLETE & VERIFIED  
-> **Last Updated:** 2026-11-15  
+> **Last Updated:** 2026-11-25  
 > **State Integrity:** State is maintained in files (`PROGRESS.md`, `DECISIONS.md`).
 
 ---
@@ -22,6 +22,21 @@
 | **Phase 9** | Modern Web Platform Guidance & Baseline Standard Integration (Google Chrome MWG, native `<dialog>`, Popovers, CSS Anchor Positioning, Container Queries, `scheduler.yield()`, `FM-14`, ADR-018). | **COMPLETE (GATE 9)** | Full Agent Skills conformance, MWG references, 18 ADRs, all 12 master verification suites passing. |
 | **Phase 10** | Modern Design Engineering & Craft UI/UX Architecture (OpenHero, 21st.dev, ThreeUI, GSAP, Superdesign, Draftly, SceneAI, Toolfolio, TasteSkill v2, Section 12 DESIGN.md, Section 10 checklist, ADR-019). | **COMPLETE (GATE 10)** | Full Agent Skills conformance, craft engineering references, 19 ADRs, all 14 master verification suites passing. |
 | **Phase 11** | Deterministic Enforcement, Vendor Resolution & Empirical Transparency (CLI vendor resolution, `update` command, `ci` deterministic gate, doctor link validator, legal disclaimers, CWV calibration, ADR-020). | **COMPLETE (GATE 11)** | Full Agent Skills conformance, verified CLI vendoring, 20 ADRs, all 14 master verification suites passing. |
+| **Phase 12** | Google Agent Skills Standard & Cloud Architecture Integration (google/skills, skills.sh ecosystem, Cloud Run container contract, Workload Identity Federation, Well-Architected pillars, ADR-021). | **COMPLETE (GATE 12)** | Full Agent Skills conformance, Cloud Run references, 21 ADRs, all 14 master verification suites passing. |
+
+---
+
+## Phase 12 Deliverables Completed
+
+- [x] **Google Agent Skills Standards & Cloud Architecture Integration (ADR-021):**
+  - Authored operational L2 reference compendium: `skills/devops-infra/references/google-cloud-and-serverless-architecture.md` detailing Google Cloud Architecture Framework 3 core pillars (Security, Reliability, Cost Optimization), Google Cloud Run web application container contract (dynamic `$PORT` binding on `0.0.0.0`, non-root container user `USER node`, multi-stage Docker build, and graceful `SIGTERM` connection draining within 10-second window via `server.close()`), keyless CI/CD via Workload Identity Federation (`google-github-actions/auth@v2`), event-driven decoupling with Google Cloud Pub/Sub and Cloud Tasks, and open Agent Skills ecosystem interoperability (`npx skills add SifatAli008/Web-Dev-Skill`).
+  - Embedded **Rule 5: Google Well-Architected Cloud Run & Zero-Secret Deployment** and Step 5 into `skills/devops-infra/SKILL.md` (116 lines, strictly $<300$ line cap).
+  - Embedded **Rule 7: Google Cloud Architecture Framework (Well-Architected 3 Pillars)** into `skills/architecture/SKILL.md` (126 lines, strictly $<300$ line cap).
+  - Expanded `checklists/production.checklist.md` with Cloud & Serverless Infrastructure Verification (Cloud Run container contract and Workload Identity Federation).
+  - Registered authoritative source citations in `SOURCES.md`: `GOOGLE-AGENT-SKILLS`, `GOOGLE-WELL-ARCHITECTED`, `GOOGLE-CLOUD-RUN-ARCH`, `GOOGLE-WORKLOAD-IDENTITY`, and `SKILLS-SH-ECOSYSTEM`.
+  - Enriched `GLOSSARY.md` with definitions for `Agent Skills Standard`, `Cloud Run`, `Google Cloud Architecture Framework (Well-Architected)`, and `Workload Identity Federation`.
+  - Synchronized `skills.index.json`, tool adapters (`09-devops-infra.mdc`), and `README.md` with Google Agent Skills standards.
+  - Recorded **ADR-021** in `DECISIONS.md`.
 
 ---
 

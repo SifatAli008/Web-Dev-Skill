@@ -34,6 +34,8 @@
   - [ ] Multi-stage Dockerfile running as non-root user.
   - [ ] Automated zero-downtime deployment (blue-green or rolling) with verified rollback.
   - [ ] Liveness and readiness health probes verified.
+  - [ ] Google Cloud Run / serverless container contract verified (dynamic `$PORT` binding, graceful SIGTERM 10s drain window).
+  - [ ] Keyless CI/CD authentication via Workload Identity Federation (0 static service account JSON keys in secrets).
   - [ ] Automated daily database backups with point-in-time recovery (PITR) verified via restore drill.
 
 - [ ] **Performance & Core Web Vitals:**
