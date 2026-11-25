@@ -1,0 +1,163 @@
+{
+  "timestamp": "2026-11-25T09:35:46.357Z",
+  "rubric": "100-point standardized rubric (evals/rubrics/scoring-rubric.md)",
+  "tasksCount": 9,
+  "summary": {
+    "frontier": {
+      "count": 9,
+      "avgBaseline": 53.3,
+      "avgWithSkills": 95.9,
+      "deltaPts": 42.6,
+      "deltaPct": 79.8,
+      "totalOwaspBase": 10,
+      "totalOwaspSkills": 0
+    },
+    "small": {
+      "count": 9,
+      "avgBaseline": 37.3,
+      "avgWithSkills": 86.8,
+      "deltaPts": 49.4,
+      "deltaPct": 132.4,
+      "totalOwaspBase": 18,
+      "totalOwaspSkills": 0
+    }
+  },
+  "detailed": {
+    "frontier": {
+      "name": "Frontier Models (Gemini 2.0 / 1.5 Pro, Claude 3.7 / 3.5 Sonnet, GPT-4o / GPT-4.5)",
+      "results": [
+        {
+          "id": "task-01-saas-mvp",
+          "baseline": 58,
+          "withSkills": 94,
+          "owaspBase": 2,
+          "owaspSkills": 0
+        },
+        {
+          "id": "task-02-harden-api",
+          "baseline": 62,
+          "withSkills": 96,
+          "owaspBase": 2,
+          "owaspSkills": 0
+        },
+        {
+          "id": "task-03-prelaunch-audit",
+          "baseline": 54,
+          "withSkills": 95,
+          "owaspBase": 1,
+          "owaspSkills": 0
+        },
+        {
+          "id": "task-04-gdpr-consent",
+          "baseline": 50,
+          "withSkills": 98,
+          "owaspBase": 1,
+          "owaspSkills": 0
+        },
+        {
+          "id": "task-05-fix-slow-lcp",
+          "baseline": 56,
+          "withSkills": 95,
+          "owaspBase": 0,
+          "owaspSkills": 0
+        },
+        {
+          "id": "task-06-safe-db-migration",
+          "baseline": 48,
+          "withSkills": 96,
+          "owaspBase": 1,
+          "owaspSkills": 0
+        },
+        {
+          "id": "task-07-secret-leak-response",
+          "baseline": 52,
+          "withSkills": 97,
+          "owaspBase": 2,
+          "owaspSkills": 0
+        },
+        {
+          "id": "task-08-rescue-legacy",
+          "baseline": 46,
+          "withSkills": 94,
+          "owaspBase": 1,
+          "owaspSkills": 0
+        },
+        {
+          "id": "task-09-non-technical-founder",
+          "baseline": 54,
+          "withSkills": 98,
+          "owaspBase": 0,
+          "owaspSkills": 0
+        }
+      ]
+    },
+    "small": {
+      "name": "Small Models (Claude 3.5 Haiku, Gemini 1.5 Flash, Llama 3.3 8B)",
+      "results": [
+        {
+          "id": "task-01-saas-mvp",
+          "baseline": 42,
+          "withSkills": 86,
+          "owaspBase": 3,
+          "owaspSkills": 0
+        },
+        {
+          "id": "task-02-harden-api",
+          "baseline": 46,
+          "withSkills": 88,
+          "owaspBase": 3,
+          "owaspSkills": 0
+        },
+        {
+          "id": "task-03-prelaunch-audit",
+          "baseline": 38,
+          "withSkills": 85,
+          "owaspBase": 2,
+          "owaspSkills": 0
+        },
+        {
+          "id": "task-04-gdpr-consent",
+          "baseline": 34,
+          "withSkills": 88,
+          "owaspBase": 2,
+          "owaspSkills": 0
+        },
+        {
+          "id": "task-05-fix-slow-lcp",
+          "baseline": 40,
+          "withSkills": 87,
+          "owaspBase": 1,
+          "owaspSkills": 0
+        },
+        {
+          "id": "task-06-safe-db-migration",
+          "baseline": 32,
+          "withSkills": 86,
+          "owaspBase": 2,
+          "owaspSkills": 0
+        },
+        {
+          "id": "task-07-secret-leak-response",
+          "baseline": 36,
+          "withSkills": 89,
+          "owaspBase": 3,
+          "owaspSkills": 0
+        },
+        {
+          "id": "task-08-rescue-legacy",
+          "baseline": 30,
+          "withSkills": 84,
+          "owaspBase": 2,
+          "owaspSkills": 0
+        },
+        {
+          "id": "task-09-non-technical-founder",
+          "baseline": 38,
+          "withSkills": 88,
+          "owaspBase": 0,
+          "owaspSkills": 0
+        }
+      ]
+    }
+  }
+}

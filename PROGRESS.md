@@ -26,6 +26,16 @@
 | **Phase 13** | Anthropic Agent Skills Architecture Integration (anthropics/skills, skill-creator, frontend-design, webapp-testing, mcp-builder, progressive disclosure, ADR-022). | **COMPLETE (GATE 13)** | Full Agent Skills conformance, Anthropic references, 22 ADRs, all 14 master verification suites passing. |
 | **Phase 14** | Multi-Language Golden Reference Implementations (Python FastAPI PROD, Go microservice SCALE, multi-runtime test runner, ADR-023). | **COMPLETE (GATE 14)** | 5 reference projects (Node, Python, Go), 35/35 tests passing, 0 OWASP criticals, 23 ADRs, all master suites passing. |
 | **Phase 15** | Deterministic Git Pre-Commit Enforcer & Conflict Resolution Protocol (cli install-hook, conflict-resolution-matrix, ADR-024). | **COMPLETE (GATE 15)** | Zero-dep git pre-commit hook enforcer, arbitration matrix, 24 ADRs, all master suites passing. |
+| **Phase 16** | Programmatic Benchmark Evaluation Runner & Continuous Release Automation (tools/run-evals.js, release CI workflow, benchmark-report.json, ADR-025). | **COMPLETE (GATE 16)** | Runnable benchmark evaluator, multi-runtime CI/release workflow, 25 ADRs, all master suites passing. |
+
+---
+
+## Phase 16 Deliverables Completed
+
+- [x] **Programmatic Benchmark Evaluation Runner & Continuous Release Automation (ADR-025):**
+  - Authored automated benchmark evaluation runner: `tools/run-evals.js` executing standardized scoring, deletion test non-redundancy audits, and generating `evals/benchmark-report.json`.
+  - Authored multi-runtime CI and release workflow: `.github/workflows/release-and-verify.yml` running Node, Python, and Go test suites and packaging releases on tags.
+  - Recorded **ADR-025** in `DECISIONS.md`.
 
 ---
 

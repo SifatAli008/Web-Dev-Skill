@@ -394,6 +394,17 @@ This file tracks foundational design and architectural decisions made for `unive
   3. Update `PROGRESS.md` and documentation accordingly.
 - **Consequences:** Upgrades the framework from purely advisory prompt steering to physical deterministic enforcement on developer and agent workstations prior to commit, while eliminating deadlock ambiguity between specialists.
 
+---
+
+## ADR-025: Programmatic Benchmark Evaluation Runner & Continuous Release Automation
+
+- **Status:** Accepted (Phase 16 - Live Evals & Release Automation)
+- **Context:** The external audit raised valid questions regarding static benchmark scores, lack of a versioned release path, and absence of an automated release mechanism.
+- **Decision:**
+  1. Author `tools/run-evals.js`: A deterministic benchmark evaluation script executing automated scoring calculations across Frontier (Gemini 2.0/Pro, Claude 3.7/Sonnet, GPT-4o) and Small models (Haiku, Flash, Llama 3.3), validating the 100-point rubric, tracking OWASP criticals, and generating a machine-readable JSON artifact (`evals/benchmark-report.json`).
+  2. Implement `.github/workflows/release-and-verify.yml`: Continuous verification CI executing across Node.js 20, Python 3.12, and Go 1.22 on all PRs/pushes, with automated GitHub Releases on semantic version tags (`v*`) bundling verified benchmark artifacts.
+- **Consequences:** Provides fully automated, reproducible benchmark reporting and enables transparent semantic releases with zero manual intervention.
+
 
 
 
